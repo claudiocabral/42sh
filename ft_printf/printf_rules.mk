@@ -1,0 +1,14 @@
+.PHONY: $(PRINTF_FCLEAN) $(PRINTF_CLEAN)
+
+$(PRINTF): $(PRINTF_OBJS)
+	ar rcs $(PRINTF) $(PRINTF_OBJS)
+
+$(PRINTF_OBJS_DIR)/%.o: $(PRINTF_PATH)srcs/%.c Makefile
+	@mkdir -p $(PRINTF_OBJS_DIR)
+	$(CC) -c $< -o $@ $(CFLAGS) -I$(PRINTF_INCLUDES)
+
+$(PRINTF_FCLEAN): $(PRINTF_CLEAN)
+	rm -rf $(PRINTF)
+
+$(PRINTF_CLEAN):
+	rm -rf $(PRINTF_OBJS_DIR)
