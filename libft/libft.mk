@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/20 13:13:30 by claudioca         #+#    #+#              #
-#    Updated: 2017/11/29 10:54:14 by claudioca        ###   ########.fr        #
+#    Updated: 2017/11/30 16:14:31 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,3 +92,6 @@ LIBFT_BTREE_OBJS := \
 				$(LIBFT_OBJ_DIR)/btree/btree_create_node.o \
 				$(LIBFT_OBJ_DIR)/btree/btree_insert_data.o \
 				$(LIBFT_OBJ_DIR)/btree/btree_search_item.o
+
+LIBFT_ARRAY_OBJS := \
+				$(LIBFT_OBJ_DIR)/array/array.o
