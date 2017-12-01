@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   io.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 14:06:17 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/01 18:45:15 by claudioca        ###   ########.fr       */
+/*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
+/*   Updated: 2017/12/01 19:00:46 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sessions.h>
+#ifndef IO_H
+# define IO_H
 
-int	main(int argc, char **argv)
+# include <termios.h>
+
+typedef struct	s_termios
 {
-	if (argc == 1)
-		return (interactive_session());
-	return (script_session(argc, argv));
-}
+	struct termios	original;
+	struct termios	custom;
+}				t_termios;
+
+void		setup_terminal(t_termios *termios);
+void		restore_terminal(t_termios *termios);
+t_termios	*get_termios(void);
+
+#endif

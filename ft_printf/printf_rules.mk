@@ -3,7 +3,7 @@
 $(PRINTF): $(PRINTF_OBJS)
 	ar rcs $(PRINTF) $(PRINTF_OBJS)
 
-$(PRINTF_OBJS_DIR)/%.o: $(PRINTF_PATH)srcs/%.c Makefile
+$(PRINTF_OBJS_DIR)/%.o: $(PRINTF_PATH)srcs/%.c
 	@mkdir -p $(PRINTF_OBJS_DIR)
 	$(CC) -c $< -o $@ $(CFLAGS) -I$(PRINTF_INCLUDES)
 

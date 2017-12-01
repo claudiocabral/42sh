@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   signal_handlers.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 14:06:17 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/01 18:45:15 by claudioca        ###   ########.fr       */
+/*   Created: 2017/12/01 18:56:24 by claudioca         #+#    #+#             */
+/*   Updated: 2017/12/01 18:57:47 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sessions.h>
+#ifndef SIGNAL_HANDLERS_H
+# define SIGNAL_HANDLERS_H
 
-int	main(int argc, char **argv)
-{
-	if (argc == 1)
-		return (interactive_session());
-	return (script_session(argc, argv));
-}
+void	interrupt_handler(int sig);
+
+#endif

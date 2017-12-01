@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2017/11/30 14:07:52 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/01 19:03:22 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,14 @@ PRINTF_PATH = 	ft_printf/
 include $(LIBFT_PATH)/libft.mk
 include $(PRINTF_PATH)/printf.mk
 
-OBJS	=	objs/main.o
+OBJS	=	objs/main.o \
+			objs/interactive/interactive_session.o \
+			objs/script/script_session.o \
+			objs/signals/handlers.o \
+			objs/execute/execute.o \
+			objs/lexer/lexer.o \
+			objs/parser/parser.o \
+			objs/IO/setup.o
 
 INC	=	-Iincludes \
 		-I$(LIBFT_INCLUDES) \
@@ -44,11 +51,13 @@ include $(LIBFT_PATH)/libft_rules.mk
 include $(PRINTF_PATH)/printf_rules.mk
 
 $(NAME): $(OBJS) $(LIBFT) $(PRINTF)
-	$(CC) $(CFLAGS) $(OBJS) $(INC) -L$(LIBFT_PATH) -L$(PRINTF_PATH) -lft -lftprintf -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(INC) -L$(LIBFT_PATH) -L$(PRINTF_PATH) \
+		-ltermcap -lft -lftprintf -o $@
 
 
 objs/%.o: srcs/%.c Makefile
-	@mkdir -p objs
+	$(eval DIR := $(dir $@))
+	[[ -d $(DIR) ]] || mkdir -p $(DIR)
 	$(CC) -c $< -o $@ $(CFLAGS) $(INC)
 
 fclean: clean

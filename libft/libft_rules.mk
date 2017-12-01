@@ -6,7 +6,7 @@
 #    By: ccabral <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/24 13:19:14 by ccabral           #+#    #+#              #
-#    Updated: 2017/11/30 16:13:27 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/01 10:44:38 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ $(LIBFT_BTREE_OBJS)/%.o: $(LIBFT_INCLUDES)/ft_btree.h
 $(LIBFT_ARRAY_OBJS)/%.o: $(LIBFT_INCLUDES)/array.h
 
 $(LIBFT_OBJ_DIR)/%.o: $(LIBFT_PATH)srcs/%.c $(LIBFT_INCLUDES)/libft.h
-	@mkdir -p $(LIBFT_OBJ_DIR)/btree $(LIBFT_OBJ_DIR)/array
+	@[[ -d $(dir $@ ) ]] || mkdir -p $(dir $@)
 	$(CC) -c $< -o $@ $(CFLAGS) -I$(LIBFT_INCLUDES)
 
 $(LIBFT_CLEAN):

@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   shellma.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 14:06:17 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/01 18:45:15 by claudioca        ###   ########.fr       */
+/*   Created: 2017/12/01 18:42:51 by claudioca         #+#    #+#             */
+/*   Updated: 2017/12/01 18:44:32 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sessions.h>
+#ifndef SHELLMA_H
+# define SHELLMA_H
 
-int	main(int argc, char **argv)
-{
-	if (argc == 1)
-		return (interactive_session());
-	return (script_session(argc, argv));
-}
+char	*prompt(void);
+char	*lex(char *input);
+char	*parse(char *input);
+void	execute(char *);
+
+#endif

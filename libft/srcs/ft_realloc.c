@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 13:31:24 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/06 17:42:32 by ccabral          ###   ########.fr       */
+/*   Updated: 2017/12/01 19:21:12 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	ft_realloc(void **buffer, size_t old_size,
 {
 	void	*new_buffer;
 
-	if (!(new_buffer = malloc(new_size)))
+	if (new_size < old_size || !(new_buffer = malloc(new_size)))
 		return (0);
 	if (*buffer)
 	{

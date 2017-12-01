@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 14:06:17 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/01 18:45:15 by claudioca        ###   ########.fr       */
+/*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
+/*   Updated: 2017/12/01 19:02:25 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sessions.h>
+#include <lexer.h>
+#include <shellma.h>
 
-int	main(int argc, char **argv)
+char	*lex(char *input)
 {
-	if (argc == 1)
-		return (interactive_session());
-	return (script_session(argc, argv));
+	return (input);
 }

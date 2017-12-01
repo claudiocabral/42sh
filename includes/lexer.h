@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 14:06:17 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/01 18:45:15 by claudioca        ###   ########.fr       */
+/*   Created: 2017/11/30 14:57:56 by claudioca         #+#    #+#             */
+/*   Updated: 2017/11/30 15:03:54 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sessions.h>
+#ifndef LEXER_H
+# define LEXER_H
 
-int	main(int argc, char **argv)
+typedef enum	e_tag
 {
-	if (argc == 1)
-		return (interactive_session());
-	return (script_session(argc, argv));
-}
+	STRING,
+	NUMBER
+}				t_tag;
+
+typedef struct	s_token
+{
+	t_tag	tag;
+	char	*value;
+}				t_token;
+
+#endif
