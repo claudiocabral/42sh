@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/24 15:46:35 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/06 17:43:07 by ccabral          ###   ########.fr       */
+/*   Updated: 2017/12/03 18:04:12 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 int	ft_strequ(char const *s1, char const *s2)
 {
 	if (!s1 || !s2)
-		return (-1);
+		return (s1 == s2);
 	return (ft_strcmp(s1, s2) == 0);
 }

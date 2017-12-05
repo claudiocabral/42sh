@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 14:36:46 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/14 16:17:30 by ccabral          ###   ########.fr       */
+/*   Updated: 2017/12/02 22:04:48 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ static void			print_int_hex_helper(char const *str, char const *prefix,
 	if ((*str == '0' && modifiers->precision == 0))
 		padding += 1;
 	if (!(modifiers->flags & MINUS) && !(modifiers->flags & ZERO))
-		print_padding(padding, 0);
-	write_and_count(prefix, ftprintf_strlen(prefix));
+		print_padding(padding, 0, modifiers->fd);
+	write_and_count(modifiers->fd, prefix, ftprintf_strlen(prefix));
 	if (!(modifiers->flags & MINUS) && (modifiers->flags & ZERO))
-		print_padding(padding, modifiers->precision == -1);
-	print_padding(precision - size, 1);
+		print_padding(padding, modifiers->precision == -1, modifiers->fd);
+	print_padding(precision - size, 1, modifiers->fd);
 	if (!(*str == '0' && modifiers->precision == 0))
-		write_and_count(str, ftprintf_strlen(str));
+		write_and_count(modifiers->fd, str, ftprintf_strlen(str));
 	if ((modifiers->flags & MINUS))
-		print_padding(padding, 0);
+		print_padding(padding, 0, modifiers->fd);
 }
 
 char const			*print_big_int_hex(char const *format,

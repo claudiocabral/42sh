@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/09 09:25:06 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/29 10:53:09 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/05 13:26:30 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
-typedef void		(*t_applyf)();
-typedef int			(*t_cmpf)();
+typedef void	(*t_applyf)(void *element, void *args);
+typedef int		(*t_cmpf)(void const *, void const *);
+typedef void	(*t_freef)(void *element);
 
 t_list			*ft_lstnew(void const *content, size_t content_size);
 void			ft_lstpush_back(t_list **lst, void const *content,
@@ -34,8 +35,6 @@ void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstadd(t_list **lst, t_list *new);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-char			**ft_split(char *str, char *charset);
-char			**ft_split_whitespaces(const char *str);
 char			**ft_strsplit(char const *str, char c);
 char			*ft_concat_params(int argc, char **argv);
 char			*ft_itoa(int nb);
@@ -59,14 +58,9 @@ char			*ft_strsub(const char *s, unsigned int start, size_t len);
 char			*ft_strtrim(char const *s);
 char			*ft_strupcase(char *str);
 void			ft_bzero(void *s, size_t n);
-int				*ft_map_int(int *tab, int length, int (*f)(int));
 int				ft_max(const int a, const int b);
-int				*ft_range(int min, int max);
-int				ft_any(char **tab, int (*f)(char*));
 int				ft_atoi(const char *str);
 int				ft_atoi_base(const char *str, const char *base);
-int				ft_count_if(char **tab, int (*f)(char*));
-int				ft_is_sort(int *tab, int length, int (*f)(int, int));
 int				ft_isalnum(int c);
 int				ft_isalpha(int c);
 int				ft_isascii(int c);
@@ -100,9 +94,8 @@ void			*ft_memset(void *b, int c, size_t len);
 void			*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
 void			*ft_memchr(const void *s, int c, size_t n);
-void			ft_foreach(int *tab, int length, void (*f)(int));
 void			ft_memdel(void **ap);
-void			ft_print_words_tables(const char **tab);
+void			ft_print_words_tables(const char **table);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putendl(char const *s);
 void			ft_putendl_fd(char const *s, int fd);

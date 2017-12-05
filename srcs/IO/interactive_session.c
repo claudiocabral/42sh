@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/01 19:21:41 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/05 23:00:31 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,47 @@
 #include <ft_printf.h>
 #include <shellma.h>
 #include <signal_handlers.h>
+#include <term.h>
 #include <io.h>
 
-void		get_next_line(char **input, int buff_size)
+void		quit(t_terminal *terminal)
 {
-	int	i;
-
-	i = 0;
-	while (read(0, *input + i, 1))
-	{
-		if (i >= buff_size - 2)
-			buff_size = ft_realloc((void **)input, buff_size, buff_size * 2);
-		write(1, *input + i, 1);
-		if ((*input)[i++] == '\n')
-			break ;
-	}
-	input[i] = 0;
+		set_termios(&(terminal->original));
+		free(terminal->prompt);
+		exit(0);
 }
 
-static char	*prompt(void)
+void		terminal_BOL(t_terminal *terminal)
 {
-	char	*input;
+	terminal_command_params(MOVE_LEFT, 0, terminal->cursor
+										- terminal->prompt_size);
+	terminal->cursor = terminal->prompt_size;
+}
 
-	if (!(input = (char *)malloc(sizeof(char) * 2048)))
-		interrupt_handler(0);
-	ft_putstr("$> ");
-	get_next_line(&input, 2048);
-	return (input);
+static char	const *prompt(t_terminal *terminal)
+{
+	int		i;
+	char	c;
+
+	ft_printf("%s", terminal->prompt);
+	i = 0;
+	while (read(terminal->tty, &c, 1))
+	{
+		if (handle_input(terminal, c) == 0)
+			break ;
+	}
+	ring_buffer_push_back(terminal->history, terminal->line,
+			(void*(*)(void *, void const *))&string_copy);
+	string_clear(terminal->line);
+	terminal->cursor = terminal->prompt_size;
+	return (((t_string*)terminal->history->current)->buffer);
 }
 
 void		interactive_session(void)
 {
-	t_termios	termios;
+	t_terminal	terminal;
 
-	setup_terminal(&termios);
+	setup_terminal(&terminal, "$> ");
 	while (1)
-		execute(parse(lex(prompt())));
+		execute(parse(lex(prompt(&terminal))));
 }

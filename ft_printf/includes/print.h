@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 15:27:28 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/13 13:23:17 by ccabral          ###   ########.fr       */
+/*   Updated: 2017/12/02 22:00:57 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ void				generic_print(t_modifiers *modifiers, t_getter get_value,
 												t_print	print);
 void				print_with_padding(char const *str,
 										t_modifiers *modifiers, int nbr_chars);
-void				print_padding(int size, int use_zero);
+void				print_padding(int size, int use_zero, int fd);
 char const			*print_formated(char const *str, t_modifiers *modifiers);
 void				increase_count(unsigned int size);
-unsigned long long	write_and_count(char const *str, size_t size);
-unsigned long long	write_and_count_wide(wchar_t const *str, size_t size);
+unsigned long long	write_and_count(int fd, char const *str, size_t size);
 unsigned long long	get_character_count(void);
 void				reset_character_count(void);
 void				decrement_count(int i);

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:55:17 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/01 19:00:55 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/04 12:44:14 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 #include <stdlib.h>
 #include <io.h>
 
-void	interrupt_handler(int sig)
+int		interrupt_handler(int sig)
 {
-	(void)sig;
-	restore_terminal(get_termios());
-	exit(0);
+	static int	last_signal = 0;
+	if (sig)
+	last_signal = sig;
+	return (last_signal);
 }

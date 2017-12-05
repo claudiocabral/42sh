@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 15:46:33 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/14 16:16:54 by ccabral          ###   ########.fr       */
+/*   Updated: 2017/12/02 22:03:58 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ void			print_decimal_helper(char const *str, char sign,
 	if ((*str == '0' && modifiers->precision == 0))
 		++padding;
 	if (!(modifiers->flags & MINUS) && !(modifiers->flags & ZERO))
-		print_padding(padding, 0);
+		print_padding(padding, 0, modifiers->fd);
 	if (modifiers->precision == -1)
-		write_and_count(&sign, sign != 0);
+		write_and_count(modifiers->fd, &sign, sign != 0);
 	if (!(modifiers->flags & MINUS) && (modifiers->flags & ZERO))
-		print_padding(padding, modifiers->precision == -1);
+		print_padding(padding, modifiers->precision == -1, modifiers->fd);
 	if (modifiers->precision != -1)
-		write_and_count(&sign, sign != 0);
-	print_padding(modifiers->precision - size, 1);
+		write_and_count(modifiers->fd, &sign, sign != 0);
+	print_padding(modifiers->precision - size, 1, modifiers->fd);
 	if (!(*str == '0' && modifiers->precision == 0))
-		write_and_count(str, ftprintf_strlen(str));
+		write_and_count(modifiers->fd, str, ftprintf_strlen(str));
 	if ((modifiers->flags & MINUS))
-		print_padding(padding, 0);
+		print_padding(padding, 0, modifiers->fd);
 }
 
 char const		*print_signed_decimal(char const *format,
@@ -94,14 +94,14 @@ char const		*print_octal(char const *format,
 	if ((*str == '0' && modifiers->precision == 0))
 		--precision;
 	if (!(modifiers->flags & MINUS))
-		print_padding(modifiers->field_width - precision,
-				modifiers->flags & ZERO && modifiers->precision == -1);
-	print_padding(precision - size, 1);
+		print_padding(modifiers->field_width - precision, modifiers->flags
+				& ZERO && modifiers->precision == -1, modifiers->fd);
+	print_padding(precision - size, 1, modifiers->fd);
 	if (modifiers->flags & HASHTAG
 			|| !(*str == '0' && modifiers->precision == 0))
-		write_and_count(str, ftprintf_strlen(str));
+		write_and_count(modifiers->fd, str, ftprintf_strlen(str));
 	if ((modifiers->flags & MINUS))
-		print_padding(modifiers->field_width - precision, 0);
+		print_padding(modifiers->fd, modifiers->field_width - precision, 0);
 	free(str);
 	return (format);
 }

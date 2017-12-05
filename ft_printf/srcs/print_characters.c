@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 15:36:33 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/26 14:55:43 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/02 22:01:45 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void				print_string_helper(char const *str, t_modifiers *modifiers)
 		size = ftprintf_strlen(str);
 	padding = modifiers->field_width - size;
 	if (!(modifiers->flags & MINUS))
-		print_padding(padding, modifiers->flags & ZERO);
-	write_and_count(str, size);
+		print_padding(padding, modifiers->flags & ZERO, modifiers->fd);
+	write_and_count(modifiers->fd, str, size);
 	if ((modifiers->flags & MINUS))
-		print_padding(padding, 0);
+		print_padding(padding, 0, modifiers->fd);
 }
 
 char const			*print_string(char const *format, t_modifiers *modifiers)

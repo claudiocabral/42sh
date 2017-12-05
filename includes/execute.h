@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/05 18:00:18 by claudioca        ###   ########.fr       */
+/*   Created: 2017/12/04 10:23:10 by claudioca         #+#    #+#             */
+/*   Updated: 2017/12/04 10:23:29 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <shellma.h>
+#ifndef EXECUTE_H
+# define EXECUTE_H
 
-char const	*parse(char const *input)
-{
-	return (input);
-}
+void	invoke(char const *process);
+
+#endif

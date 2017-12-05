@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2017/12/01 19:03:22 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/05 13:30:22 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,12 +22,15 @@ include $(LIBFT_PATH)/libft.mk
 include $(PRINTF_PATH)/printf.mk
 
 OBJS	=	objs/main.o \
-			objs/interactive/interactive_session.o \
-			objs/script/script_session.o \
+			objs/file/script_session.o \
 			objs/signals/handlers.o \
+			objs/execute/invoke.o \
 			objs/execute/execute.o \
 			objs/lexer/lexer.o \
 			objs/parser/parser.o \
+			objs/IO/interactive_session.o \
+			objs/IO/terminal_commands.o \
+			objs/IO/input_handler.o \
 			objs/IO/setup.o
 
 INC	=	-Iincludes \

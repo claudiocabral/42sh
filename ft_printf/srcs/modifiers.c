@@ -6,13 +6,13 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 13:24:36 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/26 14:55:07 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/02 21:59:58 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "modifiers.h"
 
-void		init_modifiers(t_modifiers *modifiers, va_list *args)
+void		init_modifiers(t_modifiers *modifiers, int fd, va_list *args)
 {
 	modifiers->type = NULL_T;
 	modifiers->flags = NO_FLAGS;
@@ -22,6 +22,7 @@ void		init_modifiers(t_modifiers *modifiers, va_list *args)
 	modifiers->length = NONE;
 	modifiers->separator = 0;
 	modifiers->separator_size = 0;
+	modifiers->fd = fd;
 	va_copy(modifiers->args, *args);
 }
 

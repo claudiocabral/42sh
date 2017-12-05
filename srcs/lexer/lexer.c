@@ -6,14 +6,14 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/01 19:02:25 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/05 18:00:37 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <lexer.h>
 #include <shellma.h>
 
-char	*lex(char *input)
+char const	*lex(char const *input)
 {
 	return (input);
 }

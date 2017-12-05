@@ -1,26 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_map.c                                           :+:      :+:    :+:   */
+/*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/07 09:25:54 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/07 09:26:12 by ccabral          ###   ########.fr       */
+/*   Created: 2017/12/05 17:46:02 by claudioca         #+#    #+#             */
+/*   Updated: 2017/12/05 17:46:17 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
+#include <io.h>
 
-int	*ft_map_int(int *tab, int length, int (*f)(int))
-{
-	int		*map;
-	int		*head;
-
-	map = malloc(sizeof(int) * length);
-	head = map;
-	while (length-- > 0)
-		*map++ = (*f)(*tab++);
-	return (head);
-}
+string_insert

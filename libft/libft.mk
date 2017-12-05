@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/20 13:13:30 by claudioca         #+#    #+#              #
-#    Updated: 2017/11/30 16:14:31 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/05 18:19:21 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,4 +94,12 @@ LIBFT_BTREE_OBJS := \
 				$(LIBFT_OBJ_DIR)/btree/btree_search_item.o
 
 LIBFT_ARRAY_OBJS := \
-				$(LIBFT_OBJ_DIR)/array/array.o
+				$(LIBFT_OBJ_DIR)/array/array.o \
+				$(LIBFT_OBJ_DIR)/array/array_apply.o
+
+LIBFT_RING_BUFFER_OBJS := \
+				$(LIBFT_OBJ_DIR)/ring_buffer/ring_buffer.o \
+				$(LIBFT_OBJ_DIR)/ring_buffer/ring_buffer_access.o
+
+LIBFT_STRING_OBJS := \
+				$(LIBFT_OBJ_DIR)/ft_string/string.o \

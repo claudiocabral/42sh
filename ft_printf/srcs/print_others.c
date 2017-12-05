@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 15:47:14 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/26 14:55:43 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/02 22:05:31 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ static void			pointer_helper(char const *str, t_modifiers *modifiers,
 
 	precision = (modifiers->precision < 0) ? 0 : modifiers->precision;
 	if (!(modifiers->flags & MINUS) && !(modifiers->flags & ZERO))
-		print_padding(padding, 0);
-	write_and_count("0x", 2);
-	print_padding(precision - ftprintf_strlen(str), 1);
+		print_padding(padding, 0, modifiers->fd);
+	write_and_count(modifiers->fd, "0x", 2);
+	print_padding(precision - ftprintf_strlen(str), 1, modifiers->fd);
 	if (!(modifiers->flags & MINUS) && (modifiers->flags & ZERO))
-		print_padding(padding, 1);
+		print_padding(padding, 1, modifiers->fd);
 	if (modifiers->precision != 0 || *str != '0')
-		write_and_count(str, ftprintf_strlen(str));
+		write_and_count(modifiers->fd, str, ftprintf_strlen(str));
 	if ((modifiers->flags & MINUS))
-		print_padding(padding, 0);
+		print_padding(padding, 0, modifiers->fd);
 }
 
 char const			*print_pointer(char const *format, t_modifiers *modifiers)

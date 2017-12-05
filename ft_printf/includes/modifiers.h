@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 13:19:35 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/26 14:47:33 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/02 22:00:05 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,12 @@ typedef struct		s_modifiers
 	char				*separator;
 	int					separator_size;
 	va_list				args;
+	int					fd;
 }					t_modifiers;
 
 typedef char const	*(*t_function)(char const *, t_modifiers *);
 
-void				init_modifiers(t_modifiers *modifiers, va_list *args);
+void				init_modifiers(t_modifiers *modifiers, int fd, va_list *args);
 void				clean_modifiers(t_modifiers *modifiers);
 void				reset_modifiers(t_modifiers *modifiers);
 

@@ -6,14 +6,14 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 14:04:21 by ccabral           #+#    #+#             */
-/*   Updated: 2017/08/18 12:45:09 by ccabral          ###   ########.fr       */
+/*   Updated: 2017/12/05 10:56:24 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_btree.h"
 
 void	*btree_search_item(t_btree *root, void *data_ref,
-		int (*cmpf)(void*, void*))
+		t_cmpf cmpf)
 {
 	int	cmp;
 

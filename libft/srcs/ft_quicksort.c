@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/27 10:55:32 by claudioca         #+#    #+#             */
-/*   Updated: 2017/11/27 11:20:40 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/05 10:55:57 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_partition(void **array, int low, int high, t_cmpf cmpf)
 	j = low;
 	while (j < high)
 	{
-		if (cmpf(array[j], pivot) < 0)
+		if (cmpf(array[j], (void *)pivot) < 0)
 		{
 			++i;
 			ft_swap(array + i, array + j);

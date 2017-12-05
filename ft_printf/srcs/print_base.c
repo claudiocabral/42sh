@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 15:34:30 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/13 11:16:36 by ccabral          ###   ########.fr       */
+/*   Updated: 2017/12/02 21:58:09 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 static unsigned long long	g_count = 0;
 
-unsigned long long			write_and_count(char const *str, size_t size)
+unsigned long long			write_and_count(int fd, char const *str, size_t size)
 {
 	g_count += size;
-	write(1, str, size);
+	write(fd, str, size);
 	return (g_count);
 }
 
