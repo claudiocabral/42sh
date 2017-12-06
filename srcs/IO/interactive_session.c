@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/06 12:42:44 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/06 22:52:30 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void				quit(void)
 
 static char	const *prompt(t_terminal *terminal)
 {
-	int		i;
-	char	c;
+	size_t	size;
+	char	c[16];
 
 	ft_printf("%s", terminal->prompt);
-	i = 0;
-	while (read(terminal->tty, &c, 1))
+	while ((size = read(terminal->tty, c, 15)))
 	{
+		c[size] = 0;
 		if (handle_input(terminal, c) == 0)
 			break ;
 	}

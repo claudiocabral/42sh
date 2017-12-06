@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/06 11:59:10 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/06 22:56:35 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,14 @@ typedef enum	e_keys
 
 typedef enum	e_terminal_command
 {
-	INSERT = 0,
-	MOVE_LEFT = 1,
-	MOVE_RIGHT = 2,
-	DELETE = 3,
+	INSERT,
+	MOVE_LEFT,
+	MOVE_RIGHT,
+	DELETE,
+	ARROW_UP,
+	ARROW_DOWN,
+	ARROW_LEFT,
+	ARROW_RIGHT
 }				t_terminal_command;
 
 typedef struct	s_terminal
@@ -71,12 +75,13 @@ typedef struct	s_terminal
 }				t_terminal;
 
 int				init_command_table(void);
-int				handle_input(t_terminal *terminal, int c);
+int				handle_input(t_terminal *terminal, char c[16]);
 t_terminal		*get_terminal(t_terminal *terminal);
 void			free_terminal(t_terminal *terminal);
 int				setup_terminal(t_terminal *terminal, char const *prompt);
 void			set_termios(struct termios *termios);
-char const		*get_terminal_command(t_terminal_command command);
+int				terminal_compare_string(t_terminal_command command,
+														char const *str);
 void			terminal_command(t_terminal_command command, int val);
 int				terminal_BOL(t_terminal *terminal, int c);
 int				terminal_EOL(t_terminal *terminal, int c);
