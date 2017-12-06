@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 11:57:59 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/06 13:16:41 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/06 13:22:04 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ void			*ring_buffer_next(t_ring_buffer *buffer)
 		buffer->current = buffer->begin;
 	else
 		buffer->current += buffer->element_size;
-	return (buffer->current);
+	return (buffer->current + buffer->element_size);
 }
