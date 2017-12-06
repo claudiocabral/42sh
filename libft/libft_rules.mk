@@ -6,7 +6,7 @@
 #    By: ccabral <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/24 13:19:14 by ccabral           #+#    #+#              #
-#    Updated: 2017/12/05 18:20:17 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/06 09:11:54 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ $(LIBFT):	$(LIBFT_OBJS) \
 			$(LIBFT_RING_BUFFER_OBJS) \
 			$(LIBFT_STRING_OBJS) \
 			Makefile
-	ar rcs $@ $^
+	@ar rcs $@ $^
 
 $(LIBFT_BTREE_OBJS)/%.o: $(LIBFT_INCLUDES)/ft_btree.h
 $(LIBFT_ARRAY_OBJS)/%.o: $(LIBFT_INCLUDES)/array.h

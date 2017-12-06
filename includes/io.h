@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/05 21:28:35 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/06 11:59:10 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,10 @@ typedef enum	e_keys
 
 typedef enum	e_terminal_command
 {
-	MOVE = 0,
-	MOVE_DOWN = 1,
-	MOVE_LEFT = 2,
-	MOVE_RIGHT = 3,
-	MOVE_EOL = 4,
-	DELETE = 5,
-	DELETE_EOL = 6,
-	NEW_LINE = 7
+	INSERT = 0,
+	MOVE_LEFT = 1,
+	MOVE_RIGHT = 2,
+	DELETE = 3,
 }				t_terminal_command;
 
 typedef struct	s_terminal
@@ -68,20 +64,22 @@ typedef struct	s_terminal
 	t_ring_buffer	*history;
 	int				cursor;
 	int				tty;
-	char			*prompt;
+	char			prompt[128];
 	int				prompt_size;
 	struct termios	original;
 	struct termios	custom;
 }				t_terminal;
 
 int				init_command_table(void);
-int				handle_input(t_terminal *terminal, char c);
+int				handle_input(t_terminal *terminal, int c);
+t_terminal		*get_terminal(t_terminal *terminal);
+void			free_terminal(t_terminal *terminal);
 int				setup_terminal(t_terminal *terminal, char const *prompt);
 void			set_termios(struct termios *termios);
 char const		*get_terminal_command(t_terminal_command command);
-void			terminal_BOL(t_terminal *terminal);
-void			terminal_command(t_terminal_command command);
-void			terminal_command_params(t_terminal_command command,
-													int line, int col);
+void			terminal_command(t_terminal_command command, int val);
+int				terminal_BOL(t_terminal *terminal, int c);
+int				terminal_EOL(t_terminal *terminal, int c);
+int				terminal_cancel_line(t_terminal *terminal, int c);
 
 #endif

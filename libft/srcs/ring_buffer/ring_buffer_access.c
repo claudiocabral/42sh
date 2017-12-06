@@ -6,31 +6,31 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 11:57:59 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/05 13:07:06 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/06 13:16:41 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ring_buffer.h>
 
-void			*ring_buffer_previous(t_ring_buffer *buffer, size_t n)
+void			*ring_buffer_previous(t_ring_buffer *buffer)
 {
-	size_t	index_zero;
+	void	*entry;
 
-	n *= buffer->element_size;
-	index_zero = buffer->current - buffer->begin;
-	while (n >= buffer->capacity)
-		n -= buffer->capacity;
-	return (index_zero > n ? buffer->current - n
-			: buffer->current + (buffer->capacity - (n - index_zero)));
+	entry = buffer->current;
+	if (buffer->current == buffer->begin)
+			buffer->current =
+				buffer->begin + buffer->capacity - buffer->element_size;
+	else
+		buffer->current -= buffer->element_size;
+	return (entry);
 }
 
-void			*ring_buffer_next(t_ring_buffer *buffer, size_t n)
+void			*ring_buffer_next(t_ring_buffer *buffer)
 {
-	size_t	index_zero;
-
-	n *= buffer->element_size;
-	index_zero = buffer->current - buffer->begin;
-	while (n + index_zero >= buffer->capacity)
-		n -= buffer->capacity;
-	return (buffer->current + n);
+	if (buffer->current ==
+				buffer->begin + buffer->capacity - buffer->element_size)
+		buffer->current = buffer->begin;
+	else
+		buffer->current += buffer->element_size;
+	return (buffer->current);
 }

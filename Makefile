@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2017/12/05 13:30:22 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/06 09:20:38 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ OBJS	=	objs/main.o \
 			objs/parser/parser.o \
 			objs/IO/interactive_session.o \
 			objs/IO/terminal_commands.o \
+			objs/IO/terminal_movement.o \
 			objs/IO/input_handler.o \
 			objs/IO/setup.o
 

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/05 22:14:18 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/06 09:27:28 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 void	execute(char const *input)
 {
 	if (ft_strequ(input, "exit"))
-		quit(0);
+		quit();
 	else
 	{
 		invoke(input);

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/05 23:00:31 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/06 12:42:44 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,16 @@
 #include <term.h>
 #include <io.h>
 
-void		quit(t_terminal *terminal)
+void				quit(void)
 {
-		set_termios(&(terminal->original));
-		free(terminal->prompt);
-		exit(0);
+	t_terminal	*terminal;
+
+	terminal = get_terminal(0);
+	write(terminal->tty, "\n", 1);
+	free_terminal(terminal);
+	exit(0);
 }
 
-void		terminal_BOL(t_terminal *terminal)
-{
-	terminal_command_params(MOVE_LEFT, 0, terminal->cursor
-										- terminal->prompt_size);
-	terminal->cursor = terminal->prompt_size;
-}
 
 static char	const *prompt(t_terminal *terminal)
 {

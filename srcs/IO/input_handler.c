@@ -6,40 +6,220 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/05 23:01:29 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/06 13:08:49 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <unistd.h>
 #include <shellma.h>
 #include <io.h>
-#include <unistd.h>
 #include <signal_handlers.h>
-#include <stdlib.h>
+#include <ring_buffer.h>
 
-typedef int				(*input_handle_t)(t_terminal *, char c);
+typedef int				(*input_handle_t)(t_terminal *, int character);
 
-int						insert_and_display(t_terminal *terminal, char c)
+
+int						terminal_insert(t_terminal *terminal, int c)
 {
+	terminal_command(INSERT, 1);
 	write(terminal->tty, &c, 1);
-	if (c == '\n')
-		return (0);
 	if (!string_insert(terminal->line, c,
 				terminal->cursor - terminal->prompt_size))
-		return (0);
+		return (-1);
 	++(terminal->cursor);
 	return (1);
 }
 
-static input_handle_t	g_key_map[] =
+int						terminal_EOF(t_terminal *terminal, int c)
 {
-	&insert_and_display
+	write(terminal->tty, &c, 1);
+	return (0);
+}
+
+int						terminal_exit(t_terminal *terminal, int c)
+{
+	(void)c;
+	(void)terminal;
+	quit();
+	return (1);
+}
+
+int						terminal_delete(t_terminal *terminal, int c)
+{
+	(void)c;
+	if (terminal->cursor == terminal->prompt_size)
+		return (1);
+	write(terminal->tty, &c, 1);
+	terminal_command(DELETE, 1);
+	string_delete(terminal->line, terminal->cursor - terminal->prompt_size - 1);
+	--(terminal->cursor);
+	return (1);
+}
+
+int						terminal_delete_until_EOL(t_terminal *terminal, int c)
+{
+	int	current_position;
+
+	current_position = terminal->cursor;
+	terminal_EOL(terminal, c);
+	while (terminal->cursor > current_position)
+		terminal_delete(terminal, CTRL_H);
+	return (1);
+}
+
+int						history_previous(t_terminal *terminal, int c)
+{
+	(void)c;
+	terminal_BOL(terminal, 0);
+	terminal_delete_until_EOL(terminal, 0);
+	string_copy(terminal->line,
+			(t_string *)ring_buffer_previous(terminal->history, 1));
+	terminal_command(INSERT, terminal->line->size);
+	write(terminal->tty, terminal->line->buffer, terminal->line->size);
+	return (1);
+}
+
+static input_handle_t	g_key_map[256] =
+{
+	&terminal_insert,
+	&terminal_BOL,
+	&history_previous,
+	&terminal_exit,
+	&terminal_exit,
+	&terminal_EOL,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_delete,
+	&terminal_insert,
+	&terminal_EOF,
+	&terminal_delete_until_EOL,
+	&terminal_EOF,
+	&terminal_EOF,
+	&terminal_insert,
+	&terminal_EOF,
+	&history_previous,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
+	&terminal_insert,
 };
 
-int			handle_input(t_terminal *terminal, char c)
+int			handle_input(t_terminal *terminal, int c)
 {
 	if (interrupt_handler(0))
-		quit(terminal);
-	g_key_map[0](terminal, c);
+		quit();
+	g_key_map[c](terminal, c);
 	if (c == '\n')
 		return (0);
 	return (1);
