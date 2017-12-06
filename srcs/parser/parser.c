@@ -6,13 +6,14 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/05 18:00:18 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/06 17:17:32 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <shellma.h>
 
-char const	*parse(char const *input)
+char const	*parse(t_array *tokens)
 {
-	return (input);
+	(void)tokens;
+	return ("error");
 }

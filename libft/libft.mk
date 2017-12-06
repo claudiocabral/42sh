@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/20 13:13:30 by claudioca         #+#    #+#              #
-#    Updated: 2017/12/05 18:19:21 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/06 17:29:53 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,8 @@ LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/ft_lstnew.o \
 				$(LIBFT_OBJ_DIR)/ft_quicksort.o \
 				$(LIBFT_OBJ_DIR)/ft_tolower.o \
 				$(LIBFT_OBJ_DIR)/ft_toupper.o \
-				$(LIBFT_OBJ_DIR)/ft_nbr_digits.o
+				$(LIBFT_OBJ_DIR)/ft_nbr_digits.o \
+				$(LIBFT_OBJ_DIR)/ft_is_whitespace.o
 
 LIBFT_BTREE_OBJS := \
 				$(LIBFT_OBJ_DIR)/btree/btree_apply.o \

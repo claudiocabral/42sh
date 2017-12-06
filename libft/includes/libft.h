@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/09 09:25:06 by ccabral           #+#    #+#             */
-/*   Updated: 2017/12/05 13:26:30 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/06 17:29:17 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,6 @@ void			ft_swap(void **a, void **b);
 int				ft_partition(void **array, int low, int high, t_cmpf cmpf);
 void			ft_quicksort(void **array, int low, int high, t_cmpf cmpf);
 int				ft_nbr_digits(int nbr);
+int				ft_is_whitespace(int c);
 
 #endif

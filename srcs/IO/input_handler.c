@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/06 13:19:55 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/06 17:28:03 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int						terminal_insert(t_terminal *terminal, int c)
 
 int						terminal_EOF(t_terminal *terminal, int c)
 {
+	if (terminal->line->buffer[terminal->cursor - terminal->prompt_size] == '\\')
+		return (terminal_insert(terminal, c));
 	write(terminal->tty, &c, 1);
 	return (0);
 }
@@ -47,13 +49,30 @@ int						terminal_exit(t_terminal *terminal, int c)
 
 int						terminal_delete(t_terminal *terminal, int c)
 {
-	(void)c;
+	c = CTRL_H;
 	if (terminal->cursor == terminal->prompt_size)
 		return (1);
 	write(terminal->tty, &c, 1);
 	terminal_command(DELETE, 1);
 	string_delete(terminal->line, terminal->cursor - terminal->prompt_size - 1);
 	--(terminal->cursor);
+	return (1);
+}
+
+#include <ft_printf.h>
+int						terminal_delete_word(t_terminal *terminal, int c)
+{
+	(void)c;
+	if (terminal->cursor == terminal->prompt_size)
+		return (1);
+	while (ft_is_whitespace(terminal->line->buffer
+			[terminal->cursor - terminal->prompt_size - 1])
+			&& terminal->cursor != terminal->prompt_size)
+		terminal_delete(terminal, c);
+	while (!ft_is_whitespace(terminal->line->buffer
+			[terminal->cursor - terminal->prompt_size - 1])
+			&& terminal->cursor != terminal->prompt_size)
+		terminal_delete(terminal, c);
 	return (1);
 }
 
@@ -119,7 +138,7 @@ static input_handle_t	g_key_map[256] =
 	&terminal_insert,
 	&terminal_insert,
 	&terminal_insert,
-	&terminal_insert,
+	&terminal_delete_word,
 	&terminal_insert,
 	&terminal_insert,
 	&terminal_insert,

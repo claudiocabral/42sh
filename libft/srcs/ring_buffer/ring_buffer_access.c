@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 11:57:59 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/06 13:22:04 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/06 13:45:50 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void			*ring_buffer_next(t_ring_buffer *buffer)
 	if (buffer->current ==
 				buffer->begin + buffer->capacity - buffer->element_size)
 		buffer->current = buffer->begin;
+	else if (buffer->current + buffer->element_size == buffer->next)
+		return (buffer->next);
 	else
 		buffer->current += buffer->element_size;
 	return (buffer->current + buffer->element_size);
