@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/06 22:56:35 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/07 11:54:32 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ typedef enum	e_terminal_command
 
 typedef struct	s_terminal
 {
-	t_string		*line;
 	t_ring_buffer	*history;
+	t_string		*line;
 	int				cursor;
 	int				tty;
 	char			prompt[128];

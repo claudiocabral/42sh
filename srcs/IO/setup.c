@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/06 11:55:50 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/07 12:04:01 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void				set_termios(struct termios *termios)
 
 void				free_terminal(t_terminal *terminal)
 {
-	string_free(terminal->line);
 	ring_buffer_free(terminal->history, (t_freef)&string_free_content);
 	terminal->line = 0;
 	terminal->history = 0;
@@ -59,17 +58,15 @@ int					setup_terminal(t_terminal *terminal, char const *prompt)
 	if (!tgetent(0, getenv("TERM")))
 		return (0);
 	init_command_table();
-	terminal->line = 0;
 	terminal->history = 0;
 	init_termios(terminal);
 	ft_strcpy(terminal->prompt, prompt);
-	terminal->line = string_create(STRING_SIZE);
 	terminal->history = ring_buffer_create(sizeof(t_string), 2000,
-			(t_freef)&string_clear);
+											(t_freef)&string_clear);
 	ring_buffer_init(terminal->history, STRING_SIZE,
 			(void *(*)(void *, size_t))&string_init, (t_freef)&string_free);
 	terminal->tty = 0;
-	if (!terminal->line || !terminal->history)
+	if (!terminal->history)
 	{
 		free_terminal(terminal);
 		return (0);
