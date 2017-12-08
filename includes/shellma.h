@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:42:51 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/08 11:28:00 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/08 19:18:42 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 t_array			*lex(char const *input);
 t_tree			*parse(t_array *tokens);
-void			execute(t_tree *tree);
+int				execute(t_tree *tree);
 void			quit(void);
 
 #endif
