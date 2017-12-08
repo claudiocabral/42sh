@@ -6,7 +6,7 @@
 #    By: ccabral <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/24 13:19:14 by ccabral           #+#    #+#              #
-#    Updated: 2017/12/06 09:11:54 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/08 15:46:27 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@
 .PHONY: $(LIBFT_CLEAN) $(LIBFT_FCLEAN)
 
 $(LIBFT):	$(LIBFT_OBJS) \
+			$(LIBFT_TREE_OBJS) \
 			$(LIBFT_BTREE_OBJS) \
 			$(LIBFT_ARRAY_OBJS) \
 			$(LIBFT_RING_BUFFER_OBJS) \

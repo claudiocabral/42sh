@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/09 09:25:06 by ccabral           #+#    #+#             */
-/*   Updated: 2017/12/06 17:29:17 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/08 16:44:26 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 
 # include <string.h>
+# define ZERO_IF_FAIL(x) if ((x) == 0) return (0);
 
 typedef struct	s_list
 {
@@ -26,6 +27,7 @@ typedef void	(*t_applyf)(void *element, void *args);
 typedef int		(*t_cmpf)(void const *, void const *);
 typedef void	(*t_freef)(void *element);
 
+void			noop(void *any);
 t_list			*ft_lstnew(void const *content, size_t content_size);
 void			ft_lstpush_back(t_list **lst, void const *content,
 												size_t content_size);
@@ -43,6 +45,7 @@ char			*ft_strcat(char *dest, const char *src);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strcpy(char *dest, const char *src);
 char			*ft_strdup(const char *src);
+char			*ft_strndup(const char *src, size_t size);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strlowcase(char *str);
 char			*ft_strmap(char const *s, char (*f)(char));

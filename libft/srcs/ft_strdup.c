@@ -6,32 +6,22 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 17:53:12 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/06 13:34:11 by ccabral          ###   ########.fr       */
+/*   Updated: 2017/12/08 13:23:25 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <string.h>
+#include <libft.h>
 
 char	*ft_strdup(const char *src)
 {
-	const char	*head;
 	char		*dup;
-	int			size;
+	size_t		size;
 
-	head = src;
-	size = 1;
-	while (*src)
-	{
-		++size;
-		++src;
-	}
-	if ((dup = (char *)malloc(sizeof(char) * size)) == 0)
-		return (NULL);
-	src = head;
-	head = dup;
-	while (*src)
-		*dup++ = *src++;
-	*dup = '\0';
-	return ((char *)head);
+	size = ft_strlen(src);
+	if ((dup = (char *)malloc(sizeof(char) * (size + 1))) == 0)
+		return (0);
+	ft_memcpy(dup, src, size + 1);
+	return (dup);
 }

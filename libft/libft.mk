@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/20 13:13:30 by claudioca         #+#    #+#              #
-#    Updated: 2017/12/06 17:29:53 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/08 16:45:46 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ LIBFT_FCLEAN := $(LIBFT)_fclean
 LIBFT_CLEAN := $(LIBFT)_clean
 LIBFT_INCLUDES 	:= $(LIBFT_PATH)includes
 LIBFT_OBJ_DIR	:=	$(LIBFT_PATH)objs
-LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/ft_lstnew.o \
+LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
+				$(LIBFT_OBJ_DIR)/ft_lstnew.o \
 				$(LIBFT_OBJ_DIR)/ft_lstpush_back.o \
 				$(LIBFT_OBJ_DIR)/ft_lstdelone.o \
 				$(LIBFT_OBJ_DIR)/ft_lstdel.o \
@@ -58,6 +59,7 @@ LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/ft_lstnew.o \
 				$(LIBFT_OBJ_DIR)/ft_strcpy.o \
 				$(LIBFT_OBJ_DIR)/ft_strdel.o \
 				$(LIBFT_OBJ_DIR)/ft_strdup.o \
+				$(LIBFT_OBJ_DIR)/ft_strndup.o \
 				$(LIBFT_OBJ_DIR)/ft_strequ.o \
 				$(LIBFT_OBJ_DIR)/ft_striter.o \
 				$(LIBFT_OBJ_DIR)/ft_striteri.o \
@@ -93,6 +95,9 @@ LIBFT_BTREE_OBJS := \
 				$(LIBFT_OBJ_DIR)/btree/btree_create_node.o \
 				$(LIBFT_OBJ_DIR)/btree/btree_insert_data.o \
 				$(LIBFT_OBJ_DIR)/btree/btree_search_item.o
+
+LIBFT_TREE_OBJS := \
+				$(LIBFT_OBJ_DIR)/tree/tree.o \
 
 LIBFT_ARRAY_OBJS := \
 				$(LIBFT_OBJ_DIR)/array/array.o \

@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 14:57:56 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/07 16:18:37 by claudioca        ###   ########.fr       */
+/*   Created: 2017/12/07 13:35:18 by claudioca         #+#    #+#             */
+/*   Updated: 2017/12/07 13:36:36 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#include <lexer.h>
 
-# include <array.h>
-
-
-
-#endif
+void	expand_tokens(t_array *tokens)
+{
+	(void)tokens;
+}

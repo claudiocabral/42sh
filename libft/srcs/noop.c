@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   noop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 14:57:56 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/07 16:18:37 by claudioca        ###   ########.fr       */
+/*   Created: 2017/12/08 16:44:34 by claudioca         #+#    #+#             */
+/*   Updated: 2017/12/08 16:45:02 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#include <libft.h>
 
-# include <array.h>
-
-
-
-#endif
+__attribute__((always_inline))
+void	noop(void *any)
+{
+	(void)any;
+}

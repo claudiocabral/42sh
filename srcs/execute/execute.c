@@ -6,23 +6,49 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/06 09:27:28 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/08 16:33:07 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdlib.h>
 #include <libft.h>
 #include <shellma.h>
 #include <execute.h>
 #include <signal_handlers.h>
 #include <ft_printf.h>
+#include <ast_node.h>
 
-void	execute(char const *input)
+char	**environ;
+
+int		is_command_argument(t_ast_node *node)
 {
-	if (ft_strequ(input, "exit"))
-		quit();
-	else
+	(void)node;
+	return (0);
+}
+
+char	*ast_node_get_value(t_ast_node *node)
+{
+	return (ft_strndup(node->token.begin, node->token.size));
+}
+
+void	execute_simple_command(t_tree *tree)
+{
+	t_array		*args;
+	t_ast_node	*child;
+
+	args = array_create(sizeof(char *), 16);
+	child =  (t_ast_node *)tree->children->begin;
+	array_push_back(args, ast_node_get_value(child));
+	++child;
+	while (child != tree->children->end && is_command_argument(child))
 	{
-		invoke(input);
+		array_push_back(args, ast_node_get_value(child));
 	}
+	execve(((char const **)args->begin)[0], (char **)args->begin, environ);
+}
+
+void	execute(t_tree *tree)
+{
+	execute_simple_command(tree);
 }

@@ -6,26 +6,100 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/06 14:10:33 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/08 16:52:47 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <lexer.h>
 #include <shellma.h>
 #include <array.h>
+#include <token.h>
 
-void	lex_input(t_array *tokens, char const *input)
+int			lex_quote(t_array *tokens, char const *input, int start)
 {
 	(void)tokens;
 	(void)input;
+	(void)start;
+	return (1);
 }
 
-t_array	*lex(char const *input)
+int			lex_operator(t_array *tokens, char const *input, int start)
+{
+	(void)tokens;
+	(void)input;
+	(void)start;
+	return (1);
+}
+
+int			lex_digit(t_array *tokens, char const *input, int start)
+{
+	(void)tokens;
+	(void)input;
+	(void)start;
+	return (1);
+}
+
+int			lex_token(t_array *tokens, char const *input, int start, int pos)
+{
+	t_token	token;
+
+	while (input[pos] && !token_delimiter(input[pos]))
+	{
+		if (input[pos] == '\\')
+		{
+			++pos;
+			if (!input[pos])
+				break ;
+		}
+		++pos;
+	}
+	fill_token(&token, NEWLINE, input + start, pos - start);
+	if (!array_push_back(tokens, &token))
+		return (-1);
+	return (pos);
+}
+
+int			push_newline_token(t_array *tokens, char const *input, int start)
+{
+	t_token	token;
+
+	fill_token(&token, NEWLINE, input + start, 1);
+	if (!array_push_back(tokens, &token))
+		return (-1);
+	return (start + 1);
+}
+
+int			lex_text(t_array *tokens, char const *input, int start)
+{
+	while (input[start])
+	{
+		while (ft_is_whitespace(input[start]))
+			++start;
+		if (!input[start])
+			break;
+		if (token_newline(input[start]))
+			start = push_newline_token(tokens, input, start);
+		else if (token_operator(input[start]))
+			start = lex_operator(tokens, input, start);
+		else if (ft_isdigit(input[start]))
+			start = lex_digit(tokens, input, start);
+		else if (token_quote(input[start]))
+			start = lex_quote(tokens, input, start);
+		else
+			start = lex_token(tokens, input, start, start);
+		if (start == -1)
+			return (-1);
+	}
+	return (1);
+}
+
+t_array		*lex(char const *input)
 {
 	t_array	*tokens;
 
 	if (!(tokens = array_create(sizeof(t_token), 128)))
 		return (0);
-	lex_input(tokens, input);
+	if (!lex_text(tokens, input, 0))
+		return (0);
 	return (tokens);
 }
