@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 16:16:01 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/06 22:50:41 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/08 19:22:20 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int				check_table(void)
 	int	i;
 
 	i = 0;
-	while (i < ARROW_RIGHT + 1)
-		ft_printf("%s\n", g_command_table[i++]);
+//	while (i < ARROW_RIGHT + 1)
+//		ft_printf("%s\n", g_command_table[i++]);
 	return (1);
 }
 

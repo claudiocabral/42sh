@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 16:06:40 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/05 11:33:54 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/09 17:12:52 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_array			*array_create(size_t element_size, size_t nbr_elements)
 		free(array);
 		return (0);
 	}
-	array->end = (unsigned char *)array->begin + element_size;
+	array->end = (unsigned char *)array->begin;
 	array->element_size = element_size;
 	ft_bzero(array->begin, array->capacity + element_size);
 	return (array);

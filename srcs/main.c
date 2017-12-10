@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 14:06:17 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/08 19:17:52 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/08 19:21:00 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 			return (execute(parse(lex(argv[2]))));
 		else
 		{
-			ft_dprintf (2, "minishell: -c: option requires an argument");
+			ft_dprintf (2, "minishell: -c: option requires an argument\n");
 			return (1);
 		}
 	}

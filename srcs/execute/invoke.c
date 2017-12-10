@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:16:45 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/04 11:02:39 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/10 10:44:24 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,18 @@
 
 extern char	**environ;
 
-void		invoke(char const *command)
+void		invoke(char const *command, char **args)
 {
-	pid_t	pid;
-	char	*argv[2];
-	int		stat_loc;
+  pid_t pid;
+  int stat_loc;
 
-	argv[0] = (char *)command;
-	argv[1] = 0;
-	pid = fork();
-	if (pid == 0)
-	{
-		ft_printf("invoking\n");
-		if (execve(command, argv, environ) == -1)
-		{
-			ft_printf("error in execve: %s not found\n", command);
-			exit(0);
-		}
-	}
-	else
-		waitpid(pid, &stat_loc, 0);
+  pid = fork();
+  if (pid == 0) {
+	  if (execve(command, args, environ) == -1) {
+		  ft_dprintf(2, "error in execve: %s not found\n", command);
+		  exit(0);
+	  }
+  }
+  else
+	  waitpid(pid, &stat_loc, 0);
 }

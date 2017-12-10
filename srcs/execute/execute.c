@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/08 16:33:07 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/10 10:40:16 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,38 +17,37 @@
 #include <execute.h>
 #include <signal_handlers.h>
 #include <ft_printf.h>
-#include <ast_node.h>
+#include <token.h>
 
-char	**environ;
-
-int		is_command_argument(t_ast_node *node)
+char	*token_get_value(t_token *token)
 {
-	(void)node;
-	return (0);
-}
-
-char	*ast_node_get_value(t_ast_node *node)
-{
-	return (ft_strndup(node->token.begin, node->token.size));
+	if (token->begin)
+		return (ft_strndup(token->begin, token->size));
+	return (ft_strdup(""));
 }
 
 void	execute_simple_command(t_tree *tree)
 {
 	t_array		*args;
-	t_ast_node	*child;
+	t_tree		**child;
+	char		*tmp;
 
 	args = array_create(sizeof(char *), 16);
-	child =  (t_ast_node *)tree->children->begin;
-	array_push_back(args, ast_node_get_value(child));
+	child = (t_tree **)tree->children->begin;
+	tmp = token_get_value((*child)->element);
+	array_push_back(args, &tmp);
 	++child;
-	while (child != tree->children->end && is_command_argument(child))
+	while (child != tree->children->end)
 	{
-		array_push_back(args, ast_node_get_value(child));
+		tmp = token_get_value((*child)->element);
+		array_push_back(args, &tmp);
+		++child;
 	}
-	execve(((char const **)args->begin)[0], (char **)args->begin, environ);
+	invoke(((char const **)args->begin)[0], (char **)args->begin);
 }
 
-void	execute(t_tree *tree)
+int		execute(t_tree *tree)
 {
 	execute_simple_command(tree);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/08 16:52:47 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/09 14:09:18 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			lex_token(t_array *tokens, char const *input, int start, int pos)
 		}
 		++pos;
 	}
-	fill_token(&token, NEWLINE, input + start, pos - start);
+	fill_token(&token, TOKEN, input + start, pos - start);
 	if (!array_push_back(tokens, &token))
 		return (-1);
 	return (pos);

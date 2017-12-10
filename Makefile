@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2017/12/08 16:29:12 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/09 16:31:58 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ OBJS	=	objs/main.o \
 			objs/lexer/token.o \
 			objs/lexer/token_identifier.o \
 			objs/parser/parser.o \
-			objs/parser/ast_node.o \
 			objs/IO/interactive_session.o \
 			objs/IO/terminal_commands.o \
 			objs/IO/terminal_movement.o \
