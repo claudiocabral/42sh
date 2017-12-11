@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/09 09:25:06 by ccabral           #+#    #+#             */
-/*   Updated: 2017/12/08 16:44:26 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/11 11:56:56 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct	s_list
 }				t_list;
 
 typedef void	(*t_applyf)(void *element, void *args);
+typedef void	*(*t_applyf_until)(void *element, void *args);
 typedef int		(*t_cmpf)(void const *, void const *);
 typedef void	(*t_freef)(void *element);
 
@@ -118,5 +119,6 @@ int				ft_partition(void **array, int low, int high, t_cmpf cmpf);
 void			ft_quicksort(void **array, int low, int high, t_cmpf cmpf);
 int				ft_nbr_digits(int nbr);
 int				ft_is_whitespace(int c);
+size_t			ft_next_power_of_two(size_t value);
 
 #endif

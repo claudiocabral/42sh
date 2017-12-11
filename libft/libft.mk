@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/20 13:13:30 by claudioca         #+#    #+#              #
-#    Updated: 2017/12/08 16:45:46 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/11 12:14:25 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,12 @@ LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
 				$(LIBFT_OBJ_DIR)/ft_tolower.o \
 				$(LIBFT_OBJ_DIR)/ft_toupper.o \
 				$(LIBFT_OBJ_DIR)/ft_nbr_digits.o \
+				$(LIBFT_OBJ_DIR)/ft_next_power_of_two.o \
 				$(LIBFT_OBJ_DIR)/ft_is_whitespace.o
+
+LIBFT_ARRAY_OBJS := \
+				$(LIBFT_OBJ_DIR)/array/array.o \
+				$(LIBFT_OBJ_DIR)/array/array_apply.o
 
 LIBFT_BTREE_OBJS := \
 				$(LIBFT_OBJ_DIR)/btree/btree_apply.o \
@@ -99,13 +104,15 @@ LIBFT_BTREE_OBJS := \
 LIBFT_TREE_OBJS := \
 				$(LIBFT_OBJ_DIR)/tree/tree.o \
 
-LIBFT_ARRAY_OBJS := \
-				$(LIBFT_OBJ_DIR)/array/array.o \
-				$(LIBFT_OBJ_DIR)/array/array_apply.o
 
 LIBFT_RING_BUFFER_OBJS := \
 				$(LIBFT_OBJ_DIR)/ring_buffer/ring_buffer.o \
 				$(LIBFT_OBJ_DIR)/ring_buffer/ring_buffer_access.o
 
 LIBFT_STRING_OBJS := \
-				$(LIBFT_OBJ_DIR)/ft_string/string.o \
+				$(LIBFT_OBJ_DIR)/ft_string/string.o
+
+LIBFT_HASH_TABLE_OBJS := \
+				$(LIBFT_OBJ_DIR)/hash_table/hash_table.o \
+				$(LIBFT_OBJ_DIR)/hash_table/hash_table_find.o \
+				$(LIBFT_OBJ_DIR)/hash_table/hash_functions.o

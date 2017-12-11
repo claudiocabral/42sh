@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 10:50:07 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/05 11:12:30 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/10 11:54:46 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,22 @@ int		array_partition(t_array *array, int low, int high, t_cmpf cmpf)
 		array_swap(array, array->begin + i + array->element_size,
 												array->begin + high);
 	return (i + array->element_size);
+}
+
+void			*array_apply_until(t_array *array, void *args,
+										t_applyf_until applyf)
+{
+	unsigned char	*it;
+	void			*val;
+
+	it = (unsigned char *)array->begin;
+	while (it != (unsigned char *)array->end)
+	{
+		if ((val = applyf(it, args)))
+			return (val);
+		it += array->element_size;
+	}
+	return (0);
 }
 
 void			array_sort(t_array *array, int low, int high, t_cmpf cmpf)
