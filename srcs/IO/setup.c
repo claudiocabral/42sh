@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/07 12:04:01 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/14 14:09:50 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <libft.h>
 #include <term.h>
 #include <io.h>
+#include <environment.h>
 
 void				set_termios(struct termios *termios)
 {
@@ -54,8 +55,9 @@ t_terminal			*get_terminal(t_terminal *terminal)
 
 int					setup_terminal(t_terminal *terminal, char const *prompt)
 {
+	ft_prepare_env();
 	signal(SIGINT, SIG_IGN);
-	if (!tgetent(0, getenv("TERM")))
+	if (!tgetent(0, ft_getenv("TERM")))
 		return (0);
 	init_command_table();
 	terminal->history = 0;

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/07 12:02:10 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/11 12:20:48 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ void		interactive_session(void)
 	if (!setup_terminal(&terminal, "$> "))
 		exit(1);
 	while (1)
-		execute(parse(lex(prompt(&terminal))));
+		process_input(prompt(&terminal));
 }

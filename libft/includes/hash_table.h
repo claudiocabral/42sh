@@ -6,16 +6,19 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 12:07:27 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/11 12:16:13 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/11 14:03:34 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HASH_TABLE_H
 # define HASH_TABLE_H
 
-#include <stdlib.h>
-#include <stdint.h>
+# include <stdlib.h>
+# include <stdint.h>
+# include <libft.h>
 
+# define MURMUR_M 0x5bd1e995
+# define MURMUR_R 24
 # define H1(x) (x >> 7)
 # define H2(x) (x & 0x7f)
 # define GET_16_BITS(d) (*((const uint16_t *) (d)))
@@ -49,6 +52,7 @@ size_t			hash_table_find_index(t_hash_table *table, void *data);
 void			*hash_table_find(t_hash_table *table, void *data);
 void			hash_table_free(t_hash_table *table, t_freef freef);
 void			hash_table_delete(t_hash_table *table, void *data);
+uint32_t		murmur_hash_2(const uint8_t *data, int len);
 uint64_t		hash_string(const char *str);
 
 #endif
