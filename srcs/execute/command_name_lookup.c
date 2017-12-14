@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.h                                          :+:      :+:    :+:   */
+/*   command_name_lookup.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/04 10:23:10 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/10 11:53:26 by claudioca        ###   ########.fr       */
+/*   Created: 2017/12/10 11:48:51 by claudioca         #+#    #+#             */
+/*   Updated: 2017/12/11 09:50:31 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTE_H
-# define EXECUTE_H
+#include <array.h>
 
-void		invoke(char const *process, char **args);
-char const	*command_name_lookup(char const *name);
-
-#endif
+//__attribute__((always_inline))
+char const	*command_name_lookup(char const *name)
+{
+//	char const	*path;
+//
+//	//path = array_apply_until(get_path(), &hash_table_find);
+	return(name);
+}

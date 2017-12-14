@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.h                                          :+:      :+:    :+:   */
+/*   shellma.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/04 10:23:10 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/10 11:53:26 by claudioca        ###   ########.fr       */
+/*   Created: 2017/12/11 12:19:30 by claudioca         #+#    #+#             */
+/*   Updated: 2017/12/11 12:20:20 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTE_H
-# define EXECUTE_H
+#include <shellma.h>
 
-void		invoke(char const *process, char **args);
-char const	*command_name_lookup(char const *name);
-
-#endif
+int	process_input(char const *str)
+{
+	return (execute(parse(lex(str))));
+}
