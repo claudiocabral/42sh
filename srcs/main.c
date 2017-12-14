@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 14:06:17 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/11 14:07:18 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/14 20:08:21 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
 #include <hash_table.h>
 
 int	main(int argc, char **argv) {
-	uint64_t	hash;
-
-	hash = hash_string("abc");
 	if (argc == 1)
 		return (interactive_session());
 	else if (ft_strequ(argv[1],"-c"))
