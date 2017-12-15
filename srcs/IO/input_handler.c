@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/06 23:02:04 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 12:05:05 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 
 typedef int				(*input_handle_t)(t_terminal *, int character);
 
+int			auto_complete(t_terminal *terminal, int c)
+{
+	(void)c;
+	(void)terminal;
+	return (1);
+}
 
 int						terminal_insert(t_terminal *terminal, int c)
 {
@@ -123,7 +129,7 @@ static input_handle_t	g_key_map[256] =
 	&terminal_insert,
 	&terminal_insert,
 	&terminal_delete,
-	&terminal_insert,
+	&auto_complete,
 	&terminal_EOF,
 	&terminal_delete_until_EOL,
 	&terminal_EOF,
