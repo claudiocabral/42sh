@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:49:51 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/10 11:54:42 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 11:06:55 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,17 @@ void			array_clear(t_array *array, t_freef free_func);
 void			array_free(t_array *array, t_freef free_func);
 int				array_increase_capacity(t_array *array);
 void			*array_push_back(t_array *array, void *element);
+void			*array_insert(t_array *array, void *where, void *element);
+void			*array_insert_sorted(t_array *array, void *element,
+														t_cmpf cmpf);
 void			array_apply(t_array *array, void *args, t_applyf);
 void			array_apply_reverse(t_array *array, void *args, t_applyf);
 void			*array_apply_until(t_array *array, void *args,
 											t_applyf_until applyf);
 void			array_sort(t_array *array, int low, int high, t_cmpf cmpf);
+void			*array_find_insertion_point(t_array *array, void const *element,
+																t_cmpf cmpf);
+void			*array_find_sorted(t_array *array, void const *element,
+																t_cmpf cmpf);
 
 #endif

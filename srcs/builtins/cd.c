@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 13:01:51 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/14 12:45:01 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 11:01:07 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <sys/param.h>
 #include <ft_printf.h>
 #include <ft_string.h>
+#include <environment.h>
 
 int	pwd(int argc, char **argv)
 {
@@ -70,19 +71,39 @@ int	cd_chdir(char const *path)
 	return (ret != 0);
 }
 
-int	cd_noflag(char *path)
+void	cd_canonical(char *path, char buff[MAXPATHLEN])
+{
+	(void)path;
+	(void)buff;
+}
+
+int		cd_noflag(char *path)
 {
 	int			ret;
 	char		buff[MAXPATHLEN];
 
+	ret = 1;
 	if (path[0] == '/')
-		canonical_path = cd_canonical(path);
-	else if (ft_strequ(".") || ft_strnequ(path, "./", 2))
+		cd_canonical(buff, path);
+	else if (ft_strequ(path, ".") || ft_strnequ(path, "./", 2))
 	{
 
 	}
-		|| ft_strnequ(path, "./" 2)
-			|| ft_strnequ(path, "../", 3) || ft_strnequ(path)
+		//|| ft_strnequ(path, "./" 2)
+		//	|| ft_strnequ(path, "../", 3) || ft_strnequ(path)
+		return (ret);
+}
+
+int cd_L(char *path)
+{
+	(void)path;
+	return (1);
+}
+
+int cd_P(char *path)
+{
+	(void)path;
+	return (1);
 }
 
 int	cd(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 16:06:40 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/09 17:12:52 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 11:09:17 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,83 @@ void			*array_push_back(t_array *array, void *element)
 	ft_memcpy(array->end, element, array->element_size);
 	array->end = (unsigned char *)array->end + array->element_size;
 	return ((unsigned char *)array->end - array->element_size);
+}
+
+void			*array_insert(t_array *array, void *where, void *element)
+{
+	if (array->capacity <= array->end - array->begin + array->element_size
+		 && !array_increase_capacity(array))
+		return (0);
+	ft_memmove(where + array->element_size, where, array->element_size);
+	ft_memcpy(where, element, array->element_size);
+	return (where);
+}
+
+void			*array_find_sorted(t_array *array, void const *element,
+															t_cmpf cmpf)
+{
+	void	*begin;
+	void	*end;
+	void	*middle;
+	int		result;
+
+	begin = array->begin;
+	end = array->end - array->element_size;
+	middle = begin + ((end - begin) / 2);
+	while (end < begin)
+	{
+		if ((result = cmpf(element, middle)) == 0)
+			return (middle);
+		else if (result > 0)
+		{
+			begin = middle;
+			middle = begin + ((end - begin) / 2);
+		}
+		else if (result < 0)
+		{
+			end = middle;
+			middle = begin + ((end - begin) / 2);
+		}
+	}
+	return (0);
+}
+
+void			*array_find_insertion_point(t_array *array, void const *element,
+																t_cmpf cmpf)
+{
+	void	*begin;
+	void	*end;
+	void	*middle;
+	int		result;
+
+	begin = array->begin;
+	end = array->end - array->element_size;
+	middle = begin + ((end - begin) / 2);
+	while (end < begin)
+	{
+		if ((result = cmpf(element, middle)) == 0)
+			return (middle);
+		else if (result > 0)
+		{
+			begin = middle;
+			middle = begin + ((end - begin) / 2);
+		}
+		else if (result < 0)
+		{
+			end = middle;
+			middle = begin + ((end - begin) / 2);
+		}
+	}
+	return (begin);
+}
+
+void			*array_insert_sorted(t_array *array, void *element,
+														t_cmpf cmpf)
+{
+	void	*insertion_point;
+	if (array->capacity <= array->end - array->begin + array->element_size
+		 && !array_increase_capacity(array))
+		return (0);
+	insertion_point = array_find_insertion_point(array, element, cmpf);
+	return (array_insert(array, insertion_point, element));
 }

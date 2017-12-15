@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2017/12/12 13:01:37 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/15 11:02:16 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ OBJS	=	objs/main.o \
 			objs/IO/input_handler.o \
 			objs/IO/setup.o \
 			objs/builtins/echo.o \
-			objs/builtins/cd.o
+			objs/builtins/cd.o \
+			objs/environment/environment.o
 
 
 INC	=	-Iincludes \

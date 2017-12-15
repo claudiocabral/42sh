@@ -6,19 +6,26 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/14 14:04:30 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 11:08:54 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <array.h>
 
 extern char		**environ;
-static t_array	**g_environ;
+static t_array	*g_environ;
+
+__attribute__((always_inline))
+int				ft_strncmp_wrapper(char const *a, char const *b)
+{
+	return (ft_strncmp(a, b, ft_strlen(a)));
+}
 
 char			*ft_getenv(char const *env)
 {
 	char	*val;
-	val = array_find_sorted(g_environ, env, 0, &ft_strncmp_wrapper);
+	val = array_find_sorted(g_environ, env, (t_cmpf)&ft_strncmp_wrapper);
 	if (val)
 	{
 		val = ft_strchr(val, '=');
@@ -27,11 +34,10 @@ char			*ft_getenv(char const *env)
 	return (val);
 }
 
+__attribute__((always_inline))
 char			**get_environment(void)
 {
-	if (!g_environ)
-		return (0);
-	return (g_environ->begin);
+	return (g_environ ? g_environ->begin : 0);
 }
 
 int				ft_prepare_env(void)
@@ -41,9 +47,10 @@ int				ft_prepare_env(void)
 	int		i;
 
 	ZERO_IF_FAIL(array = array_create(sizeof(char *), 32));
+	i = 0;
 	while (environ[i])
 	{
-		if ((!tmp = ft_strdup(environ[i])))
+		if (!(tmp = ft_strdup(environ[i])))
 		{
 			array_free(array, &free);
 			return (0);
@@ -73,12 +80,16 @@ static char		*make_env(char *name, char *val)
 int				ft_setenv(char *name, char *val, int overwrite)
 {
 	char	*env;
-	char	*tmp
+	char	*tmp;
 
-	env = array_find_sorted(name, 0, ft_strncmp_wrapper);
+	env = array_find_sorted(g_environ, name, (t_cmpf)&ft_strncmp_wrapper);
 	if (!overwrite && env)
 		return (1);
 	ZERO_IF_FAIL(tmp = make_env(name, val));
 	free(env);
+	if (env)
+		env = tmp;
+	else
+		array_insert_sorted(g_environ, &tmp, (t_cmpf)&ft_strncmp_wrapper);
 	return (env != 0);
 }
