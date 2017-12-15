@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 11:48:51 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 18:01:09 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 22:27:15 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,17 @@ __attribute__((always_inline))
 char const				*command_name_lookup(char const *name)
 {
 	t_binary_path	**path;
-	char const		*entry;
+	char const		**entry;
 
 	path = g_paths->begin;
 	while (path != g_paths->end)
 	{
 		if ((entry = hash_table_find((*path)->table, &name)))
 		{
-			binary_path_set_buffer(*path, entry);
+			binary_path_set_buffer(*path, *entry);
 			return ((*path)->buffer->buffer);
-			++path;
 		}
+		++path;
 	}
 	return(0);
 }

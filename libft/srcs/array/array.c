@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 16:06:40 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 17:07:44 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 22:45:21 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,27 @@ t_array			*array_create(size_t element_size, size_t nbr_elements)
 
 void			array_clear(t_array *array, t_freef free_func)
 {
-	void	*it;
+	void	**it;
 
 	it = array->begin;
 	while (it != array->end)
 	{
-		free_func(it);
+		free_func(*it);
 		ft_bzero(it, array->element_size);
-		it = (unsigned char *)it + array->element_size;
+		it = it + array->element_size;
 	}
-	array->end = (unsigned char *)array->begin + array->element_size;
+	array->end = array->begin;
 }
 
 void			array_free(t_array *array, t_freef free_func)
 {
-	void	*it;
+	void	**it;
 
 	it = array->begin;
 	while (it != array->end)
 	{
-		free_func(it);
-		it = (unsigned char *)it + array->element_size;
+		free_func(*it);
+		it = (void *)it + array->element_size;
 	}
 	free(array->begin);
 	free(array);
@@ -80,6 +80,7 @@ void			*array_push_back(t_array *array, void *element)
 		return (0);
 	ft_memcpy(array->end, element, array->element_size);
 	array->end = (unsigned char *)array->end + array->element_size;
+	ft_bzero(array->end, array->element_size);
 	return ((unsigned char *)array->end - array->element_size);
 }
 

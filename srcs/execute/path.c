@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 13:50:55 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 17:58:08 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 22:10:27 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include <hash_table.h>
 #include <execute.h>
 #include <environment.h>
+
+int	ft_strcmp_pointer(char **a, char **b)
+{
+	return (ft_strcmp(*a, *b));
+}
 
 t_string		*binary_path_set_buffer(t_binary_path *path, char const *suffix)
 {
@@ -63,7 +68,7 @@ t_binary_path	*make_path_entry(char const *name, size_t size)
 	}
 	string_destructive_insert(path->buffer, path->buffer->buffer, path->name);
 	if (!(path->table = hash_table_create(sizeof(char *), 2048,
-								(t_hashf)&hash_string, (t_cmpf)&ft_strcmp)))
+							(t_hashf)&hash_string, (t_cmpf)&ft_strcmp_pointer)))
 	{
 		string_free(path->buffer);
 		free(path);

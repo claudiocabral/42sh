@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 17:36:14 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 22:39:20 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,6 @@ char			**get_environment(void)
 	return (g_environ ? g_environ->begin : 0);
 }
 
-#include <ft_printf.h>
-void			print_this(char **print, void *dummy)
-{
-	(void)dummy;
-	ft_printf("%s\n", *print);
-}
-
 int				ft_prepare_env(void)
 {
 	t_array	*array;
@@ -66,7 +59,6 @@ int				ft_prepare_env(void)
 			array_free(array, &free);
 			return (0);
 		}
-		//ft_printf("%s\n", tmp);
 		if ((!array_push_back(array, &tmp)))
 			return (0);
 		++i;
