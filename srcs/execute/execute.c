@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/10 12:00:54 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 16:24:29 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,38 +26,47 @@ char	*token_get_value(t_token *token)
 	return (ft_strdup(""));
 }
 
-char const	*get_command_name(t_token *token)
+int		command_dispatch(char **argv)
 {
-	char const	*tmp;
+	void const	*tmp;
 
-	ZERO_IF_FAIL(tmp = token_get_value(token));
-	if (ft_strchr(tmp, '/'))
-		return (tmp);
-	return (ft_strdup(command_name_lookup(tmp)));
+	if (ft_strchr(argv[0], '/'))
+		return (invoke(argv[0], argv));
+	if ((tmp = get_builtin_command(argv[0])))
+		return (invoke_builtin(tmp, argv));
+	if ((tmp = command_name_lookup(argv[0])))
+		return (invoke(tmp, argv));
+	ft_dprintf(2, "minishell: command not found: %s\n", argv[0]);
+	return (127);
 }
 
-void	execute_simple_command(t_tree *tree)
+int		execute_simple_command(t_tree *tree)
 {
 	t_array		*args;
 	t_tree		**child;
-	char const	*tmp;
+	void const	*tmp;
+	int			ret;
 
-	args = array_create(sizeof(char *), 16);
+	if (!(args = array_create(sizeof(char *), 16)))
+		return (1);
 	child = (t_tree **)tree->children->begin;
-	tmp = get_command_name((*child)->element);
-	array_push_back(args, &tmp);
-	++child;
 	while (child != tree->children->end)
 	{
 		tmp = token_get_value((*child)->element);
-		array_push_back(args, &tmp);
+		if (!tmp || !(array_push_back(args, &tmp)))
+		{
+			free((void *)tmp);
+			array_free(args, &free);
+			return (1);
+		}
 		++child;
 	}
-	invoke(((char const **)args->begin)[0], (char **)args->begin);
+	ret = command_dispatch((char **)args->begin);
+	array_free(args, &free);
+	return (ret);
 }
 
 int		execute(t_tree *tree)
 {
-	execute_simple_command(tree);
-	return (0);
+	return (execute_simple_command(tree));
 }

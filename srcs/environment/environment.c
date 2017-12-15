@@ -6,29 +6,33 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 11:47:40 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 17:36:14 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <array.h>
+#include <libft.h>
 
 extern char		**environ;
 static t_array	*g_environ;
 
 __attribute__((always_inline))
-int				ft_strncmp_wrapper(char const *a, char const *b)
+int				ft_strncmp_wrapper(char const **a, char const **b)
 {
-	return (ft_strncmp(a, b, ft_strlen(a)));
+	return (ft_strcmp_until(*a, *b, '='));
 }
 
 char			*ft_getenv(char const *env)
 {
+	char	**ptr;
 	char	*val;
-	val = array_find_sorted(g_environ, env, (t_cmpf)&ft_strncmp_wrapper);
-	if (val)
+
+	val = 0;
+	ptr = array_find_sorted(g_environ, &env, (t_cmpf)&ft_strncmp_wrapper);
+	if (ptr)
 	{
-		val = ft_strchr(val, '=');
+		val = ft_strchr(*ptr, '=');
 		val = val ? val + 1 : 0;
 	}
 	return (val);
@@ -38,6 +42,13 @@ __attribute__((always_inline))
 char			**get_environment(void)
 {
 	return (g_environ ? g_environ->begin : 0);
+}
+
+#include <ft_printf.h>
+void			print_this(char **print, void *dummy)
+{
+	(void)dummy;
+	ft_printf("%s\n", *print);
 }
 
 int				ft_prepare_env(void)
@@ -55,6 +66,7 @@ int				ft_prepare_env(void)
 			array_free(array, &free);
 			return (0);
 		}
+		//ft_printf("%s\n", tmp);
 		if ((!array_push_back(array, &tmp)))
 			return (0);
 		++i;

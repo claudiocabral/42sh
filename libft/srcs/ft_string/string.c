@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 17:46:52 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/06 12:45:24 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 14:33:17 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,21 @@ t_string	*string_insert(t_string *string, char c, size_t pos)
 	string->buffer[pos] = c;
 	string->size++;
 	string->buffer[string->size] = 0;
+	return (string);
+}
+
+t_string	*string_destructive_insert(t_string *string, char *where,
+													char const *what)
+{
+	size_t	size;
+
+	size = ft_strlen(what) + 1;
+	if ((where + size) >= string->buffer + string->capacity)
+		string->capacity = ft_realloc((void **)&(string->buffer),
+				string->capacity, (string->capacity + size) * 2);
+	if (!string->buffer)
+		return (0);
+	ft_memcpy(where, what, size);
 	return (string);
 }
 

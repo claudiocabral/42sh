@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:16:45 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 11:54:07 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 13:21:27 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,17 @@
 #include <execute.h>
 #include <environment.h>
 
-void		invoke(char const *command, char **args)
+int		invoke_builtin(t_builtin const *command, char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+		++i;
+	return (command->func(i, args));
+}
+
+int		invoke(char const *command, char **args)
 {
   pid_t pid;
   int stat_loc;
@@ -27,9 +37,9 @@ void		invoke(char const *command, char **args)
   if (pid == 0) {
 	  if (execve(command, args, get_environment()) == -1) {
 		  ft_dprintf(2, "error in execve: %s not found\n", command);
-		  exit(0);
+		  exit(1);
 	  }
   }
-  else
-	  waitpid(pid, &stat_loc, 0);
+  waitpid(pid, &stat_loc, 0);
+  return (stat_loc);
 }

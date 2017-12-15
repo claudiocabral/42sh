@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 12:07:27 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/11 14:03:34 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 17:26:34 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef enum	e_hash_ctrl
 	hash_deleted = -2
 }				t_hash_ctrl;
 
-typedef uint64_t	(*t_hashf)(void *);
+typedef uint64_t	(*t_hashf)(void const*);
 
 typedef struct	s_hash_table
 {
@@ -44,15 +44,15 @@ typedef struct	s_hash_table
 }				t_hash_table;
 
 uint64_t		 paul_hsieh_hash(const char * data, int len);
-t_hash_table	*hash_table_create(size_t size, size_t content_size,
+t_hash_table	*hash_table_create(size_t content_size, size_t nbr_elements,
 													t_hashf hash, t_cmpf cmpf);
 void			*hash_table_insert(t_hash_table *table, void *data);
 void			*hash_table_insert(t_hash_table *table, void *data);
-size_t			hash_table_find_index(t_hash_table *table, void *data);
-void			*hash_table_find(t_hash_table *table, void *data);
+size_t			hash_table_find_index(t_hash_table *table, void const *data);
+void			*hash_table_find(t_hash_table *table, void const *data);
 void			hash_table_free(t_hash_table *table, t_freef freef);
 void			hash_table_delete(t_hash_table *table, void *data);
 uint32_t		murmur_hash_2(const uint8_t *data, int len);
-uint64_t		hash_string(const char *str);
+uint64_t		hash_string(const char **str);
 
 #endif

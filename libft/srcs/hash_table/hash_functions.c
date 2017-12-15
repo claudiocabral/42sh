@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 16:05:08 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/11 14:03:24 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 17:21:24 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ uint64_t	paul_hsieh_hash(const char * data, int len)
 }
 
 __attribute__((always_inline))
-uint64_t	hash_string(const char *str)
+uint64_t	hash_string(const char **str)
 {
-	return (paul_hsieh_hash(str, ft_strlen(str)));
+	return (paul_hsieh_hash(*str, ft_strlen(*str)));
 }

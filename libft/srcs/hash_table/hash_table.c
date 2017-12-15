@@ -6,29 +6,32 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 14:45:43 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/11 12:14:01 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 17:27:18 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <hash_table.h>
 
-t_hash_table	*hash_table_create(size_t size, size_t content_size,
+t_hash_table	*hash_table_create(size_t content_size, size_t nbr_elements,
 												t_hashf hash, t_cmpf cmpf)
 {
 	t_hash_table	*hash_table;
 
-	size = ft_next_power_of_two(size);
+	nbr_elements = ft_next_power_of_two(nbr_elements);
 	ZERO_IF_FAIL(hash_table = (t_hash_table *)malloc(sizeof(t_hash_table)));
-	if (!(hash_table->metadata = malloc(size * (content_size + 1))))
+	if (!(hash_table->metadata = malloc(nbr_elements * (content_size + 1))))
 	{
 		free(hash_table);
 		return (0);
 	}
-	hash_table->data = hash_table->metadata + size;
-	ft_memset(hash_table->metadata, hash_empty, size);
+	hash_table->data = hash_table->metadata + nbr_elements;
+	ft_memset(hash_table->metadata, hash_empty, nbr_elements);
 	hash_table->hash = hash;
 	hash_table->cmpf = cmpf;
+	hash_table->capacity = nbr_elements;
+	hash_table->content_size = content_size;
+	hash_table->size = 0;
 	return (hash_table);
 }
 
@@ -36,21 +39,22 @@ void static		*hash_table_insert_helper(t_hash_table *table, uint8_t *block,
 													size_t capacity, void *data)
 {
 	uint64_t	hash;
-	size_t		i;
+	uint64_t	i;
 	void		*helper;
 
 	hash = table->hash(data);
-	i = H1(hash) & (~capacity);
+	i = H1(hash) & (capacity - 1);
 	helper = block + capacity;
 	while (1)
 	{
 		if (block[i] == (uint8_t)hash_empty)
 		{
 			block[i] = block[i] == (uint8_t)hash_deleted ? block[i] : H2(hash);
-			ft_memcpy(helper + i * capacity, data, table->content_size);
-			return (helper + i * capacity);
+			ft_memcpy(helper + i * table->content_size,
+									data, table->content_size);
+			return (helper + i * table->content_size);
 		}
-		i = (i + 1) & (~capacity);
+		i = (i + 1) & (capacity - 1);
 	}
 }
 
@@ -69,6 +73,7 @@ t_hash_table	*hash_table_increase_size(t_hash_table *table)
 		if (table->metadata[i] != (uint8_t)hash_empty)
 			hash_table_insert_helper(table, memory_block, new_size,
 								table->data + i * table->content_size);
+		++i;
 	}
 	free(table->metadata);
 	table->metadata = memory_block;

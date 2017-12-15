@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/14 14:09:50 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 17:47:38 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_terminal			*get_terminal(t_terminal *terminal)
 
 int					setup_terminal(t_terminal *terminal, char const *prompt)
 {
-	ft_prepare_env();
 	signal(SIGINT, SIG_IGN);
 	if (!tgetent(0, ft_getenv("TERM")))
 		return (0);

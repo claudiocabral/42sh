@@ -6,21 +6,21 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:13:20 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/11 12:13:42 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 18:05:37 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <hash_table.h>
 
-size_t			hash_table_find_index(t_hash_table *table, void *data)
+size_t			hash_table_find_index(t_hash_table *table, void const *data)
 {
 	uint64_t	hash;
-	uint8_t		tmp;
+	size_t		tmp;
 	size_t		i;
 
 	hash = table->hash(data);
-	i = H1(hash);
+	i = H1(hash) & (table->capacity - 1);
 	tmp = i;
 	while (1)
 	{
@@ -29,17 +29,17 @@ size_t			hash_table_find_index(t_hash_table *table, void *data)
 			return (i);
 		if (i == tmp)
 			return (table->capacity + 1);
-		i = (i + 1 ) & (~table->capacity);
+		i = (i + 1 ) & (table->capacity - 1);
 	}
 }
 
-void			*hash_table_find(t_hash_table *table, void *data)
+void			*hash_table_find(t_hash_table *table, void const *data)
 {
 	size_t	index;
 
 	index = hash_table_find_index(table, data);
 	if (index < table->capacity)
-		return (data + index * table->capacity);
+		return (table->data + index * table->content_size);
 	return (0);
 }
 

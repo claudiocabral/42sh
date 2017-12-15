@@ -1,15 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line.c                                             :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/05 17:46:02 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/05 17:46:17 by claudioca        ###   ########.fr       */
+/*   Created: 2017/12/15 13:44:19 by claudioca         #+#    #+#             */
+/*   Updated: 2017/12/15 13:44:49 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <io.h>
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
-string_insert
+int	cd(int argc, char **argv);
+int	echo(int argc, char **argv);
+
+#endif

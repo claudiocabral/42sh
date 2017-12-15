@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/09 09:25:06 by ccabral           #+#    #+#             */
-/*   Updated: 2017/12/11 11:56:56 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 17:36:05 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int				ft_str_is_numeric_or_sign(const char *str);
 int				ft_str_is_printable(const char *str);
 int				ft_str_is_uppercase(const char *str);
 int				ft_strcmp(const char *s1, const char *s2);
+int				ft_strcmp_until(const char *s1, const char *s2, char c);
 int				ft_strequ(char const *s1, char const *s2);
 int				ft_strnequ(char const *s1, char const *s2, size_t n);
 size_t			ft_strlen(const char *str);

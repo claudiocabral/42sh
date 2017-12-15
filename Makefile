@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2017/12/15 11:02:16 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/15 14:33:41 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ OBJS	=	objs/main.o \
 			objs/shellma.o \
 			objs/file/script_session.o \
 			objs/signals/handlers.o \
+			objs/execute/path.o \
 			objs/execute/invoke.o \
 			objs/execute/execute.o \
 			objs/execute/command_name_lookup.o \
