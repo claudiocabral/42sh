@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 12:07:27 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 17:26:34 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 23:24:40 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void			*hash_table_insert(t_hash_table *table, void *data);
 size_t			hash_table_find_index(t_hash_table *table, void const *data);
 void			*hash_table_find(t_hash_table *table, void const *data);
 void			hash_table_free(t_hash_table *table, t_freef freef);
+void			hash_table_dump(t_hash_table *table, t_applyf applyf);
 void			hash_table_delete(t_hash_table *table, void *data);
 uint32_t		murmur_hash_2(const uint8_t *data, int len);
 uint64_t		hash_string(const char **str);

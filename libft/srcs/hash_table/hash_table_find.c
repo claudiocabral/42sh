@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:13:20 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 18:05:37 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 23:40:15 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ size_t			hash_table_find_index(t_hash_table *table, void const *data)
 		if (table->metadata[i] == H2(hash)
 				&& table->cmpf(table->data + i * table->content_size, data) == 0)
 			return (i);
+		i = (i + 1 ) & (table->capacity - 1);
 		if (i == tmp)
 			return (table->capacity + 1);
-		i = (i + 1 ) & (table->capacity - 1);
 	}
 }
 

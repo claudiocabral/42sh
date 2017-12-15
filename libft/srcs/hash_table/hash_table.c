@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 14:45:43 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 17:27:18 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 23:20:43 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void static		*hash_table_insert_helper(t_hash_table *table, uint8_t *block,
 	{
 		if (block[i] == (uint8_t)hash_empty)
 		{
-			block[i] = block[i] == (uint8_t)hash_deleted ? block[i] : H2(hash);
+			block[i] = H2(hash);
 			ft_memcpy(helper + i * table->content_size,
 									data, table->content_size);
 			return (helper + i * table->content_size);
@@ -97,4 +97,19 @@ void			hash_table_delete(t_hash_table *table, void *data)
 	index = hash_table_find_index(table, data);
 	if (index < table->capacity)
 		table->metadata[index] = (uint8_t)hash_deleted;
+}
+
+void			hash_table_dump(t_hash_table *table, t_applyf apply)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < table->capacity)
+	{
+		if (table->metadata[i] != (uint8_t)hash_empty)
+		{
+			apply(table->data + i * table->content_size, table);
+		}
+		++i;
+	}
 }

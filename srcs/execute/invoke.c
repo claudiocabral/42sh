@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:16:45 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 22:41:02 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 23:03:38 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int		invoke_builtin(t_builtin const *command, char **args)
 	return (command->func(i, args));
 }
 
-#include <errno.h>
-#include <string.h>
 int		invoke(char const *command, char **args)
 {
   pid_t pid;
@@ -42,8 +40,7 @@ int		invoke(char const *command, char **args)
   env = get_environment();
   if (pid == 0) {
 	  if (execve(command, args, env) == -1) {
-		  //ft_dprintf(2, "error in execve: %s not found\n", command);
-		  ft_dprintf(2, "%s\n", strerror(errno));
+		  ft_dprintf(2, "error in execve\n", command);
 		  exit(1);
 	  }
   }

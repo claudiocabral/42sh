@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 13:50:55 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 22:10:27 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 23:36:35 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <hash_table.h>
 #include <execute.h>
 #include <environment.h>
+#include <ft_printf.h>
 
 int	ft_strcmp_pointer(char **a, char **b)
 {
@@ -78,6 +79,11 @@ t_binary_path	*make_path_entry(char const *name, size_t size)
 	return (path);
 }
 
+void	hash_and_print(char **item, t_hash_table *table)
+{
+	ft_printf("%llu\t%s\n", table->hash(item), *item);
+}
+
 int	hash_paths(t_array *paths)
 {
 	char			*begin;
@@ -88,6 +94,8 @@ int	hash_paths(t_array *paths)
 	while ((end = ft_strchr(begin, ':')))
 	{
 		tmp = make_path_entry(begin, end - begin);
+		ft_printf("\n%s\n", tmp->name);
+		hash_table_dump(tmp->table, (t_applyf)&hash_and_print);
 		array_push_back(paths, &tmp);
 		begin = end + 1;
 	}
