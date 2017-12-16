@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 22:15:51 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 23:56:07 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,7 @@ int		execute_simple_command(t_tree *tree)
 
 int		execute(t_tree *tree)
 {
-	return (execute_simple_command(tree));
+	if (tree)
+		return (execute_simple_command(tree));
+	return (0);
 }

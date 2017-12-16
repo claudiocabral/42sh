@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 11:57:38 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/15 23:56:27 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,10 @@ t_tree	*parse(t_array *tokens)
 	t_token	*current;
 	t_tree	*tree;
 
+	tree = 0;
 	current = (t_token *)(tokens->begin);
-	tree = complete_command(0, tokens, &current);
+	while (current != tokens->end)
+		tree = complete_command(0, tokens, &current);
 	array_free(tokens, &noop);
 	ZERO_IF_FAIL(tree);
 	return (tree);
