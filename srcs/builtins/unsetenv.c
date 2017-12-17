@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/17 15:32:37 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 23:08:05 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/17 23:12:39 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	glob_match(char const *s1, char const *s2)
 	else if (*s1 == *s2)
 		return (glob_match(s1 + 1, s2 + 1));
 	else if (*s2 == '*')
-		return (glob_match(s1 + 1, s2) || glob_match(s1 + 1, s2 + 1));
+		return (glob_match(s1 + 1, s2) || glob_match(s1, s2 + 1));
 	else
 		return (0);
 }
