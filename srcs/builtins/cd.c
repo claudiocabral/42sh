@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 13:01:51 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 11:01:07 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/17 11:30:24 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,6 @@
 #include <ft_printf.h>
 #include <ft_string.h>
 #include <environment.h>
-
-int	pwd(int argc, char **argv)
-{
-	(void)argv;
-	if (argc != 1)
-		ft_dprintf(2, "pwd: too many arguments\n");
-	ft_printf("%s\n", ft_getenv("PWD"));
-	return (0);
-}
 
 int	parse_args(int *argc, char ***argv)
 {

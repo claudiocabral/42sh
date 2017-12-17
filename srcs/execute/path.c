@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 13:50:55 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 23:36:35 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/17 12:07:19 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ int	hash_paths(t_array *paths)
 	while ((end = ft_strchr(begin, ':')))
 	{
 		tmp = make_path_entry(begin, end - begin);
-		ft_printf("\n%s\n", tmp->name);
-		hash_table_dump(tmp->table, (t_applyf)&hash_and_print);
 		array_push_back(paths, &tmp);
 		begin = end + 1;
 	}

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 11:48:51 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 22:27:15 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/17 14:51:04 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,22 @@ int						builtin_compare(t_builtin *a, t_builtin *b)
 	return (ft_strcmp(a->name, b->name));
 }
 
-int						init_path_table(void)
+void					add_builtin(char *name, t_exec func)
 {
 	t_builtin	builtin;
 
+	builtin.name = name;
+	builtin.func = func;
+	hash_table_insert(g_builtins, &builtin);
+}
+
+int						init_path_table(void)
+{
 	ZERO_IF_FAIL(g_builtins = hash_table_create(sizeof(t_builtin), 5,
 					(t_hashf)&builtin_hash, (t_cmpf)&builtin_compare));
-	builtin.name = "cd";
-	builtin.func = &cd;
-	hash_table_insert(g_builtins, &builtin);
-	builtin.name = "echo";
-	builtin.func = &echo;
-	hash_table_insert(g_builtins, &builtin);
+	add_builtin("cd", &cd);
+	add_builtin("echo", &echo);
+	add_builtin("pwd", &pwd);
 	init_paths(&g_paths);
 	return (1);
 }

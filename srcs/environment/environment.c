@@ -6,13 +6,16 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 22:39:20 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/17 14:37:52 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <array.h>
 #include <libft.h>
+#include <ft_printf.h>
+#include <environment.h>
 
 extern char		**environ;
 static t_array	*g_environ;
@@ -23,20 +26,20 @@ int				ft_strncmp_wrapper(char const **a, char const **b)
 	return (ft_strcmp_until(*a, *b, '='));
 }
 
-char			*ft_getenv(char const *env)
+int				set_current_path(void)
 {
-	char	**ptr;
-	char	*val;
+	char	*path;
 
-	val = 0;
-	ptr = array_find_sorted(g_environ, &env, (t_cmpf)&ft_strncmp_wrapper);
-	if (ptr)
+	if (!(path = getcwd(0, 0)) || !ft_setenv("PWD", path, 1))
 	{
-		val = ft_strchr(*ptr, '=');
-		val = val ? val + 1 : 0;
+		ft_dprintf(2, "minishell: error, could not set PWD\n");
+		free(path);
+		return (0);
 	}
-	return (val);
+	free(path);
+	return (1);
 }
+
 
 __attribute__((always_inline))
 char			**get_environment(void)
@@ -64,6 +67,7 @@ int				ft_prepare_env(void)
 		++i;
 	}
 	g_environ = array;
+	set_current_path();
 	return (1);
 }
 
@@ -72,7 +76,7 @@ static char		*make_env(char *name, char *val)
 	size_t	size;
 	char	*env;
 
-	size = ft_strlen(env) + ft_strlen(val) + 2;
+	size = ft_strlen(name) + ft_strlen(val) + 2;
 	ZERO_IF_FAIL(env = (char *)malloc(size));
 	env[0] = 0;
 	ft_strcat(env, name);
@@ -81,18 +85,33 @@ static char		*make_env(char *name, char *val)
 	return (env);
 }
 
+char			*ft_getenv(char const *env)
+{
+	char	**ptr;
+	char	*val;
+
+	val = 0;
+	ptr = array_find_sorted(g_environ, &env, (t_cmpf)&ft_strncmp_wrapper);
+	if (ptr)
+	{
+		val = ft_strchr(*ptr, '=');
+		val = val ? val + 1 : 0;
+	}
+	return (val);
+}
+
 int				ft_setenv(char *name, char *val, int overwrite)
 {
-	char	*env;
+	char	**env;
 	char	*tmp;
 
-	env = array_find_sorted(g_environ, name, (t_cmpf)&ft_strncmp_wrapper);
+	env = array_find_sorted(g_environ, &name, (t_cmpf)&ft_strncmp_wrapper);
 	if (!overwrite && env)
 		return (1);
 	ZERO_IF_FAIL(tmp = make_env(name, val));
-	free(env);
+	free(*env);
 	if (env)
-		env = tmp;
+		*env = tmp;
 	else
 		array_insert_sorted(g_environ, &tmp, (t_cmpf)&ft_strncmp_wrapper);
 	return (env != 0);

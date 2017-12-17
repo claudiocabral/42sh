@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2017/12/15 14:33:41 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/17 14:46:02 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,9 @@ OBJS	=	objs/main.o \
 			objs/IO/terminal_movement.o \
 			objs/IO/input_handler.o \
 			objs/IO/setup.o \
-			objs/builtins/echo.o \
 			objs/builtins/cd.o \
+			objs/builtins/echo.o \
+			objs/builtins/pwd.o \
 			objs/environment/environment.o
 
 

@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/15 13:44:19 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 11:29:56 by claudioca        ###   ########.fr       */
+/*   Created: 2017/12/17 11:26:38 by claudioca         #+#    #+#             */
+/*   Updated: 2017/12/17 14:46:44 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include <environment.h>
+#include <builtins.h>
+#include <ft_printf.h>
 
-int	cd(int argc, char **argv);
-int	echo(int argc, char **argv);
-int	pwd(int argc, char **argv);
-
-#endif
+int	pwd(int argc, char **argv)
+{
+	(void)argv;
+	if (argc != 1)
+		ft_dprintf(2, "pwd: too many arguments\n");
+	ft_printf("%s\n", ft_getenv("PWD"));
+	return (0);
+}
