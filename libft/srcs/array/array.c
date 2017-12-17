@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 16:06:40 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 16:53:20 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/17 23:05:28 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void			array_remove(t_array *array, void *element, t_freef freef)
 {
 	freef(element);
 	ft_memmove(element, element + array->element_size,
-						array->end - array->begin);
+						array->end - element);
 	array->end -= array->element_size;
 }
 
@@ -114,14 +114,16 @@ void			*array_insert(t_array *array, void *where, void *element)
 	if (array->capacity <= array->end - array->begin + array->element_size
 		 && !array_increase_capacity(array))
 		return (0);
-	ft_memmove(where + array->element_size, where, array->element_size);
+	ft_memmove(where + array->element_size, where, array->end - where);
 	ft_memcpy(where, element, array->element_size);
+	array->end += array->element_size;
+	ft_bzero(array->end, array->element_size);
 	return (where);
 }
 
 void			*median(void *begin, void *end, size_t size)
 {
-	return (begin + (size_t)(end - begin) / size / 2 * size);
+	return (begin + ((size_t)(end - begin) / (size * 2)) * size);
 }
 
 void			*array_find_sorted(t_array *array, void const *element,
@@ -133,7 +135,7 @@ void			*array_find_sorted(t_array *array, void const *element,
 	int		result;
 
 	begin = array->begin;
-	end = array->end - array->element_size;
+	end = array->end;
 	middle = median(begin, end, array->element_size);
 	while (end > begin)
 	{
@@ -166,7 +168,7 @@ void			*array_find_insertion_point(t_array *array, void const *element,
 	int		result;
 
 	begin = array->begin;
-	end = array->end - array->element_size;
+	end = array->end;
 	middle = median(begin, end, array->element_size);
 	while (end > begin)
 	{
@@ -182,7 +184,7 @@ void			*array_find_insertion_point(t_array *array, void const *element,
 		else if (result < 0)
 		{
 			if (end == middle)
-				break ;
+				return (begin);
 			end = middle;
 			middle = median(begin, end, array->element_size);
 		}

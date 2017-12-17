@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 16:16:14 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/17 23:08:20 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	free_wrapper(void **ptr)
 __attribute__((always_inline))
 void			environment_remove_if(char const* data, t_predf predicate)
 {
-	array_remove_if(g_environ, data, (t_freef)&free_wrapper, predicate);
+	array_remove_if(g_environ, &data, (t_freef)&free_wrapper, predicate);
 }
 
 __attribute__((always_inline))
@@ -108,19 +108,17 @@ static char		*make_env(char *name, char *val)
 	return (env);
 }
 
-char			*ft_getenv(char const *env)
-{
-	char	**ptr;
-	char	*val;
+char *ft_getenv(char const *env) {
+  char **ptr;
+  char *val;
 
-	val = 0;
-	ptr = array_find_sorted(g_environ, &env, (t_cmpf)&ft_strncmp_wrapper);
-	if (ptr)
-	{
-		val = ft_strchr(*ptr, '=');
-		val = val ? val + 1 : 0;
-	}
-	return (val);
+  val = 0;
+  ptr = array_find_sorted(g_environ, &env, (t_cmpf)&ft_strncmp_wrapper);
+  if (ptr) {
+    val = ft_strchr(*ptr, '=');
+    val = val ? val + 1 : 0;
+  }
+  return (val);
 }
 
 int				ft_setenv(char *name, char *val, int overwrite)
@@ -132,7 +130,7 @@ int				ft_setenv(char *name, char *val, int overwrite)
 	if (!overwrite && env)
 		return (1);
 	ZERO_IF_FAIL(tmp = make_env(name, val));
-	if (env)
+	if (env && ft_strcmp_until(tmp, name, '=') == 0)
 	{
 		free(*env);
 		*env = tmp;
