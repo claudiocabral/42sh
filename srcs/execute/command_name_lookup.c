@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 11:48:51 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 14:51:04 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/17 15:13:51 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ void					add_builtin(char *name, t_exec func)
 
 int						init_path_table(void)
 {
-	ZERO_IF_FAIL(g_builtins = hash_table_create(sizeof(t_builtin), 5,
+	ZERO_IF_FAIL(g_builtins = hash_table_create(sizeof(t_builtin), 16,
 					(t_hashf)&builtin_hash, (t_cmpf)&builtin_compare));
 	add_builtin("cd", &cd);
 	add_builtin("echo", &echo);
 	add_builtin("pwd", &pwd);
+	add_builtin("setenv", &builtin_setenv);
 	init_paths(&g_paths);
 	return (1);
 }

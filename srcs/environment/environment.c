@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 14:37:52 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/17 15:17:37 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ __attribute__((always_inline))
 int				ft_strncmp_wrapper(char const **a, char const **b)
 {
 	return (ft_strcmp_until(*a, *b, '='));
+}
+
+void			print_env(char const **env, void *dummy)
+{
+	(void)dummy;
+	ft_printf("%s\n", *env);
+}
+
+__attribute__((always_inline))
+void			print_environment(void)
+{
+	array_apply(g_environ, 0, (t_applyf)&print_env);
 }
 
 int				set_current_path(void)
@@ -109,9 +121,11 @@ int				ft_setenv(char *name, char *val, int overwrite)
 	if (!overwrite && env)
 		return (1);
 	ZERO_IF_FAIL(tmp = make_env(name, val));
-	free(*env);
 	if (env)
+	{
+		free(*env);
 		*env = tmp;
+	}
 	else
 		array_insert_sorted(g_environ, &tmp, (t_cmpf)&ft_strncmp_wrapper);
 	return (env != 0);
