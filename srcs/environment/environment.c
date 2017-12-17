@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 15:17:37 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/17 16:16:14 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,17 @@ void			print_env(char const **env, void *dummy)
 {
 	(void)dummy;
 	ft_printf("%s\n", *env);
+}
+
+void	free_wrapper(void **ptr)
+{
+	free(*ptr);
+}
+
+__attribute__((always_inline))
+void			environment_remove_if(char const* data, t_predf predicate)
+{
+	array_remove_if(g_environ, data, (t_freef)&free_wrapper, predicate);
 }
 
 __attribute__((always_inline))

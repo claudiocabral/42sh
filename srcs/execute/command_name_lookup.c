@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 11:48:51 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 15:13:51 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/17 16:22:18 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int						init_path_table(void)
 	add_builtin("echo", &echo);
 	add_builtin("pwd", &pwd);
 	add_builtin("setenv", &builtin_setenv);
+	add_builtin("unsetenv", &builtin_unsetenv);
 	init_paths(&g_paths);
 	return (1);
 }

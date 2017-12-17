@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 16:06:40 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 22:45:21 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/17 16:53:20 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,31 @@ void			array_free(t_array *array, t_freef free_func)
 	}
 	free(array->begin);
 	free(array);
+}
+
+void			array_remove(t_array *array, void *element, t_freef freef)
+{
+	freef(element);
+	ft_memmove(element, element + array->element_size,
+						array->end - array->begin);
+	array->end -= array->element_size;
+}
+
+void			array_remove_if(t_array *array, void const *data,
+											t_freef freef, t_predf predicate)
+{
+	void	*it;
+
+	it = array->begin;
+	while (it != array->end)
+	{
+		if (predicate(it, data))
+		{
+			array_remove(array, it, freef);
+			continue ;
+		}
+		it += array->element_size;
+	}
 }
 
 int				array_increase_capacity(t_array *array)
@@ -116,11 +141,15 @@ void			*array_find_sorted(t_array *array, void const *element,
 			return (middle);
 		else if (result > 0)
 		{
+			if (begin == middle)
+				return (0);
 			begin = middle;
 			middle = median(begin, end, array->element_size);
 		}
 		else if (result < 0)
 		{
+			if (end == middle)
+				return (0);
 			end = middle;
 			middle = median(begin, end, array->element_size);
 		}
@@ -145,11 +174,15 @@ void			*array_find_insertion_point(t_array *array, void const *element,
 			return (middle);
 		else if (result > 0)
 		{
+			if (begin == middle)
+				break ;
 			begin = middle;
 			middle = median(begin, end, array->element_size);
 		}
 		else if (result < 0)
 		{
+			if (end == middle)
+				break ;
 			end = middle;
 			middle = median(begin, end, array->element_size);
 		}

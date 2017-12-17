@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/17 15:04:05 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 15:14:45 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/17 16:40:34 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ int	builtin_setenv(int argc, char **argv)
 		name = "";
 	else
 		name = argv[2];
+	if (!ft_str_is_alnum(argv[1]))
+	{
+		ft_dprintf(2, "setenv: Variable name must be alphanumeric.\n");
+		return (1);
+	}
 	ft_setenv(argv[1], name, 1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/20 13:13:30 by claudioca         #+#    #+#              #
-#    Updated: 2017/12/15 17:34:33 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/17 15:45:25 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
 				$(LIBFT_OBJ_DIR)/ft_putstr.o \
 				$(LIBFT_OBJ_DIR)/ft_putstr_fd.o \
 				$(LIBFT_OBJ_DIR)/ft_realloc.o \
+				$(LIBFT_OBJ_DIR)/ft_str_is_alpha.o \
 				$(LIBFT_OBJ_DIR)/ft_strcapitalize.o \
 				$(LIBFT_OBJ_DIR)/ft_strcat.o \
 				$(LIBFT_OBJ_DIR)/ft_strchr.o \

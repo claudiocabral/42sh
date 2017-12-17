@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/09 09:25:06 by ccabral           #+#    #+#             */
-/*   Updated: 2017/12/15 17:36:05 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/17 16:40:20 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
+typedef int		(*t_predf)(void *iterator, void const *data);
 typedef void	(*t_applyf)(void *element, void *args);
 typedef void	*(*t_applyf_until)(void *element, void *args);
 typedef int		(*t_cmpf)(void const *, void const *);
@@ -73,12 +74,7 @@ int				ft_isprint(int c);
 int				ft_iterative_power(int nb, int power);
 int				ft_putchar(int c);
 int				ft_sqrt(int nb);
-int				ft_str_is_alpha(const char *str);
-int				ft_str_is_lowercase(const char *str);
-int				ft_str_is_numeric(const char *str);
-int				ft_str_is_numeric_or_sign(const char *str);
-int				ft_str_is_printable(const char *str);
-int				ft_str_is_uppercase(const char *str);
+int				ft_str_is_alnum(const char *str);
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strcmp_until(const char *s1, const char *s2, char c);
 int				ft_strequ(char const *s1, char const *s2);

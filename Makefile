@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2017/12/17 15:14:34 by claudioca        ###   ########.fr        #
+#    Updated: 2017/12/17 16:19:27 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ OBJS	=	objs/main.o \
 			objs/IO/input_handler.o \
 			objs/IO/setup.o \
 			objs/builtins/setenv.o \
+			objs/builtins/unsetenv.o \
 			objs/builtins/cd.o \
 			objs/builtins/echo.o \
 			objs/builtins/pwd.o \

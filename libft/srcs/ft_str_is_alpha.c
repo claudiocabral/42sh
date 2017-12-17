@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   ft_str_is_alpha.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
+/*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/15 13:44:19 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 16:20:20 by claudioca        ###   ########.fr       */
+/*   Created: 2017/08/06 11:39:18 by ccabral           #+#    #+#             */
+/*   Updated: 2017/12/17 16:39:57 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include <libft.h>
 
-int	builtin_unsetenv(int argc, char **argv);
-int	builtin_setenv(int argc, char **argv);
-int	cd(int argc, char **argv);
-int	echo(int argc, char **argv);
-int	pwd(int argc, char **argv);
-
-#endif
+int	ft_str_is_alnum(const char *str)
+{
+	while (*str)
+	{
+		if (!ft_isalnum(*str))
+			return (0);
+		++str;
+	}
+	return (1);
+}

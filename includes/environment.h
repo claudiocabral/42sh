@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:22:38 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 15:10:20 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/17 16:20:49 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ char			*ft_getenv(char const *env);
 int				ft_prepare_env(void);
 char			**get_environment(void);
 void			print_environment(void);
+void			environment_remove_if(char const* data, t_predf predicate);
 
 #endif
