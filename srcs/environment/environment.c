@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 23:08:20 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/18 12:46:02 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int				ft_setenv(char *name, char *val, int overwrite)
 	if (!overwrite && env)
 		return (1);
 	ZERO_IF_FAIL(tmp = make_env(name, val));
-	if (env && ft_strcmp_until(tmp, name, '=') == 0)
+	if (env && (ft_strcmp_until(name, *env, '=') == 0))
 	{
 		free(*env);
 		*env = tmp;
