@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/18 16:20:59 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/18 16:22:58 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_tree		*simple_command(t_array *tokens, t_token **current)
 	t_token		token;
 	t_tree		*tree;
 
-	(void)tokens;
 	token = emit_token(SIMPLE_COMMAND, 0, 0, 0);
 	ZERO_IF_FAIL(tree = tree_create_node(&token, sizeof(t_token)));
 	tree_add_child(tree, command_name(current));
