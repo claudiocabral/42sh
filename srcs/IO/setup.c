@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 17:47:38 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/18 14:12:23 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_terminal			*get_terminal(t_terminal *terminal)
 
 int					setup_terminal(t_terminal *terminal, char const *prompt)
 {
-	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, (void (*)(int))&interrupt_handler);
 	if (!tgetent(0, ft_getenv("TERM")))
 		return (0);
 	init_command_table();

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:16:45 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 23:03:38 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/18 14:16:05 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <signal_handlers.h>
+#include <signal.h>
 #include <ft_printf.h>
 #include <execute.h>
 #include <environment.h>
@@ -30,10 +31,24 @@ int		invoke_builtin(t_builtin const *command, char **args)
 	return (command->func(i, args));
 }
 
+int		wait_process(pid_t pid)
+{
+  int	stat_loc;
+  int	sig;
+
+  waitpid(pid, &stat_loc, 0);
+  if ((sig = interrupt_handler(0)))
+  {
+	  kill(pid, sig);
+	  write(0, "^C\n", 3);
+  }
+  return (stat_loc);
+
+}
+
 int		invoke(char const *command, char **args)
 {
-  pid_t pid;
-  int stat_loc;
+  pid_t	pid;
   char	**env;
 
   pid = fork();
@@ -44,6 +59,5 @@ int		invoke(char const *command, char **args)
 		  exit(1);
 	  }
   }
-  waitpid(pid, &stat_loc, 0);
-  return (stat_loc);
+  return (wait_process(pid));
 }
