@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 12:05:05 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/18 12:49:53 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,13 @@ int						terminal_delete(t_terminal *terminal, int c)
 int						terminal_delete_word(t_terminal *terminal, int c)
 {
 	(void)c;
-	if (terminal->cursor == terminal->prompt_size)
-		return (1);
-	while (ft_is_whitespace(terminal->line->buffer
-			[terminal->cursor - terminal->prompt_size - 1])
-			&& terminal->cursor != terminal->prompt_size)
+	while (terminal->cursor != terminal->prompt_size &&
+			ft_is_whitespace(terminal->line->buffer
+			[terminal->cursor - terminal->prompt_size - 1]))
 		terminal_delete(terminal, c);
-	while (!ft_is_whitespace(terminal->line->buffer
-			[terminal->cursor - terminal->prompt_size - 1])
-			&& terminal->cursor != terminal->prompt_size)
+	while (terminal->cursor != terminal->prompt_size &&
+			!ft_is_whitespace(terminal->line->buffer
+			[terminal->cursor - terminal->prompt_size - 1]))
 		terminal_delete(terminal, c);
 	return (1);
 }
