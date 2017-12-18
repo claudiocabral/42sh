@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 15:30:59 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/09 17:28:09 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/18 16:18:39 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,13 @@ t_tree			*tree_create_node(void *element, size_t element_size)
 
 t_tree			*tree_add_child(t_tree *parent, t_tree *child)
 {
-	child->parent = parent;
-	ZERO_IF_FAIL(array_push_back(parent->children, &child));
-	return (parent);
+	if (parent)
+	{
+		child->parent = parent;
+		ZERO_IF_FAIL(array_push_back(parent->children, &child));
+		return (parent);
+	}
+	return (child);
 }
 
 void			tree_apply_infix(t_tree *node, void *args, t_applyf applyf)

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/18 16:04:58 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/18 16:16:17 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,15 @@ int			lex_quote(t_array *tokens, char const *input, int start)
 
 int			lex_operator(t_array *tokens, char const *input, int start)
 {
-	(void)tokens;
-	(void)input;
-	(void)start;
-	return (1);
+	int	ret = 0;
+
+	if (input[start] == ';')
+		ret = add_token(tokens, SEMICOLON, input, 1);
+	else if (input[start] == '&')
+		ret = add_token(tokens, AND, input, 1);
+	if (ret)
+		return (start + 1);
+	return (0);
 }
 
 int			lex_token(t_array *tokens, char const *input, int start, int pos)

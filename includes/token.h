@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 16:17:12 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/18 15:38:40 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/18 16:14:57 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ typedef enum	e_tag
 	FOR,
 	LBRACE,
 	RBRACE,
+	LPARENS,
+	RPARENS,
+	SEMICOLON,
+	AND,
+	LESS,
+	GREATER,
 	BANG,
 	IN
 }				t_tag;
