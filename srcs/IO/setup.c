@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/18 14:12:23 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/18 14:55:03 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@
 #include <term.h>
 #include <io.h>
 #include <environment.h>
+
+void				termios_toggle_isig(t_terminal *term, int toggle)
+{
+	if (toggle)
+		term->custom.c_lflag |= ISIG;
+	else
+		term->custom.c_lflag &= ~(ISIG);
+	set_termios(&(term->custom));
+}
 
 void				set_termios(struct termios *termios)
 {
@@ -36,7 +45,8 @@ static void			init_termios(t_terminal *terminal)
 {
 	tcgetattr(0, &(terminal->original));
 	terminal->custom = terminal->original;
-	terminal->custom.c_lflag &= ~(ECHO | ICANON | ECHOE | ECHOKE | ECHOCTL);
+	terminal->custom.c_lflag &= ~(ECHO | ICANON | ECHOE | ECHOKE
+			| ECHOCTL);
 	terminal->custom.c_oflag &= (OPOST | ONLCR);
 	terminal->custom.c_cc[VMIN] = 1;
 	terminal->custom.c_cc[VTIME] = 0;
@@ -63,7 +73,7 @@ int					setup_terminal(t_terminal *terminal, char const *prompt)
 	init_termios(terminal);
 	ft_strcpy(terminal->prompt, prompt);
 	terminal->history = ring_buffer_create(sizeof(t_string), 2000,
-											(t_freef)&string_clear);
+			(t_freef)&string_clear);
 	ring_buffer_init(terminal->history, STRING_SIZE,
 			(void *(*)(void *, size_t))&string_init, (t_freef)&string_free);
 	terminal->tty = 0;

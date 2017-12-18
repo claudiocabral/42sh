@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 16:17:12 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/09 17:06:35 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/18 15:38:40 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ typedef struct	s_token
 
 t_token		emit_token(t_tag type, char const *input, int start, int end);
 void		fill_token(t_token *token, t_tag type, char const *begin,
+															size_t size);
+int			add_token(t_array *tokens, t_tag type, char const *begin,
 															size_t size);
 int			token_newline(char c);
 int			token_quote(char c);

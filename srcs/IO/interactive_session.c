@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/11 12:20:48 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/18 14:56:18 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <ft_printf.h>
 #include <shellma.h>
 #include <signal_handlers.h>
+#include <signal.h>
 #include <term.h>
 #include <io.h>
 
@@ -37,6 +38,7 @@ static char	const *prompt(t_terminal *terminal)
 
 	ring_buffer_push_empty(terminal->history);
 	terminal->line = (t_string*)terminal->history->current;
+	termios_toggle_isig(terminal, 0);
 	ft_printf("%s", terminal->prompt);
 	while ((size = read(terminal->tty, c, 15)))
 	{
@@ -44,6 +46,7 @@ static char	const *prompt(t_terminal *terminal)
 		if (handle_input(terminal, c) == 0)
 			break ;
 	}
+	termios_toggle_isig(terminal, 1);
 	terminal->cursor = terminal->prompt_size;
 	return (terminal->line->buffer);
 }

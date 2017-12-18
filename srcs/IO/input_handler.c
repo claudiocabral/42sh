@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/18 13:45:37 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/18 15:00:15 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <io.h>
 #include <signal_handlers.h>
 #include <ring_buffer.h>
+#include <ft_printf.h>
 
 typedef int				(*input_handle_t)(t_terminal *, int character);
 
@@ -89,6 +90,15 @@ int						terminal_delete_until_EOL(t_terminal *terminal, int c)
 	return (1);
 }
 
+int						terminal_kill_line(t_terminal *terminal, int c)
+{
+	terminal_BOL(terminal, c);
+	terminal_delete_until_EOL(terminal, c);
+	ft_printf("\n%s", terminal->prompt);
+	terminal->cursor = terminal->prompt_size;
+	return (1);
+}
+
 int						history_previous(t_terminal *terminal, int c)
 {
 	(void)c;
@@ -120,7 +130,7 @@ static input_handle_t	g_key_map[256] =
 	&terminal_insert,
 	&terminal_BOL,
 	&history_previous,
-	&terminal_exit,
+	&terminal_kill_line,
 	&terminal_exit,
 	&terminal_EOL,
 	&terminal_insert,
