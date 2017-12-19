@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 23:56:07 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/19 22:04:04 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <signal_handlers.h>
 #include <ft_printf.h>
 #include <token.h>
+#include <environment.h>
 
 char	*token_get_value(t_token *token)
 {
@@ -40,11 +41,40 @@ int		command_dispatch(char **argv)
 	return (127);
 }
 
+char	*expand(char *value)
+{
+	size_t	size;
+	char	*str;
+
+	size = 0;
+	str = value;
+	if (ft_strncmp(value, "~/", 2) == 0)
+	{
+		size = ft_strlen(ft_getenv("HOME")) + ft_strlen(value);
+		if (!(str = (char *)malloc(sizeof(char) * size)))
+		{
+			free(value);
+			return (0);
+		}
+		str[0] = 0;
+		ft_strcat(str, ft_getenv("HOME"));
+		ft_strcat(str, "/");
+		ft_strcat(str, value + 2);
+		free(value);
+	}
+	else if (ft_strcmp(value, "~") == 0)
+	{
+		free(value);
+		str = ft_strdup(ft_getenv("HOME"));
+	}
+	return (str);
+}
+
 int		execute_simple_command(t_tree *tree)
 {
 	t_array		*args;
 	t_tree		**child;
-	void const	*tmp;
+	void		*tmp;
 	int			ret;
 
 	if (!(args = array_create(sizeof(char *), 16)))
@@ -53,9 +83,10 @@ int		execute_simple_command(t_tree *tree)
 	while (child != tree->children->end)
 	{
 		tmp = token_get_value((*child)->element);
+		tmp = expand(tmp);
 		if (!tmp || !(array_push_back(args, &tmp)))
 		{
-			free((void *)tmp);
+			free(tmp);
 			array_free(args, &free);
 			return (1);
 		}

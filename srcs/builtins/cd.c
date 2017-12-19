@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 13:01:51 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 11:30:24 by claudioca        ###   ########.fr       */
+/*   Updated: 2017/12/19 21:22:14 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,19 @@ void	cd_canonical(char *path, char buff[MAXPATHLEN])
 int		cd_noflag(char *path)
 {
 	int			ret;
-	char		buff[MAXPATHLEN];
+	char		*new_path;
 
-	ret = 1;
-	if (path[0] == '/')
-		cd_canonical(buff, path);
-	else if (ft_strequ(path, ".") || ft_strnequ(path, "./", 2))
+	ret = chdir(path);
+	if (ret != -1)
 	{
-
+		new_path = getcwd(0, 0);
+		ft_setenv("OLDPWD", ft_getenv("PWD"), 1);
+		ft_setenv("PWD", new_path, 1);
+		free(new_path);
 	}
-		//|| ft_strnequ(path, "./" 2)
-		//	|| ft_strnequ(path, "../", 3) || ft_strnequ(path)
-		return (ret);
+	else
+		ft_dprintf(2, "cd: failed to change to directory: %s\n", path);
+	return (ret);
 }
 
 int cd_L(char *path)
