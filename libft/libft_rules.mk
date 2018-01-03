@@ -6,7 +6,7 @@
 #    By: ccabral <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/24 13:19:14 by ccabral           #+#    #+#              #
-#    Updated: 2018/01/03 10:42:05 by claudioca        ###   ########.fr        #
+#    Updated: 2018/01/03 20:37:21 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,11 @@ $(LIBFT_OBJ_DIR)/%.o: $(LIBFT_PATH)/srcs/%.c $(LIBFT_INCLUDES)/libft.h
 	$(CC) -c $< -o $@ $(CFLAGS) -I$(LIBFT_INCLUDES)
 
 $(LIBFT_CLEAN):
-	rm -rf $(LIBFT_DEPDIR)
+ifeq ($(shell [ -e $(LIBFT_OBJ_DIR) ] && echo 1 || echo 0),1)
 	rm -rf $(LIBFT_OBJ_DIR)
+endif
 
 $(LIBFT_FCLEAN): $(LIBFT_CLEAN)
+ifeq ($(shell [ -e $(LIBFT) ] && echo 1 || echo 0),1)
 	rm -rf $(LIBFT)
+endif

@@ -28,6 +28,5 @@ PRINTF_OBJS	:=	$(PRINTF_OBJS_DIR)/ft_printf.o \
 				$(PRINTF_OBJS_DIR)/ft_itoa_base.o
 
 PRINTF_DEPDIR := $(PRINTF_PATH)/.deps
-$(shell mkdir -p $(PRINTF_DEPDIR) >/dev/null)
 PRINTF_DEPFLAGS = -MT $@ -MMD -MP -MF $(PRINTF_DEPDIR)/$*.Td
 PRINTF_POSTCOMPILE = @mv -f $(PRINTF_DEPDIR)/$*.Td $(PRINTF_DEPDIR)/$*.dep && touch $@

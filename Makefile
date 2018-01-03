@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/03 11:19:18 by claudioca        ###   ########.fr        #
+#    Updated: 2018/01/03 20:36:23 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ LIBFT_PATH	:=	libft
 PRINTF_PATH = 	ft_printf
 
 DEPDIR := .deps
-$(shell mkdir -p $(DEPDIR) >/dev/null)
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.Td
 POSTCOMPILE = @mv -f $(DEPDIR)/$*.Td $(DEPDIR)/$*.dep && touch $@
 
@@ -94,13 +93,19 @@ include $(wildcard $(OBJS:objs/%.o=$(DEPDIR)/%.dep))
 fclean: clean
 	make $(PRINTF_FCLEAN)
 	make $(LIBFT_FCLEAN)
-	rm -rf $(DEPDIR)
+ifeq ($(shell [ -e $(NAME) ] && echo 1 || echo 0),1)
 	rm -rf $(NAME)
+endif
 
 clean:
 	make $(LIBFT_CLEAN)
 	make $(PRINTF_CLEAN)
+ifeq ($(shell [ -e $(DEPDIR) ] && echo 1 || echo 0),1)
+	rm -rf $(DEPDIR)
+endif
+ifeq ($(shell [ -e objs ] && echo 1 || echo 0),1)
 	rm -rf objs
+endif
 
 re:
 	$(MAKE) fclean
