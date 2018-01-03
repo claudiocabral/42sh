@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 16:06:40 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/03 09:45:12 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/03 14:12:11 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,27 +55,27 @@ t_array			*array_copy(t_array const *src, void *args,
 
 void			array_clear(t_array *array, t_freef free_func)
 {
-	void	**it;
+	void	*it;
 
 	it = array->begin;
 	while (it != array->end)
 	{
-		free_func(*it);
-		ft_bzero(it, array->element_size);
-		it = it + array->element_size;
+		free_func(it);
+		it += array->element_size;
 	}
+	ft_bzero(array->begin, array->end - array->begin);
 	array->end = array->begin;
 }
 
 void			array_free(t_array *array, t_freef free_func)
 {
-	void	**it;
+	void	*it;
 
 	it = array->begin;
 	while (it != array->end)
 	{
-		free_func(*it);
-		it = (void *)it + array->element_size;
+		free_func(it);
+		it += array->element_size;
 	}
 	free(array->begin);
 	free(array);

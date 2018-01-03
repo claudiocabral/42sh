@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:23:10 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 17:57:32 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/03 11:05:50 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int			init_paths(t_array **paths);
 t_string	*binary_path_set_buffer(t_binary_path *path, char const *suffix);
 int			invoke_builtin(t_builtin const *command, char **args);
 int			invoke(char const *process, char **args);
+int			wait_process(pid_t pid);
 char const	*command_name_lookup(char const *name);
 t_builtin	*get_builtin_command(char const *name);
 

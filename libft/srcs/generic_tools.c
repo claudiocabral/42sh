@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   generic_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/15 13:44:19 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/03 14:02:40 by claudioca        ###   ########.fr       */
+/*   Created: 2018/01/02 13:39:29 by claudioca         #+#    #+#             */
+/*   Updated: 2018/01/03 09:44:00 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include <stdlib.h>
+#include <libft.h>
 
-int	builtin_unsetenv(int argc, char **argv);
-int	builtin_setenv(int argc, char **argv);
-int	env(int argc, char **argv);
-int	cd(int argc, char **argv);
-int	echo(int argc, char **argv);
-int	pwd(int argc, char **argv);
-
-#endif
+__attribute__((always_inline))
+void	free_wrapper(void **ptr)
+{
+	free(*ptr);
+}

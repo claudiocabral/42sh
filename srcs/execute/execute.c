@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/19 22:04:04 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/03 14:13:53 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ int		execute_simple_command(t_tree *tree)
 		if (!tmp || !(array_push_back(args, &tmp)))
 		{
 			free(tmp);
-			array_free(args, &free);
+			array_free(args, (t_freef)&free_wrapper);
 			return (1);
 		}
 		++child;
 	}
 	ret = command_dispatch((char **)args->begin);
-	array_free(args, &free);
+	array_free(args, (t_freef)&free_wrapper);
 	return (ret);
 }
 

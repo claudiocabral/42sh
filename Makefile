@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/03 10:32:49 by claudioca        ###   ########.fr        #
+#    Updated: 2018/01/03 11:19:18 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,11 +78,11 @@ $(NAME): $(OBJS) $(LIBFT) $(PRINTF)
 		-ltermcap -lft -lftprintf -o $@
 
 
-objs/%.o: srcs/%.c $(DEPDIR)/%.dep
+objs/%.o: srcs/%.c $(DEPDIR)/%.dep Makefile
 	$(eval DIR := $(dir $@))
 	$(eval CURRENT_DEPDIR := $(DIR:objs/%=$(DEPDIR)/%))
-	[[ -d $(DIR) ]] || mkdir -p $(DIR)
-	[[ -d $(CURRENT_DEPDIR) ]] || mkdir -p $(CURRENT_DEPDIR)
+	@[[ -d $(DIR) ]] || mkdir -p $(DIR)
+	@[[ -d $(CURRENT_DEPDIR) ]] || mkdir -p $(CURRENT_DEPDIR)
 	$(CC) -c $< -o $@ $(CFLAGS) $(INC) $(DEPFLAGS)
 	$(POSTCOMPILE)
 

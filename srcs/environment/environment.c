@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/03 09:50:02 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/03 14:13:00 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int				ft_prepare_env(void)
 	{
 		if (!(tmp = ft_strdup(environ[i])))
 		{
-			array_free(array, &free);
+			array_free(array, (t_freef)&free_wrapper);
 			return (0);
 		}
 		if ((!array_push_back(array, &tmp)))
