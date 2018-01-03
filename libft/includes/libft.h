@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/09 09:25:06 by ccabral           #+#    #+#             */
-/*   Updated: 2017/12/17 16:40:20 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/03 09:42:55 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef void	(*t_applyf)(void *element, void *args);
 typedef void	*(*t_applyf_until)(void *element, void *args);
 typedef int		(*t_cmpf)(void const *, void const *);
 typedef void	(*t_freef)(void *element);
+typedef int		(*t_cpyf)(void *dst, void const *src, void *args);
 
 void			noop(void *any);
 t_list			*ft_lstnew(void const *content, size_t content_size);
@@ -117,5 +118,6 @@ void			ft_quicksort(void **array, int low, int high, t_cmpf cmpf);
 int				ft_nbr_digits(int nbr);
 int				ft_is_whitespace(int c);
 size_t			ft_next_power_of_two(size_t value);
+void			free_wrapper(void **ptr);
 
 #endif

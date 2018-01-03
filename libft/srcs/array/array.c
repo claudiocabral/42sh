@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 16:06:40 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 23:05:28 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/03 09:45:12 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,28 @@ t_array			*array_create(size_t element_size, size_t nbr_elements)
 	array->element_size = element_size;
 	ft_bzero(array->begin, array->capacity + element_size);
 	return (array);
+}
+
+t_array			*array_copy(t_array const *src, void *args,
+										t_cpyf cpyf, t_freef freef)
+{
+	t_array	*dst;
+	void	*src_it;
+
+	ZERO_IF_FAIL(dst = array_create(src->element_size,
+					src->capacity / src->element_size));
+	src_it = src->begin;
+	while (src_it != src->end)
+	{
+		if (!cpyf(dst->end, src_it, args))
+		{
+			array_free(dst, freef);
+			return (0);
+		}
+		src_it += src->element_size;
+		dst->end += src->element_size;
+	}
+	return (dst);
 }
 
 void			array_clear(t_array *array, t_freef free_func)

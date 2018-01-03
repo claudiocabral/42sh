@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 13:01:51 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/19 21:22:14 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/03 10:09:13 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <ft_printf.h>
 #include <ft_string.h>
 #include <environment.h>
+#include <builtins.h>
 
 int	parse_args(int *argc, char ***argv)
 {
@@ -50,11 +51,11 @@ int	cd_chdir(char const *path)
 
 	if (!path)
 		return (1);
-	if ((ret = chdir(path) == 0))
+	if ((ret = chdir(path)) == 0)
 	{
-		if ((ret = setenv("OLDPWD", ft_getenv("PWD"), 1) != 0))
+		if ((ret = ft_setenv("OLDPWD", ft_getenv("PWD"), 1)) != 0)
 			ft_dprintf(2, "cd: failed to updated OLDPWD\n");
-		if ((ret = setenv("PWD", path, 1) != 0))
+		if ((ret = ft_setenv("PWD", path, 1)) != 0)
 			ft_dprintf(2, "cd: failed to updated PWD\n");
 	}
 	else

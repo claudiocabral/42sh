@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/18 12:46:02 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/03 09:50:02 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,6 @@ void			print_env(char const **env, void *dummy)
 	ft_printf("%s\n", *env);
 }
 
-void	free_wrapper(void **ptr)
-{
-	free(*ptr);
-}
-
 __attribute__((always_inline))
 void			environment_remove_if(char const* data, t_predf predicate)
 {
@@ -53,7 +48,7 @@ int				set_current_path(void)
 {
 	char	*path;
 
-	if (!(path = getcwd(0, 0)) || !ft_setenv("PWD", path, 1))
+	if (!(path = getcwd(0, 0)) || ft_setenv("PWD", path, 1) == -1)
 	{
 		ft_dprintf(2, "minishell: error, could not set PWD\n");
 		free(path);
@@ -68,6 +63,20 @@ __attribute__((always_inline))
 char			**get_environment(void)
 {
 	return (g_environ ? g_environ->begin : 0);
+}
+
+int				ft_strdup_wrapper(char **dst, char const * const *src,
+															void *dummy)
+{
+	(void)dummy;
+	ZERO_IF_FAIL(*dst = ft_strdup(*src));
+	return (1);
+}
+
+t_array			*copy_environment(void)
+{
+	return (array_copy(g_environ, 0, (t_cpyf)&ft_strdup_wrapper,
+											(t_freef)free_wrapper));
 }
 
 int				ft_prepare_env(void)
@@ -94,7 +103,7 @@ int				ft_prepare_env(void)
 	return (1);
 }
 
-static char		*make_env(char *name, char *val)
+static char		*make_env(char const *name, char const *val)
 {
 	size_t	size;
 	char	*env;
@@ -121,7 +130,7 @@ char *ft_getenv(char const *env) {
   return (val);
 }
 
-int				ft_setenv(char *name, char *val, int overwrite)
+int				ft_setenv(char const *name, char const *val, int overwrite)
 {
 	char	**env;
 	char	*tmp;
@@ -137,5 +146,5 @@ int				ft_setenv(char *name, char *val, int overwrite)
 	}
 	else
 		array_insert_sorted(g_environ, &tmp, (t_cmpf)&ft_strncmp_wrapper);
-	return (env != 0);
+	return (env != 0 ? 0 : -1);
 }

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:49:51 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 16:15:39 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/03 09:45:03 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ void			*array_find_sorted(t_array *array, void const *element,
 void			array_remove(t_array *array, void *element, t_freef freef);
 void			array_remove_if(t_array *array, void const *data,
 									t_freef freef, t_predf predicate);
+t_array			*array_copy(t_array const *src, void *args,
+										t_cpyf cpyf, t_freef);
 
 #endif
