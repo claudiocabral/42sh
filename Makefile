@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2017/12/17 16:19:27 by claudioca        ###   ########.fr        #
+#    Updated: 2018/01/03 10:32:49 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,13 @@ CC		:=	cc
 CFLAGS	:=	-Wextra -Werror -Wall
 CDEBUG	:=	-g
 
-LIBFT_PATH	:=	libft/
-PRINTF_PATH = 	ft_printf/
+LIBFT_PATH	:=	libft
+PRINTF_PATH = 	ft_printf
+
+DEPDIR := .deps
+$(shell mkdir -p $(DEPDIR) >/dev/null)
+DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.Td
+POSTCOMPILE = @mv -f $(DEPDIR)/$*.Td $(DEPDIR)/$*.dep && touch $@
 
 include $(LIBFT_PATH)/libft.mk
 include $(PRINTF_PATH)/printf.mk
@@ -39,6 +44,7 @@ OBJS	=	objs/main.o \
 			objs/IO/terminal_movement.o \
 			objs/IO/input_handler.o \
 			objs/IO/setup.o \
+			objs/builtins/env.o \
 			objs/builtins/setenv.o \
 			objs/builtins/unsetenv.o \
 			objs/builtins/cd.o \
@@ -72,14 +78,23 @@ $(NAME): $(OBJS) $(LIBFT) $(PRINTF)
 		-ltermcap -lft -lftprintf -o $@
 
 
-objs/%.o: srcs/%.c Makefile
+objs/%.o: srcs/%.c $(DEPDIR)/%.dep
 	$(eval DIR := $(dir $@))
+	$(eval CURRENT_DEPDIR := $(DIR:objs/%=$(DEPDIR)/%))
 	[[ -d $(DIR) ]] || mkdir -p $(DIR)
-	$(CC) -c $< -o $@ $(CFLAGS) $(INC)
+	[[ -d $(CURRENT_DEPDIR) ]] || mkdir -p $(CURRENT_DEPDIR)
+	$(CC) -c $< -o $@ $(CFLAGS) $(INC) $(DEPFLAGS)
+	$(POSTCOMPILE)
+
+$(DEPDIR)/%.dep: ;
+.PRECIOUS: $(DEPDIR)/%.dep
+
+include $(wildcard $(OBJS:objs/%.o=$(DEPDIR)/%.dep))
 
 fclean: clean
 	make $(PRINTF_FCLEAN)
 	make $(LIBFT_FCLEAN)
+	rm -rf $(DEPDIR)
 	rm -rf $(NAME)
 
 clean:

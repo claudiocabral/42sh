@@ -1,8 +1,8 @@
-PRINTF	:=	$(PRINTF_PATH)libftprintf.a
+PRINTF	:=	$(PRINTF_PATH)/libftprintf.a
 PRINTF_FCLEAN := printf_fclean
 PRINTF_CLEAN := printf_clean
-PRINTF_INCLUDES	:=	$(PRINTF_PATH)includes
-PRINTF_OBJS_DIR :=	$(PRINTF_PATH)objs
+PRINTF_INCLUDES	:=	$(PRINTF_PATH)/includes
+PRINTF_OBJS_DIR :=	$(PRINTF_PATH)/objs
 PRINTF_OBJS	:=	$(PRINTF_OBJS_DIR)/ft_printf.o \
 				$(PRINTF_OBJS_DIR)/get_function.o \
 				$(PRINTF_OBJS_DIR)/get_printer.o \
@@ -26,3 +26,8 @@ PRINTF_OBJS	:=	$(PRINTF_OBJS_DIR)/ft_printf.o \
 				$(PRINTF_OBJS_DIR)/checks_0.o \
 				$(PRINTF_OBJS_DIR)/checks_1.o \
 				$(PRINTF_OBJS_DIR)/ft_itoa_base.o
+
+PRINTF_DEPDIR := $(PRINTF_PATH)/.deps
+$(shell mkdir -p $(PRINTF_DEPDIR) >/dev/null)
+PRINTF_DEPFLAGS = -MT $@ -MMD -MP -MF $(PRINTF_DEPDIR)/$*.Td
+PRINTF_POSTCOMPILE = @mv -f $(PRINTF_DEPDIR)/$*.Td $(PRINTF_DEPDIR)/$*.dep && touch $@

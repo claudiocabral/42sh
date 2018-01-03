@@ -6,15 +6,15 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/20 13:13:30 by claudioca         #+#    #+#              #
-#    Updated: 2017/12/17 15:45:25 by claudioca        ###   ########.fr        #
+#    Updated: 2018/01/03 10:35:05 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-LIBFT			:=	$(LIBFT_PATH)libft.a
-LIBFT_FCLEAN := $(LIBFT)_fclean
-LIBFT_CLEAN := $(LIBFT)_clean
-LIBFT_INCLUDES 	:= $(LIBFT_PATH)includes
-LIBFT_OBJ_DIR	:=	$(LIBFT_PATH)objs
+LIBFT			:=	$(LIBFT_PATH)/libft.a
+LIBFT_FCLEAN 	:= $(LIBFT)_fclean
+LIBFT_CLEAN 	:= $(LIBFT)_clean
+LIBFT_INCLUDES 	:= $(LIBFT_PATH)/includes
+LIBFT_OBJ_DIR	:=	$(LIBFT_PATH)/objs
 LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
 				$(LIBFT_OBJ_DIR)/ft_lstnew.o \
 				$(LIBFT_OBJ_DIR)/ft_lstpush_back.o \
@@ -90,6 +90,7 @@ LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
 				$(LIBFT_OBJ_DIR)/ft_toupper.o \
 				$(LIBFT_OBJ_DIR)/ft_nbr_digits.o \
 				$(LIBFT_OBJ_DIR)/ft_next_power_of_two.o \
+				$(LIBFT_OBJ_DIR)/generic_tools.o \
 				$(LIBFT_OBJ_DIR)/ft_is_whitespace.o
 
 LIBFT_ARRAY_OBJS := \

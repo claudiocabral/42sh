@@ -14,7 +14,9 @@ endif
 
 include printf_rules.mk
 
-all: $(NAME)
+all: $(NAME) Makefile
+
+Makefile: printf.mk printf_rules.mk
 
 fclean: $(PRINTF_FCLEAN)
 

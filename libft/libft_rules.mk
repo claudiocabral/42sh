@@ -6,7 +6,7 @@
 #    By: ccabral <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/24 13:19:14 by ccabral           #+#    #+#              #
-#    Updated: 2017/12/11 09:37:37 by claudioca        ###   ########.fr        #
+#    Updated: 2018/01/03 10:42:05 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,12 @@ $(LIBFT_STRING_OBJS)/%.o: $(LIBFT_INCLUDES)/ft_string.h
 $(LIBFT_RING_BUFFER_OBJS)/%.o: $(LIBFT_INCLUDES)/ring_buffer.h
 $(LIBFT_HASH_TABLE_OBJS)/%.o: $(LIBFT_INCLUDES)/hash_table.h
 
-$(LIBFT_OBJ_DIR)/%.o: $(LIBFT_PATH)srcs/%.c $(LIBFT_INCLUDES)/libft.h
+$(LIBFT_OBJ_DIR)/%.o: $(LIBFT_PATH)/srcs/%.c $(LIBFT_INCLUDES)/libft.h
 	@[[ -d $(dir $@ ) ]] || mkdir -p $(dir $@)
 	$(CC) -c $< -o $@ $(CFLAGS) -I$(LIBFT_INCLUDES)
 
 $(LIBFT_CLEAN):
+	rm -rf $(LIBFT_DEPDIR)
 	rm -rf $(LIBFT_OBJ_DIR)
 
 $(LIBFT_FCLEAN): $(LIBFT_CLEAN)

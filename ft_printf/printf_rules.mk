@@ -3,12 +3,17 @@
 $(PRINTF): $(PRINTF_OBJS)
 	ar rcs $(PRINTF) $(PRINTF_OBJS)
 
-$(PRINTF_OBJS_DIR)/%.o: $(PRINTF_PATH)srcs/%.c
+$(PRINTF_OBJS_DIR)/%.o: $(PRINTF_PATH)/srcs/%.c
 	@mkdir -p $(PRINTF_OBJS_DIR)
-	$(CC) -c $< -o $@ $(CFLAGS) -I$(PRINTF_INCLUDES)
+	$(CC) -c $< -o $@ $(CFLAGS) $(PRINTF_DEPFLAGS) -I$(PRINTF_INCLUDES)
+	$(PRINTF_POSTCOMPILE)
+
+$(PRINTF_DEPDIR)/%.dep: ;
+.PRECIOUS: $(PRINTF_DEPDIR)/%.dep
 
 $(PRINTF_FCLEAN): $(PRINTF_CLEAN)
 	rm -rf $(PRINTF)
+	rm -rf $(PRINTF_DEPDIR)
 
 $(PRINTF_CLEAN):
 	rm -rf $(PRINTF_OBJS_DIR)
