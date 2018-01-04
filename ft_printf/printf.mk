@@ -1,3 +1,6 @@
+ifeq ($(PRINTF_PATH),)
+	PRINTF_PATH := .
+endif
 PRINTF	:=	$(PRINTF_PATH)/libftprintf.a
 PRINTF_FCLEAN := printf_fclean
 PRINTF_CLEAN := printf_clean
