@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 16:16:01 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/08 19:22:20 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/04 14:45:35 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int				init_command_table(void)
 	g_command_table[MOVE_LEFT] = tgetstr("LE", 0);
 	g_command_table[MOVE_RIGHT] = tgetstr("RI", 0);
 	g_command_table[DELETE] = tgetstr("DC", 0);
+	g_command_table[DELETE_KEY] = tgetstr("kD", 0);
+	g_command_table[DELETE_KEY][1] = 91;
 	g_command_table[ARROW_UP] = tgetstr("ku", 0);
 	g_command_table[ARROW_DOWN] = tgetstr("kd", 0);
 	g_command_table[ARROW_LEFT] = tgetstr("kl", 0);

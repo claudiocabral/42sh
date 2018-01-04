@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/18 14:55:44 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/04 14:41:47 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef enum	e_terminal_command
 	MOVE_LEFT,
 	MOVE_RIGHT,
 	DELETE,
+	DELETE_KEY,
 	ARROW_UP,
 	ARROW_DOWN,
 	ARROW_LEFT,

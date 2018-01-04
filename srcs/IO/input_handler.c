@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/18 15:00:15 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/04 14:47:01 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,7 @@ static input_handle_t	g_key_map[256] =
 	&terminal_insert,
 	&terminal_insert,
 	&terminal_insert,
-	&terminal_insert,
+	&terminal_delete,
 	&terminal_insert,
 	&terminal_insert,
 	&terminal_insert,
@@ -292,7 +292,9 @@ int			handle_string_input(t_terminal *terminal, char c[16])
 		return (terminal_move_left(terminal, (int)c[0]));
 	else if (terminal_compare_string(ARROW_RIGHT, c))
 		return (terminal_move_right(terminal, (int)c[0]));
-	ft_printf("\n error thingy, stirng is %s\n", c);
+	else if (terminal_compare_string(DELETE_KEY, c))
+		return (terminal_delete(terminal, CTRL_H));
+	ft_printf("\ninput error: unknown key: %s\n", c);
 	return (1);
 }
 
