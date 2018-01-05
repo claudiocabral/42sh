@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap.c                                          :+:      :+:    :+:   */
+/*   median.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/03 09:47:19 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/05 10:38:04 by claudioca        ###   ########.fr       */
+/*   Created: 2018/01/05 10:33:10 by claudioca         #+#    #+#             */
+/*   Updated: 2018/01/05 10:35:19 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include <libft.h>
 
-void	ft_swap(void *a, void *b, void *buffer, size_t size)
+void			*median(void *begin, void *end, size_t size)
 {
-	ft_memcpy(buffer, a, size);
-	ft_memcpy(a, b, size);
-	ft_memcpy(b, buffer, size);
-	ft_bzero(buffer, size);
+	return (begin + ((size_t)(end - begin) / (size * 2)) * size);
 }

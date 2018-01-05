@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 16:06:40 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/03 14:12:11 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/05 10:43:43 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,30 +81,6 @@ void			array_free(t_array *array, t_freef free_func)
 	free(array);
 }
 
-void			array_remove(t_array *array, void *element, t_freef freef)
-{
-	freef(element);
-	ft_memmove(element, element + array->element_size,
-						array->end - element);
-	array->end -= array->element_size;
-}
-
-void			array_remove_if(t_array *array, void const *data,
-											t_freef freef, t_predf predicate)
-{
-	void	*it;
-
-	it = array->begin;
-	while (it != array->end)
-	{
-		if (predicate(it, data))
-		{
-			array_remove(array, it, freef);
-			continue ;
-		}
-		it += array->element_size;
-	}
-}
 
 int				array_increase_capacity(t_array *array)
 {
@@ -118,109 +94,4 @@ int				array_increase_capacity(t_array *array)
 	array->begin = buffer;
 	array->capacity += array->capacity;
 	return (1);
-}
-
-void			*array_push_back(t_array *array, void *element)
-{
-	if (array->capacity <= array->end - array->begin + array->element_size
-		 && !array_increase_capacity(array))
-		return (0);
-	ft_memcpy(array->end, element, array->element_size);
-	array->end = (unsigned char *)array->end + array->element_size;
-	ft_bzero(array->end, array->element_size);
-	return ((unsigned char *)array->end - array->element_size);
-}
-
-void			*array_insert(t_array *array, void *where, void *element)
-{
-	if (array->capacity <= array->end - array->begin + array->element_size
-		 && !array_increase_capacity(array))
-		return (0);
-	ft_memmove(where + array->element_size, where, array->end - where);
-	ft_memcpy(where, element, array->element_size);
-	array->end += array->element_size;
-	ft_bzero(array->end, array->element_size);
-	return (where);
-}
-
-void			*median(void *begin, void *end, size_t size)
-{
-	return (begin + ((size_t)(end - begin) / (size * 2)) * size);
-}
-
-void			*array_find_sorted(t_array *array, void const *element,
-															t_cmpf cmpf)
-{
-	void	*begin;
-	void	*end;
-	void	*middle;
-	int		result;
-
-	begin = array->begin;
-	end = array->end;
-	middle = median(begin, end, array->element_size);
-	while (end > begin)
-	{
-		if ((result = cmpf(element, middle)) == 0)
-			return (middle);
-		else if (result > 0)
-		{
-			if (begin == middle)
-				return (0);
-			begin = middle;
-			middle = median(begin, end, array->element_size);
-		}
-		else if (result < 0)
-		{
-			if (end == middle)
-				return (0);
-			end = middle;
-			middle = median(begin, end, array->element_size);
-		}
-	}
-	return (0);
-}
-
-void			*array_find_insertion_point(t_array *array, void const *element,
-																	t_cmpf cmpf)
-{
-	void	*begin;
-	void	*end;
-	void	*middle;
-	int		result;
-
-	begin = array->begin;
-	end = array->end;
-	middle = median(begin, end, array->element_size);
-	while (end > begin)
-	{
-		if ((result = cmpf(element, middle)) == 0)
-			return (middle);
-		else if (result > 0)
-		{
-			if (begin == middle)
-				break ;
-			begin = middle;
-			middle = median(begin, end, array->element_size);
-		}
-		else if (result < 0)
-		{
-			if (end == middle)
-				return (begin);
-			end = middle;
-			middle = median(begin, end, array->element_size);
-		}
-	}
-	return (begin);
-}
-
-void			*array_insert_sorted(t_array *array, void *element,
-		t_cmpf cmpf)
-{
-	void	*insertion_point;
-	if (array->capacity <= array->end - array->begin + array->element_size
-			&& !array_increase_capacity(array))
-		return (0);
-	insertion_point = array_find_insertion_point(array, element, cmpf);
-	return (array_insert(array, insertion_point, element));
 }

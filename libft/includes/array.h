@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:49:51 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/03 09:45:03 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/05 10:41:24 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void			array_apply(t_array *array, void *args, t_applyf);
 void			array_apply_reverse(t_array *array, void *args, t_applyf);
 void			*array_apply_until(t_array *array, void *args,
 											t_applyf_until applyf);
-void			array_sort(t_array *array, int low, int high, t_cmpf cmpf);
+void			array_sort(t_array *array, t_cmpf cmpf);
 void			*array_find_insertion_point(t_array *array, void const *element,
 																t_cmpf cmpf);
 void			*array_find_sorted(t_array *array, void const *element,

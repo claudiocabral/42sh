@@ -6,16 +6,21 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/20 13:13:30 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/03 10:35:05 by claudioca        ###   ########.fr        #
+#    Updated: 2018/01/05 10:43:54 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-LIBFT			:=	$(LIBFT_PATH)/libft.a
+ifeq ($(LIBFT_PATH),)
+	LIBFT_PATH	:= .
+endif
+
+LIBFT			:= $(LIBFT_PATH)/libft.a
 LIBFT_FCLEAN 	:= $(LIBFT)_fclean
 LIBFT_CLEAN 	:= $(LIBFT)_clean
 LIBFT_INCLUDES 	:= $(LIBFT_PATH)/includes
-LIBFT_OBJ_DIR	:=	$(LIBFT_PATH)/objs
+LIBFT_OBJ_DIR	:= $(LIBFT_PATH)/objs
 LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
+				$(LIBFT_OBJ_DIR)/median.o \
 				$(LIBFT_OBJ_DIR)/ft_lstnew.o \
 				$(LIBFT_OBJ_DIR)/ft_lstpush_back.o \
 				$(LIBFT_OBJ_DIR)/ft_lstdelone.o \
@@ -95,6 +100,8 @@ LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
 
 LIBFT_ARRAY_OBJS := \
 				$(LIBFT_OBJ_DIR)/array/array.o \
+				$(LIBFT_OBJ_DIR)/array/array_insert_remove.o \
+				$(LIBFT_OBJ_DIR)/array/array_sort.o \
 				$(LIBFT_OBJ_DIR)/array/array_apply.o
 
 LIBFT_BTREE_OBJS := \
