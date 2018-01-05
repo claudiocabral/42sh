@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 14:45:43 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 23:20:43 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/05 10:49:02 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,7 @@ void			*hash_table_insert(t_hash_table *table, void *data)
 											table->capacity, data));
 }
 
-void			hash_table_delete(t_hash_table *table, void *data)
-{
-	size_t	index;
-
-	index = hash_table_find_index(table, data);
-	if (index < table->capacity)
-		table->metadata[index] = (uint8_t)hash_deleted;
-}
-
-void			hash_table_dump(t_hash_table *table, t_applyf apply)
+void			hash_table_apply(t_hash_table *table, t_applyf apply)
 {
 	size_t	i;
 

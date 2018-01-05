@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/20 13:13:30 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/05 10:43:54 by claudioca        ###   ########.fr        #
+#    Updated: 2018/01/05 10:49:26 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -124,6 +124,7 @@ LIBFT_STRING_OBJS := \
 
 LIBFT_HASH_TABLE_OBJS := \
 				$(LIBFT_OBJ_DIR)/hash_table/hash_table.o \
+				$(LIBFT_OBJ_DIR)/hash_table/hash_table_free.o \
 				$(LIBFT_OBJ_DIR)/hash_table/hash_table_find.o \
 				$(LIBFT_OBJ_DIR)/hash_table/hash_functions.o \
 				$(LIBFT_OBJ_DIR)/hash_table/hash_murmur.o

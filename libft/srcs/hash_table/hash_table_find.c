@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:13:20 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 23:40:15 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/05 10:49:36 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,4 @@ void			*hash_table_find(t_hash_table *table, void const *data)
 	if (index < table->capacity)
 		return (table->data + index * table->content_size);
 	return (0);
-}
-
-void			hash_table_free(t_hash_table *table, t_freef freef)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < table->capacity)
-	{
-		if (table->metadata[i] != (uint8_t)hash_empty)
-			freef(table->data + i * table->content_size);
-		++i;
-	}
-	free(table->metadata);
 }
