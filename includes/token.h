@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 16:17:12 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/18 16:14:57 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/05 16:15:06 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef enum	e_tag
 	ASSIGNMENT_WORD,
 	NAME,
 	NEWLINE,
+	PIPE,
 	IO_NUMBER,
 	AND_IF,
 	OR_IF,

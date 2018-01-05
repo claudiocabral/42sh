@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/03 11:32:24 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/05 16:37:00 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <array.h>
 #include <tree.h>
 #include <token.h>
+#include <parser.h>
 
 t_tree		*command_name(t_token **current)
 {
@@ -47,7 +48,30 @@ t_tree		*command(t_tree *tree, t_array *tokens, t_token **current)
 
 t_tree		*pipeline_sequence(t_tree *tree, t_array *tokens, t_token **current)
 {
-	return (command(tree, tokens, current));
+	t_tree	*pipe;
+	int		ret;
+
+	ret = 0;
+	while (1)
+	{
+		tree = command(tree, tokens, current);
+		if (*current == tokens->end)
+			break ;
+		if (match(current, PIPE))
+		{
+			if (!(pipe = tree_create_node(*(current - 1), sizeof(t_token))))
+			{
+				ret = -1;
+				break ;
+			}
+		}
+	}
+	if (ret == -1)
+	{
+		tree_free(tree, (t_freef)free_wrapper);
+		return (0);
+	}
+	return (tree);
 }
 
 t_tree		*pipeline(t_tree *tree, t_array *tokens, t_token **current)

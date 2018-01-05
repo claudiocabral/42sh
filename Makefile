@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/05 11:34:04 by claudioca        ###   ########.fr        #
+#    Updated: 2018/01/05 16:34:46 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ OBJS	=	objs/main.o \
 			objs/shellma.o \
 			objs/file/script_session.o \
 			objs/signals/handlers.o \
+			objs/execute/pipe.o \
 			objs/execute/path.o \
 			objs/execute/invoke.o \
 			objs/execute/execute.o \
@@ -39,6 +40,7 @@ OBJS	=	objs/main.o \
 			objs/lexer/token.o \
 			objs/lexer/token_identifier.o \
 			objs/parser/parser.o \
+			objs/parser/match.o \
 			objs/IO/interactive_session.o \
 			objs/IO/terminal_commands.o \
 			objs/IO/terminal_movement.o \
