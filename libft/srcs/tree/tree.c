@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 15:30:59 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/18 16:18:39 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/05 16:38:05 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,41 @@ void			tree_apply_infix(t_tree *node, void *args, t_applyf applyf)
 		++child;
 	}
 	applyf(node->element, args);
+}
+
+void			tree_free_children(t_tree *root, t_freef freef)
+{
+	t_tree	**child;
+
+	if (root)
+	{
+		child = (t_tree **)root->children->begin;
+		while (child != root->children->end)
+		{
+			tree_free_children(*child, freef);
+			freef((*child)->element);
+			++child;
+		}
+		array_free(root->children, (t_freef)&free_wrapper);
+		freef(root->element);
+	}
+}
+
+void			tree_free(t_tree *root, t_freef freef)
+{
+	t_tree	**child;
+
+	if (root)
+	{
+		child = (t_tree **)root->children->begin;
+		while (child != root->children->end)
+		{
+			tree_free_children(*child, freef);
+			freef((*child)->element);
+			++child;
+		}
+		array_free(root->children, (t_freef)&free_wrapper);
+		freef(root->element);
+		free(root);
+	}
 }

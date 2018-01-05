@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 11:25:49 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/09 14:45:25 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/05 16:36:45 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ typedef struct	s_tree
 t_tree			*tree_create_node(void *element, size_t element_size);
 t_tree			*tree_add_child(t_tree *parent, t_tree *child);
 void			tree_apply_infix(t_tree *node, void *args, t_applyf applyf);
+void			tree_free(t_tree *root, t_freef freef);
 
 #endif

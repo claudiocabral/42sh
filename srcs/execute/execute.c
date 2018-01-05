@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/03 14:13:53 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/05 16:39:41 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int		execute_simple_command(t_tree *tree)
 		++child;
 	}
 	ret = command_dispatch((char **)args->begin);
+	tree_free(tree, (t_freef)&noop);
 	array_free(args, (t_freef)&free_wrapper);
 	return (ret);
 }
