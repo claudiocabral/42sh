@@ -6,7 +6,8 @@ PRINTF_FCLEAN := printf_fclean
 PRINTF_CLEAN := printf_clean
 PRINTF_INCLUDES	:=	$(PRINTF_PATH)/includes
 PRINTF_OBJS_DIR :=	$(PRINTF_PATH)/objs
-PRINTF_OBJS	:=	$(PRINTF_OBJS_DIR)/ft_printf.o \
+PRINTF_OBJS	:=	\
+				$(PRINTF_OBJS_DIR)/ft_printf.o \
 				$(PRINTF_OBJS_DIR)/get_function.o \
 				$(PRINTF_OBJS_DIR)/get_printer.o \
 				$(PRINTF_OBJS_DIR)/modifiers.o \
@@ -32,4 +33,4 @@ PRINTF_OBJS	:=	$(PRINTF_OBJS_DIR)/ft_printf.o \
 
 PRINTF_DEPDIR := $(PRINTF_PATH)/.deps
 PRINTF_DEPFLAGS = -MT $@ -MMD -MP -MF $(PRINTF_DEPDIR)/$*.Td
-PRINTF_POSTCOMPILE = @mv -f $(PRINTF_DEPDIR)/$*.Td $(PRINTF_DEPDIR)/$*.dep && touch $@
+PRINTF_POSTCOMPILE = mv -f $(PRINTF_DEPDIR)/$*.Td $(PRINTF_DEPDIR)/$*.dep && touch $@

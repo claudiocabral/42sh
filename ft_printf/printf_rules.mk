@@ -4,18 +4,19 @@ $(PRINTF): $(PRINTF_OBJS)
 	ar rcs $(PRINTF) $(PRINTF_OBJS)
 
 $(PRINTF_OBJS_DIR)/%.o: $(PRINTF_PATH)/srcs/%.c \
-						 | $(dir $(PRINTF_OBJS_DIR)/%.o) \
-						 $(dir $(PRINTF_DEPDIR)/%.dep)
+						| $(dir $(PRINTF_OBJS_DIR)/%.o) \
+						 $(PRINTF_DEPDIR)
 	$(CC) -c $< -o $@ $(CFLAGS) $(PRINTF_DEPFLAGS) -I$(PRINTF_INCLUDES)
-	$(PRINTF_POSTCOMPILE)
+	@$(PRINTF_POSTCOMPILE)
 
-$(dir $(PRINTF_OBJS_DIR)/%.o):
-	mkdir -p $(dir $(PRINTF_OBJS_DIR)/%.o)
+$(PRINTF_DEPDIR)/%.dep: ;
 
-$(PRINTF_DEPDIR)/%.dep: $(dir $(PRINTF_DEPDIR)/%.dep) ;
 .PRECIOUS: $(PRINTF_DEPDIR)/%.dep
 
-$(dir $(PRINTF_DEPDIR)/%.dep):
+$(dir $(PRINTF_OBJS_DIR)/%.o):
+	mkdir -p $@
+
+$(PRINTF_DEPDIR):
 	mkdir -p $@
 
 include $(wildcard $(PRINTF_OBJS:$(PRINTF_OBJS_DIR)/%.o=$(PRINTF_DEPDIR)/%.dep))

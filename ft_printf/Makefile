@@ -22,4 +22,6 @@ fclean: $(PRINTF_FCLEAN)
 
 clean: $(PRINTF_CLEAN)
 
-re: fclean all
+re:
+	$(MAKE) $(PRINTF_FCLEAN)
+	$(MAKE) $(NAME)
