@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/19 22:26:43 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/05 11:24:24 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <signal_handlers.h>
 #include <signal.h>
 #include <term.h>
+#include <environment.h>
 #include <io.h>
 
 void				quit(void)
@@ -32,7 +33,18 @@ void				quit(void)
 
 void				print_prompt(t_terminal *terminal)
 {
-	ft_printf("%s", terminal->prompt);
+	char const	*path;
+
+	path = ft_getenv("PWD");
+	if (ft_strcmp(path, "/"))
+	{
+		path = path ? ft_strrchr(path, '/') : 0 ;
+		path = path ? path + 1 : 0 ;
+	}
+	terminal->prompt_size = ft_printf("%s%c%s", path ? path : "",
+												path ? ' ' : 0,
+												terminal->prompt);
+	terminal->cursor = terminal->prompt_size;
 }
 
 static char	const	*prompt(t_terminal *terminal)

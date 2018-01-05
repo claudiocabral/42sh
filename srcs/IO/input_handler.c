@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/04 14:47:01 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/05 10:57:35 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,113 +17,6 @@
 #include <signal_handlers.h>
 #include <ring_buffer.h>
 #include <ft_printf.h>
-
-typedef int				(*input_handle_t)(t_terminal *, int character);
-
-int			auto_complete(t_terminal *terminal, int c)
-{
-	(void)c;
-	(void)terminal;
-	return (1);
-}
-
-int						terminal_insert(t_terminal *terminal, int c)
-{
-	terminal_command(INSERT, 1);
-	write(terminal->tty, &c, 1);
-	if (!string_insert(terminal->line, c,
-				terminal->cursor - terminal->prompt_size))
-		return (-1);
-	terminal->cursor++;
-	return (1);
-}
-
-int						terminal_EOF(t_terminal *terminal, int c)
-{
-	if (terminal->line->buffer[terminal->cursor - terminal->prompt_size] == '\\')
-		return (terminal_insert(terminal, c));
-	write(terminal->tty, &c, 1);
-	return (0);
-}
-
-int						terminal_exit(t_terminal *terminal, int c)
-{
-	(void)c;
-	(void)terminal;
-	quit();
-	return (1);
-}
-
-int						terminal_delete(t_terminal *terminal, int c)
-{
-	c = CTRL_H;
-	if (terminal->cursor == terminal->prompt_size)
-		return (1);
-	write(terminal->tty, &c, 1);
-	terminal_command(DELETE, 1);
-	string_delete(terminal->line, terminal->cursor - terminal->prompt_size - 1);
-	terminal->cursor--;
-	return (1);
-}
-
-int						terminal_delete_word(t_terminal *terminal, int c)
-{
-	while (terminal->cursor != terminal->prompt_size &&
-			ft_is_whitespace(terminal->line->buffer
-			[terminal->cursor - terminal->prompt_size - 1]))
-		terminal_delete(terminal, c);
-	while (terminal->cursor != terminal->prompt_size &&
-			!ft_is_whitespace(terminal->line->buffer
-			[terminal->cursor - terminal->prompt_size - 1]))
-		terminal_delete(terminal, c);
-	return (1);
-}
-
-int						terminal_delete_until_EOL(t_terminal *terminal, int c)
-{
-	int		current_position;
-
-	current_position = terminal->cursor;
-	terminal_EOL(terminal, c);
-	while (terminal->cursor > current_position)
-		terminal_delete(terminal, CTRL_H);
-	return (1);
-}
-
-int						terminal_kill_line(t_terminal *terminal, int c)
-{
-	terminal_BOL(terminal, c);
-	terminal_delete_until_EOL(terminal, c);
-	ft_printf("\n%s", terminal->prompt);
-	terminal->cursor = terminal->prompt_size;
-	return (1);
-}
-
-int						history_previous(t_terminal *terminal, int c)
-{
-	(void)c;
-	terminal_BOL(terminal, 0);
-	terminal_delete_until_EOL(terminal, 0);
-	string_copy(terminal->line,
-			(t_string *)ring_buffer_previous(terminal->history));
-	terminal_command(INSERT, terminal->line->size);
-	write(terminal->tty, terminal->line->buffer, terminal->line->size);
-	terminal->cursor += terminal->line->size;
-	return (1);
-}
-
-int						history_next(t_terminal *terminal, int c)
-{
-	(void)c;
-	terminal_BOL(terminal, 0);
-	terminal_delete_until_EOL(terminal, 0);
-	string_copy(terminal->line,
-			(t_string *)ring_buffer_next(terminal->history));
-	terminal_command(INSERT, terminal->line->size);
-	write(terminal->tty, terminal->line->buffer, terminal->line->size);
-	terminal->cursor += terminal->line->size;
-	return (1);
-}
 
 static input_handle_t	g_key_map[256] =
 {
@@ -260,28 +153,7 @@ static input_handle_t	g_key_map[256] =
 	&terminal_insert,
 };
 
-int			terminal_move_left(t_terminal *terminal, int c)
-{
-	(void)c;
-	if (terminal->cursor == terminal->prompt_size)
-		return (1);
-	terminal_command(MOVE_LEFT, 1);
-	terminal->cursor--;
-	return (1);
-}
 
-int			terminal_move_right(t_terminal *terminal, int c)
-{
-	(void)c;
-	if ((unsigned int)terminal->cursor
-			== terminal->prompt_size + terminal->line->size)
-		return (1);
-	terminal_command(MOVE_RIGHT, 1);
-	terminal->cursor++;
-	return (1);
-}
-
-#include <ft_printf.h>
 int			handle_string_input(t_terminal *terminal, char c[16])
 {
 	if (terminal_compare_string(ARROW_UP, c))

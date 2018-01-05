@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/04 16:42:30 by claudioca        ###   ########.fr        #
+#    Updated: 2018/01/05 11:15:43 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,10 @@ OBJS	=	objs/main.o \
 			objs/IO/interactive_session.o \
 			objs/IO/terminal_commands.o \
 			objs/IO/terminal_movement.o \
+			objs/IO/terminal_insert.o \
+			objs/IO/terminal_delete.o \
+			objs/IO/auto_complete.o \
+			objs/IO/history.o \
 			objs/IO/input_handler.o \
 			objs/IO/setup.o \
 			objs/builtins/env.o \

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 09:19:57 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/06 12:29:16 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/05 10:57:34 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,31 @@ int		terminal_EOL(t_terminal *terminal, int c)
 	return (1);
 }
 
-int		terminal_cancel_line(t_terminal *terminal, int c)
+int			terminal_move_left(t_terminal *terminal, int c)
 {
 	(void)c;
-	write(terminal->tty, "\n", 1);
-	terminal_command(MOVE_LEFT, terminal->cursor);
-	string_clear(terminal->line);
-	terminal->cursor = terminal->prompt_size;
-	write(terminal->tty, terminal->prompt, terminal->prompt_size);
+	if (terminal->cursor == terminal->prompt_size)
+		return (1);
+	terminal_command(MOVE_LEFT, 1);
+	terminal->cursor--;
+	return (1);
+}
+
+int			terminal_move_right(t_terminal *terminal, int c)
+{
+	(void)c;
+	if ((unsigned int)terminal->cursor
+			== terminal->prompt_size + terminal->line->size)
+		return (1);
+	terminal_command(MOVE_RIGHT, 1);
+	terminal->cursor++;
+	return (1);
+}
+
+int						terminal_exit(t_terminal *terminal, int c)
+{
+	(void)c;
+	(void)terminal;
+	quit();
 	return (1);
 }
