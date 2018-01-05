@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/18 16:27:16 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/05 11:31:41 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,6 @@
 #include <array.h>
 #include <token.h>
 #include <ft_printf.h>
-
-int			add_token(t_array *tokens, t_tag type, char const *begin,
-															size_t size)
-{
-	t_token	token;
-
-	fill_token(&token, type, begin, size);
-	if (array_push_back(tokens, &token))
-		return (1);
-	return (0);
-}
 
 int			lex_quote(t_array *tokens, char const *input, int start)
 {
@@ -88,16 +77,6 @@ int			lex_digit(t_array *tokens, char const *input, int start)
 	return (lex_token(tokens, input, start, pos));
 }
 
-int			push_newline_token(t_array *tokens, char const *input, int start)
-{
-	t_token	token;
-
-	fill_token(&token, NEWLINE, input + start, 1);
-	if (!array_push_back(tokens, &token))
-		return (-1);
-	return (start + 1);
-}
-
 int			lex_text(t_array *tokens, char const *input, int start)
 {
 	while (input[start])
@@ -120,19 +99,4 @@ int			lex_text(t_array *tokens, char const *input, int start)
 			return (-1);
 	}
 	return (1);
-}
-
-t_array		*lex(char const *input)
-{
-	t_array	*tokens;
-
-	if (!(tokens = array_create(sizeof(t_token), 128)))
-		return (0);
-	if (lex_text(tokens, input, 0) == -1)
-	{
-		ft_dprintf(2, "lexing error\n");
-		array_free(tokens, &noop);
-		return (0);
-	}
-	return (tokens);
 }

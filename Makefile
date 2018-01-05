@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/05 11:15:43 by claudioca        ###   ########.fr        #
+#    Updated: 2018/01/05 11:34:04 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ OBJS	=	objs/main.o \
 			objs/execute/execute.o \
 			objs/execute/command_name_lookup.o \
 			objs/lexer/lexer.o \
+			objs/lexer/lex.o \
 			objs/lexer/expansion.o \
 			objs/lexer/token.o \
 			objs/lexer/token_identifier.o \
