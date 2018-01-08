@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 14:06:17 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 17:50:14 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/08 18:08:54 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <execute.h>
 
 int	main(int argc, char **argv) {
-	if (!ft_prepare_env() || ! init_path_table())
+	if (!ft_prepare_env() || !init_path_table())
 	{
 		ft_dprintf(2, "minishell: failed to setup environment\n");
 		return (1);

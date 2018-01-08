@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/03 14:13:00 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/08 18:24:59 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int				set_current_path(void)
 {
 	char	*path;
 
-	if (!(path = getcwd(0, 0)) || ft_setenv("PWD", path, 1) == -1)
+	if ((!(path = getcwd(0, 0))) || (ft_setenv("PWD", path, 1) == -1))
 	{
-		ft_dprintf(2, "minishell: error, could not set PWD\n");
+		ft_dprintf(2, "minishell: error, could not set PWD to %s\n", path);
 		free(path);
 		return (0);
 	}
@@ -117,12 +117,13 @@ static char		*make_env(char const *name, char const *val)
 	return (env);
 }
 
-char *ft_getenv(char const *env) {
+char			*ft_getenv(char const *env) {
   char **ptr;
   char *val;
 
   val = 0;
   ptr = array_find_sorted(g_environ, &env, (t_cmpf)&ft_strncmp_wrapper);
+  ft_printf("ptr is %p\n", ptr);
   if (ptr) {
     val = ft_strchr(*ptr, '=');
     val = val ? val + 1 : 0;
@@ -145,6 +146,7 @@ int				ft_setenv(char const *name, char const *val, int overwrite)
 		*env = tmp;
 	}
 	else
-		array_insert_sorted(g_environ, &tmp, (t_cmpf)&ft_strncmp_wrapper);
+		env = array_insert_sorted(g_environ, &tmp,
+										(t_cmpf)&ft_strncmp_wrapper);
 	return (env != 0 ? 0 : -1);
 }
