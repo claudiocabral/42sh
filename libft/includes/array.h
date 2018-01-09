@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:49:51 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 10:41:24 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/09 12:15:17 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void			*array_find_insertion_point(t_array *array, void const *element,
 																t_cmpf cmpf);
 void			*array_find_sorted(t_array *array, void const *element,
 																t_cmpf cmpf);
+void			*array_find(t_array *array, void *data, t_cmpf cmpf);
 void			array_remove(t_array *array, void *element, t_freef freef);
 void			array_remove_if(t_array *array, void const *data,
 									t_freef freef, t_predf predicate);

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/08 18:24:59 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/09 12:23:55 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,7 @@ char			*ft_getenv(char const *env) {
   char *val;
 
   val = 0;
-  ptr = array_find_sorted(g_environ, &env, (t_cmpf)&ft_strncmp_wrapper);
-  ft_printf("ptr is %p\n", ptr);
+  ptr = array_find(g_environ, &env, (t_cmpf)&ft_strncmp_wrapper);
   if (ptr) {
     val = ft_strchr(*ptr, '=');
     val = val ? val + 1 : 0;

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 13:50:55 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/08 18:24:12 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/09 12:24:28 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int	hash_paths(t_array *paths)
 	t_binary_path	*tmp;
 
 	ZERO_IF_FAIL(begin = ft_getenv("PATH"));
-	ft_printf("got this far...\n");
 	while ((end = ft_strchr(begin, ':')))
 	{
 		tmp = make_path_entry(begin, end - begin);
