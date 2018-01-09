@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 16:39:41 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/09 14:03:56 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,32 @@
 #include <token.h>
 #include <environment.h>
 
+void	remove_backslash(char *str)
+{
+	while (*str)
+	{
+		if (*str == '\\')
+		{
+			ft_memmove(str, str + sizeof(char), ft_strlen(str));
+			if (!*str)
+				break ;
+		}
+		++str;
+	}
+}
+
 char	*token_get_value(t_token *token)
 {
+	char	*str;
+
 	if (token->begin)
-		return (ft_strndup(token->begin, token->size));
-	return (ft_strdup(""));
+		str = ft_strndup(token->begin, token->size);
+	else
+		str = ft_strdup("");
+	if (!str)
+		return (0);
+	remove_backslash(str);
+	return (str);
 }
 
 int		command_dispatch(char **argv)
@@ -98,9 +119,24 @@ int		execute_simple_command(t_tree *tree)
 	return (ret);
 }
 
+int		execute_commands(t_tree *tree)
+{
+	t_tree		**child;
+	int			ret;
+
+	child = (t_tree **)tree->children->begin;
+	while (child != tree->children->end)
+	{
+		if (*child)
+			ret = execute_simple_command(*child);
+		++child;
+	}
+	return (ret);
+}
+
 int		execute(t_tree *tree)
 {
 	if (tree)
-		return (execute_simple_command(tree));
+		return (execute_commands(tree));
 	return (0);
 }

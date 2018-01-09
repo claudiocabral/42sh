@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/09 12:23:55 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/09 13:07:28 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int				ft_setenv(char const *name, char const *val, int overwrite)
 	char	**env;
 	char	*tmp;
 
-	env = array_find_sorted(g_environ, &name, (t_cmpf)&ft_strncmp_wrapper);
+	env = array_find(g_environ, &name, (t_cmpf)&ft_strncmp_wrapper);
 	if (!overwrite && env)
 		return (1);
 	ZERO_IF_FAIL(tmp = make_env(name, val));

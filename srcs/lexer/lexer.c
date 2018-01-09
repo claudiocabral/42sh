@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 11:31:41 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/09 13:57:25 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int			lex_operator(t_array *tokens, char const *input, int start)
 int			lex_token(t_array *tokens, char const *input, int start, int pos)
 {
 
-	while (input[pos] && !token_delimiter(input[pos]))
+	while (input[pos])
 	{
 		if (input[pos] == '\\')
 		{
@@ -54,6 +54,8 @@ int			lex_token(t_array *tokens, char const *input, int start, int pos)
 			if (!input[pos])
 				break ;
 		}
+		else if (token_delimiter(input[pos]))
+			break ;
 		++pos;
 	}
 	if (add_token(tokens, TOKEN, input + start, pos - start))

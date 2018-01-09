@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 16:37:00 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/09 13:53:33 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,28 @@ t_tree		*simple_command(t_array *tokens, t_token **current)
 	token = emit_token(SIMPLE_COMMAND, 0, 0, 0);
 	ZERO_IF_FAIL(tree = tree_create_node(&token, sizeof(t_token)));
 	tree_add_child(tree, command_name(current));
-	while(*current != tokens->end)
+	while(*current != tokens->end && !match(current, SEMICOLON))
+	{
 		tree_add_child(tree, command_name(current));
+	}
 	return (tree);
 }
 
 t_tree		*command(t_tree *tree, t_array *tokens, t_token **current)
 {
+	t_token		token;
+	t_tree	*commands;
+
 	(void)tree;
-	return (simple_command(tokens, current));
+	token = emit_token(SIMPLE_COMMAND, 0, 0, 0);
+	commands = tree_create_node(&tokens, sizeof(t_token));
+	while(*current != tokens->end)
+	{
+		if (match(current, SEMICOLON))
+			continue ;
+		tree_add_child(commands, simple_command(tokens, current));
+	}
+	return (commands);
 }
 
 t_tree		*pipeline_sequence(t_tree *tree, t_array *tokens, t_token **current)
@@ -113,7 +126,11 @@ t_tree	*parse(t_array *tokens)
 	tree = 0;
 	current = (t_token *)(tokens->begin);
 	while (current != tokens->end)
+	{
+		if (match(&current, SEMICOLON))
+			continue ;
 		tree = tree_add_child(tree, complete_command(0, tokens, &current));
+	}
 	array_free(tokens, &noop);
 	ZERO_IF_FAIL(tree);
 	return (tree);
