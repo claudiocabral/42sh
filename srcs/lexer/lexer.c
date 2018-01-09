@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/09 13:57:25 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/09 17:51:38 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int			lex_operator(t_array *tokens, char const *input, int start)
 		ret = add_token(tokens, SEMICOLON, input + start, 1);
 	else if (input[start] == '&')
 		ret = add_token(tokens, AND, input + start, 1);
+	else if (input[start] == '|')
+		ret = add_token(tokens, PIPE, input + start, 1);
 	if (ret)
 		return (start + 1);
 	return (-1);

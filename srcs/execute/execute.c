@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/09 14:03:56 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/09 17:57:25 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,9 @@ int		execute_commands(t_tree *tree)
 
 int		execute(t_tree *tree)
 {
-	if (tree)
+	if (((t_token *)tree->element)->type == SIMPLE_COMMAND)
 		return (execute_commands(tree));
+	else if (((t_token *)tree->element)->type == PIPE)
+		return (execute_pipe(tree));
 	return (0);
 }

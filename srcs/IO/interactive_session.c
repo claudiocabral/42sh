@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 11:24:24 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/09 14:23:30 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void				quit(void)
 	t_terminal	*terminal;
 
 	terminal = get_terminal(0);
+	termios_toggle_isig(terminal, 1);
 	write(terminal->tty, "\n", 1);
 	free_terminal(terminal);
 	exit(0);
