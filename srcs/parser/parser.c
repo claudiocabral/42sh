@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/09 13:53:33 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/10 18:41:27 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,13 @@ t_tree		*simple_command(t_array *tokens, t_token **current)
 	token = emit_token(SIMPLE_COMMAND, 0, 0, 0);
 	ZERO_IF_FAIL(tree = tree_create_node(&token, sizeof(t_token)));
 	tree_add_child(tree, command_name(current));
-	while(*current != tokens->end && !match(current, SEMICOLON))
+	while(*current != tokens->end)
 	{
+		if (match(current, SEMICOLON, PIPE, SENTINEL))
+		{
+			--(*current);
+			return (tree);
+		}
 		tree_add_child(tree, command_name(current));
 	}
 	return (tree);
@@ -47,16 +52,21 @@ t_tree		*command(t_tree *tree, t_array *tokens, t_token **current)
 	t_token		token;
 	t_tree	*commands;
 
-	(void)tree;
-	token = emit_token(SIMPLE_COMMAND, 0, 0, 0);
-	commands = tree_create_node(&tokens, sizeof(t_token));
+	token = emit_token(COMMANDS, 0, 0, 0);
+	commands = tree_create_node(&token, sizeof(t_token));
 	while(*current != tokens->end)
 	{
-		if (match(current, SEMICOLON))
+		if (match(current, SEMICOLON, SENTINEL))
 			continue ;
+		if (match(current, PIPE, SENTINEL))
+		{
+			--(*current);
+			break ;
+		}
 		tree_add_child(commands, simple_command(tokens, current));
 	}
-	return (commands);
+	tree = tree_add_child(tree, commands);
+	return (tree);
 }
 
 t_tree		*pipeline_sequence(t_tree *tree, t_array *tokens, t_token **current)
@@ -70,19 +80,11 @@ t_tree		*pipeline_sequence(t_tree *tree, t_array *tokens, t_token **current)
 		tree = command(tree, tokens, current);
 		if (*current == tokens->end)
 			break ;
-		if (match(current, PIPE))
+		if (match(current, PIPE, SENTINEL))
 		{
-			if (!(pipe = tree_create_node(*(current - 1), sizeof(t_token))))
-			{
-				ret = -1;
-				break ;
-			}
+			pipe = tree_create_node(*(current) - 1, sizeof(t_token));
+			tree = tree_add_child(pipe, tree);
 		}
-	}
-	if (ret == -1)
-	{
-		tree_free(tree, (t_freef)free_wrapper);
-		return (0);
 	}
 	return (tree);
 }
@@ -127,7 +129,7 @@ t_tree	*parse(t_array *tokens)
 	current = (t_token *)(tokens->begin);
 	while (current != tokens->end)
 	{
-		if (match(&current, SEMICOLON))
+		if (match(&current, SEMICOLON, SENTINEL))
 			continue ;
 		tree = tree_add_child(tree, complete_command(0, tokens, &current));
 	}

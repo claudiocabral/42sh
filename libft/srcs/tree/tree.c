@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 15:30:59 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 16:38:05 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/10 15:41:36 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_tree			*tree_create_node(void *element, size_t element_size)
 
 	ZERO_IF_FAIL(element == 0 || element_size == 0
 			|| (tree = (t_tree *)malloc(sizeof(t_tree) + element_size)));
-	tree->element = (t_array *)((char *)tree + sizeof(t_tree));
+	tree->element = ((void *)tree + sizeof(t_tree));
 	if (!(tree->children = array_create(sizeof(t_tree *), 8)))
 	{
 		free(tree);

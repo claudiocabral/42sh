@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 16:17:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 16:15:06 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/10 16:27:58 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 
 typedef enum	e_tag
 {
-	TOKEN_NIL = 0,
-	SIMPLE_COMMAND = 1,
-	TOKEN = 2,
+	COMMANDS = 0,
+	TOKEN_NIL,
+	SIMPLE_COMMAND,
+	TOKEN,
 	WORD,
 	ASSIGNMENT_WORD,
 	NAME,
@@ -58,7 +59,8 @@ typedef enum	e_tag
 	LESS,
 	GREATER,
 	BANG,
-	IN
+	IN,
+	SENTINEL
 }				t_tag;
 
 typedef struct	s_token
