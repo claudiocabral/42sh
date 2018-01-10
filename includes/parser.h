@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 16:35:01 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/10 16:31:44 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/10 20:04:52 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include <token.h>
 
-int	match(t_token **token, ...);
+int		match(t_token **token, ...);
 
 #endif
