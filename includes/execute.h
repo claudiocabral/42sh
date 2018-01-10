@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:23:10 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/10 20:04:50 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/10 22:42:37 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int			invoke(char const *process, char **args);
 int			wait_process(pid_t pid);
 char const	*command_name_lookup(char const *name);
 t_builtin	*get_builtin_command(char const *name);
+int			dispatch_branch(t_tree *tree);
 int			command_dispatch(char **argv);
 int			execute_commands(t_tree *tree);
 int			execute_simple_command(t_tree *tree);

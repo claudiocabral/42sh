@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/09 14:23:30 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/10 22:32:21 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ void				print_prompt(t_terminal *terminal)
 	terminal->cursor = terminal->prompt_size;
 }
 
+#include <ft_printf.h>
+
 static char	const	*prompt(t_terminal *terminal)
 {
-	size_t		size;
-	char		c[16];
+	int		size;
+	char	c[16];
 
 	ring_buffer_push_empty(terminal->history);
 	terminal->line = (t_string*)terminal->history->current;
@@ -59,6 +61,11 @@ static char	const	*prompt(t_terminal *terminal)
 	print_prompt(terminal);
 	while ((size = read(terminal->tty, c, 15)))
 	{
+		if (size == -1)
+		{
+			ft_printf("error\n");
+			quit();
+		}
 		c[size] = 0;
 		if (handle_input(terminal, c) == 0)
 			break ;

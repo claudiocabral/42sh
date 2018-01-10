@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/10 17:29:15 by ccabral          ###   ########.fr        #
+#    Updated: 2018/01/10 22:42:54 by claudioca        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ OBJS	=	objs/main.o \
 			objs/shellma.o \
 			objs/file/script_session.o \
 			objs/signals/handlers.o \
+			objs/execute/dispatch_branch.o \
 			objs/execute/pipe.o \
 			objs/execute/path.o \
 			objs/execute/invoke.o \
