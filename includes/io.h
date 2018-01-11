@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 11:14:27 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/11 16:59:35 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct	s_terminal
 	struct termios	custom;
 }				t_terminal;
 
-typedef int				(*input_handle_t)(t_terminal *, int character);
+typedef int				(*t_input_handle)(t_terminal *, int character);
 
 int				init_command_table(void);
 int				handle_input(t_terminal *terminal, char c[16]);
@@ -87,21 +87,21 @@ void			set_termios(struct termios *termios);
 int				terminal_compare_string(t_terminal_command command,
 														char const *str);
 void			terminal_command(t_terminal_command command, int val);
-int				terminal_BOL(t_terminal *terminal, int c);
-int				terminal_EOL(t_terminal *terminal, int c);
+int				terminal_bol(t_terminal *terminal, int c);
+int				terminal_eol(t_terminal *terminal, int c);
 int				terminal_cancel_line(t_terminal *terminal, int c);
 int				terminal_move_left(t_terminal *terminal, int c);
 int				terminal_move_right(t_terminal *terminal, int c);
 int				terminal_exit(t_terminal *terminal, int c);
 int				terminal_delete(t_terminal *terminal, int c);
 int				terminal_delete_word(t_terminal *terminal, int c);
-int				terminal_delete_until_EOL(t_terminal *terminal, int c);
+int				terminal_delete_until_eol(t_terminal *terminal, int c);
 int				terminal_kill_line(t_terminal *terminal, int c);
 int				terminal_cancel_line(t_terminal *terminal, int c);
 int				history_previous(t_terminal *terminal, int c);
 int				history_next(t_terminal *terminal, int c);
 int				terminal_insert(t_terminal *terminal, int c);
-int				terminal_EOF(t_terminal *terminal, int c);
+int				terminal_eof(t_terminal *terminal, int c);
 int				auto_complete(t_terminal *terminal, int c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 09:19:57 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 10:57:34 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/11 17:01:11 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <ft_string.h>
 #include <unistd.h>
 
-int		terminal_BOL(t_terminal *terminal, int c)
+int		terminal_bol(t_terminal *terminal, int c)
 {
 	(void)c;
 	if (terminal->cursor == terminal->prompt_size)
@@ -24,7 +24,7 @@ int		terminal_BOL(t_terminal *terminal, int c)
 	return (1);
 }
 
-int		terminal_EOL(t_terminal *terminal, int c)
+int		terminal_eol(t_terminal *terminal, int c)
 {
 	(void)c;
 	if ((unsigned long)terminal->cursor

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:50:47 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 11:15:21 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/11 16:59:54 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ int						terminal_delete_word(t_terminal *terminal, int c)
 	return (1);
 }
 
-int						terminal_delete_until_EOL(t_terminal *terminal, int c)
+int						terminal_delete_until_eol(t_terminal *terminal, int c)
 {
 	int		current_position;
 
 	current_position = terminal->cursor;
-	terminal_EOL(terminal, c);
+	terminal_eol(terminal, c);
 	while (terminal->cursor > current_position)
 		terminal_delete(terminal, CTRL_H);
 	return (1);
@@ -52,8 +52,8 @@ int						terminal_delete_until_EOL(t_terminal *terminal, int c)
 
 int						terminal_kill_line(t_terminal *terminal, int c)
 {
-	terminal_BOL(terminal, c);
-	terminal_delete_until_EOL(terminal, c);
+	terminal_bol(terminal, c);
+	terminal_delete_until_eol(terminal, c);
 	ft_printf("\n%s", terminal->prompt);
 	terminal->cursor = terminal->prompt_size;
 	return (1);

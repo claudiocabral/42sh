@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:52:09 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 11:15:52 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/11 17:00:10 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 int						history_previous(t_terminal *terminal, int c)
 {
 	(void)c;
-	terminal_BOL(terminal, 0);
-	terminal_delete_until_EOL(terminal, 0);
+	terminal_bol(terminal, 0);
+	terminal_delete_until_eol(terminal, 0);
 	string_copy(terminal->line,
 			(t_string *)ring_buffer_previous(terminal->history));
 	terminal_command(INSERT, terminal->line->size);
@@ -29,8 +29,8 @@ int						history_previous(t_terminal *terminal, int c)
 int						history_next(t_terminal *terminal, int c)
 {
 	(void)c;
-	terminal_BOL(terminal, 0);
-	terminal_delete_until_EOL(terminal, 0);
+	terminal_bol(terminal, 0);
+	terminal_delete_until_eol(terminal, 0);
 	string_copy(terminal->line,
 			(t_string *)ring_buffer_next(terminal->history));
 	terminal_command(INSERT, terminal->line->size);

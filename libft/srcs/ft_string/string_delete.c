@@ -6,10 +6,12 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 16:51:13 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/11 16:51:15 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/11 16:58:51 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <libft.h>
 #include <ft_string.h>
 
 void		string_delete(t_string *string, size_t pos)

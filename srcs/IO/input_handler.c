@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 10:57:35 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/11 17:00:38 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,24 @@
 #include <ring_buffer.h>
 #include <ft_printf.h>
 
-static input_handle_t	g_key_map[256] =
+static t_input_handle	g_key_map[256] =
 {
 	&terminal_insert,
-	&terminal_BOL,
+	&terminal_bol,
 	&history_previous,
 	&terminal_kill_line,
 	&terminal_exit,
-	&terminal_EOL,
+	&terminal_eol,
 	&terminal_insert,
 	&terminal_insert,
 	&terminal_delete,
 	&auto_complete,
-	&terminal_EOF,
-	&terminal_delete_until_EOL,
-	&terminal_EOF,
-	&terminal_EOF,
+	&terminal_eof,
+	&terminal_delete_until_eol,
+	&terminal_eof,
+	&terminal_eof,
 	&history_next,
-	&terminal_EOF,
+	&terminal_eof,
 	&history_previous,
 	&terminal_insert,
 	&terminal_insert,
