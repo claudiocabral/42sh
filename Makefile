@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/11 11:28:41 by ccabral          ###   ########.fr        #
+#    Updated: 2018/01/11 12:10:30 by ccabral          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -110,6 +110,9 @@ clean:
 	make $(PRINTF_CLEAN)
 ifeq ($(shell [ -e $(DEPDIR) ] && echo 1 || echo 0),1)
 	rm -rf $(DEPDIR)
+endif
+ifeq ($(shell [ -e $(NAME).dSYM ] && echo 1 || echo 0),1)
+	rm -rf $(NAME).dSYM
 endif
 ifeq ($(shell [ -e objs ] && echo 1 || echo 0),1)
 	rm -rf objs
