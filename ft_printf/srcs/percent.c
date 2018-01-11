@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 13:01:40 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/26 15:00:48 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/11 16:56:05 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char const	*star_field_width(char const *format, t_modifiers *modifiers)
 	if (val < 0)
 	{
 		modifiers->flags |= MINUS;
-		val = - val;
+		val = -val;
 	}
 	modifiers->field_width = val;
 	return (format + 1);
