@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/10 16:43:01 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/11 11:40:58 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ int		execute_simple_command(t_tree *tree)
 		++child;
 	}
 	ret = command_dispatch((char **)args->begin);
-	tree_free(tree, (t_freef)&noop);
 	array_free(args, (t_freef)&free_wrapper);
 	return (ret);
 }
@@ -136,13 +135,17 @@ int		execute_commands(t_tree *tree)
 
 int		execute(t_tree *tree)
 {
+	int	ret;
+
+	ret = 0;
 	if (!tree)
 		return (0);
 	if (((t_token *)tree->element)->type == COMMANDS)
-		return (execute_commands(tree));
+		 ret = execute_commands(tree);
 	else if (((t_token *)tree->element)->type == PIPE)
-		return (execute_pipe(tree));
+		ret = execute_pipe(tree);
 	else
 		ft_printf("no commands\n");
-	return (0);
+	tree_free(tree, (t_freef)&noop);
+	return (ret);
 }

@@ -6,12 +6,12 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/10 22:42:54 by claudioca        ###   ########.fr        #
+#    Updated: 2018/01/11 11:28:41 by ccabral          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:=	minishell
-CC		:=	cc
+CC		:=	clang
 CFLAGS	:=	-Wextra -Werror -Wall
 CDEBUG	:=	-g
 
@@ -66,7 +66,7 @@ INC	=	-Iincludes \
 
 ifeq ($(ASAN), 1)
 	DEBUG := 1
-	CDEBUG += -fsanitize=address
+	CDEBUG += -fsanitize=leak
 endif
 
 ifeq ($(DEBUG), 1)

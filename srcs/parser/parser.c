@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/10 23:10:35 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/11 11:24:29 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,5 @@ t_tree	*parse(t_array *tokens)
 		tree = tree_add_child(tree, complete_command(0, tokens, &current));
 	}
 	array_free(tokens, &noop);
-	ZERO_IF_FAIL(tree);
 	return (tree);
 }
