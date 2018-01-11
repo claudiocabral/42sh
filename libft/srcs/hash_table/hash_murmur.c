@@ -6,20 +6,21 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 13:47:25 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/11 13:59:16 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/11 16:53:05 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <hash_table.h>
 
-uint32_t murmur_hash_2(const uint8_t *data, int len)
+uint32_t	murmur_hash_2(const uint8_t *data, int len)
 {
 	uint32_t hash;
+	uint32_t tmp;
 
 	hash = len;
-	while(len >= 4)
+	while (len >= 4)
 	{
-		uint32_t tmp = *(uint32_t*)data;
+		tmp = *(uint32_t*)data;
 		tmp *= MURMUR_M;
 		tmp ^= tmp >> MURMUR_R;
 		tmp *= MURMUR_M;
@@ -37,6 +38,5 @@ uint32_t murmur_hash_2(const uint8_t *data, int len)
 	hash *= MURMUR_M;
 	hash ^= hash >> 13;
 	hash *= MURMUR_M;
-	hash ^= hash >> 15;
-	return (hash);
+	return ((hash ^= hash >> 15));
 }

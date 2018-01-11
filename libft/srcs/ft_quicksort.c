@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/27 10:55:32 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 10:40:07 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/11 16:50:20 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		ft_partition(void **array, int low, int high, t_cmpf cmpf)
 {
 	int			i;
 	int			j;
-	char const *pivot;
+	char const	*pivot;
 	void		**tmp;
 
 	tmp = 0;

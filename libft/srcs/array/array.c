@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 16:06:40 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 10:43:43 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/11 16:48:48 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void			array_free(t_array *array, t_freef free_func)
 	free(array->begin);
 	free(array);
 }
-
 
 int				array_increase_capacity(t_array *array)
 {

@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:44:06 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/27 11:55:00 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/11 16:49:07 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ t_btree	*btree_insert_data(t_btree **root,
 		ptr = btree_create_node(item);
 		*root = ptr;
 	}
-	return(ptr);
+	return (ptr);
 }

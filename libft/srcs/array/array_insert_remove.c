@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:42:09 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 10:43:41 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/11 16:50:03 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void			*array_push_back(t_array *array, void *element)
 {
 	if (array->capacity <= array->end - array->begin + array->element_size
-		 && !array_increase_capacity(array))
+			&& !array_increase_capacity(array))
 		return (0);
 	ft_memcpy(array->end, element, array->element_size);
 	array->end = (unsigned char *)array->end + array->element_size;
@@ -27,7 +27,7 @@ void			*array_push_back(t_array *array, void *element)
 void			*array_insert(t_array *array, void *where, void *element)
 {
 	if (array->capacity <= array->end - array->begin + array->element_size
-		 && !array_increase_capacity(array))
+			&& !array_increase_capacity(array))
 		return (0);
 	ft_memmove(where + array->element_size, where, array->end - where);
 	ft_memcpy(where, element, array->element_size);
@@ -40,6 +40,7 @@ void			*array_insert_sorted(t_array *array, void *element,
 		t_cmpf cmpf)
 {
 	void	*insertion_point;
+
 	if (array->capacity <= array->end - array->begin + array->element_size
 			&& !array_increase_capacity(array))
 		return (0);

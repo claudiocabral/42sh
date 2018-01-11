@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 11:13:27 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/05 22:25:12 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/11 16:54:19 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 
 t_ring_buffer	*ring_buffer_init(t_ring_buffer *buffer, size_t size,
-									void *(*initf)(void *, size_t), t_freef freef)
+							void *(*initf)(void *, size_t), t_freef freef)
 {
 	void	*it;
 	void	*end;

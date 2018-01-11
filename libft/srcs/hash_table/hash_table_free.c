@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:48:26 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 10:48:59 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/11 15:26:22 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ void			hash_table_free(t_hash_table *table, t_freef freef)
 		++i;
 	}
 	free(table->metadata);
+	free(table);
 }
