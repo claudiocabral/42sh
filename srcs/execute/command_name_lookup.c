@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 11:48:51 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/08 18:06:37 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/11 15:24:42 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,25 @@ void					add_builtin(char *name, t_exec func)
 	hash_table_insert(g_builtins, &builtin);
 }
 
-int						init_path_table(void)
+void					free_paths(t_array	*paths)
+{
+	t_binary_path	**it;
+
+	if (!paths)
+		return ;
+	it = (t_binary_path **)paths->begin;
+	while (it != paths->end)
+	{
+		hash_table_free((*it)->table, (t_freef)&free_wrapper);
+		string_free((*it)->buffer);
+		free(*it);
+		++it;
+	}
+	free(paths->begin);
+	free(paths);
+}
+
+int						init_builtins(void)
 {
 	ZERO_IF_FAIL(g_builtins = hash_table_create(sizeof(t_builtin), 16,
 					(t_hashf)&builtin_hash, (t_cmpf)&builtin_compare));
@@ -47,7 +65,20 @@ int						init_path_table(void)
 	add_builtin("env", &env);
 	add_builtin("setenv", &builtin_setenv);
 	add_builtin("unsetenv", &builtin_unsetenv);
+	return (1);
+}
+
+int						generate_paths(void)
+{
+	free_paths(g_paths);
+	g_paths = 0;
 	return (init_paths(&g_paths));
+}
+
+int						init_path_table(void)
+{
+	ZERO_IF_FAIL(init_builtins());
+	return (generate_paths());
 }
 
 __attribute__((always_inline))

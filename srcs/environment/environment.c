@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/09 13:07:28 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/11 14:01:39 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 #include <libft.h>
 #include <ft_printf.h>
 #include <environment.h>
+#include <execute.h>
 
 extern char		**environ;
-static t_array	*g_environ;
+static t_array	*g_environ = 0;
 
 __attribute__((always_inline))
 int				ft_strncmp_wrapper(char const **a, char const **b)
@@ -118,16 +119,16 @@ static char		*make_env(char const *name, char const *val)
 }
 
 char			*ft_getenv(char const *env) {
-  char **ptr;
-  char *val;
+	char **ptr;
+	char *val;
 
-  val = 0;
-  ptr = array_find(g_environ, &env, (t_cmpf)&ft_strncmp_wrapper);
-  if (ptr) {
-    val = ft_strchr(*ptr, '=');
-    val = val ? val + 1 : 0;
-  }
-  return (val);
+	val = 0;
+	ptr = array_find(g_environ, &env, (t_cmpf)&ft_strncmp_wrapper);
+	if (ptr) {
+		val = ft_strchr(*ptr, '=');
+		val = val ? val + 1 : 0;
+	}
+	return (val);
 }
 
 int				ft_setenv(char const *name, char const *val, int overwrite)
@@ -146,6 +147,8 @@ int				ft_setenv(char const *name, char const *val, int overwrite)
 	}
 	else
 		env = array_insert_sorted(g_environ, &tmp,
-										(t_cmpf)&ft_strncmp_wrapper);
+				(t_cmpf)&ft_strncmp_wrapper);
+	if (ft_strequ(name, "PATH"))
+		generate_paths();
 	return (env != 0 ? 0 : -1);
 }

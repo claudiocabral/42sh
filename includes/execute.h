@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:23:10 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/10 22:42:37 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/11 13:45:52 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct	s_binary_path
 	t_hash_table	*table;
 }				t_binary_path;
 
+int			generate_paths(void);
 int			init_path_table(void);
 int			init_paths(t_array **paths);
 t_string	*binary_path_set_buffer(t_binary_path *path, char const *suffix);

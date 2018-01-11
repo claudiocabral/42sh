@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 13:50:55 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/09 12:24:28 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/11 15:18:36 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,11 @@ int	hash_paths(t_array *paths)
 		array_push_back(paths, &tmp);
 		begin = end + 1;
 	}
-	tmp = make_path_entry(begin, ft_strlen(begin));
-	array_push_back(paths, &tmp);
+	if (*begin)
+	{
+		tmp = make_path_entry(begin, ft_strlen(begin));
+		array_push_back(paths, &tmp);
+	}
 	return (1);
 }
 

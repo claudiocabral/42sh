@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/11 12:10:30 by ccabral          ###   ########.fr        #
+#    Updated: 2018/01/11 14:02:20 by ccabral          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ OBJS	=	objs/main.o \
 			objs/lexer/token.o \
 			objs/lexer/token_identifier.o \
 			objs/parser/parser.o \
+			objs/parser/pipeline.o \
 			objs/parser/match.o \
 			objs/IO/interactive_session.o \
 			objs/IO/terminal_commands.o \
@@ -66,7 +67,7 @@ INC	=	-Iincludes \
 
 ifeq ($(ASAN), 1)
 	DEBUG := 1
-	CDEBUG += -fsanitize=leak
+	CDEBUG += -fsanitize=address
 endif
 
 ifeq ($(DEBUG), 1)
