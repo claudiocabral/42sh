@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:50:47 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/11 16:59:54 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/11 19:58:20 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ int						terminal_delete(t_terminal *terminal, int c)
 	terminal_command(DELETE, 1);
 	string_delete(terminal->line, terminal->cursor - terminal->prompt_size - 1);
 	terminal->cursor--;
+	while (terminal->line->buffer[terminal->cursor] & 128)
+	{
+		write(terminal->tty, &c, 1);
+		terminal_command(DELETE, 1);
+		string_delete(terminal->line, terminal->cursor - terminal->prompt_size - 1);
+		terminal->cursor--;
+	}
 	return (1);
 }
 
@@ -30,11 +37,11 @@ int						terminal_delete_word(t_terminal *terminal, int c)
 {
 	while (terminal->cursor != terminal->prompt_size &&
 			ft_is_whitespace(terminal->line->buffer
-			[terminal->cursor - terminal->prompt_size - 1]))
+				[terminal->cursor - terminal->prompt_size - 1]))
 		terminal_delete(terminal, c);
 	while (terminal->cursor != terminal->prompt_size &&
 			!ft_is_whitespace(terminal->line->buffer
-			[terminal->cursor - terminal->prompt_size - 1]))
+				[terminal->cursor - terminal->prompt_size - 1]))
 		terminal_delete(terminal, c);
 	return (1);
 }

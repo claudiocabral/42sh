@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/11 17:00:38 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/11 19:43:57 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ int			handle_string_input(t_terminal *terminal, char c[16])
 		return (terminal_move_right(terminal, (int)c[0]));
 	else if (terminal_compare_string(DELETE_KEY, c))
 		return (terminal_delete(terminal, CTRL_H));
-	ft_printf("\ninput error: unknown key: %s\n", c);
+	terminal_insert_unicode(terminal, c);
 	return (1);
 }
 

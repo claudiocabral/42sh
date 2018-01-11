@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/11 16:59:35 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/11 19:38:08 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,6 @@ int				history_next(t_terminal *terminal, int c);
 int				terminal_insert(t_terminal *terminal, int c);
 int				terminal_eof(t_terminal *terminal, int c);
 int				auto_complete(t_terminal *terminal, int c);
+int				terminal_insert_unicode(t_terminal *terminal, char	*str);
 
 #endif
