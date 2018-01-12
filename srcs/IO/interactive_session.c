@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 14:07:31 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 17:58:20 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static char	const	*prompt(t_terminal *terminal)
 	terminal->line = (t_string*)terminal->history->current;
 	termios_toggle_isig(terminal, 0);
 	print_prompt(terminal);
+	set_termios(&(terminal->custom));
 	while ((size = read(terminal->tty, c, 15)))
 	{
 		if (size == -1)
@@ -66,6 +67,7 @@ static char	const	*prompt(t_terminal *terminal)
 			break ;
 	}
 	termios_toggle_isig(terminal, 1);
+	set_termios(&(terminal->original));
 	terminal->cursor = terminal->prompt_size;
 	return (terminal->line->buffer);
 }
