@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 09:19:57 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 16:28:34 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 17:55:18 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,9 @@ int		terminal_bol(t_terminal *terminal, int c)
 int		terminal_eol(t_terminal *terminal, int c)
 {
 	(void)c;
-	if ((unsigned long)terminal->cursor
-			== terminal->prompt_size + terminal->line->size)
-		return (1);
-	terminal_command(MOVE_RIGHT, terminal->line->size - terminal->cursor
-									+ terminal->prompt_size);
-	terminal->cursor = terminal->line->size + terminal->prompt_size;
+	while ((unsigned long)terminal->cursor !=
+			terminal->line->size + terminal->prompt_size)
+		terminal_move_right(terminal, c);
 	return (1);
 }
 
