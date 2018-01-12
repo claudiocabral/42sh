@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:23:10 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/11 16:57:16 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 13:43:02 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,16 @@ typedef struct	s_binary_path
 	t_hash_table	*table;
 }				t_binary_path;
 
+char			*expand(char *value);
+void			remove_backslash(char *str);
+int				init_builtins(void);
 int				generate_paths(void);
 int				init_path_table(void);
 int				init_paths(t_array **paths);
+t_binary_path	*make_path_entry(char const *name, size_t size);
 t_string		*binary_path_set_buffer(t_binary_path *path,
 											char const *suffix);
+int				fill_table(t_binary_path *path);
 int				invoke_builtin(t_builtin const *command, char **args);
 int				invoke(char const *process, char **args);
 int				wait_process(pid_t pid);

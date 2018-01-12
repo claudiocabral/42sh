@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/10 22:32:21 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/12 13:47:46 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,14 @@ void				print_prompt(t_terminal *terminal)
 	path = ft_getenv("PWD");
 	if (ft_strcmp(path, "/"))
 	{
-		path = path ? ft_strrchr(path, '/') : 0 ;
-		path = path ? path + 1 : 0 ;
+		path = path ? ft_strrchr(path, '/') : 0;
+		path = path ? path + 1 : 0;
 	}
 	terminal->prompt_size = ft_printf("%s%c%s", path ? path : "",
 												path ? ' ' : 0,
 												terminal->prompt);
 	terminal->cursor = terminal->prompt_size;
 }
-
-#include <ft_printf.h>
 
 static char	const	*prompt(t_terminal *terminal)
 {
@@ -75,7 +73,7 @@ static char	const	*prompt(t_terminal *terminal)
 	return (terminal->line->buffer);
 }
 
-void		interactive_session(void)
+void				interactive_session(void)
 {
 	t_terminal	terminal;
 

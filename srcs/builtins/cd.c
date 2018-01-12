@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 13:01:51 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/09 13:06:59 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 11:43:39 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <environment.h>
 #include <builtins.h>
 
-int	parse_args(int *argc, char ***argv)
+int		parse_args(int *argc, char ***argv)
 {
 	int	flag;
 
@@ -45,7 +45,7 @@ int	parse_args(int *argc, char ***argv)
 	return (0);
 }
 
-int	cd_chdir(char const *path)
+int		cd_chdir(char const *path)
 {
 	int			ret;
 
@@ -61,12 +61,6 @@ int	cd_chdir(char const *path)
 	else
 		ft_dprintf(2, "cd: failed to change directory\n");
 	return (ret != 0);
-}
-
-void	cd_canonical(char *path, char buff[MAXPATHLEN])
-{
-	(void)path;
-	(void)buff;
 }
 
 int		cd_noflag(char *path)
@@ -87,19 +81,7 @@ int		cd_noflag(char *path)
 	return (ret);
 }
 
-int cd_L(char *path)
-{
-	(void)path;
-	return (1);
-}
-
-int cd_P(char *path)
-{
-	(void)path;
-	return (1);
-}
-
-int	cd(int argc, char **argv)
+int		cd(int argc, char **argv)
 {
 	char	*path;
 	int		flag;
@@ -117,9 +99,9 @@ int	cd(int argc, char **argv)
 			return (1);
 		}
 		if (flag == 1)
-			return (cd_L(path));
+			return (cd_noflag(path));
 		else if (flag == -1)
-			return (cd_P(path));
+			return (cd_noflag(path));
 		return (cd_noflag(path));
 	}
 	ft_dprintf(2, "cd: too many arguments\n");

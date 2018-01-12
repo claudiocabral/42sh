@@ -6,13 +6,28 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 15:23:34 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 11:30:46 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/12 13:42:50 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <lexer.h>
 #include <token.h>
+#include <execute.h>
+
+char		*token_get_value(t_token *token)
+{
+	char	*str;
+
+	if (token->begin)
+		str = ft_strndup(token->begin, token->size);
+	else
+		str = ft_strdup("");
+	if (!str)
+		return (0);
+	remove_backslash(str);
+	return (str);
+}
 
 int			add_token(t_array *tokens, t_tag type, char const *begin,
 															size_t size)

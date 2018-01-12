@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:50:47 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 10:45:45 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 14:00:46 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ int						terminal_delete(t_terminal *terminal, int c)
 	terminal_command(DELETE, 1);
 	i = 0;
 	while (((unsigned char)terminal->line->buffer[terminal->cursor
-										- terminal->prompt_size - 1 - i] & 0xc0)
+								- terminal->prompt_size - 1 - i] & 0xc0)
 			== 0x80)
 	{
-		string_delete(terminal->line, terminal->cursor - terminal->prompt_size - 1 - i);
+		string_delete(terminal->line,
+				terminal->cursor - terminal->prompt_size - 1 - i);
 		++i;
 	}
-	string_delete(terminal->line, terminal->cursor - terminal->prompt_size - 1 -i);
+	string_delete(terminal->line,
+			terminal->cursor - terminal->prompt_size - 1 - i);
 	terminal->cursor--;
 	return (1);
 }
@@ -69,7 +71,7 @@ int						terminal_kill_line(t_terminal *terminal, int c)
 	return (1);
 }
 
-int		terminal_cancel_line(t_terminal *terminal, int c)
+int						terminal_cancel_line(t_terminal *terminal, int c)
 {
 	(void)c;
 	write(terminal->tty, "\n", 1);

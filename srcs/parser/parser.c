@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 09:49:57 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 14:02:30 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,18 @@ t_tree		*list(t_tree *tree, t_array *tokens, t_token **current)
 	{
 		if (!(tree = and_or(tree, tokens, current)))
 			break ;
-		//separator_op(tree, tokens, current);
 	}
 	return (tree);
 }
 
-t_tree	*complete_command(t_tree *tree, t_array *tokens,
+t_tree		*complete_command(t_tree *tree, t_array *tokens,
 		t_token **current)
 {
 	tree = list(tree, tokens, current);
-	//separator(tree, tokens, current);
 	return (tree);
 }
 
-
-t_tree	*parse(t_array *tokens)
+t_tree		*parse(t_array *tokens)
 {
 	t_token	*current;
 	t_tree	*tree;

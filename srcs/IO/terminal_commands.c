@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 16:16:01 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/04 14:45:35 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/12 13:49:41 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int				check_table(void)
 	int	i;
 
 	i = 0;
-//	while (i < ARROW_RIGHT + 1)
-//		ft_printf("%s\n", g_command_table[i++]);
 	return (1);
 }
 
@@ -52,15 +50,13 @@ int				init_command_table(void)
 	return (check_table());
 }
 
-__attribute__((always_inline))
 int				terminal_compare_string(t_terminal_command command,
 													char const *str)
 {
 	return (ft_strequ(g_command_table[command], str));
 }
 
-__attribute__((always_inline))
-void		terminal_command(t_terminal_command command, int val)
+void			terminal_command(t_terminal_command command, int val)
 {
 	tputs(tgoto(g_command_table[command], 0, val), 1, &ft_putchar_stdin);
 }

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/11 16:22:18 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 14:04:55 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_tree		*simple_command(t_array *tokens, t_token **current)
 	token = emit_token(SIMPLE_COMMAND, 0, 0, 0);
 	ZERO_IF_FAIL(tree = tree_create_node(&token, sizeof(t_token)));
 	tree_add_child(tree, command_name(current));
-	while(*current != tokens->end)
+	while (*current != tokens->end)
 	{
 		if (match(current, SEMICOLON, PIPE, SENTINEL))
 		{
@@ -50,7 +50,7 @@ t_tree		*simple_command(t_array *tokens, t_token **current)
 t_tree		*command(t_tree *tree, t_array *tokens, t_token **current)
 {
 	t_token		token;
-	t_tree	*commands;
+	t_tree		*commands;
 
 	if (!match(current, TOKEN, SENTINEL))
 		return (0);
@@ -58,7 +58,7 @@ t_tree		*command(t_tree *tree, t_array *tokens, t_token **current)
 		--(*current);
 	token = emit_token(COMMANDS, 0, 0, 0);
 	commands = tree_create_node(&token, sizeof(t_token));
-	while(*current != tokens->end)
+	while (*current != tokens->end)
 	{
 		if (match(current, SEMICOLON, SENTINEL))
 			continue ;

@@ -6,14 +6,14 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:49:51 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/09 12:15:17 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 11:23:38 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ARRAY_H
 # define ARRAY_H
 
-#include <libft.h>
+# include <libft.h>
 
 typedef struct	s_array
 {
@@ -31,8 +31,9 @@ void			*array_push_back(t_array *array, void *element);
 void			*array_insert(t_array *array, void *where, void *element);
 void			*array_insert_sorted(t_array *array, void *element,
 														t_cmpf cmpf);
-void			array_apply(t_array *array, void *args, t_applyf);
-void			array_apply_reverse(t_array *array, void *args, t_applyf);
+void			array_apply(t_array *array, void *args, t_applyf applyf);
+void			array_apply_reverse(t_array *array, void *args,
+													t_applyf applyf);
 void			*array_apply_until(t_array *array, void *args,
 											t_applyf_until applyf);
 void			array_sort(t_array *array, t_cmpf cmpf);
@@ -45,6 +46,6 @@ void			array_remove(t_array *array, void *element, t_freef freef);
 void			array_remove_if(t_array *array, void const *data,
 									t_freef freef, t_predf predicate);
 t_array			*array_copy(t_array const *src, void *args,
-										t_cpyf cpyf, t_freef);
+										t_cpyf cpyf, t_freef freef);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/11 14:02:20 by ccabral          ###   ########.fr        #
+#    Updated: 2018/01/12 13:41:59 by ccabral          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,13 +31,15 @@ OBJS	=	objs/main.o \
 			objs/signals/handlers.o \
 			objs/execute/dispatch_branch.o \
 			objs/execute/pipe.o \
+			objs/execute/builtins.o \
+			objs/execute/path_entry.o \
 			objs/execute/path.o \
 			objs/execute/invoke.o \
 			objs/execute/execute.o \
+			objs/execute/expansion.o \
 			objs/execute/command_name_lookup.o \
 			objs/lexer/lexer.o \
 			objs/lexer/lex.o \
-			objs/lexer/expansion.o \
 			objs/lexer/token.o \
 			objs/lexer/token_identifier.o \
 			objs/parser/parser.o \
@@ -58,7 +60,9 @@ OBJS	=	objs/main.o \
 			objs/builtins/cd.o \
 			objs/builtins/echo.o \
 			objs/builtins/pwd.o \
-			objs/environment/environment.o
+			objs/environment/setenv.o \
+			objs/environment/environment.o \
+			objs/environment/prepare_env.o
 
 
 INC	=	-Iincludes \

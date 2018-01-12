@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:54:21 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/11 19:46:47 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 13:52:57 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		terminal_insert(t_terminal *terminal, int c)
 	return (1);
 }
 
-int		terminal_insert_unicode(t_terminal *terminal, char	*str)
+int		terminal_insert_unicode(t_terminal *terminal, char *str)
 {
 	int	i;
 
@@ -45,7 +45,8 @@ int		terminal_insert_unicode(t_terminal *terminal, char	*str)
 
 int		terminal_eof(t_terminal *terminal, int c)
 {
-	if (terminal->line->buffer[terminal->cursor - terminal->prompt_size] == '\\')
+	if (terminal->line->buffer[terminal->cursor - terminal->prompt_size]
+			== '\\')
 		return (terminal_insert(terminal, c));
 	write(terminal->tty, &c, 1);
 	return (0);

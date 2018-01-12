@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 12:41:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/03 17:51:06 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/12 11:49:47 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,20 @@
 #include <errno.h>
 #include <string.h>
 
-int		env_invoke(char const *command, char **args, char **env)
+int			env_invoke(char const *command, char **args, char **env)
 {
-  pid_t	pid;
+	pid_t	pid;
 
-  pid = fork();
-  if (pid == 0) {
-	  if (execve(command, args, env) == -1) {
-		  ft_dprintf(2, "env: %s\n", strerror(errno));
-		  ft_dprintf(2, "env: failed to launch %s\n", command);
-		  exit(1);
-	  }
-  }
-  return (wait_process(pid));
+	pid = fork();
+	if (pid == 0)
+	{
+		if (execve(command, args, env) == -1)
+		{
+			ft_dprintf(2, "env: failed to launch %s\n", command);
+			exit(1);
+		}
+	}
+	return (wait_process(pid));
 }
 
 static int	safe_push_back(t_array *local_env, char *data)
@@ -42,19 +43,19 @@ static int	safe_push_back(t_array *local_env, char *data)
 
 	if (!(tmp = ft_strdup(data)))
 	{
-		array_free(local_env, (t_freef)&free_wrapper);
+		array_free(local_env, (t_freef) & free_wrapper);
 		return (0);
 	}
 	if (!array_push_back(local_env, &tmp))
 	{
 		free(tmp);
-		array_free(local_env, (t_freef)&free_wrapper);
+		array_free(local_env, (t_freef) & free_wrapper);
 		return (0);
 	}
 	return (1);
 }
 
-int	do_env(int argc, char **argv, t_array *local_env)
+int			do_env(int argc, char **argv, t_array *local_env)
 {
 	int			i;
 	int			ret;
@@ -73,17 +74,17 @@ int	do_env(int argc, char **argv, t_array *local_env)
 		ret = 1;
 	else
 		ret = env_invoke(command, argv + i, local_env->begin);
-	array_free(local_env, (t_freef)&free_wrapper);
+	array_free(local_env, (t_freef) & free_wrapper);
 	return (ret);
 }
 
-int	env_parser(int *argc, char ***argv)
+int			env_parser(int *argc, char ***argv)
 {
 	int	i;
 	int	j;
 	int	ret;
 
-	ret =  ft_strncmp((*argv)[1], "-i", 2) == 0 ? 1 : 0;
+	ret = ft_strncmp((*argv)[1], "-i", 2) == 0 ? 1 : 0;
 	i = 0;
 	while (++i < *argc && (*argv)[i][0] == '-')
 	{
@@ -104,7 +105,7 @@ int	env_parser(int *argc, char ***argv)
 	return (ret);
 }
 
-int	env(int argc, char **argv)
+int			env(int argc, char **argv)
 {
 	int		flag_i;
 	t_array	*local_env;

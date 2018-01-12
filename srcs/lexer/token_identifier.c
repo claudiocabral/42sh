@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 14:10:39 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/18 16:12:54 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/12 14:05:11 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	token_quote(char c)
 {
 	return (c == '"' || c == '\'');
 }
-
 
 int	token_delimiter(char c)
 {

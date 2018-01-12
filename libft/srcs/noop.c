@@ -6,13 +6,12 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 16:44:34 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/08 16:45:02 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/12 11:19:45 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-__attribute__((always_inline))
 void	noop(void *any)
 {
 	(void)any;

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 15:04:31 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/10 22:56:32 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/12 11:58:27 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	pipe_to(t_tree *tree, int read_write[2])
 	return (dispatch_branch(tree));
 }
 
-int			execute_pipe(t_tree	*tree)
+int			execute_pipe(t_tree *tree)
 {
 	int	child;
 	int	ret;

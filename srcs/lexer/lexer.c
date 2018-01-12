@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/09 17:51:38 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 14:04:15 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,16 @@ int			lex_quote(t_array *tokens, char const *input, int start)
 		++pos;
 	if (input[pos] != input[start])
 		return (-1);
-	if (add_token(tokens, TOKEN, input + start +  1, pos - start - 1))
+	if (add_token(tokens, TOKEN, input + start + 1, pos - start - 1))
 		return (pos + 1);
 	return (-1);
 }
 
 int			lex_operator(t_array *tokens, char const *input, int start)
 {
-	int	ret = 0;
+	int	ret;
 
+	ret = 0;
 	if (input[start] == ';')
 		ret = add_token(tokens, SEMICOLON, input + start, 1);
 	else if (input[start] == '&')
@@ -47,7 +48,6 @@ int			lex_operator(t_array *tokens, char const *input, int start)
 
 int			lex_token(t_array *tokens, char const *input, int start, int pos)
 {
-
 	while (input[pos])
 	{
 		if (input[pos] == '\\')
@@ -88,7 +88,7 @@ int			lex_text(t_array *tokens, char const *input, int start)
 		while (ft_is_whitespace(input[start]))
 			++start;
 		if (!input[start])
-			break;
+			break ;
 		if (token_newline(input[start]))
 			start = push_newline_token(tokens, input, start);
 		else if (token_operator(input[start]))

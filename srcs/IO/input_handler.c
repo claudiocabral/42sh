@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 10:12:14 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 13:47:09 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,6 @@ static t_input_handle	g_key_map[256] =
 	&terminal_insert,
 	&terminal_insert,
 };
-
 
 int			handle_string_input(t_terminal *terminal, char c[16])
 {

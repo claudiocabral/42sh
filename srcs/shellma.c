@@ -6,13 +6,12 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:19:30 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/15 12:39:07 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/12 14:04:36 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <shellma.h>
 
-__attribute__((always_inline))
 int	process_input(char const *str)
 {
 	return (execute(parse(lex(str))));

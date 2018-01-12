@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 16:17:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/11 16:57:28 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 13:40:05 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ int				token_newline(char c);
 int				token_quote(char c);
 int				token_operator(char c);
 int				token_delimiter(char c);
+char			*token_get_value(t_token *token);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/18 14:55:03 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/12 13:52:23 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void				set_termios(struct termios *termios)
 
 void				free_terminal(t_terminal *terminal)
 {
-	ring_buffer_free(terminal->history, (t_freef)&string_free_content);
+	ring_buffer_free(terminal->history, (t_freef) & string_free_content);
 	terminal->line = 0;
 	terminal->history = 0;
 }
@@ -54,15 +54,6 @@ static void			init_termios(t_terminal *terminal)
 	set_termios(&(terminal->custom));
 }
 
-t_terminal			*get_terminal(t_terminal *terminal)
-{
-	static t_terminal	*terminal_pointer = 0;
-
-	if (terminal)
-		terminal_pointer = terminal;
-	return (terminal_pointer);
-}
-
 int					setup_terminal(t_terminal *terminal, char const *prompt)
 {
 	signal(SIGINT, (void (*)(int))&interrupt_handler);
@@ -73,9 +64,9 @@ int					setup_terminal(t_terminal *terminal, char const *prompt)
 	init_termios(terminal);
 	ft_strcpy(terminal->prompt, prompt);
 	terminal->history = ring_buffer_create(sizeof(t_string), 2000,
-			(t_freef)&string_clear);
+			(t_freef) & string_clear);
 	ring_buffer_init(terminal->history, STRING_SIZE,
-			(void *(*)(void *, size_t))&string_init, (t_freef)&string_free);
+		(void *(*)(void *, size_t)) &string_init, (t_freef) & string_free);
 	terminal->tty = 0;
 	if (!terminal->history)
 	{
@@ -84,6 +75,5 @@ int					setup_terminal(t_terminal *terminal, char const *prompt)
 	}
 	terminal->prompt_size = ft_strlen(prompt);
 	terminal->cursor = terminal->prompt_size;
-	get_terminal(terminal);
 	return (1);
 }

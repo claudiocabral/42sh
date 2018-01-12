@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/17 15:32:37 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 23:12:39 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/12 11:36:50 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	glob_match(char const *s1, char const *s2)
 		return (0);
 }
 
-__attribute__((always_inline))
 int	glob_match_wrapper(char const **s1, char const **s2)
 {
 	return (glob_match(*s1, *s2));
@@ -39,7 +38,7 @@ int	builtin_unsetenv(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		environment_remove_if(argv[i], (t_predf)&glob_match_wrapper);
+		environment_remove_if(argv[i], (t_predf) & glob_match_wrapper);
 		++i;
 	}
 	return (0);
