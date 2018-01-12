@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:50:47 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 14:00:46 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 14:51:29 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int						terminal_delete(t_terminal *terminal, int c)
 	write(terminal->tty, &c, 1);
 	terminal_command(DELETE, 1);
 	i = 0;
-	while (((unsigned char)terminal->line->buffer[terminal->cursor
-								- terminal->prompt_size - 1 - i] & 0xc0)
-			== 0x80)
+	while (is_middle_of_unicode(
+			terminal->line->buffer[terminal->cursor
+								- terminal->prompt_size - 1 - i]))
 	{
 		string_delete(terminal->line,
 				terminal->cursor - terminal->prompt_size - 1 - i);

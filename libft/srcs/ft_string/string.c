@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 17:46:52 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/11 16:50:56 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 15:03:30 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_string	*string_init(t_string *string, size_t capacity)
 
 t_string	*string_insert(t_string *string, char c, size_t pos)
 {
+	if (pos > string->size)
+		pos = string->size;
 	if (string->size + 1 >= string->capacity)
 		string->capacity = ft_realloc((void **)&(string->buffer),
 				string->capacity, string->capacity * 2);
