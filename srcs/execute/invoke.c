@@ -6,13 +6,14 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:16:45 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 11:57:48 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 21:55:41 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <signal_handlers.h>
 #include <signal.h>
 #include <ft_printf.h>
@@ -43,12 +44,32 @@ int		wait_process(pid_t pid)
 	return (stat_loc);
 }
 
+int		check_access(char const	*command, char const *command_name)
+{
+	struct stat	buff;
+
+	if (stat(command, &buff) == -1)
+	{
+		ft_dprintf(2, "./minishell: command not found: %s\n", command_name);
+		return (0);
+	}
+	if (access(command, X_OK) == -1)
+	{
+		ft_dprintf(2, "./minishell: permission denied: %s\n", command_name);
+		return (0);
+	}
+	return (1);
+}
+
 int		invoke(char const *command, char **args)
 {
 	pid_t	pid;
 	char	**env;
 
-	pid = fork();
+	if (!check_access(command, args[0]))
+		return (1);
+	if ((pid = fork()) == -1)
+		return (1);
 	env = get_environment();
 	if (pid == 0)
 	{
