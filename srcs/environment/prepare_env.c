@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 12:05:53 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/12 12:23:25 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 15:16:44 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int				ft_prepare_env(char **environ)
 	}
 	g_environ = array;
 	set_current_path();
+	ft_setenv("PATH", "/usr/bin:/bin", 0);
 	return (1);
 }
 

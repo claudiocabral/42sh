@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 16:16:01 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 13:49:41 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 15:27:28 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,25 @@ int				init_command_table(void)
 	g_command_table[MOVE_RIGHT] = tgetstr("RI", 0);
 	g_command_table[DELETE] = tgetstr("DC", 0);
 	g_command_table[DELETE_KEY] = tgetstr("kD", 0);
-	g_command_table[DELETE_KEY][1] = 91;
+	if (g_command_table[DELETE_KEY])
+		g_command_table[DELETE_KEY][1] = 91;
 	g_command_table[ARROW_UP] = tgetstr("ku", 0);
 	g_command_table[ARROW_DOWN] = tgetstr("kd", 0);
 	g_command_table[ARROW_LEFT] = tgetstr("kl", 0);
 	g_command_table[ARROW_RIGHT] = tgetstr("kr", 0);
-	g_command_table[ARROW_UP][1] = 91;
-	g_command_table[ARROW_DOWN][1] = 91;
-	g_command_table[ARROW_LEFT][1] = 91;
-	g_command_table[ARROW_RIGHT][1] = 91;
+	if (g_command_table[ARROW_UP])
+		g_command_table[ARROW_UP][1] = 91;
+	if (g_command_table[ARROW_DOWN])
+		g_command_table[ARROW_DOWN][1] = 91;
+	if (g_command_table[ARROW_LEFT])
+		g_command_table[ARROW_LEFT][1] = 91;
+	if (g_command_table[ARROW_RIGHT])
+		g_command_table[ARROW_RIGHT][1] = 91;
 	return (check_table());
 }
 
 int				terminal_compare_string(t_terminal_command command,
-													char const *str)
+		char const *str)
 {
 	return (ft_strequ(g_command_table[command], str));
 }

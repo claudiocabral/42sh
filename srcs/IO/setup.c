@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 13:52:23 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 15:39:20 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,12 @@ static void			init_termios(t_terminal *terminal)
 int					setup_terminal(t_terminal *terminal, char const *prompt)
 {
 	signal(SIGINT, (void (*)(int))&interrupt_handler);
-	if (!tgetent(0, ft_getenv("TERM")))
+	if (tgetent(0, ttyname(ttyslot())) <= 0)
+	{
+		ft_dprintf(2, "./minishell: Could not set terminal type\n"
+				"Terminating...\n");
 		return (0);
+	}
 	init_command_table();
 	terminal->history = 0;
 	init_termios(terminal);
