@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 16:51:13 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/11 16:58:51 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 10:44:29 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void		string_delete(t_string *string, size_t pos)
 {
-	if (!string->buffer[0])
+	if (!string->buffer[0] || pos >= string->size)
 		return ;
 	ft_memmove(string->buffer + pos, string->buffer + pos + 1,
 											string->size - pos);

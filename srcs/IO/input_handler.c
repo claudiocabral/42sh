@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/11 19:43:57 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 10:12:14 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ int			handle_string_input(t_terminal *terminal, char c[16])
 
 int			handle_input(t_terminal *terminal, char c[16])
 {
-	if (c[1] != 0)
+	if (c[1] != 0 || (unsigned char)c[0] >= 128)
 		return (handle_string_input(terminal, c));
 	return (g_key_map[(int)c[0]](terminal, c[0]));
 }

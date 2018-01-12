@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/11 16:45:47 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 09:49:57 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_tree	*parse(t_array *tokens)
 	t_token	*current;
 	t_tree	*tree;
 
-	if (!tokens)
+	if (!tokens || tokens->begin == tokens->end)
 		return (0);
 	tree = 0;
 	current = (t_token *)(tokens->begin);
