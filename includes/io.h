@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 14:52:04 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 15:47:03 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,7 @@ int				auto_complete(t_terminal *terminal, int c);
 int				terminal_insert_unicode(t_terminal *terminal, char	*str);
 void			quit(t_terminal *terminal);
 int				is_middle_of_unicode(unsigned char c);
+int				cursor_is_middle_of_unicode(t_terminal *terminal);
+int				get_letter_index(t_terminal *terminal);
 
 #endif

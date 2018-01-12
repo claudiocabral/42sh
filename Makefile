@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/12 13:41:59 by ccabral          ###   ########.fr        #
+#    Updated: 2018/01/12 15:46:20 by ccabral          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ OBJS	=	objs/main.o \
 			objs/parser/parser.o \
 			objs/parser/pipeline.o \
 			objs/parser/match.o \
+			objs/IO/unicode.o \
 			objs/IO/interactive_session.o \
 			objs/IO/terminal_commands.o \
 			objs/IO/terminal_movement.o \
