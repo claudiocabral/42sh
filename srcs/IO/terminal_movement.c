@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 09:19:57 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 13:53:38 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 14:07:55 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ int		terminal_exit(t_terminal *terminal, int c)
 {
 	(void)c;
 	(void)terminal;
-	quit();
+	quit(terminal);
 	return (1);
 }

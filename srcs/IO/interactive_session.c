@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 13:47:46 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/12 14:07:31 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,8 @@
 #include <environment.h>
 #include <io.h>
 
-void				quit(void)
+void				quit(t_terminal *terminal)
 {
-	t_terminal	*terminal;
-
-	terminal = get_terminal(0);
 	termios_toggle_isig(terminal, 1);
 	write(terminal->tty, "\n", 1);
 	free_terminal(terminal);
@@ -62,7 +59,7 @@ static char	const	*prompt(t_terminal *terminal)
 		if (size == -1)
 		{
 			ft_printf("error\n");
-			quit();
+			quit(terminal);
 		}
 		c[size] = 0;
 		if (handle_input(terminal, c) == 0)
