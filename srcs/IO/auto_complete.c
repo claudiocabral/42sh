@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:51:53 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 15:26:49 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 16:02:34 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <dirent.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <environment.h>
 
 int			is_separator(char c)
 {
@@ -27,8 +28,14 @@ void		auto_complete_push(t_array *array, char *base, char *candidate)
 
 	if (!candidate)
 		return ;
-	if ((ret = ft_strnequ(base, candidate, ft_strlen(base))))
+	if ((ret = ft_strnequ(base, candidate, ft_strlen(base)))
+			&& !array_find(array, &candidate, (t_cmpf )&ft_strcmp_wrapper))
 		ret = (size_t)array_push_back(array, &candidate);
+	else
+	{
+		free(candidate);
+		return ;
+	}
 	if (!ret)
 		free(candidate);
 }
@@ -93,15 +100,11 @@ int			is_directory_symlink(struct dirent *entry)
 	return (1);
 }
 
-char		*auto_complete_path(t_array *array, t_terminal *terminal)
+void		search_dir(DIR *dir, char *str, t_array *array)
 {
-	DIR				*dir;
-	struct dirent	*entry;
-	char			*str;
 	char			*candidate;
+	struct dirent	*entry;
 
-	if (!(dir = get_dir(terminal->line->buffer, &str)))
-		return (0);
 	while ((entry = readdir(dir)))
 	{
 		if (!(candidate = malloc(sizeof(char)
@@ -114,14 +117,50 @@ char		*auto_complete_path(t_array *array, t_terminal *terminal)
 		auto_complete_push(array, str, candidate);
 	}
 	closedir(dir);
+}
+
+char		*auto_complete_path(t_array *array, t_terminal *terminal)
+{
+	DIR				*dir;
+	char			*str;
+
+	if (!(dir = get_dir(terminal->line->buffer, &str)))
+		return (0);
+	search_dir(dir, str, array);
 	return (str);
+}
+
+void		search_builtins(char *str, t_array *array)
+{
+	auto_complete_push(array, str, ft_strdup("cd"));
+	auto_complete_push(array, str, ft_strdup("echo"));
+	auto_complete_push(array, str, ft_strdup("pwd"));
+	auto_complete_push(array, str, ft_strdup("env"));
+	auto_complete_push(array, str, ft_strdup("setenv"));
+	auto_complete_push(array, str, ft_strdup("unsetenv"));
 }
 
 char		*auto_complete_command(t_array *array, t_terminal *terminal)
 {
-	(void)array;
-	(void)terminal;
-	return (0);
+	char	*path;
+	char	*path_end;
+	char	*str;
+	DIR		*dir;
+
+	if (!(path = ft_getenv("PATH")))
+		return (0);
+	str = ft_strdup(terminal->line->buffer);
+	search_builtins(str, array);
+	while (*path && (path_end = ft_strchr(path, ':')))
+	{
+		*path_end = 0;
+		if (!(dir = opendir(path)))
+			return (0);
+		search_dir(dir, str, array);
+		*path_end = ':';
+		path = path_end + 1;
+	}
+	return (str);
 }
 
 void		choose_possibility(t_array *array, char *str,

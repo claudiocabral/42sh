@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/09 09:25:06 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/12 12:13:51 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 15:52:54 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,6 @@ void			*median(void *begin, void *end, size_t size);
 int				ft_strdup_wrapper(char **dst, char const * const *src,
 															void *dummy);
 int				ft_strncmp_wrapper(char const **a, char const **b);
+int				ft_strcmp_wrapper(char const **a, char const **b);
 
 #endif
