@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 13:47:09 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 14:05:52 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int			handle_string_input(t_terminal *terminal, char c[16])
 		return (terminal_move_right(terminal, (int)c[0]));
 	else if (terminal_compare_string(DELETE_KEY, c))
 		return (terminal_delete(terminal, CTRL_H));
-	terminal_insert_unicode(terminal, c);
+	terminal_insert_string(terminal, c);
 	return (1);
 }
 

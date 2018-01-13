@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 10:50:07 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/25 12:43:41 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/13 14:22:34 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,9 @@ void			*array_apply_until(t_array *array, void *args,
 		it += array->element_size;
 	}
 	return (0);
+}
+
+int				array_size(t_array *array)
+{
+	return ((array->end - array->begin) / array->element_size);
 }

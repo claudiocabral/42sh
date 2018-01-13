@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:49:51 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 11:23:38 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 14:05:05 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ void			array_remove_if(t_array *array, void const *data,
 									t_freef freef, t_predf predicate);
 t_array			*array_copy(t_array const *src, void *args,
 										t_cpyf cpyf, t_freef freef);
+int				array_size(t_array *array);
 
 #endif

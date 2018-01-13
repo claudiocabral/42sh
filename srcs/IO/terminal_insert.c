@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:54:21 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 17:24:48 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 13:58:46 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		terminal_insert(t_terminal *terminal, int c)
 	return (1);
 }
 
-int		terminal_insert_unicode(t_terminal *terminal, char *str)
+int		terminal_insert_string(t_terminal *terminal, char *str)
 {
 	int	i;
 	int	j;
