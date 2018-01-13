@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:51:53 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 16:02:34 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 16:33:38 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void		auto_complete_push(t_array *array, char *base, char *candidate)
 {
 	size_t	ret;
 
-	if (!candidate)
+	if (!base || !candidate)
 		return ;
-	if ((ret = ft_strnequ(base, candidate, ft_strlen(base)))
+	if ((!*base || (ret = ft_strnequ(base, candidate, ft_strlen(base))))
 			&& !array_find(array, &candidate, (t_cmpf )&ft_strcmp_wrapper))
 		ret = (size_t)array_push_back(array, &candidate);
 	else
@@ -46,17 +46,18 @@ int			first_word(t_string *str)
 	int		count;
 
 	i = 0;
-	count = 0;
+	count = -1;
 	while ((unsigned long)i < str->size)
 	{
+		++count;
 		while (ft_is_whitespace(str->buffer[i]))
 			++i;
 		while (str->buffer[i] && !ft_is_whitespace(str->buffer[i]))
+		{
 			++i;
-		if (is_separator(str->buffer[i - 1]))
-			count = 0;
-		else if (str->buffer[i])
-			++count;
+			if (is_separator(str->buffer[i - 1]))
+				count = 0;
+		}
 	}
 	return (!count);
 }
@@ -73,7 +74,10 @@ DIR			*get_dir(char *path, char **str)
 		++begin;
 	if ((dir_path = ft_strrchr(begin, '/')))
 	{
-		*dir_path = 0;
+		if (dir_path == begin)
+			begin = "/";
+		else
+			dir_path[0] = 0;
 		dir = opendir(begin);
 		*dir_path = '/';
 		*str = ft_strdup(dir_path + 1);
@@ -105,7 +109,12 @@ void		search_dir(DIR *dir, char *str, t_array *array)
 	char			*candidate;
 	struct dirent	*entry;
 
-	while ((entry = readdir(dir)))
+	entry = readdir(dir);
+	if (ft_strequ(entry->d_name, "."))
+		entry = readdir(dir);
+	if (ft_strequ(entry->d_name, ".."))
+		entry = readdir(dir);
+	while (1)
 	{
 		if (!(candidate = malloc(sizeof(char)
 						* (ft_strlen(entry->d_name) + 2))))
@@ -115,6 +124,8 @@ void		search_dir(DIR *dir, char *str, t_array *array)
 		if (entry->d_type == DT_DIR || is_directory_symlink(entry))
 			ft_strcat(candidate, "/");
 		auto_complete_push(array, str, candidate);
+		if (!(entry = readdir(dir)))
+			break ;
 	}
 	closedir(dir);
 }
@@ -149,7 +160,15 @@ char		*auto_complete_command(t_array *array, t_terminal *terminal)
 
 	if (!(path = ft_getenv("PATH")))
 		return (0);
-	str = ft_strdup(terminal->line->buffer);
+	if ((str = ft_strrchr(terminal->line->buffer, ' ')))
+	{
+		++str;
+		while (is_separator(*str))
+			++str;
+		str = ft_strdup(str);
+	}
+	else
+		str = ft_strdup(terminal->line->buffer);
 	search_builtins(str, array);
 	while (*path && (path_end = ft_strchr(path, ':')))
 	{
@@ -177,6 +196,7 @@ int			auto_complete(t_terminal *terminal, int c)
 {
 	t_array			*array;
 	char			*str;
+	char			*begin;
 
 	(void)c;
 	str = 0;
@@ -187,7 +207,8 @@ int			auto_complete(t_terminal *terminal, int c)
 		str = auto_complete_path(array, terminal);
 	else
 	{
-		if (ft_strchr(terminal->line->buffer, '/'))
+		begin = ft_strrchr(terminal->line->buffer, ' ');
+		if (ft_strchr(begin, '/'))
 			str = auto_complete_path(array, terminal);
 		else
 			str = auto_complete_command(array, terminal);
