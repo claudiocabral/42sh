@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 17:58:20 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 16:48:54 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void				print_prompt(t_terminal *terminal)
 		path = path ? ft_strrchr(path, '/') : 0;
 		path = path ? path + 1 : 0;
 	}
-	terminal->prompt_size = ft_printf("%s%c%s", path ? path : "",
+	terminal->prompt_size = ft_dprintf(0, "%s%c%s", path ? path : "",
 												path ? ' ' : 0,
 												terminal->prompt);
 	terminal->cursor = terminal->prompt_size;
@@ -53,8 +53,8 @@ static char	const	*prompt(t_terminal *terminal)
 	ring_buffer_push_empty(terminal->history);
 	terminal->line = (t_string*)terminal->history->current;
 	termios_toggle_isig(terminal, 0);
-	print_prompt(terminal);
 	set_termios(&(terminal->custom));
+	print_prompt(terminal);
 	while ((size = read(terminal->tty, c, 15)))
 	{
 		if (size == -1)

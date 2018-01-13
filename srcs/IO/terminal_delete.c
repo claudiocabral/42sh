@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:50:47 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 17:37:51 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 16:48:33 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int						terminal_kill_line(t_terminal *terminal, int c)
 {
 	terminal_bol(terminal, c);
 	terminal_delete_until_eol(terminal, c);
-	ft_printf("\n%s", terminal->prompt);
+	write(0, "\n", 1);
+	print_prompt(terminal);
 	terminal->cursor = terminal->prompt_size;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:51:53 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 16:33:38 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 17:47:15 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,10 +186,29 @@ void		choose_possibility(t_array *array, char *str,
 		t_terminal *terminal)
 {
 	char	**it;
+	char	*candidate;
+	int		size;
+	int		max_size;
 
-	(void)str;
-	(void)terminal;
 	it = (char **)array->begin;
+	if (it == array->end)
+		return ;
+	max_size = ft_strlen(*it);
+	candidate = *it;
+	while (it != array->end)
+	{
+		size = 0;
+		while (size < max_size && (*it)[size] == candidate[size])
+			++size;
+		max_size = size;
+		++it;
+	}
+	max_size = candidate[size];
+	candidate[size] = 0;
+	if (str)
+		terminal_insert_string(terminal,
+				candidate + ft_strlen(str));
+	candidate[size] = (char)max_size;
 }
 
 int			auto_complete(t_terminal *terminal, int c)
@@ -208,7 +227,7 @@ int			auto_complete(t_terminal *terminal, int c)
 	else
 	{
 		begin = ft_strrchr(terminal->line->buffer, ' ');
-		if (ft_strchr(begin, '/'))
+		if (ft_strchr(begin == 0 ? terminal->line->buffer : begin, '/'))
 			str = auto_complete_path(array, terminal);
 		else
 			str = auto_complete_command(array, terminal);
