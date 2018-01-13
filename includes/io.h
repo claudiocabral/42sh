@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 18:26:35 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 19:22:00 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ typedef struct	s_terminal
 {
 	t_ring_buffer	*history;
 	t_string		*line;
+	int				width;
+	int				height;
 	int				cursor;
 	int				tty;
 	char			prompt[128];
@@ -84,7 +86,7 @@ typedef int				(*t_input_handle)(t_terminal *, int character);
 
 int				init_command_table(void);
 int				handle_input(t_terminal *terminal, char c[16]);
-void			print_prompt(t_terminal *terminal);
+int				print_prompt(t_terminal *terminal);
 t_terminal		*get_terminal(t_terminal *terminal);
 void			free_terminal(t_terminal *terminal);
 int				setup_terminal(t_terminal *terminal, char const *prompt);

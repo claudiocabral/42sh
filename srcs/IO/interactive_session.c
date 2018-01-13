@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 18:39:49 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 19:20:46 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void				quit(t_terminal *terminal)
 	exit(0);
 }
 
-void				print_prompt(t_terminal *terminal)
+int					print_prompt(t_terminal *terminal)
 {
 	char const	*path;
 
@@ -42,7 +42,7 @@ void				print_prompt(t_terminal *terminal)
 	terminal->prompt_size = ft_dprintf(0, "%s%c%s", path ? path : "",
 												path ? ' ' : 0,
 												terminal->prompt);
-	terminal->cursor = terminal->prompt_size;
+	return (terminal->prompt_size);
 }
 
 static char	const	*prompt(t_terminal *terminal)
@@ -54,7 +54,7 @@ static char	const	*prompt(t_terminal *terminal)
 	terminal->line = (t_string*)terminal->history->current;
 	termios_toggle_isig(terminal, 0);
 	set_termios(&(terminal->custom));
-	print_prompt(terminal);
+	terminal->cursor = print_prompt(terminal);
 	while ((size = read(terminal->tty, c, 15)))
 	{
 		if (size == -1)

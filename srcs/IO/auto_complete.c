@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:51:53 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 18:54:44 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 19:22:28 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,23 @@ int			nbr_characters(char const *str)
 	return (nbr);
 }
 
+void		adjust_terminal(t_terminal *terminal, int nbr_lines)
+{
+	if (nbr_lines >= terminal->height)
+	{
+		print_prompt(terminal);
+		ft_dprintf(0, "%s", terminal->line->buffer);
+	}
+	else
+	{
+		terminal_command(MOVE_UP, nbr_lines);
+		terminal_command(MOVE_RIGHT,
+			terminal->prompt_size
+			+ nbr_characters(terminal->line->buffer));
+
+	}
+}
+
 int			print_options(t_array *array, t_terminal *terminal)
 {
 	char	**it;
@@ -216,14 +233,12 @@ int			print_options(t_array *array, t_terminal *terminal)
 		++nbr_lines;
 		++it;
 	}
-	terminal_command(MOVE_UP, nbr_lines);
-	terminal_command(MOVE_RIGHT,
-			terminal->prompt_size + nbr_characters(terminal->line->buffer));
+	adjust_terminal(terminal, nbr_lines);
 	return (1);
 }
 
 int			choose_possibility(t_array *array, char *str,
-										t_terminal *terminal)
+		t_terminal *terminal)
 {
 	char	**it;
 	char	*candidate;

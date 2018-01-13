@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 18:21:05 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 19:17:49 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void				free_terminal(t_terminal *terminal)
 
 static void			init_termios(t_terminal *terminal)
 {
+	terminal->width = tgetnum("co");
+	terminal->height = tgetnum("li");
 	tcgetattr(0, &(terminal->original));
 	terminal->custom = terminal->original;
 	terminal->custom.c_iflag |= ICRNL;
