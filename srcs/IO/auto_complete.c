@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:51:53 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 17:47:15 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 18:54:44 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <environment.h>
+#include <ft_printf.h>
 
 int			is_separator(char c)
 {
@@ -182,19 +183,56 @@ char		*auto_complete_command(t_array *array, t_terminal *terminal)
 	return (str);
 }
 
-void		choose_possibility(t_array *array, char *str,
-		t_terminal *terminal)
+int			nbr_characters(char const *str)
+{
+	int	 nbr;
+
+	nbr = 0;
+	while (1)
+	{
+		while (is_middle_of_unicode(*str))
+			++str;
+		if (!*str)
+			break ;
+		++str;
+		++nbr;
+	}
+	return (nbr);
+}
+
+int			print_options(t_array *array, t_terminal *terminal)
+{
+	char	**it;
+	int		nbr_lines;
+
+	(void)terminal;
+	write(0, "\n", 1);
+	terminal_command(CLEAR_BOTTOM, 0);
+	it = (char **)array->begin;
+	nbr_lines = 1;
+	while (it != array->end)
+	{
+		ft_dprintf(0, "%s\n", *it);
+		++nbr_lines;
+		++it;
+	}
+	terminal_command(MOVE_UP, nbr_lines);
+	terminal_command(MOVE_RIGHT,
+			terminal->prompt_size + nbr_characters(terminal->line->buffer));
+	return (1);
+}
+
+int			choose_possibility(t_array *array, char *str,
+										t_terminal *terminal)
 {
 	char	**it;
 	char	*candidate;
 	int		size;
 	int		max_size;
 
-	it = (char **)array->begin;
-	if (it == array->end)
-		return ;
-	max_size = ft_strlen(*it);
-	candidate = *it;
+	if ((it = (char **)array->begin) == array->end)
+		return (0);
+	max_size = ft_strlen((candidate = *it));
 	while (it != array->end)
 	{
 		size = 0;
@@ -203,12 +241,15 @@ void		choose_possibility(t_array *array, char *str,
 		max_size = size;
 		++it;
 	}
+	if ((size_t)size == ft_strlen(str))
+		return (print_options(array, terminal));
 	max_size = candidate[size];
 	candidate[size] = 0;
 	if (str)
 		terminal_insert_string(terminal,
 				candidate + ft_strlen(str));
 	candidate[size] = (char)max_size;
+	return (1);
 }
 
 int			auto_complete(t_terminal *terminal, int c)

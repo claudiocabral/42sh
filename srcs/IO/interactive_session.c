@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 16:48:54 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 18:39:49 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static char	const	*prompt(t_terminal *terminal)
 		if (handle_input(terminal, c) == 0)
 			break ;
 	}
+	terminal_command(CLEAR_BOTTOM, 0);
 	termios_toggle_isig(terminal, 1);
 	set_termios(&(terminal->original));
 	terminal->cursor = terminal->prompt_size;

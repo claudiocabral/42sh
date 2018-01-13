@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 16:46:22 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/13 18:26:35 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ typedef enum	e_keys
 typedef enum	e_terminal_command
 {
 	INSERT,
+	MOVE_UP,
+	MOVE_DOWN,
 	MOVE_LEFT,
 	MOVE_RIGHT,
 	DELETE,
@@ -60,7 +62,10 @@ typedef enum	e_terminal_command
 	ARROW_UP,
 	ARROW_DOWN,
 	ARROW_LEFT,
-	ARROW_RIGHT
+	ARROW_RIGHT,
+	SAVE_POSITION,
+	RESTORE_POSITION,
+	CLEAR_BOTTOM
 }				t_terminal_command;
 
 typedef struct	s_terminal
