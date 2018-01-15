@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 14:02:30 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 16:13:19 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@ t_tree		*and_or(t_tree *tree, t_array *tokens, t_token **current)
 
 t_tree		*list(t_tree *tree, t_array *tokens, t_token **current)
 {
+	t_token token;
+
+	token = emit_token(LIST, 0, 0, 0);
+	tree = tree_create_node(&token, sizeof(t_token));
 	while (*current != tokens->end)
 	{
-		if (!(tree = and_or(tree, tokens, current)))
-			break ;
+		tree = tree_add_child(tree, and_or(0, tokens, current));
 	}
 	return (tree);
 }
@@ -46,13 +49,14 @@ t_tree		*parse(t_array *tokens)
 	t_tree	*tree;
 
 	if (!tokens || tokens->begin == tokens->end)
+	{
+		array_free(tokens, &noop);
 		return (0);
+	}
 	tree = 0;
 	current = (t_token *)(tokens->begin);
 	while (current != tokens->end)
 	{
-		if (match(&current, SEMICOLON, SENTINEL))
-			continue ;
 		tree = tree_add_child(tree, complete_command(0, tokens, &current));
 		if (!tree)
 			break ;

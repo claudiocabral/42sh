@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 13:51:23 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 16:02:38 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,15 @@
 #include <token.h>
 #include <environment.h>
 
-int		command_dispatch(char **argv)
+int		command_dispatch(char **argv, char **env, char const *who)
 {
 	void const	*tmp;
-	char		**env;
 
-	env = get_environment();
 	if (ft_strchr(argv[0], '/'))
-		return (invoke(argv[0], argv, env, "./minishell"));
+		return (invoke(argv[0], argv, env, who));
 	if ((tmp = get_builtin_command(argv[0])))
 		return (invoke_builtin(tmp, argv));
-	return (invoke(command_name_lookup(argv[0]), argv, env, "./minishell"));
+	return (invoke(command_name_lookup(argv[0]), argv, env, who));
 	return (127);
 }
 
@@ -56,7 +54,8 @@ int		execute_simple_command(t_tree *tree)
 		}
 		++child;
 	}
-	ret = command_dispatch((char **)args->begin);
+	ret = command_dispatch((char **)args->begin, get_environment(),
+														".minishell");
 	array_free(args, (t_freef) & free_wrapper);
 	return (ret);
 }
@@ -83,12 +82,7 @@ int		execute(t_tree *tree)
 	ret = 0;
 	if (!tree)
 		return (0);
-	if (((t_token *)tree->element)->type == COMMANDS)
-		ret = execute_commands(tree);
-	else if (((t_token *)tree->element)->type == PIPE)
-		ret = execute_pipe(tree);
-	else
-		ft_printf("no commands\n");
+	ret = dispatch_branch(tree);
 	tree_free(tree, (t_freef) & noop);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 16:17:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 13:40:05 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 16:00:02 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 typedef enum	e_tag
 {
 	COMMANDS = 0,
+	LIST,
 	TOKEN_NIL,
 	SIMPLE_COMMAND,
 	TOKEN,

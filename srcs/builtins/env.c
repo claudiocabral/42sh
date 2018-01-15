@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 12:41:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 13:21:04 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 15:38:12 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int			do_env(int argc, char **argv, t_array *local_env)
 {
 	int			i;
 	int			ret;
-	char const	*command;
 
 	i = 0;
 	while (i < argc && ft_strchr(argv[i], '='))
@@ -55,7 +54,7 @@ int			do_env(int argc, char **argv, t_array *local_env)
 	if (i == argc)
 		ret = print_environment(local_env);
 	else
-		ret = invoke(command, argv + i, local_env->begin, "env");
+		ret = command_dispatch(argv + i, local_env->begin, "env");
 	array_free(local_env, (t_freef) & free_wrapper);
 	return (ret);
 }

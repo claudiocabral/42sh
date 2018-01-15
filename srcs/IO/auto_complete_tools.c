@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 11:05:25 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/15 11:31:58 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 15:49:34 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int			first_word(t_string *str)
 		{
 			++i;
 			if (is_separator(str->buffer[i - 1]))
-				count = 0;
+				count = -1;
 		}
 	}
 	return (!count);
