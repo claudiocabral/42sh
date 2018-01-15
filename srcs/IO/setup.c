@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 14:50:27 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 17:19:09 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static void			init_termios(t_terminal *terminal)
 	terminal->width = tgetnum("co");
 	terminal->height = tgetnum("li");
 	tcgetattr(0, &(terminal->original));
-	terminal->custom = terminal->original;
+	ft_memcpy(&(terminal->custom),
+			&(terminal->original), sizeof(struct termios));
 	terminal->custom.c_iflag |= ICRNL;
 	terminal->custom.c_lflag &= ~(ECHO | ICANON | ECHOE | ECHOKE
 			| ECHOCTL);
