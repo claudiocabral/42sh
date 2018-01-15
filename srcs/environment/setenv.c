@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 12:18:10 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/12 12:21:01 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 14:59:27 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int				ft_setenv(char const *name, char const *val, int overwrite)
 		*env = tmp;
 	}
 	else
-		env = array_insert_sorted(get_environment_array(), &tmp,
-									(t_cmpf) & ft_strncmp_wrapper);
+		env = array_push_back(get_environment_array(), &tmp);
 	if (ft_strequ(name, "PATH"))
 		generate_paths();
 	return (env != 0 ? 0 : -1);
