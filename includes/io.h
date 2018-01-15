@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 11:20:41 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 14:42:48 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void			set_termios(struct termios *termios);
 int				terminal_compare_string(t_terminal_command command,
 														char const *str);
 void			terminal_command(t_terminal_command command, int val);
+int				terminal_noop(t_terminal *terminal, int c);
 int				terminal_bol(t_terminal *terminal, int c);
 int				terminal_eol(t_terminal *terminal, int c);
 int				terminal_cancel_line(t_terminal *terminal, int c);

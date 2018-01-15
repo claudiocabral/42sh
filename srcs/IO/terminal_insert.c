@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:54:21 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 13:58:46 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 14:41:58 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,11 @@ int		terminal_eof(t_terminal *terminal, int c)
 		return (terminal_insert(terminal, c));
 	write(terminal->tty, &c, 1);
 	return (0);
+}
+
+int		terminal_noop(t_terminal *terminal, int c)
+{
+	(void)terminal;
+	(void)c;
+	return (1);
 }
