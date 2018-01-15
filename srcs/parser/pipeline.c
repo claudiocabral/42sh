@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 16:07:30 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 16:18:16 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ t_tree		*command(t_tree *tree, t_array *tokens, t_token **current)
 	while (*current != tokens->end)
 	{
 		if (match(current, SEMICOLON, SENTINEL))
+		{
+			--(*current);
 			break ;
+		}
 		if (match(current, PIPE, SENTINEL))
 		{
 			--(*current);
