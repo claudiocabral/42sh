@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 19:17:49 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 14:50:27 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static void			init_termios(t_terminal *terminal)
 	terminal->custom.c_oflag &= (OPOST | ONLCR);
 	terminal->custom.c_cc[VMIN] = 1;
 	terminal->custom.c_cc[VTIME] = 0;
-	terminal->custom.c_cc[VERASE] = CTRL_H;
 	set_termios(&(terminal->custom));
 }
 
