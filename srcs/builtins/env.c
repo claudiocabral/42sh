@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 12:41:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 13:11:35 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 13:21:04 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ int			do_env(int argc, char **argv, t_array *local_env)
 		++i;
 	}
 	if (i == argc)
-		return (0);
-	ret = invoke(command, argv + i, local_env->begin, "env");
+		ret = print_environment(local_env);
+	else
+		ret = invoke(command, argv + i, local_env->begin, "env");
 	array_free(local_env, (t_freef) & free_wrapper);
 	return (ret);
 }
@@ -93,7 +94,7 @@ int			env(int argc, char **argv)
 
 	if (argc == 1)
 	{
-		print_environment();
+		print_environment(get_environment_array());
 		return (0);
 	}
 	if ((flag_i = env_parser(&argc, &argv)) == -1)

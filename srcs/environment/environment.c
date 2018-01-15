@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 12:28:59 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 13:19:34 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,11 @@ void			print_env(char const **env, void *dummy)
 	ft_printf("%s\n", *env);
 }
 
-void			print_environment(void)
+int				print_environment(t_array *env)
 {
-	t_array	*env;
-
-	if ((env = get_environment_array()))
+	if (env)
 		array_apply(env, 0, (t_applyf) & print_env);
+	return (0);
 }
 
 int				set_current_path(void)

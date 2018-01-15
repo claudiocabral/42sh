@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/17 15:04:05 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/17 16:40:34 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/15 13:19:26 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	builtin_setenv(int argc, char **argv)
 	}
 	if (argc == 1)
 	{
-		print_environment();
+		print_environment(get_environment_array());
 		return (0);
 	}
 	if (argc == 2)
