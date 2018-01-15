@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 16:18:16 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 16:58:07 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,7 @@ t_tree		*command(t_tree *tree, t_array *tokens, t_token **current)
 	commands = tree_create_node(&token, sizeof(t_token));
 	while (*current != tokens->end)
 	{
-		if (match(current, SEMICOLON, SENTINEL))
-		{
-			--(*current);
-			break ;
-		}
-		if (match(current, PIPE, SENTINEL))
+		if (match(current, SEMICOLON, PIPE, SENTINEL))
 		{
 			--(*current);
 			break ;
@@ -78,22 +73,22 @@ t_tree		*command(t_tree *tree, t_array *tokens, t_token **current)
 
 t_tree		*pipeline_sequence(t_tree *tree, t_array *tokens, t_token **current)
 {
-	t_tree	*pipe;
-	int		ret;
+	t_tree	*child;
 
-	ret = 0;
+	child = 0;
 	while (1)
 	{
 		if (match(current, SEMICOLON, SENTINEL))
 			break ;
-		if (!(tree = command(tree, tokens, current)))
+		if (!(child = command(0, tokens, current)))
 			break ;
+		tree = tree_add_child(tree, child);
 		if (*current == tokens->end)
 			break ;
 		if (match(current, PIPE, SENTINEL))
 		{
-			pipe = tree_create_node(*(current) - 1, sizeof(t_token));
-			tree = tree_add_child(pipe, tree);
+			child = tree_create_node(*(current) - 1, sizeof(t_token));
+			tree = tree_add_child(child, tree);
 		}
 	}
 	return (tree);

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 16:39:06 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 17:02:52 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,20 @@ t_tree		*list(t_tree *tree, t_array *tokens, t_token **current)
 	t_tree	*child;
 
 	token = emit_token(LIST, 0, 0, 0);
-	tree = tree_create_node(&token, sizeof(t_token));
+	ZERO_IF_FAIL(tree = tree_create_node(&token, sizeof(t_token)));
 	while (*current != tokens->end)
 	{
+		if (match(current, SEMICOLON, SENTINEL))
+			continue ;
 		child = and_or(0, tokens, current);
 		if (!child)
 			break ;
 		tree = tree_add_child(tree, child);
+	}
+	if (tree->children->begin == tree->children->end)
+	{
+		tree_free(tree, (t_freef) & noop);
+		return (0);
 	}
 	return (tree);
 }
@@ -51,6 +58,7 @@ t_tree		*parse(t_array *tokens)
 {
 	t_token	*current;
 	t_tree	*tree;
+	t_tree	*child;
 
 	if (!tokens || tokens->begin == tokens->end)
 	{
@@ -61,7 +69,9 @@ t_tree		*parse(t_array *tokens)
 	current = (t_token *)(tokens->begin);
 	while (current != tokens->end)
 	{
-		tree = tree_add_child(tree, complete_command(0, tokens, &current));
+		if (!(child = complete_command(0, tokens, &current)))
+			break ;
+		tree = tree_add_child(tree, child);
 		if (!tree)
 			break ;
 	}
