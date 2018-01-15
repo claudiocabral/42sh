@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 17:02:52 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 17:30:55 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ t_tree		*list(t_tree *tree, t_array *tokens, t_token **current)
 			continue ;
 		child = and_or(0, tokens, current);
 		if (!child)
-			break ;
+		{
+			tree_free(tree, (t_freef) & noop);
+			return (0);
+		}
 		tree = tree_add_child(tree, child);
 	}
 	if (tree->children->begin == tree->children->end)

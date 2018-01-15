@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 16:58:07 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 17:37:59 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ t_tree		*pipeline_sequence(t_tree *tree, t_array *tokens, t_token **current)
 		if (match(current, SEMICOLON, SENTINEL))
 			break ;
 		if (!(child = command(0, tokens, current)))
-			break ;
+		{
+			tree_free(tree, (t_freef) & noop);
+			return (0);
+		}
 		tree = tree_add_child(tree, child);
 		if (*current == tokens->end)
 			break ;
