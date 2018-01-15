@@ -59,6 +59,7 @@ OBJS	=	objs/main.o \
 			objs/IO/history.o \
 			objs/IO/input_handler.o \
 			objs/IO/setup.o \
+			objs/builtins/exit.o \
 			objs/builtins/env.o \
 			objs/builtins/setenv.o \
 			objs/builtins/unsetenv.o \

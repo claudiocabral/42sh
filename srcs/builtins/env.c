@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 12:41:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 11:49:47 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 13:11:35 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,6 @@
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
-
-int			env_invoke(char const *command, char **args, char **env)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		if (execve(command, args, env) == -1)
-		{
-			ft_dprintf(2, "env: failed to launch %s\n", command);
-			exit(1);
-		}
-	}
-	return (wait_process(pid));
-}
 
 static int	safe_push_back(t_array *local_env, char *data)
 {
@@ -70,10 +54,7 @@ int			do_env(int argc, char **argv, t_array *local_env)
 	}
 	if (i == argc)
 		return (0);
-	if (!(command = command_name_lookup(argv[i])))
-		ret = 1;
-	else
-		ret = env_invoke(command, argv + i, local_env->begin);
+	ret = invoke(command, argv + i, local_env->begin, "env");
 	array_free(local_env, (t_freef) & free_wrapper);
 	return (ret);
 }

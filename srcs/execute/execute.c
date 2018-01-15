@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 13:46:50 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 13:14:17 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
 int		command_dispatch(char **argv)
 {
 	void const	*tmp;
+	char		**env;
 
+	env = get_environment();
 	if (ft_strchr(argv[0], '/'))
-		return (invoke(argv[0], argv));
+		return (invoke(argv[0], argv, env, "./minishell"));
 	if ((tmp = get_builtin_command(argv[0])))
 		return (invoke_builtin(tmp, argv));
-	if ((tmp = command_name_lookup(argv[0])))
-		return (invoke(tmp, argv));
-	ft_dprintf(2, "minishell: command not found: %s\n", argv[0]);
+	return (invoke(tmp, argv, env, "./minishell"));
 	return (127);
 }
 

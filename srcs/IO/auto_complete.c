@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:51:53 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 11:30:34 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 13:08:23 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ void		search_builtins(char *str, t_array *array)
 {
 	auto_complete_push(array, str, ft_strdup("cd"));
 	auto_complete_push(array, str, ft_strdup("echo"));
-	auto_complete_push(array, str, ft_strdup("pwd"));
 	auto_complete_push(array, str, ft_strdup("env"));
+	auto_complete_push(array, str, ft_strdup("exit"));
+	auto_complete_push(array, str, ft_strdup("pwd"));
 	auto_complete_push(array, str, ft_strdup("setenv"));
 	auto_complete_push(array, str, ft_strdup("unsetenv"));
 }
@@ -80,7 +81,7 @@ int			auto_complete(t_terminal *terminal, int c)
 	char			*begin;
 
 	if (terminal->line->size == 0)
-		return (c == 0);
+		return (c != 0);
 	ZERO_IF_FAIL(array = array_create(8, sizeof(char *)));
 	if (!first_word(terminal->line))
 		str = auto_complete_path(array, terminal);

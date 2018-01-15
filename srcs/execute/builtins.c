@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 11:40:55 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/12 11:50:23 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 13:01:48 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int						init_builtins(void)
 {
 	ZERO_IF_FAIL(g_builtins = hash_table_create(sizeof(t_builtin), 16,
 					(t_hashf) & builtin_hash, (t_cmpf) & builtin_compare));
+	add_builtin("exit", &builtin_exit);
 	add_builtin("cd", &cd);
 	add_builtin("echo", &echo);
 	add_builtin("pwd", &pwd);

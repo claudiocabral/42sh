@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 11:19:55 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/15 11:25:40 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 11:53:11 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			choose_possibility(t_array *array, char *str,
 	int		size;
 	int		max_size;
 
-	ZERO_IF_FAIL((it = (char **)array->begin) == array->end);
+	ZERO_IF_FAIL((it = (char **)array->begin) != array->end);
 	candidate = *it;
 	max_size = ft_strlen(candidate);
 	while (it != array->end)

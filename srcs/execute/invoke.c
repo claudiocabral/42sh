@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:16:45 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 11:33:26 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 13:13:12 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,33 +44,32 @@ int		wait_process(pid_t pid)
 	return (stat_loc);
 }
 
-int		check_access(char const *command, char const *command_name)
+int		check_access(char const *command, char const *command_name,
+														char const *who)
 {
 	struct stat	buff;
 
 	if (stat(command, &buff) == -1)
 	{
-		ft_dprintf(2, "./minishell: command not found: %s\n", command_name);
+		ft_dprintf(2, "%s: command not found: %s\n", who, command_name);
 		return (0);
 	}
 	if (access(command, X_OK) == -1)
 	{
-		ft_dprintf(2, "./minishell: permission denied: %s\n", command_name);
+		ft_dprintf(2, "%s: permission denied: %s\n", who, command_name);
 		return (0);
 	}
 	return (1);
 }
 
-int		invoke(char const *command, char **args)
+int		invoke(char const *command, char **args, char **env, char const *who)
 {
 	pid_t	pid;
-	char	**env;
 
-	if (!check_access(command, args[0]))
+	if (!check_access(command, args[0], who))
 		return (1);
 	if ((pid = fork()) == -1)
 		return (1);
-	env = get_environment();
 	if (pid == 0)
 	{
 		if (execve(command, args, env) == -1)
