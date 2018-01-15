@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:51:53 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 19:22:28 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 11:02:00 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,65 @@
 int			is_separator(char c)
 {
 	return (c == '|' || c == '&' || c == ';' || c == '<' || c == '>');
+}
+
+int			get_biggest_column(t_array *array)
+{
+	char	**it;
+	int		max;
+
+	it = (char **)array->begin;
+	max = 0;
+	while (it != array->end)
+	{
+		max = ft_max(max, ft_strlen(*it));
+		++it;
+	}
+	return (max);
+}
+
+void		print_columns_helper(int nbr_columns, int nbr_rows,
+									int column_size, t_array *array)
+{
+	char	**it;
+	int		i;
+	int		j;
+	int		size;
+
+	(void)nbr_columns;
+	it = array->begin;
+	size = array_size(array);
+	i = 0;
+	while (i < nbr_rows)
+	{
+		j = 0;
+		while (i + (j * nbr_rows) < size)
+		{
+			ft_dprintf(0, "%*s%c",
+				i + (j + 1) * nbr_rows >= size ?
+				-1 * ft_strlen(*(it + i + j * nbr_rows)) : -1 * column_size,
+				*(it + i + j * nbr_rows),
+				i + (j + 1) * nbr_rows >= size ? '\n' : '\t');
+			++j;
+		}
+		++i;
+	}
+
+}
+
+int			print_columns(t_array *array, t_terminal *terminal)
+{
+	int	column_size;
+	int	nbr_columns;
+	int	nbr_rows;
+	int	size;
+
+	size = array_size(array);
+	column_size = get_biggest_column(array);
+	nbr_columns = ft_max(1, terminal->width / ((column_size + 8) / 8 * 8));
+	nbr_rows = size / nbr_columns + ((size % nbr_columns) != 0);
+	print_columns_helper(nbr_columns, nbr_rows, column_size, array);
+	return (nbr_rows);
 }
 
 void		auto_complete_push(t_array *array, char *base, char *candidate)
@@ -211,28 +270,28 @@ void		adjust_terminal(t_terminal *terminal, int nbr_lines)
 	{
 		terminal_command(MOVE_UP, nbr_lines);
 		terminal_command(MOVE_RIGHT,
-			terminal->prompt_size
-			+ nbr_characters(terminal->line->buffer));
+				terminal->prompt_size
+				+ nbr_characters(terminal->line->buffer));
 
 	}
 }
 
 int			print_options(t_array *array, t_terminal *terminal)
 {
-	char	**it;
+	//char	**it;
 	int		nbr_lines;
 
-	(void)terminal;
 	write(0, "\n", 1);
 	terminal_command(CLEAR_BOTTOM, 0);
-	it = (char **)array->begin;
-	nbr_lines = 1;
-	while (it != array->end)
-	{
-		ft_dprintf(0, "%s\n", *it);
-		++nbr_lines;
-		++it;
-	}
+	//it = (char **)array->begin;
+	//nbr_lines = 1;
+	//while (it != array->end)
+	//{
+	//	ft_dprintf(0, "%s\n", *it);
+	//	++nbr_lines;
+	//	++it;
+	//}
+	nbr_lines = print_columns(array, terminal) + 1;
 	adjust_terminal(terminal, nbr_lines);
 	return (1);
 }
