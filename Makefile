@@ -1,4 +1,5 @@
 # **************************************************************************** #
+#
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,7 +7,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/12 15:46:20 by ccabral          ###   ########.fr        #
+#    Updated: 2018/01/15 11:16:39 by ccabral          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +53,9 @@ OBJS	=	objs/main.o \
 			objs/IO/terminal_insert.o \
 			objs/IO/terminal_delete.o \
 			objs/IO/auto_complete.o \
+			objs/IO/auto_complete_adjust.o \
+			objs/IO/auto_complete_tools.o \
+			objs/IO/auto_complete_printer.o \
 			objs/IO/history.o \
 			objs/IO/input_handler.o \
 			objs/IO/setup.o \

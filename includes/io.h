@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 19:22:00 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 11:20:41 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <shellma.h>
 # include <ring_buffer.h>
 # include <ft_string.h>
+# include <dirent.h>
 
 # define COMMAND_TABLE_SIZE 64
 # define STRING_SIZE 128
@@ -116,5 +117,15 @@ void			quit(t_terminal *terminal);
 int				is_middle_of_unicode(unsigned char c);
 int				cursor_is_middle_of_unicode(t_terminal *terminal);
 int				get_letter_index(t_terminal *terminal);
+void			auto_complete_push(t_array *array, char *base,
+														char *candidate);
+int				print_options(t_array *array, t_terminal *terminal);
+DIR				*get_dir(char *path, char **str);
+void			search_dir(DIR *dir, char *str, t_array *array);
+int				first_word(t_string *str);
+int				is_separator(char c);
+void			adjust_terminal(t_terminal *terminal, int nbr_lines);
+int				choose_possibility(t_array *array, char *str,
+											t_terminal *terminal);
 
 #endif
