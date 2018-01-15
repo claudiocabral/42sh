@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:16:45 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 13:13:12 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 14:01:48 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		check_access(char const *command, char const *command_name,
 		ft_dprintf(2, "%s: command not found: %s\n", who, command_name);
 		return (0);
 	}
-	if (access(command, X_OK) == -1)
+	if ((buff.st_mode & S_IFDIR) || access(command, X_OK) == -1)
 	{
 		ft_dprintf(2, "%s: permission denied: %s\n", who, command_name);
 		return (0);
