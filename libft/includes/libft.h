@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/09 09:25:06 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/13 15:52:54 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 11:34:02 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int				ft_is_whitespace(int c);
 size_t			ft_next_power_of_two(size_t value);
 void			free_wrapper(void **ptr);
 void			*median(void *begin, void *end, size_t size);
-int				ft_strdup_wrapper(char **dst, char const * const *src,
+int				ft_strdup_wrapper(char **dst, char const *const *src,
 															void *dummy);
 int				ft_strncmp_wrapper(char const **a, char const **b);
 int				ft_strcmp_wrapper(char const **a, char const **b);

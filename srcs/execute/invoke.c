@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:16:45 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 21:55:41 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/15 11:33:26 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		wait_process(pid_t pid)
 	return (stat_loc);
 }
 
-int		check_access(char const	*command, char const *command_name)
+int		check_access(char const *command, char const *command_name)
 {
 	struct stat	buff;
 
