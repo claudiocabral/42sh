@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/17 15:32:37 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 16:24:30 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 16:34:14 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	builtin_unsetenv(int argc, char **argv)
 	{
 		environment_remove_if(argv[i], (t_predf) & glob_match_wrapper);
 		if (glob_match(argv[i], "PATH"))
-				generate_paths();
+			generate_paths();
 		++i;
 	}
 	return (0);

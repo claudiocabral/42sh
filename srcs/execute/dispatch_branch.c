@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 22:40:08 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 16:02:32 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/15 16:34:26 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	execute_list(t_tree *tree)
 int	dispatch_branch(t_tree *tree)
 {
 	if (branch_equals(tree, LIST))
-		return(execute_list(tree));
+		return (execute_list(tree));
 	else if (branch_equals(tree, PIPE))
 		return (execute_pipe(tree));
 	else
