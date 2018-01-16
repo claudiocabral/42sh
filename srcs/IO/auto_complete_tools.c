@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 11:05:25 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/15 15:49:34 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/16 15:23:05 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 #include <libft.h>
 #include <array.h>
 #include <io.h>
+
+int			is_separator(char c)
+{
+	return (c == '|' || c == '&' || c == ';' || c == '<' || c == '>');
+}
 
 int			first_word(t_string *str)
 {
@@ -91,7 +96,7 @@ void		search_dir(DIR *dir, char *str, t_array *array)
 		entry = readdir(dir);
 	if (ft_strequ(entry->d_name, ".."))
 		entry = readdir(dir);
-	while (1)
+	while (entry)
 	{
 		if (!(candidate = malloc(sizeof(char)
 						* (ft_strlen(entry->d_name) + 2))))
@@ -101,8 +106,7 @@ void		search_dir(DIR *dir, char *str, t_array *array)
 		if (entry->d_type == DT_DIR || is_directory_symlink(entry))
 			ft_strcat(candidate, "/");
 		auto_complete_push(array, str, candidate);
-		if (!(entry = readdir(dir)))
-			break ;
+		entry = readdir(dir);
 	}
 	closedir(dir);
 }

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:51:53 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 13:08:23 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/16 15:23:00 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@
 #include <unistd.h>
 #include <environment.h>
 #include <ft_printf.h>
-
-int			is_separator(char c)
-{
-	return (c == '|' || c == '&' || c == ';' || c == '<' || c == '>');
-}
 
 char		*auto_complete_path(t_array *array, t_terminal *terminal)
 {
@@ -45,12 +40,28 @@ void		search_builtins(char *str, t_array *array)
 	auto_complete_push(array, str, ft_strdup("unsetenv"));
 }
 
+void		auto_complete_loop(t_array *array, char *path, char *str)
+{
+	char	*path_end;
+	DIR		*dir;
+
+	while (*path)
+	{
+		if (!(path_end = ft_strchr(path, ':')))
+			path_end = ft_strchr(path, 0);
+		*path_end = 0;
+		if (!(dir = opendir(path)))
+			return ;
+		search_dir(dir, str, array);
+		*path_end = path_end != ft_strrchr(path, 0) ? ':' : 0;
+		path = *path_end ? path_end + 1 : path_end;
+	}
+}
+
 char		*auto_complete_command(t_array *array, t_terminal *terminal)
 {
 	char	*path;
-	char	*path_end;
 	char	*str;
-	DIR		*dir;
 
 	ZERO_IF_FAIL(path = ft_getenv("PATH"));
 	if ((str = ft_strrchr(terminal->line->buffer, ' ')))
@@ -62,15 +73,8 @@ char		*auto_complete_command(t_array *array, t_terminal *terminal)
 	}
 	else
 		str = ft_strdup(terminal->line->buffer);
+	auto_complete_loop(array, path, str);
 	search_builtins(str, array);
-	while (*path && (path_end = ft_strchr(path, ':')))
-	{
-		*path_end = 0;
-		ZERO_IF_FAIL(dir = opendir(path));
-		search_dir(dir, str, array);
-		*path_end = ':';
-		path = path_end + 1;
-	}
 	return (str);
 }
 
