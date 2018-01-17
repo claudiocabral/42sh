@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:51:53 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/16 15:23:00 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/17 11:57:19 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,19 @@ void		search_builtins(char *str, t_array *array)
 void		auto_complete_loop(t_array *array, char *path, char *str)
 {
 	char	*path_end;
+	char	tmp;
 	DIR		*dir;
 
 	while (*path)
 	{
 		if (!(path_end = ft_strchr(path, ':')))
 			path_end = ft_strchr(path, 0);
+		tmp = *path_end;
 		*path_end = 0;
 		if (!(dir = opendir(path)))
 			return ;
 		search_dir(dir, str, array);
-		*path_end = path_end != ft_strrchr(path, 0) ? ':' : 0;
+		*path_end = tmp;
 		path = *path_end ? path_end + 1 : path_end;
 	}
 }

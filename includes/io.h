@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/16 15:22:51 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/17 13:23:32 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ typedef enum	e_terminal_command
 	ARROW_DOWN,
 	ARROW_LEFT,
 	ARROW_RIGHT,
-	SAVE_POSITION,
-	RESTORE_POSITION,
+	HOME,
+	END,
 	CLEAR_BOTTOM
 }				t_terminal_command;
 

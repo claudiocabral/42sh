@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 16:16:01 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 18:27:03 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/17 13:28:40 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int				check_table(void)
 int				init_command_table(void)
 {
 	g_command_table[CLEAR_BOTTOM] = tgetstr("cd", 0);
-	g_command_table[SAVE_POSITION] = tgetstr("sc", 0);
-	g_command_table[RESTORE_POSITION] = tgetstr("rc", 0);
+	g_command_table[HOME] = tgetstr("kh", 0);
+	g_command_table[END] = "\e\x6";
 	g_command_table[INSERT] = tgetstr("IC", 0);
 	g_command_table[MOVE_DOWN] = tgetstr("DO", 0);
 	g_command_table[MOVE_UP] = tgetstr("UP", 0);
