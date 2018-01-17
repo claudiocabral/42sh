@@ -11,7 +11,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	:=	minishell
+NAME	:=	21sh
 CC		:=	clang
 CFLAGS	:=	-Wextra -Werror -Wall
 CDEBUG	:=	-g

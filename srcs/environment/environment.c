@@ -52,7 +52,7 @@ int				set_current_path(void)
 
 	if ((!(path = getcwd(0, 0))) || (ft_setenv("PWD", path, 1) == -1))
 	{
-		ft_dprintf(2, "minishell: error, could not set PWD to %s\n", path);
+		ft_dprintf(2, "21sh: error, could not set PWD to %s\n", path);
 		free(path);
 		return (0);
 	}

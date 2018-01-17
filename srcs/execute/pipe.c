@@ -51,7 +51,7 @@ int			execute_pipe(t_tree *tree)
 	ret = 1;
 	save = dup(STDIN_FILENO);
 	if (pipe(read_write) == -1)
-		return (ft_dprintf(2, "minishell: failed to create pipe\n") != 0);
+		return (ft_dprintf(2, "21sh: failed to create pipe\n") != 0);
 	if ((child = fork()) == -1)
 	{
 		close(read_write[0]);

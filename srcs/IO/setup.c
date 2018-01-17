@@ -62,7 +62,7 @@ int					setup_terminal(t_terminal *terminal, char const *prompt)
 	signal(SIGINT, (void (*)(int))&interrupt_handler);
 	if (tgetent(0, ttyname(ttyslot())) <= 0)
 	{
-		ft_dprintf(2, "./minishell: Could not set terminal type\n"
+		ft_dprintf(2, "./21sh: Could not set terminal type\n"
 				"Terminating...\n");
 		return (0);
 	}
