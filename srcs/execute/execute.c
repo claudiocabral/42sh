@@ -55,7 +55,7 @@ int		execute_simple_command(t_tree *tree)
 		++child;
 	}
 	ret = command_dispatch((char **)args->begin, get_environment(),
-														"./minishell");
+														"./21sh");
 	array_free(args, (t_freef) & free_wrapper);
 	return (ret);
 }
