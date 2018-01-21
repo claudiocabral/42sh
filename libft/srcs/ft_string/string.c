@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 17:46:52 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 15:03:30 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/21 16:59:41 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,4 @@ t_string	*string_destructive_insert(t_string *string, char *where,
 		return (0);
 	ft_memcpy(where, what, size);
 	return (string);
-}
-
-t_string	*string_copy(t_string *dst, t_string const *src)
-{
-	if (dst->capacity < src->capacity)
-	{
-		free(dst->buffer);
-		if (!(dst->buffer = (char *)malloc(sizeof(char) * src->capacity)))
-			return (0);
-		dst->capacity = src->capacity;
-	}
-	ft_memcpy(dst->buffer, src->buffer, src->size + 1);
-	dst->size = src->size;
-	return (dst);
 }

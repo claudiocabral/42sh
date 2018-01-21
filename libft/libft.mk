@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/20 13:13:30 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/11 16:58:12 by ccabral          ###   ########.fr        #
+#    Updated: 2018/01/21 17:04:07 by ccabral          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,6 +122,7 @@ LIBFT_RING_BUFFER_OBJS := \
 
 LIBFT_STRING_OBJS := \
 				$(LIBFT_OBJ_DIR)/ft_string/string.o \
+				$(LIBFT_OBJ_DIR)/ft_string/string_copy.o \
 				$(LIBFT_OBJ_DIR)/ft_string/string_delete.o
 
 LIBFT_HASH_TABLE_OBJS := \
