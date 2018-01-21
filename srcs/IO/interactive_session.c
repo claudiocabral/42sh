@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/20 15:17:37 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/21 15:54:40 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static char	const	*prompt(t_terminal *terminal)
 	{
 		if (size == -1)
 		{
-			ft_printf("error\n");
+			ft_dprintf(2, "Unknown input error\n");
 			quit(terminal);
 		}
 		c[size] = 0;
