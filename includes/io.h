@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/17 13:23:32 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/21 15:12:13 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,35 +21,13 @@
 # define COMMAND_TABLE_SIZE 64
 # define STRING_SIZE 128
 
-typedef enum	e_keys
+typedef enum	e_input_mode
 {
-	CTRL_A = 1,
-	CTRL_B = 2,
-	CTRL_C = 3,
-	CTRL_D = 4,
-	CTRL_E = 5,
-	CTRL_F = 6,
-	CTRL_G = 7,
-	CTRL_H = 8,
-	CTRL_I = 9,
-	CTRL_J = 10,
-	CTRL_K = 11,
-	CTRL_L = 12,
-	CTRL_M = 13,
-	CTRL_N = 14,
-	CTRL_O = 15,
-	CTRL_P = 16,
-	CTRL_Q = 17,
-	CTRL_R = 18,
-	CTRL_S = 19,
-	CTRL_T = 20,
-	CTRL_U = 21,
-	CTRL_V = 22,
-	CTRL_W = 23,
-	CTRL_X = 24,
-	CTRL_Y = 25,
-	CTRL_Z = 26
-}				t_keys;
+	NORMAL_INPUT,
+	ESCAPE_INPUT,
+	BACKSLASH_INPUT,
+	QUOTE_INPUT
+}				t_input_mode;
 
 typedef enum	e_terminal_command
 {
@@ -66,27 +44,38 @@ typedef enum	e_terminal_command
 	ARROW_RIGHT,
 	HOME,
 	END,
-	CLEAR_BOTTOM
+	CLEAR_BOTTOM,
+	LAST_COMMAND
 }				t_terminal_command;
 
 typedef struct	s_terminal
 {
-	t_ring_buffer	*history;
-	t_string		*line;
-	int				width;
-	int				height;
-	int				cursor;
-	int				tty;
-	char			prompt[128];
-	int				prompt_size;
 	struct termios	original;
 	struct termios	custom;
+	char			*prompt_pointer;
+	t_ring_buffer	*history;
+	t_string		*line;
+	t_input_mode	input_mode;
+	int				width;
+	int				height;
+	int				line_position;
+	int				line_number;
+	int				number_of_lines;
+	int				cursor;
+	int				prompt_size;
+	char			prompt[128];
+	char			newline_prompt[16];
 }				t_terminal;
 
 typedef int				(*t_input_handle)(t_terminal *, int character);
 
 int				init_command_table(void);
-int				handle_input(t_terminal *terminal, char c[16]);
+int				terminal_backslash(t_terminal *terminal, int c);
+int				terminal_backslash_input(t_terminal *terminal,
+												char c[16], int size);
+int				handle_string_input(t_terminal *terminal, char c[16]);
+int				handle_input(t_terminal *terminal, char c[16], int size);
+int				handle_regular_input(t_terminal *terminal, int c);
 int				print_prompt(t_terminal *terminal);
 t_terminal		*get_terminal(t_terminal *terminal);
 void			free_terminal(t_terminal *terminal);
@@ -104,6 +93,7 @@ int				terminal_move_left(t_terminal *terminal, int c);
 int				terminal_move_right(t_terminal *terminal, int c);
 int				terminal_exit(t_terminal *terminal, int c);
 int				terminal_delete(t_terminal *terminal, int c);
+int				terminal_delete_current(t_terminal *terminal, int c);
 int				terminal_delete_word(t_terminal *terminal, int c);
 int				terminal_delete_until_eol(t_terminal *terminal, int c);
 int				terminal_kill_line(t_terminal *terminal, int c);

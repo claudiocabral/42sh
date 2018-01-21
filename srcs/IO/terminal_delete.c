@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:50:47 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/13 19:07:25 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/21 15:11:32 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 int						terminal_delete(t_terminal *terminal, int c)
 {
-	c = CTRL_H;
+	c = 8;
 	if (terminal->cursor == terminal->prompt_size)
 		return (1);
-	write(terminal->tty, &c, 1);
+	write(STDIN_FILENO, &c, 1);
 	terminal_command(DELETE, 1);
 	while (is_middle_of_unicode(
 			terminal->line->buffer[terminal->cursor
@@ -32,6 +32,13 @@ int						terminal_delete(t_terminal *terminal, int c)
 	string_delete(terminal->line,
 			terminal->cursor - terminal->prompt_size - 1);
 	terminal->cursor--;
+	return (1);
+}
+
+int						terminal_delete_current(t_terminal *terminal, int c)
+{
+	terminal_move_right(terminal, c);
+	terminal_delete(terminal, c);
 	return (1);
 }
 
@@ -55,27 +62,16 @@ int						terminal_delete_until_eol(t_terminal *terminal, int c)
 	current_position = terminal->cursor;
 	terminal_eol(terminal, c);
 	while (terminal->cursor > current_position)
-		terminal_delete(terminal, CTRL_H);
+		terminal_delete(terminal, c);
 	return (1);
 }
 
 int						terminal_kill_line(t_terminal *terminal, int c)
 {
-	terminal_bol(terminal, c);
-	terminal_delete_until_eol(terminal, c);
+	(void)c;
 	write(0, "\n", 1);
+	string_clear(terminal->line);
 	print_prompt(terminal);
 	terminal->cursor = terminal->prompt_size;
-	return (1);
-}
-
-int						terminal_cancel_line(t_terminal *terminal, int c)
-{
-	(void)c;
-	write(terminal->tty, "\n", 1);
-	terminal_command(MOVE_LEFT, terminal->cursor);
-	string_clear(terminal->line);
-	terminal->cursor = terminal->prompt_size;
-	write(terminal->tty, terminal->prompt, terminal->prompt_size);
 	return (1);
 }

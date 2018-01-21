@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/17 13:25:10 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/21 15:12:59 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ static t_input_handle	g_key_map[256] =
 	&terminal_insert,
 	&terminal_insert,
 	&terminal_insert,
-	&terminal_insert,
+	&terminal_backslash,
 	&terminal_insert,
 	&terminal_insert,
 	&terminal_insert,
@@ -164,18 +164,39 @@ int			handle_string_input(t_terminal *terminal, char c[16])
 	else if (terminal_compare_string(ARROW_RIGHT, c))
 		return (terminal_move_right(terminal, (int)c[0]));
 	else if (terminal_compare_string(DELETE_KEY, c))
-		return (terminal_delete(terminal, CTRL_H));
+		return (terminal_delete_current(terminal, 0));
 	else if (terminal_compare_string(HOME, c))
 		return (terminal_bol(terminal, 0));
 	else if (terminal_compare_string(END, c))
 		return (terminal_eol(terminal, 0));
-	//terminal_insert_string(terminal, c);
+	terminal_insert_string(terminal, c);
 	return (1);
 }
 
-int			handle_input(t_terminal *terminal, char c[16])
+int			handle_escpape_input(t_terminal *terminal, char c[16], int size)
 {
-	if (c[1] != 0 || (unsigned char)c[0] >= 128)
-		return (handle_string_input(terminal, c));
-	return (g_key_map[(int)c[0]](terminal, c[0]));
+	(void)terminal;
+	(void)c;
+	(void)size;
+	return (1);
+}
+
+int			handle_regular_input(t_terminal *terminal, int c)
+{
+	return (g_key_map[c](terminal, c));
+}
+
+int			handle_input(t_terminal *terminal, char c[16], int size)
+{
+	if (terminal->input_mode == NORMAL_INPUT)
+	{
+		if (size > 1 || (unsigned char)c[0] >= 128)
+			return (handle_string_input(terminal, c));
+		return (g_key_map[(int)*c](terminal, *c));
+	}
+	else if (terminal->input_mode == BACKSLASH_INPUT)
+		return (terminal_backslash_input(terminal, c, size));
+	else if (terminal->input_mode == QUOTE_INPUT)
+		return (1);
+	return (1);
 }

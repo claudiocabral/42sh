@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 09:19:57 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 18:07:36 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/21 15:11:45 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int		terminal_exit(t_terminal *terminal, int c)
 	(void)c;
 	if (terminal->line->size == 0)
 		quit(terminal);
-	terminal_move_right(terminal, c);
-	terminal_delete(terminal, c);
+	terminal_delete_current(terminal, c);
 	return (1);
 }

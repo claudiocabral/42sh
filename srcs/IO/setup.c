@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 17:19:09 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/21 15:15:21 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,20 @@ int					setup_terminal(t_terminal *terminal, char const *prompt)
 	signal(SIGINT, (void (*)(int))&interrupt_handler);
 	if (tgetent(0, ttyname(ttyslot())) <= 0)
 	{
-		ft_dprintf(2, "./21sh: Could not set terminal type\n"
-				"Terminating...\n");
+		ft_dprintf(2, "./21sh: Could not set terminal type\n" "Terminating\n");
 		return (0);
 	}
 	init_command_table();
 	terminal->history = 0;
 	init_termios(terminal);
 	ft_strcpy(terminal->prompt, prompt);
+	ft_strcpy(terminal->newline_prompt, "> ");
+	terminal->prompt_pointer = terminal->prompt;
 	terminal->history = ring_buffer_create(sizeof(t_string), 2000,
 			(t_freef) & string_clear);
 	ring_buffer_init(terminal->history, STRING_SIZE,
 		(void *(*)(void *, size_t)) &string_init, (t_freef) & string_free);
-	terminal->tty = 0;
+	terminal->input_mode = NORMAL_INPUT;
 	if (!terminal->history)
 	{
 		free_terminal(terminal);

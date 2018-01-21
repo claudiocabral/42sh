@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 13:04:51 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/20 15:17:37 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 void				quit(t_terminal *terminal)
 {
 	termios_toggle_isig(terminal, 1);
-	write(terminal->tty, "\n", 1);
+	write(STDIN_FILENO, "\n", 1);
 	free_terminal(terminal);
 	exit(0);
 }
@@ -39,9 +39,14 @@ int					print_prompt(t_terminal *terminal)
 		path = path ? ft_strrchr(path, '/') : 0;
 		path = path ? path + 1 : 0;
 	}
-	terminal->prompt_size = ft_dprintf(0, "%s%c%s", path ? path : "",
-												path ? ' ' : 0,
-												terminal->prompt);
+	if (terminal->prompt_pointer == terminal->prompt)
+	{
+		terminal->prompt_size = ft_dprintf(0, "%s%c%s", path ? path : "",
+															path ? ' ' : 0,
+															terminal->prompt);
+	}
+	else
+		terminal->prompt_size = ft_dprintf(0, "%s", terminal->prompt_pointer);
 	return (terminal->prompt_size);
 }
 
@@ -55,7 +60,7 @@ static char	const	*prompt(t_terminal *terminal)
 	termios_toggle_isig(terminal, 0);
 	set_termios(&(terminal->custom));
 	terminal->cursor = print_prompt(terminal);
-	while ((size = read(terminal->tty, c, 15)))
+	while ((size = read(STDIN_FILENO, c, 15)))
 	{
 		if (size == -1)
 		{
@@ -63,7 +68,7 @@ static char	const	*prompt(t_terminal *terminal)
 			quit(terminal);
 		}
 		c[size] = 0;
-		if (handle_input(terminal, c) == 0)
+		if (handle_input(terminal, c, size) == 0)
 			break ;
 	}
 	terminal_command(CLEAR_BOTTOM, 0);
