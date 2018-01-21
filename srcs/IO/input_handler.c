@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/21 15:22:18 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/21 15:44:40 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,18 +168,18 @@ int			handle_string_input(t_terminal *terminal, char c[16])
 	else if (terminal_compare_string(CTRL_ARROW_DOWN, c))
 		return (history_next(terminal, (int)c[0]));
 	else if (terminal_compare_string(CTRL_ARROW_RIGHT, c))
-		return (terminal_move_right(terminal, (int)c[0]));
+		return (terminal_next_word(terminal, (int)c[0]));
 	else if (terminal_compare_string(CTRL_ARROW_LEFT, c))
-		return (terminal_move_left(terminal, (int)c[0]));
+		return (terminal_previous_word(terminal, (int)c[0]));
 	else if (terminal_compare_string(DELETE_KEY, c))
 		return (terminal_delete_current(terminal, 0));
 	else if (terminal_compare_string(HOME, c))
 		return (terminal_bol(terminal, 0));
 	else if (terminal_compare_string(END, c))
 		return (terminal_eol(terminal, 0));
-	if (c[0] != '\e')
-		terminal_insert_string(terminal, c);
-	return (1);
+	if (c[0] == '\e')
+		return (dispatch_escape_string(terminal, c));
+	return (terminal_insert_string(terminal, c));
 }
 
 int			handle_escpape_input(t_terminal *terminal, char c[16], int size)

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/21 15:16:58 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/21 15:50:08 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int				terminal_eol(t_terminal *terminal, int c);
 int				terminal_cancel_line(t_terminal *terminal, int c);
 int				terminal_move_left(t_terminal *terminal, int c);
 int				terminal_move_right(t_terminal *terminal, int c);
+int				terminal_previous_word(t_terminal *terminal, int c);
+int				terminal_next_word(t_terminal *terminal, int c);
 int				terminal_exit(t_terminal *terminal, int c);
 int				terminal_delete(t_terminal *terminal, int c);
 int				terminal_delete_current(t_terminal *terminal, int c);
@@ -102,16 +104,17 @@ int				terminal_delete_word(t_terminal *terminal, int c);
 int				terminal_delete_until_eol(t_terminal *terminal, int c);
 int				terminal_kill_line(t_terminal *terminal, int c);
 int				terminal_cancel_line(t_terminal *terminal, int c);
+int				terminal_insert(t_terminal *terminal, int c);
+int				terminal_insert_string(t_terminal *terminal, char *str);
+int				terminal_eof(t_terminal *terminal, int c);
 int				history_previous(t_terminal *terminal, int c);
 int				history_next(t_terminal *terminal, int c);
-int				terminal_insert(t_terminal *terminal, int c);
-int				terminal_eof(t_terminal *terminal, int c);
-int				auto_complete(t_terminal *terminal, int c);
-int				terminal_insert_string(t_terminal *terminal, char *str);
+int				dispatch_escape_string(t_terminal *terminal, char *str);
 void			quit(t_terminal *terminal);
 int				is_middle_of_unicode(unsigned char c);
 int				cursor_is_middle_of_unicode(t_terminal *terminal);
 int				get_letter_index(t_terminal *terminal);
+int				auto_complete(t_terminal *terminal, int c);
 void			auto_complete_push(t_array *array, char *base,
 														char *candidate);
 int				print_options(t_array *array, t_terminal *terminal);
