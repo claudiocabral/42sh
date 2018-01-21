@@ -46,6 +46,7 @@ OBJS	=	objs/main.o \
 			objs/parser/parser.o \
 			objs/parser/pipeline.o \
 			objs/parser/match.o \
+			objs/IO/get_next_terminal_command.o \
 			objs/IO/input_mode.o \
 			objs/IO/unicode.o \
 			objs/IO/interactive_session.o \

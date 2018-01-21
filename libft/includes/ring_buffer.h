@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 10:18:48 by claudioca         #+#    #+#             */
-/*   Updated: 2017/12/07 11:53:08 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/01/21 18:44:30 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_ring_buffer	*ring_buffer_create(size_t element_size, size_t nbr_elements,
 t_ring_buffer	*ring_buffer_init(t_ring_buffer *buffer, size_t size,
 								void *(*initf)(void *, size_t), t_freef freef);
 void			ring_buffer_free(t_ring_buffer *buffer, t_freef freef);
+void			ring_buffer_clean(t_ring_buffer *buffer, t_freef freef);
 void			*ring_buffer_push_back(t_ring_buffer *buffer, void *element,
 											void *(*cpy)(void *, void const *));
 void			*ring_buffer_push_empty(t_ring_buffer *buffer);

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/21 15:15:21 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/21 17:06:07 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <io.h>
 #include <environment.h>
 
-void				termios_toggle_isig(t_terminal *term, int toggle)
+void			termios_toggle_isig(t_terminal *term, int toggle)
 {
 	if (toggle)
 		term->custom.c_lflag |= ISIG;
@@ -29,19 +29,15 @@ void				termios_toggle_isig(t_terminal *term, int toggle)
 	set_termios(&(term->custom));
 }
 
-void				set_termios(struct termios *termios)
-{
-	tcsetattr(STDIN_FILENO, TCSANOW, termios);
-}
-
-void				free_terminal(t_terminal *terminal)
+void			free_terminal(t_terminal *terminal)
 {
 	ring_buffer_free(terminal->history, (t_freef) & string_free_content);
-	terminal->line = 0;
+	string_free(terminal->line);
+	string_free(terminal->clipboard);
 	terminal->history = 0;
 }
 
-static void			init_termios(t_terminal *terminal)
+static void		init_termios(t_terminal *terminal)
 {
 	terminal->width = tgetnum("co");
 	terminal->height = tgetnum("li");
@@ -57,9 +53,19 @@ static void			init_termios(t_terminal *terminal)
 	set_termios(&(terminal->custom));
 }
 
-int					setup_terminal(t_terminal *terminal, char const *prompt)
+int				init_terminal_strings(t_terminal *terminal, char const *prompt)
 {
-	signal(SIGINT, (void (*)(int))&interrupt_handler);
+	ft_strcpy(terminal->prompt, prompt);
+	ft_strcpy(terminal->newline_prompt, "> ");
+	terminal->line = string_create(32);
+	terminal->clipboard = string_create(32);
+	if (!terminal->line || !terminal->clipboard)
+		quit(terminal);
+	return (1);
+}
+
+int				setup_terminal(t_terminal *terminal, char const *prompt)
+{
 	if (tgetent(0, ttyname(ttyslot())) <= 0)
 	{
 		ft_dprintf(2, "./21sh: Could not set terminal type\n" "Terminating\n");
@@ -68,8 +74,7 @@ int					setup_terminal(t_terminal *terminal, char const *prompt)
 	init_command_table();
 	terminal->history = 0;
 	init_termios(terminal);
-	ft_strcpy(terminal->prompt, prompt);
-	ft_strcpy(terminal->newline_prompt, "> ");
+	init_terminal_strings(terminal, prompt);
 	terminal->prompt_pointer = terminal->prompt;
 	terminal->history = ring_buffer_create(sizeof(t_string), 2000,
 			(t_freef) & string_clear);

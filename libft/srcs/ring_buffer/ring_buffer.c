@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 11:13:27 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/11 16:54:19 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/21 18:44:12 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,22 @@ void			ring_buffer_free(t_ring_buffer *buffer, t_freef freef)
 	}
 	free(buffer->begin);
 	free(buffer);
+}
+
+void			ring_buffer_clean(t_ring_buffer *buffer, t_freef freef)
+{
+	void	*it;
+	void	*end;
+
+	it = buffer->begin;
+	end = buffer->begin + buffer->capacity;
+	while (it != end)
+	{
+		freef(it);
+		it = it + buffer->element_size;
+	}
+	buffer->current = buffer->begin;
+	buffer->next = buffer->current + buffer->element_size;
 }
 
 void			*ring_buffer_push_back(t_ring_buffer *buffer, void *element,

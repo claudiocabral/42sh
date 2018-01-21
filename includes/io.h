@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/21 15:50:08 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/21 19:06:50 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ typedef struct	s_terminal
 	char			*prompt_pointer;
 	t_ring_buffer	*history;
 	t_string		*line;
+	t_string		*clipboard;
 	t_input_mode	input_mode;
+	int				history_fd;
 	int				width;
 	int				height;
 	int				line_position;
@@ -117,6 +119,7 @@ int				get_letter_index(t_terminal *terminal);
 int				auto_complete(t_terminal *terminal, int c);
 void			auto_complete_push(t_array *array, char *base,
 														char *candidate);
+int				get_next_terminal_command(int fd, t_string *str);
 int				print_options(t_array *array, t_terminal *terminal);
 DIR				*get_dir(char *path, char **str);
 void			search_dir(DIR *dir, char *str, t_array *array);

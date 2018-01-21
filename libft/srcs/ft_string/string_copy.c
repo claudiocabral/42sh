@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 16:59:22 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/21 17:05:20 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/21 19:29:53 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,19 @@ t_string	*string_copy_n(t_string *dst, t_string const *src, size_t n)
 	dst->buffer[n] = 0;
 	dst->size = n;
 	return (dst);
+}
+
+t_string	*string_append(t_string *dst, char const *src)
+{
+	while (*src)
+	{
+		string_insert(dst, *src, dst->size);
+		++src;
+	}
+	return (dst);
+}
+
+t_string	*string_append_char(t_string *dst, char c)
+{
+	string_insert(dst, c, dst->size);
 }

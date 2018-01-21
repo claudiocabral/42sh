@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 17:47:38 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/21 16:58:41 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/21 19:40:43 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ t_string		*string_copy(t_string *dst, t_string const *src);
 t_string		*string_copy_n(t_string *dst, t_string const *src, size_t n);
 void			string_free(t_string *string);
 void			string_free_content(t_string *string);
+t_string		*string_append_char(t_string *dst, char c);
+t_string		*string_append(t_string *dst, char const *src);
 
 #endif
