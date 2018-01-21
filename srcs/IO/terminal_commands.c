@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 16:16:01 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/21 14:54:28 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/21 15:22:59 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ int				init_command_table(void)
 	g_command_table[ARROW_DOWN] = "\e[B";
 	g_command_table[ARROW_RIGHT] = "\e[C";
 	g_command_table[ARROW_LEFT] = "\e[D";
+	g_command_table[CTRL_ARROW_UP] = "\e[1;5A";
+	g_command_table[CTRL_ARROW_DOWN] = "\e[1;5B";
+	g_command_table[CTRL_ARROW_RIGHT] = "\e[1;5C";
+	g_command_table[CTRL_ARROW_LEFT] = "\e[1;5D";
 	return (check_table());
 }
 
