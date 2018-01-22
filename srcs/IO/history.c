@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:52:09 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/22 17:44:23 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 18:03:23 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,44 +15,11 @@
 #include <ft_printf.h>
 #include <io.h>
 
-int						terminal_begining(t_terminal *terminal, int c)
-{
-	if (terminal->line_number)
-	{
-		terminal_command(MOVE_UP, terminal->line_number);
-		terminal->line_number = 0;
-	}
-	terminal_bol(terminal, c);
-	terminal_command(CLEAR_BOTTOM, 0);
-	return (1);
-}
-
-int						terminal_write(t_terminal *terminal, int c)
-{
-	terminal_command(INSERT, terminal->line->size);
-	write(STDIN_FILENO, terminal->line->buffer, terminal->line->size);
-	c = 0;
-	while (terminal->line->buffer[c])
-	{
-		if (terminal->line->buffer[c] == '\n')
-		{
-			++(terminal->line_number);
-			terminal->cursor = 0;
-		}
-		else
-			++(terminal->cursor);
-		++c;
-	}
-	return (1);
-}
-
 int						history_previous(t_terminal *terminal, int c)
 {
 	(void)c;
-	terminal_begining(terminal, 0);
 	string_copy(terminal->line,
 			(t_string *)ring_buffer_previous(terminal->history));
-	terminal_write(terminal, c);
 	return (1);
 }
 
@@ -64,9 +31,7 @@ int						history_next(t_terminal *terminal, int c)
 	if ((next = (t_string *)ring_buffer_next(terminal->history))
 			== terminal->history->next)
 		return (1);
-	terminal_begining(terminal, 0);
 	string_copy(terminal->line, next);
-	terminal_write(terminal, c);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:54:21 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/20 16:37:44 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 17:56:44 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		terminal_insert(t_terminal *terminal, int c)
 	terminal_command(INSERT, 1);
 	write(STDIN_FILENO, &c, 1);
 	if (!string_insert(terminal->line, c,
-				terminal->cursor - terminal->prompt_size))
+				terminal->cursor))
 		return (-1);
 	terminal->cursor++;
 	return (1);
@@ -35,7 +35,7 @@ int		terminal_insert_string(t_terminal *terminal, char *str)
 	while (str[i])
 	{
 		if (!string_insert(terminal->line, str[i],
-					terminal->cursor - terminal->prompt_size))
+					terminal->cursor))
 			return (-1);
 		++(terminal->cursor);
 		++i;
@@ -43,9 +43,28 @@ int		terminal_insert_string(t_terminal *terminal, char *str)
 	return (1);
 }
 
+int						terminal_write(t_terminal *terminal, int c)
+{
+	terminal_command(INSERT, terminal->line->size);
+	write(STDIN_FILENO, terminal->line->buffer, terminal->line->size);
+	c = 0;
+	while (terminal->line->buffer[c])
+	{
+		if (terminal->line->buffer[c] == '\n')
+		{
+			++(terminal->line_number);
+			terminal->cursor = 0;
+		}
+		else
+			++(terminal->cursor);
+		++c;
+	}
+	return (1);
+}
+
 int		terminal_eof(t_terminal *terminal, int c)
 {
-	if (terminal->line->buffer[terminal->cursor - terminal->prompt_size]
+	if (terminal->line->buffer[terminal->cursor]
 			== '\\')
 		return (terminal_insert(terminal, c));
 	write(STDIN_FILENO, &c, 1);
