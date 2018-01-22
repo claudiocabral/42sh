@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/22 18:16:07 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 18:20:39 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static char	const	*prompt(t_terminal *terminal)
 	print_prompt(terminal);
 	while ((size = read(STDIN_FILENO, c, 15)))
 	{
+		terminal_draw(terminal, 0);
 		if (size == -1)
 		{
 			ft_dprintf(2, "Unknown input error\n");
@@ -83,7 +84,6 @@ static char	const	*prompt(t_terminal *terminal)
 		if (handle_input(terminal, c, size) == 0)
 			break ;
 		string_copy(terminal->history->current, terminal->line);
-		terminal_draw(terminal, 0);
 	}
 	history_append(terminal);
 	string_clear(terminal->line);

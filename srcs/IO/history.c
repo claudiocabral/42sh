@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:52:09 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/22 18:03:23 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 18:30:48 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int						history_previous(t_terminal *terminal, int c)
 	(void)c;
 	string_copy(terminal->line,
 			(t_string *)ring_buffer_previous(terminal->history));
+		terminal_draw(terminal, 0);
 	return (1);
 }
 
@@ -32,6 +33,7 @@ int						history_next(t_terminal *terminal, int c)
 			== terminal->history->next)
 		return (1);
 	string_copy(terminal->line, next);
+		terminal_draw(terminal, 0);
 	return (1);
 }
 
