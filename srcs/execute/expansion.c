@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 13:35:18 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 14:06:27 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 18:43:53 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	remove_backslash(char *str)
 	{
 		if (*str == '\\')
 		{
-			ft_memmove(str, str + sizeof(char), ft_strlen(str));
+			if (str[1] == '\n')
+				ft_memmove(str, str + sizeof(char) * 2, ft_strlen(str));
+			else
+				ft_memmove(str, str + sizeof(char), ft_strlen(str));
 			if (!*str)
 				break ;
 		}
