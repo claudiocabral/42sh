@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:52:09 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/22 18:30:48 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 18:32:27 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,4 @@ int	history_load(t_terminal *terminal)
 	close(terminal->history_fd);
 	terminal->history_fd = 0;
 	return (ret != -1);
-}
-
-int	history_start(t_terminal *terminal)
-{
-	if (history_open(terminal, O_RDONLY | O_CREAT))
-		return (history_load(terminal));
-	return (0);
 }

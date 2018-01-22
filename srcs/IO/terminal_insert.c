@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:54:21 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/22 18:25:47 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 18:34:52 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,13 @@ int		terminal_insert(t_terminal *terminal, int c)
 		return (-1);
 	terminal_command(INSERT, 1);
 	write(STDIN_FILENO, &c, 1);
-	terminal->cursor++;
+	if (c == '\n')
+	{
+		++terminal->line_number;
+		terminal->cursor = 0;
+	}
+	else
+		terminal->cursor++;
 	return (1);
 }
 

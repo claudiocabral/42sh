@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/22 18:30:22 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 18:32:36 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int				terminal_insert(t_terminal *terminal, int c);
 int				terminal_insert_string(t_terminal *terminal, char *str);
 int				terminal_eof(t_terminal *terminal, int c);
 int				history_open(t_terminal *terminal, int mode);
-int				history_start(t_terminal *terminal);
 int				history_load(t_terminal *terminal);
 int				history_append(t_terminal *terminal);
 int				history_previous(t_terminal *terminal, int c);
