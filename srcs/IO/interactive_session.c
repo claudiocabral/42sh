@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/21 18:49:56 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 15:50:41 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,10 @@ static char	const	*prompt(t_terminal *terminal)
 	int		size;
 	char	c[16];
 
-	ring_buffer_push_empty(terminal->history);
+	history_load(terminal);
 	termios_toggle_isig(terminal, 0);
 	set_termios(&(terminal->custom));
 	terminal->cursor = print_prompt(terminal);
-	string_clear(terminal->line);
 	while ((size = read(STDIN_FILENO, c, 15)))
 	{
 		if (size == -1)
@@ -75,13 +74,15 @@ static char	const	*prompt(t_terminal *terminal)
 		c[size] = 0;
 		if (handle_input(terminal, c, size) == 0)
 			break ;
-		string_copy(terminal->line, terminal->history->current);
+		string_copy(terminal->history->current, terminal->line);
 	}
+	history_append(terminal);
+	string_clear(terminal->line);
 	terminal_command(CLEAR_BOTTOM, 0);
 	termios_toggle_isig(terminal, 1);
 	set_termios(&(terminal->original));
 	terminal->cursor = terminal->prompt_size;
-	return (terminal->line->buffer);
+	return (((t_string *)terminal->history->current)->buffer);
 }
 
 void				interactive_session(void)

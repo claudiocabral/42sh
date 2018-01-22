@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 10:18:48 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/21 18:44:30 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 15:55:50 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct	s_ring_buffer
 	void	*begin;
 	void	*current;
 	void	*next;
+	void	*first;
 	size_t	element_size;
 	size_t	capacity;
 	t_freef	clearf;

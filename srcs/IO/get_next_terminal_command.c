@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 18:53:37 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/21 20:04:48 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 16:23:14 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,22 @@ int		get_command(char buffer[2048], int begin, t_string *str)
 {
 	while (buffer[begin])
 	{
-		string_append_char(str, buffer[begin]);
 		if (buffer[begin] == '\n')
 			return (begin + 1);
 		else if (is_open_bracket(buffer[begin]))
 			begin = get_next_bracket(buffer, begin, str);
-		begin = escape_string(buffer, begin, str) + 1;
+		else
+		{
+			string_append_char(str, buffer[begin]);
+			begin = escape_string(buffer, begin, str) + 1;
+		}
 	}
 	return (begin);
 }
 
 int		get_next_terminal_command(int fd, t_string *str)
 {
-	static char	buffer[2048] = {0};
+	static char	buffer[2048] = { 0 };
 	static int	begin = 0;
 
 	if (buffer[begin] && (begin = get_command(buffer, begin, str)))
@@ -87,7 +90,11 @@ int		get_next_terminal_command(int fd, t_string *str)
 		while (buffer[begin])
 		{
 			begin = get_command(buffer, begin, str);
+			if (buffer[begin - 1] == '\n')
+				return (1);
 		}
 	}
+	buffer[0] = 0;
+	begin = 0;
 	return (0);
 }

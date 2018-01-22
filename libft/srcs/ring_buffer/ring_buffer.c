@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 11:13:27 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/21 18:44:12 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 15:58:01 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_ring_buffer	*ring_buffer_create(size_t element_size, size_t nbr_elements,
 		return (0);
 	}
 	buffer->element_size = element_size;
+	buffer->first = buffer->begin;
 	buffer->current = buffer->begin;
 	buffer->next = buffer->begin;
 	buffer->clearf = clearf;
@@ -81,8 +82,9 @@ void			ring_buffer_clean(t_ring_buffer *buffer, t_freef freef)
 		freef(it);
 		it = it + buffer->element_size;
 	}
+	buffer->first = buffer->begin;
 	buffer->current = buffer->begin;
-	buffer->next = buffer->current + buffer->element_size;
+	buffer->next = buffer->begin;
 }
 
 void			*ring_buffer_push_back(t_ring_buffer *buffer, void *element,

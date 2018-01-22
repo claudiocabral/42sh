@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 16:51:13 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/12 10:44:29 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 14:37:48 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void		string_free_content(t_string *string)
 	if (!string)
 		return ;
 	free(string->buffer);
+	string->buffer = 0;
+	string->size = 0;
+	string->capacity = 0;
 }
 
 void		string_free(t_string *string)

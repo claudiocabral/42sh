@@ -3,3 +3,4 @@
 *.a
 .deps
 *.dSYM
+.21sh_history
