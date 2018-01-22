@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 15:23:34 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 13:42:50 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 19:24:05 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char		*token_get_value(t_token *token)
 	if (!str)
 		return (0);
 	remove_backslash(str);
+	ZERO_IF_FAIL(str = expand(str));
+	remove_quotes(str);
 	return (str);
 }
 

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:23:10 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 15:38:54 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 19:27:40 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_binary_path
 
 char			*expand(char *value);
 void			remove_backslash(char *str);
+void			remove_quotes(char *str);
 int				init_builtins(void);
 int				generate_paths(void);
 int				init_path_table(void);

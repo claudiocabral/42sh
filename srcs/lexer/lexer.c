@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 14:04:15 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 19:21:13 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int			lex_quote(t_array *tokens, char const *input, int start)
 		++pos;
 	if (input[pos] != input[start])
 		return (-1);
-	if (add_token(tokens, TOKEN, input + start + 1, pos - start - 1))
+	if (add_token(tokens, TOKEN, input + start, pos - start))
 		return (pos + 1);
 	return (-1);
 }

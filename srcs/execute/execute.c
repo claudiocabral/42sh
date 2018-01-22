@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 16:25:02 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 19:23:19 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int		execute_simple_command(t_tree *tree)
 	while (child != tree->children->end)
 	{
 		tmp = token_get_value((*child)->element);
-		tmp = expand(tmp);
 		if (!tmp || !(array_push_back(args, &tmp)))
 		{
 			free(tmp);
