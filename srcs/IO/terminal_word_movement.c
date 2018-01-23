@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 15:28:33 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/22 18:17:09 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/01/22 19:42:24 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,9 @@ int						terminal_begining(t_terminal *terminal, int c)
 {
 	(void)c;
 	if (terminal->line_number)
-	{
 		terminal_command(MOVE_UP, terminal->line_number);
-		terminal->line_number = 0;
-	}
 	terminal_command(MOVE_LEFT, terminal->width);
 	terminal_command(CLEAR_BOTTOM, 0);
-	terminal->cursor = 0;
 	return (1);
 }
 
