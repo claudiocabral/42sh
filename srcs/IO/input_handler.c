@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/21 15:44:40 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/02/02 14:52:16 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_input_handle	g_key_map[256] =
 	&terminal_noop,
 	&terminal_noop,
 	&terminal_noop,
-	&terminal_noop,
+	&terminal_escape,
 	&terminal_noop,
 	&terminal_noop,
 	&terminal_noop,
@@ -207,5 +207,12 @@ int			handle_input(t_terminal *terminal, char c[16], int size)
 		return (terminal_backslash_input(terminal, c, size));
 	else if (terminal->input_mode == QUOTE_INPUT)
 		return (1);
+	else if (terminal->input_mode == ESCAPE_INPUT)
+	{
+		ft_memmove(c + sizeof(char), c, size);
+		c[0] = '\e';
+		terminal->input_mode = NORMAL_INPUT;
+		return (handle_string_input(terminal, c));
+	}
 	return (1);
 }

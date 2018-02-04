@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/23 11:05:03 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/02/04 17:50:31 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	terminal_draw(t_terminal * terminal, int c)
 	terminal_begining(terminal, 0);
 	print_prompt(terminal);
 	terminal_write(terminal, c);
-	terminal_adjust(terminal, c);
+	terminal->cursor = terminal->line->size;
 	return (1);
 }
 
@@ -69,9 +69,9 @@ static char	const	*prompt(t_terminal *terminal)
 	int		size;
 	char	c[16];
 
-	history_load(terminal);
 	termios_toggle_isig(terminal, 0);
 	set_termios(&(terminal->custom));
+	history_load(terminal);
 	print_prompt(terminal);
 	while ((size = read(STDIN_FILENO, c, 15)))
 	{

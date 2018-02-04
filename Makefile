@@ -51,6 +51,7 @@ OBJS	=	objs/main.o \
 			objs/IO/unicode.o \
 			objs/IO/interactive_session.o \
 			objs/IO/dispatch_escape_string.o \
+			objs/IO/terminal_dimensions.o \
 			objs/IO/terminal_commands.o \
 			objs/IO/terminal_movement.o \
 			objs/IO/terminal_word_movement.o \

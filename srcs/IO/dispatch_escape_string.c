@@ -6,11 +6,18 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 15:47:14 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/21 15:51:15 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/02/02 14:54:29 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <io.h>
+
+int	terminal_escape(t_terminal *terminal, int c)
+{
+	(void)c;
+	terminal->input_mode = ESCAPE_INPUT;
+	return (1);
+}
 
 int	dispatch_escape_string(t_terminal *terminal, char *c)
 {

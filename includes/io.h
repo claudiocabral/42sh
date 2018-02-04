@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/23 11:18:43 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/02/03 13:57:59 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ typedef struct	s_terminal
 	t_string		*clipboard;
 	t_input_mode	input_mode;
 	int				history_fd;
-	int				width;
-	int				height;
 	int				line_position;
 	int				line_number;
 	int				number_of_lines;
@@ -83,7 +81,8 @@ int				handle_string_input(t_terminal *terminal, char c[16]);
 int				handle_input(t_terminal *terminal, char c[16], int size);
 int				handle_regular_input(t_terminal *terminal, int c);
 int				print_prompt(t_terminal *terminal);
-t_terminal		*get_terminal(t_terminal *terminal);
+int				get_terminal_height(void);
+int				get_terminal_width(void);
 void			free_terminal(t_terminal *terminal);
 int				setup_terminal(t_terminal *terminal, char const *prompt);
 void			termios_toggle_isig(t_terminal *term, int toggle);
@@ -113,6 +112,8 @@ int				terminal_cancel_line(t_terminal *terminal, int c);
 int				terminal_insert(t_terminal *terminal, int c);
 int				terminal_insert_string(t_terminal *terminal, char *str);
 int				terminal_eof(t_terminal *terminal, int c);
+int				terminal_escape(t_terminal *terminal, int c);
+int				terminal_is_at_newline(t_terminal *terminal);
 int				history_open(t_terminal *terminal, int mode);
 int				history_load(t_terminal *terminal);
 int				history_append(t_terminal *terminal);
@@ -126,6 +127,7 @@ int				get_letter_index(t_terminal *terminal);
 int				auto_complete(t_terminal *terminal, int c);
 void			auto_complete_push(t_array *array, char *base,
 														char *candidate);
+int				get_position_in_line(t_terminal *terminal, int index);
 int				get_next_terminal_command(int fd, t_string *str);
 int				print_options(t_array *array, t_terminal *terminal);
 DIR				*get_dir(char *path, char **str);
@@ -135,5 +137,6 @@ int				is_separator(char c);
 void			adjust_terminal(t_terminal *terminal, int nbr_lines);
 int				choose_possibility(t_array *array, char *str,
 											t_terminal *terminal);
+int				is_at_newline(t_terminal *terminal, int index);
 
 #endif

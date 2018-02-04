@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 11:05:38 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/15 11:31:46 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/02/02 13:07:23 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		print_columns_helper(int nbr_columns, int nbr_rows,
 	}
 }
 
-int			print_columns(t_array *array, t_terminal *terminal)
+static int	print_columns(t_array *array)
 {
 	int	column_size;
 	int	nbr_columns;
@@ -68,7 +68,7 @@ int			print_columns(t_array *array, t_terminal *terminal)
 
 	size = array_size(array);
 	column_size = get_biggest_column(array);
-	nbr_columns = ft_max(1, terminal->width / ((column_size + 8) / 8 * 8));
+	nbr_columns = ft_max(1, get_terminal_width() / ((column_size + 8) / 8 * 8));
 	nbr_rows = size / nbr_columns + ((size % nbr_columns) != 0);
 	print_columns_helper(nbr_columns, nbr_rows, column_size, array);
 	return (nbr_rows);
@@ -98,7 +98,7 @@ int			print_options(t_array *array, t_terminal *terminal)
 
 	write(0, "\n", 1);
 	terminal_command(CLEAR_BOTTOM, 0);
-	nbr_lines = print_columns(array, terminal) + 1;
+	nbr_lines = print_columns(array) + 1;
 	adjust_terminal(terminal, nbr_lines);
 	return (1);
 }

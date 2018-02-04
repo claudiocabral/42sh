@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:54:21 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/23 11:17:17 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/02/04 22:03:53 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,105 @@
 #include <io.h>
 #include <ft_printf.h>
 
-int		terminal_insert(t_terminal *terminal, int c)
+int		get_line(t_terminal *terminal, int index)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (j < terminal->line_number)
+	while (terminal->line->buffer[i] && i < index)
 	{
-		if (terminal->line->buffer[i] == '\n')
+		if (is_at_newline(terminal, i))
 			++j;
 		++i;
 	}
-	if (!string_insert(terminal->line, c,
-				terminal->cursor + i))
-		return (-1);
-	terminal_command(CLEAR_BOTTOM, 0);
-	terminal_command(INSERT, ft_strlen(terminal->line->buffer + terminal->cursor + i));
-	ft_dprintf(0, terminal->line->buffer + terminal->cursor + i);
-	if (c == '\n' || (terminal->cursor + 1 == terminal->width))
+	return (j);
+}
+
+int						is_last_line(t_terminal *terminal, int line)
+{
+	return (get_line(terminal, terminal->line->size) == line);
+}
+
+int		line_size(t_terminal *terminal, int index)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = terminal->prompt_size;
+	while (terminal->line->buffer[i] && i < index)
 	{
-		++terminal->line_number;
-		terminal->cursor = 0;
+		if (is_at_newline(terminal, i))
+			j = 0;
+		else
+			++j;
+		++i;
 	}
-	else
-		terminal->cursor++;
+	while (terminal->line->buffer[i] && !is_at_newline(terminal, i))
+	{
+		++i;
+		++j;
+	}
+	return (j);
+}
+
+
+int		get_last_in_line(t_terminal *terminal, int line)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (terminal->line->buffer[i] && j < line)
+	{
+		if (is_at_newline(terminal, i))
+			++j;
+		++i;
+	}
+	while (terminal->line->buffer[i] && !is_at_newline(terminal, i))
+		++i;
+	return (i);
+}
+
+int		get_first_in_line(t_terminal *terminal, int line)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (terminal->line->buffer[i] && j < line)
+	{
+		if (is_at_newline(terminal, i))
+			++j;
+		++i;
+	}
+	if (terminal->line->buffer[i] == '\n')
+		++i;
+	return (i);
+}
+
+int		line_overflow(t_terminal *terminal, int index)
+{
+	return (line_size(terminal, index) == get_terminal_width()
+			&& !is_last_line(terminal, get_line(terminal, index)));
+}
+
+int		terminal_insert(t_terminal *terminal, int c)
+{
+	if (!string_insert(terminal->line, c,
+				terminal->cursor))
+		return (-1);
+	terminal_command(INSERT, 1);
+	write(STDIN_FILENO, &c, 1);
+	terminal->cursor++;
+	if (get_position_in_line(terminal, terminal->cursor) == get_terminal_width())
+		write(STDIN_FILENO, "\n", 1);
+	else if (line_overflow(terminal, terminal->cursor))
+		terminal_adjust(terminal, terminal->cursor);
 	return (1);
 }
 
@@ -69,33 +142,39 @@ int						terminal_write(t_terminal *terminal, int c)
 	return (1);
 }
 
-int						terminal_adjust(t_terminal *terminal, int c)
-{
-	int	i;
-	int	j;
 
-	i = 0;
-	c = 0;
-	j = 0;
-	while (terminal->line->buffer[c])
+int						terminal_adjust(t_terminal *terminal, int index)
+{
+	int		column;
+	int		line;
+	int		c;
+
+	column = get_position_in_line(terminal, index);
+	line = get_line(terminal, index);
+	c = get_first_in_line(terminal, line + 1) - 1;
+	if ((unsigned long)c == terminal->line->size - 1)
 	{
-		if (terminal->line->buffer[c] == '\n')
-		{
-			++i;
-			j = 0;
-		}
-		else
-		{
-			j = (j + 1) % (terminal->width - (i == 0) * terminal->prompt_size);
-		}
-		++c;
+		terminal_command(MOVE_RIGHT, get_terminal_width() - column);
+		write(STDIN_FILENO, "\n", 1);
 	}
-	if (i - terminal->line_number > 0)
-		terminal_command(MOVE_UP, i - terminal->line_number);
-	if (j > terminal->cursor)
-		terminal_command(MOVE_LEFT, j - terminal->cursor);
-	else if (j < terminal->cursor)
-		terminal_command(MOVE_RIGHT, j - terminal->cursor);
+	else
+	{
+		terminal_command(MOVE_LEFT, column);
+		terminal_command(MOVE_DOWN, 1);
+	}
+	terminal_command(INSERT, 1);
+	write(STDIN_FILENO, terminal->line->buffer + c++, 1);
+	while (is_middle_of_unicode(terminal->line->buffer[c]))
+		write(STDIN_FILENO, terminal->line->buffer + c++, 1);
+	++c;
+	if (line_size(terminal, c) > get_terminal_width())
+	{
+		ft_printf("\nthis is fuckedup index is %d and line size is %d\n",
+				c, line_size(terminal, c));
+		terminal_adjust(terminal, c);
+	}
+	terminal_command(MOVE_UP, 1);
+	terminal_command(MOVE_RIGHT, column - 1);
 	return (1);
 }
 

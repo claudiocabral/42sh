@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/22 17:58:55 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/02/02 12:10:01 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void			free_terminal(t_terminal *terminal)
 
 static void		init_termios(t_terminal *terminal)
 {
-	terminal->width = tgetnum("co");
-	terminal->height = tgetnum("li");
 	tcgetattr(0, &(terminal->original));
 	ft_memcpy(&(terminal->custom),
 			&(terminal->original), sizeof(struct termios));

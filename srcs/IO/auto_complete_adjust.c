@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 11:19:55 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/15 11:53:11 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/02/02 13:06:30 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int			nbr_characters(char const *str)
 
 void		adjust_terminal(t_terminal *terminal, int nbr_lines)
 {
-	if (nbr_lines >= terminal->height)
+	if (nbr_lines >= get_terminal_height())
 	{
 		print_prompt(terminal);
 		ft_dprintf(0, "%s", terminal->line->buffer);
