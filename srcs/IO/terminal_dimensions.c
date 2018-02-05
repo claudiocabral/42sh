@@ -6,19 +6,21 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 12:09:18 by claudioca         #+#    #+#             */
-/*   Updated: 2018/02/02 13:08:23 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/02/05 09:59:11 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <termios.h>
 #include <io.h>
+#include <sys/ioctl.h>
 
+#include <ft_printf.h>
 int	get_terminal_width(void)
 {
-	int	width;
+	struct winsize	ws;
 
-	width = tgetnum("co");
-	return (width == 0 ? 1 : width);
+	ioctl(0, TIOCGWINSZ, &ws);
+	return (ws.ws_col == 0 ? 1 : ws.ws_col);
 }
 
 int	get_terminal_height(void)

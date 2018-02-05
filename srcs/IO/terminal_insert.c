@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:54:21 by claudioca         #+#    #+#             */
-/*   Updated: 2018/02/04 22:03:53 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/02/05 12:40:05 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,6 @@ int		get_line(t_terminal *terminal, int index)
 	return (j);
 }
 
-int						is_last_line(t_terminal *terminal, int line)
-{
-	return (get_line(terminal, terminal->line->size) == line);
-}
-
 int		line_size(t_terminal *terminal, int index)
 {
 	int	i;
@@ -44,7 +39,7 @@ int		line_size(t_terminal *terminal, int index)
 	j = terminal->prompt_size;
 	while (terminal->line->buffer[i] && i < index)
 	{
-		if (is_at_newline(terminal, i))
+		if (j >= get_terminal_width())
 			j = 0;
 		else
 			++j;
@@ -55,6 +50,8 @@ int		line_size(t_terminal *terminal, int index)
 		++i;
 		++j;
 	}
+	if (terminal->line->buffer[i])
+		++j;
 	return (j);
 }
 
@@ -87,32 +84,47 @@ int		get_first_in_line(t_terminal *terminal, int line)
 	while (terminal->line->buffer[i] && j < line)
 	{
 		if (is_at_newline(terminal, i))
+		{
 			++j;
+			if (j == line)
+				break ;
+		}
 		++i;
 	}
-	if (terminal->line->buffer[i] == '\n')
-		++i;
 	return (i);
 }
 
-int		line_overflow(t_terminal *terminal, int index)
+int		line_overflow(t_terminal *terminal, int index, int column)
 {
-	return (line_size(terminal, index) == get_terminal_width()
-			&& !is_last_line(terminal, get_line(terminal, index)));
+	int	width;
+
+	width = get_terminal_width();
+	while (terminal->line->buffer[index])
+	{
+		if (column == width)
+			return (index);
+		++index;
+		++column;
+	}
+	return (0);
 }
 
 int		terminal_insert(t_terminal *terminal, int c)
 {
+	int	position;
+	int	index;
+
 	if (!string_insert(terminal->line, c,
 				terminal->cursor))
 		return (-1);
 	terminal_command(INSERT, 1);
 	write(STDIN_FILENO, &c, 1);
 	terminal->cursor++;
-	if (get_position_in_line(terminal, terminal->cursor) == get_terminal_width())
+	position = get_position_in_line(terminal, terminal->cursor);
+	if (position == get_terminal_width())
 		write(STDIN_FILENO, "\n", 1);
-	else if (line_overflow(terminal, terminal->cursor))
-		terminal_adjust(terminal, terminal->cursor);
+	else if ((index = line_overflow(terminal, terminal->cursor, position)))
+		terminal_adjust(terminal, terminal->cursor, index);
 	return (1);
 }
 
@@ -142,16 +154,12 @@ int						terminal_write(t_terminal *terminal, int c)
 	return (1);
 }
 
-
-int						terminal_adjust(t_terminal *terminal, int index)
+int						recursive_terminal_adjust(t_terminal *terminal,
+														int c)
 {
 	int		column;
-	int		line;
-	int		c;
 
-	column = get_position_in_line(terminal, index);
-	line = get_line(terminal, index);
-	c = get_first_in_line(terminal, line + 1) - 1;
+	column = 2;
 	if ((unsigned long)c == terminal->line->size - 1)
 	{
 		terminal_command(MOVE_RIGHT, get_terminal_width() - column);
@@ -166,13 +174,36 @@ int						terminal_adjust(t_terminal *terminal, int index)
 	write(STDIN_FILENO, terminal->line->buffer + c++, 1);
 	while (is_middle_of_unicode(terminal->line->buffer[c]))
 		write(STDIN_FILENO, terminal->line->buffer + c++, 1);
-	++c;
-	if (line_size(terminal, c) > get_terminal_width())
+	if ((column = line_overflow(terminal, c + 1, 2)))
+		recursive_terminal_adjust(terminal, column);
+	terminal_command(MOVE_UP, 1);
+	return (1);
+
+}
+
+
+int						terminal_adjust(t_terminal *terminal, int index, int c)
+{
+	int		column;
+	int		next;
+
+	column = get_position_in_line(terminal, index);
+	if ((unsigned long)c == terminal->line->size - 1)
 	{
-		ft_printf("\nthis is fuckedup index is %d and line size is %d\n",
-				c, line_size(terminal, c));
-		terminal_adjust(terminal, c);
+		terminal_command(MOVE_RIGHT, get_terminal_width() - column);
+		write(STDIN_FILENO, "\n", 1);
 	}
+	else
+	{
+		terminal_command(MOVE_LEFT, column);
+		terminal_command(MOVE_DOWN, 1);
+	}
+	terminal_command(INSERT, 1);
+	write(STDIN_FILENO, terminal->line->buffer + c++, 1);
+	while (is_middle_of_unicode(terminal->line->buffer[c]))
+		write(STDIN_FILENO, terminal->line->buffer + c++, 1);
+	if ((next = line_overflow(terminal, c + 1, 2)))
+		recursive_terminal_adjust(terminal, next);
 	terminal_command(MOVE_UP, 1);
 	terminal_command(MOVE_RIGHT, column - 1);
 	return (1);

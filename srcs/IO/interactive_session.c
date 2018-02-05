@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/02/04 17:50:31 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/02/05 11:15:50 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static char	const	*prompt(t_terminal *terminal)
 	set_termios(&(terminal->custom));
 	history_load(terminal);
 	print_prompt(terminal);
-	while ((size = read(STDIN_FILENO, c, 15)))
+	while ((size = read(STDIN_FILENO, c, 1)))
 	{
 		if (size == -1)
 		{

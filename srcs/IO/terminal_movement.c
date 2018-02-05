@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 09:19:57 by claudioca         #+#    #+#             */
-/*   Updated: 2018/02/04 22:00:36 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/02/05 10:46:35 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,8 @@ int		get_position_in_line(t_terminal *terminal, int index)
 	j = terminal->prompt_size;
 	while (i < index)
 	{
-		if (terminal->line->buffer[i] == '\n'
-				|| j >= get_terminal_width())
+		if ((terminal->line->buffer[i] == '\n'
+				|| j > get_terminal_width()))
 			j = 0;
 		else
 			++j;
