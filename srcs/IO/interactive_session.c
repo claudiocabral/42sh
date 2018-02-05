@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/02/05 11:15:50 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/02/05 15:26:35 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void			set_termios(struct termios *termios)
 
 int	terminal_draw(t_terminal * terminal, int c)
 {
+	(void)
 	terminal_begining(terminal, 0);
 	print_prompt(terminal);
 	terminal_write(terminal, c);
@@ -73,7 +74,7 @@ static char	const	*prompt(t_terminal *terminal)
 	set_termios(&(terminal->custom));
 	history_load(terminal);
 	print_prompt(terminal);
-	while ((size = read(STDIN_FILENO, c, 1)))
+	while ((size = read(STDIN_FILENO, c, 16)))
 	{
 		if (size == -1)
 		{

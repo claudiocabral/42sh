@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:54:21 by claudioca         #+#    #+#             */
-/*   Updated: 2018/02/05 12:40:05 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/02/05 15:29:40 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,10 @@ int		terminal_insert(t_terminal *terminal, int c)
 	write(STDIN_FILENO, &c, 1);
 	terminal->cursor++;
 	position = get_position_in_line(terminal, terminal->cursor);
+	if ((index = line_overflow(terminal, terminal->cursor, position)))
+		terminal_adjust(terminal, terminal->cursor, index);
 	if (position == get_terminal_width())
 		write(STDIN_FILENO, "\n", 1);
-	else if ((index = line_overflow(terminal, terminal->cursor, position)))
-		terminal_adjust(terminal, terminal->cursor, index);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/02/05 12:36:19 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/02/05 15:52:03 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef enum	e_terminal_command
 	HOME,
 	END,
 	CLEAR_BOTTOM,
+	SHOW_CURSOR,
+	HIDE_CURSOR,
 	SENTINEL
 }				t_terminal_command;
 

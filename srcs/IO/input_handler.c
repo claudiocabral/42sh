@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/02/02 14:52:16 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/02/05 15:22:27 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,24 @@ static t_input_handle	g_key_map[256] =
 	&terminal_insert,
 };
 
+int			large_input(t_terminal *terminal, char c[16])
+{
+	int	i;
+	int	ret;
+
+	if ((*c & 0x60) || (*c & 0x70) || (*c & 0x78) || (*c & 0x7c))
+		return (terminal_insert_string(terminal, c));
+	i = 0;
+	ret = -1;
+	while (c[i])
+	{
+		if (c[i] >= 0)
+			ret = handle_input(terminal, c + i, 1);
+		++i;
+	}
+	return (ret);
+}
+
 int			handle_string_input(t_terminal *terminal, char c[16])
 {
 	if (terminal_compare_string(ARROW_UP, c))
@@ -179,7 +197,7 @@ int			handle_string_input(t_terminal *terminal, char c[16])
 		return (terminal_eol(terminal, 0));
 	if (c[0] == '\e')
 		return (dispatch_escape_string(terminal, c));
-	return (terminal_insert_string(terminal, c));
+	return (large_input(terminal, c));
 }
 
 int			handle_escpape_input(t_terminal *terminal, char c[16], int size)

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:50:47 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/22 17:58:37 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/02/05 15:35:35 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int						terminal_delete_until_eol(t_terminal *terminal, int c)
 int						terminal_kill_line(t_terminal *terminal, int c)
 {
 	(void)c;
+	terminal_eol(terminal, 0);
 	write(0, "\n", 1);
 	string_clear(terminal->line);
 	print_prompt(terminal);
