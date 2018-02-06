@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/02/05 15:52:03 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/02/06 10:25:34 by claudioca        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,13 @@ void			free_terminal(t_terminal *terminal);
 int				setup_terminal(t_terminal *terminal, char const *prompt);
 void			termios_toggle_isig(t_terminal *term, int toggle);
 void			set_termios(struct termios *termios);
+int				line_overflow(t_terminal *terminal, int index, int column,
+																int target);
 int				terminal_compare_string(t_terminal_command command,
 														char const *str);
 void			terminal_command(t_terminal_command command, int val);
-int				terminal_adjust(t_terminal *terminal, int index, int c);
+int				terminal_adjust_insert(t_terminal *terminal, int index,
+																int column);
 int				terminal_draw(t_terminal * terminal, int c);
 int				terminal_begining(t_terminal *terminal, int c);
 int				terminal_write(t_terminal *terminal, int c);
