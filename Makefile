@@ -31,6 +31,7 @@ OBJS	=	objs/main.o \
 			objs/file/script_session.o \
 			objs/signals/handlers.o \
 			objs/execute/dispatch_branch.o \
+			objs/execute/redirection.o \
 			objs/execute/pipe.o \
 			objs/execute/builtins.o \
 			objs/execute/path_entry.o \
@@ -41,10 +42,12 @@ OBJS	=	objs/main.o \
 			objs/execute/command_name_lookup.o \
 			objs/lexer/lexer.o \
 			objs/lexer/lex.o \
+			objs/lexer/lex_redirection.o \
 			objs/lexer/token.o \
 			objs/lexer/token_identifier.o \
 			objs/parser/parser.o \
 			objs/parser/pipeline.o \
+			objs/parser/redirection.o \
 			objs/parser/match.o \
 			objs/IO/get_next_terminal_command.o \
 			objs/IO/input_mode.o \

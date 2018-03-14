@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 16:17:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 16:00:02 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/14 18:16:45 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ typedef enum	e_tag
 	AND_IF,
 	OR_IF,
 	DSEMI,
+	IO_REDIRECT,
 	DLESS,
-	DGREAT,
+	DGREATER,
 	LESSAND,
-	GREATAND,
+	GREATERAND,
 	LESSGREAT,
 	DLESSDASH,
 	CLOBBER,

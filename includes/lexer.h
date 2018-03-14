@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 14:57:56 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/05 11:35:26 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/03/14 16:11:22 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int			lex_digit(t_array *tokens, char const *input, int start);
 int			lex_token(t_array *tokens, char const *input, int start, int pos);
 int			lex_operator(t_array *tokens, char const *input, int start);
 int			lex_quote(t_array *tokens, char const *input, int start);
+int			lex_redirection(t_array *tokens, char const *input, int start);
 
 #endif

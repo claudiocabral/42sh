@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:23:10 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/22 19:27:40 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/14 18:53:23 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <hash_table.h>
 # include <array.h>
 # include <tree.h>
+# include <token.h>
 
 typedef int		(*t_exec)(int argc, char **argv);
 
@@ -51,9 +52,11 @@ int				wait_process(pid_t pid);
 char const		*command_name_lookup(char const *name);
 t_builtin		*get_builtin_command(char const *name);
 int				dispatch_branch(t_tree *tree);
+int				branch_equals(t_tree *tree, t_tag type);
 int				command_dispatch(char **argv, char **env, char const *who);
 int				execute_commands(t_tree *tree);
 int				execute_simple_command(t_tree *tree);
 int				execute_pipe(t_tree	*tree);
+int				redirect(t_tree *tree);
 
 #endif

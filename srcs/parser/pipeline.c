@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 17:37:59 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/14 18:24:22 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ t_tree		*simple_command(t_array *tokens, t_token **current)
 
 	token = emit_token(SIMPLE_COMMAND, 0, 0, 0);
 	ZERO_IF_FAIL(tree = tree_create_node(&token, sizeof(t_token)));
-	tree_add_child(tree, command_name(current));
 	while (*current != tokens->end)
 	{
 		if (match(current, SEMICOLON, PIPE, SENTINEL))
@@ -42,7 +41,14 @@ t_tree		*simple_command(t_array *tokens, t_token **current)
 			--(*current);
 			return (tree);
 		}
-		tree_add_child(tree, command_name(current));
+		else if (match(current, IO_NUMBER, LESS, DLESS, LESSAND, GREATERAND,
+												GREATER, DGREATER, SENTINEL))
+		{
+			--(*current);
+			tree_add_child(tree, io_redirect(tokens, current));
+		}
+		else
+			tree_add_child(tree, command_name(current));
 	}
 	return (tree);
 }

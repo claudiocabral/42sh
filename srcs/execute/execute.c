@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/22 19:23:19 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/14 18:58:33 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,55 @@ int		command_dispatch(char **argv, char **env, char const *who)
 	return (127);
 }
 
+int		branch_is_redirection(t_tree *tree)
+{
+
+		return (branch_equals(tree, GREATER)
+				|| branch_equals(tree, DGREATER)
+				|| branch_equals(tree, GREATERAND)
+				|| branch_equals(tree, LESS)
+				|| branch_equals(tree, DLESS)
+				|| branch_equals(tree, LESSAND));
+}
+
+int		collect_args(t_tree **begin, t_tree **end, t_array *args)
+{
+
+	char		*tmp;
+
+	while (begin != end)
+	{
+		if (branch_is_redirection(*begin))
+		{
+			ZERO_IF_FAIL(redirect(*begin));
+		}
+		else
+		{
+			tmp = token_get_value((*begin)->element);
+			if (!tmp || !(array_push_back(args, &tmp)))
+			{
+				free(tmp);
+				array_free(args, (t_freef) & free_wrapper);
+				return (0);
+			}
+		}
+		++begin;
+	}
+	return (1);
+}
+
 int		execute_simple_command(t_tree *tree)
 {
 	t_array		*args;
-	t_tree		**child;
-	void		*tmp;
 	int			ret;
 
 	if (!(args = array_create(sizeof(char *), 16)))
 		return (1);
-	child = (t_tree **)tree->children->begin;
-	while (child != tree->children->end)
-	{
-		tmp = token_get_value((*child)->element);
-		if (!tmp || !(array_push_back(args, &tmp)))
-		{
-			free(tmp);
-			array_free(args, (t_freef) & free_wrapper);
-			return (1);
-		}
-		++child;
-	}
+	if (!collect_args((t_tree **)tree->children->begin,
+				(t_tree **)tree->children->end, args))
+		return (1);
 	ret = command_dispatch((char **)args->begin, get_environment(),
-														"./21sh");
+			"./21sh");
 	array_free(args, (t_freef) & free_wrapper);
 	return (ret);
 }

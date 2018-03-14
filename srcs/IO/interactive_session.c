@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/02/05 15:26:35 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/03/12 17:31:55 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ int					print_prompt(t_terminal *terminal)
 	}
 	if (terminal->prompt_pointer == terminal->prompt)
 	{
-		terminal->prompt_size = ft_dprintf(0, "%s%c%s", path ? path : "",
+		terminal->prompt_size = ft_dprintf(2, "%s%c%s", path ? path : "",
 															path ? ' ' : 0,
 															terminal->prompt);
 	}
 	else
-		terminal->prompt_size = ft_dprintf(0, "%s", terminal->prompt_pointer);
+		terminal->prompt_size = ft_dprintf(2, "%s", terminal->prompt_pointer);
 	return (terminal->prompt_size);
 }
 
