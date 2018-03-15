@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:23:10 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/14 18:53:23 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/15 13:51:36 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # include <token.h>
 
 typedef int		(*t_exec)(int argc, char **argv);
+
+typedef struct	s_fd_pair
+{
+	int	from;
+	int	to;
+}				t_fd_pair;
 
 typedef struct	s_builtin
 {
@@ -57,6 +63,6 @@ int				command_dispatch(char **argv, char **env, char const *who);
 int				execute_commands(t_tree *tree);
 int				execute_simple_command(t_tree *tree);
 int				execute_pipe(t_tree	*tree);
-int				redirect(t_tree *tree);
+t_fd_pair		redirect(t_tree *tree);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/09 09:25:06 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/15 11:34:02 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/15 13:25:05 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIBFT_H
 
 # include <string.h>
-# define ZERO_IF_FAIL(x) if ((x) == 0) return (0);
+# define ZERO_IF_FAIL(x) if ((x) == 0) return (0)
 
 typedef struct	s_list
 {

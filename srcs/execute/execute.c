@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/14 18:58:33 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/15 14:10:16 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <ft_printf.h>
 #include <token.h>
 #include <environment.h>
+#include <fcntl.h>
 
 int		command_dispatch(char **argv, char **env, char const *who)
 {
@@ -43,16 +44,18 @@ int		branch_is_redirection(t_tree *tree)
 				|| branch_equals(tree, LESSAND));
 }
 
-int		collect_args(t_tree **begin, t_tree **end, t_array *args)
+int		collect_args(t_tree **begin, t_tree **end, t_array *args, t_array *fds)
 {
 
 	char		*tmp;
+	t_fd_pair	tmp_fd;
 
 	while (begin != end)
 	{
 		if (branch_is_redirection(*begin))
 		{
-			ZERO_IF_FAIL(redirect(*begin));
+			tmp_fd  = redirect(*begin);
+			ZERO_IF_FAIL(tmp_fd.to >= 0 && array_push_back(fds, &tmp_fd));
 		}
 		else
 		{
@@ -69,18 +72,37 @@ int		collect_args(t_tree **begin, t_tree **end, t_array *args)
 	return (1);
 }
 
+void	close_fd_pair(t_fd_pair *fd, void *args)
+{
+	(void)args;
+	close(fd->from);
+	if (fd->to > -1)
+	{
+		dup2(fd->to, fd->from);
+		close(fd->to);
+	}
+}
+
 int		execute_simple_command(t_tree *tree)
 {
 	t_array		*args;
+	t_array		*fds;
 	int			ret;
 
 	if (!(args = array_create(sizeof(char *), 16)))
 		return (1);
+	if (!(fds = array_create(sizeof(t_fd_pair), 16)))
+	{
+		array_free(args, (t_freef) & noop);
+		return (1);
+	}
 	if (!collect_args((t_tree **)tree->children->begin,
-				(t_tree **)tree->children->end, args))
+				(t_tree **)tree->children->end, args, fds))
 		return (1);
 	ret = command_dispatch((char **)args->begin, get_environment(),
 			"./21sh");
+	array_apply(fds, 0, (t_applyf) & close_fd_pair);
+	array_free(fds, (t_freef) & noop);
 	array_free(args, (t_freef) & free_wrapper);
 	return (ret);
 }
