@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 15:13:51 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/16 13:16:46 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/16 13:38:24 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,10 @@
 #include <execute.h>
 #include <token.h>
 
-void		swap_fd(t_fd_pair *fd)
+t_fd_pair	make_redirection(t_fd_pair fd)
 {
 	int	tmp;
 
-	tmp = fd->to;
-	fd->to = fd->from;
-	fd->from = tmp;
-}
-
-t_fd_pair	make_redirection(t_fd_pair fd, char direction)
-{
-	int	tmp;
-
-	if (direction == '<')
-		swap_fd(&fd);
 	tmp = dup(fd.from);
 	dup2(fd.to, fd.from);
 	fd.to = tmp;
@@ -60,7 +49,14 @@ t_fd_pair	redirect_to_fd(t_array *args, char direction)
 		fd.from = token_get_int((t_token *)children[0]->element);
 		fd.to = token_get_int((t_token *)children[1]->element);
 	}
-	return (make_redirection(fd, direction));
+	if (direction == '<')
+	{
+		int tmp;
+		tmp = fd.to;
+		fd.to = fd.from;
+		fd.from = tmp;
+	}
+	return (make_redirection(fd));
 }
 
 t_fd_pair	redirect_to_file(t_array *args, int mode, char direction)
@@ -89,7 +85,7 @@ t_fd_pair	redirect_to_file(t_array *args, int mode, char direction)
 	if (fd.to < 0)
 		return (fd);
 	tmp = fd.to;
-	fd = make_redirection(fd, direction);
+	fd = make_redirection(fd);
 	close(tmp);
 	return (fd);
 }
