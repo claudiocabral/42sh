@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 15:04:31 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 11:58:27 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/16 12:50:29 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	restore_stdin(int save, int pipe)
 	close(STDIN_FILENO);
 	close(pipe);
 	dup2(save, STDIN_FILENO);
+	close(save);
 }
 
 static int	pipe_from(t_tree *tree, int read_write[2])
