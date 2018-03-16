@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 15:13:51 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/16 10:45:33 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/16 11:43:10 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_fd_pair	make_redirection(t_fd_pair fd, char direction)
 		swap_fd(&fd);
 	tmp = dup(fd.from);
 	dup2(fd.to, fd.from);
-	close(fd.to);
 	fd.to = tmp;
 	return (fd);
 }
@@ -69,6 +68,7 @@ t_fd_pair	redirect_to_file(t_array *args, int mode, char direction)
 	t_fd_pair	fd;
 	char		*path;
 	t_tree		**children;
+	int			tmp;
 
 	fd.from = (direction - '<') / 2;
 	children = (t_tree **)args->begin;
@@ -88,7 +88,10 @@ t_fd_pair	redirect_to_file(t_array *args, int mode, char direction)
 	free(path);
 	if (fd.to < 0)
 		return (fd);
-	return (make_redirection(fd, direction));
+	tmp = fd.to;
+	fd = make_redirection(fd, direction);
+	close(tmp);
+	return (fd);
 }
 
 t_fd_pair	redirect(t_tree *tree)
