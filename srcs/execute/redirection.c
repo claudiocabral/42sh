@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 15:13:51 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/16 11:43:10 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/16 13:16:46 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_fd_pair	redirect(t_tree *tree)
 	if (branch_equals(tree, GREATER))
 		ret = redirect_to_file(tree->children, O_RDWR | O_TRUNC | O_CREAT, '>');
 	else if (branch_equals(tree, LESS))
-		ret = redirect_to_file(tree->children, O_RDWR | O_TRUNC | O_CREAT, '<');
+		ret = redirect_to_file(tree->children, O_RDONLY, '<');
 	else if (branch_equals(tree, GREATERAND))
 		ret = redirect_to_fd(tree->children, '>');
 	else if (branch_equals(tree, LESSAND))
