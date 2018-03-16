@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 15:13:51 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/15 14:00:29 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/16 10:45:33 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,28 @@
 #include <unistd.h>
 #include <execute.h>
 #include <token.h>
+
+void		swap_fd(t_fd_pair *fd)
+{
+	int	tmp;
+
+	tmp = fd->to;
+	fd->to = fd->from;
+	fd->from = tmp;
+}
+
+t_fd_pair	make_redirection(t_fd_pair fd, char direction)
+{
+	int	tmp;
+
+	if (direction == '<')
+		swap_fd(&fd);
+	tmp = dup(fd.from);
+	dup2(fd.to, fd.from);
+	close(fd.to);
+	fd.to = tmp;
+	return (fd);
+}
 
 t_fd_pair	heredoc(t_array *args)
 {
@@ -33,51 +55,40 @@ t_fd_pair	redirect_to_fd(t_array *args, char direction)
 	fd.from = (direction - '<') / 2;
 	children = (t_tree **)args->begin;
 	if (array_size(args) == 1)
-	{
-		fd.to = *(int *)children[0]->element;
-	}
+		fd.to = token_get_int((t_token *)children[0]->element);
 	else
 	{
-		fd.from = *(int *)children[0]->element;
-		fd.to = *(int *)children[1]->element;
+		fd.from = token_get_int((t_token *)children[0]->element);
+		fd.to = token_get_int((t_token *)children[1]->element);
 	}
-	return (fd);
-	//if (direction == '>')
-		//return (dup2(fd_from, fd_to));
-	//return (dup2(fd_to, fd_from));
+	return (make_redirection(fd, direction));
 }
 
 t_fd_pair	redirect_to_file(t_array *args, int mode, char direction)
 {
 	t_fd_pair	fd;
-	int			tmp;
 	char		*path;
 	t_tree		**children;
 
 	fd.from = (direction - '<') / 2;
 	children = (t_tree **)args->begin;
 	if (array_size(args) == 1)
-		path = ft_strndup(((t_token *)children[0]->element)->begin,
-							((t_token *)children[0]->element)->size);
+		path = token_get_string((t_token *)children[0]->element);
 	else
 	{
-		fd.from = *(int*)children[0]->element;
-		path = ft_strndup(((t_token *)children[0]->element)->begin,
-							((t_token *)children[0]->element)->size);
+		fd.from = token_get_int((t_token *)children[0]->element);
+		path = token_get_string((t_token *)children[1]->element);
 	}
-	if ((fd.to = open(path, mode, 0644)) < 0)
-		return (fd);
-	if (direction == '<')
+	if (!path)
 	{
-		tmp = fd.to;
-		fd.to = fd.from;
-		fd.from = tmp;
+		fd.to = -1;
+		return (fd);
 	}
-	tmp = dup(fd.from);
-	dup2(fd.to, fd.from);
-	close(fd.to);
-	fd.to = tmp;
-	return (fd);
+	fd.to = open(path, mode, 0644);
+	free(path);
+	if (fd.to < 0)
+		return (fd);
+	return (make_redirection(fd, direction));
 }
 
 t_fd_pair	redirect(t_tree *tree)

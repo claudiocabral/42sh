@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 15:23:34 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/22 19:24:05 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/16 10:36:20 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <token.h>
 #include <execute.h>
 
-char		*token_get_value(t_token *token)
+char		*token_get_string(t_token *token)
 {
 	char	*str;
 
@@ -29,6 +29,17 @@ char		*token_get_value(t_token *token)
 	ZERO_IF_FAIL(str = expand(str));
 	remove_quotes(str);
 	return (str);
+}
+
+int			token_get_int(t_token *token)
+{
+	char	*str;
+	int		nbr;
+
+	ZERO_IF_FAIL(str = token_get_string(token));
+	nbr = ft_atoi(str);
+	free(str);
+	return (nbr);
 }
 
 int			add_token(t_array *tokens, t_tag type, char const *begin,

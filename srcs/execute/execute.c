@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/15 14:10:16 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/16 10:35:04 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		collect_args(t_tree **begin, t_tree **end, t_array *args, t_array *fds)
 		}
 		else
 		{
-			tmp = token_get_value((*begin)->element);
+			tmp = token_get_string((*begin)->element);
 			if (!tmp || !(array_push_back(args, &tmp)))
 			{
 				free(tmp);
