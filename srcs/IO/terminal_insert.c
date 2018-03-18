@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:54:21 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/18 14:20:56 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/18 15:54:36 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ int		terminal_eof(t_terminal *terminal, int c)
 	if (terminal->line->buffer[terminal->cursor]
 			== '\\')
 		return (terminal_insert(terminal, c));
-	if ((last_line = ft_strrchr(terminal->line->buffer, '<')))
+	if (terminal->input_mode == HEREDOC_INPUT)
+		return (0);
+	if (terminal->input_mode != HEREDOC_INPUT &&
+			(last_line = ft_strrchr(terminal->line->buffer, '<')))
 		return (terminal_heredoc(terminal, last_line));
 	write(STDIN_FILENO, &c, 1);
 	return (0);

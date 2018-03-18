@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 14:17:27 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/18 14:42:17 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/18 15:55:34 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,30 @@
 #include <stdlib.h>
 #include <io.h>
 
+char	*skip_white_spaces(char *str)
+{
+	while (*str && (*str == ' ' || *str == '\t'))
+		++str;
+	return (str);
+}
+
 int	heredoc_loop(t_terminal *terminal, char const *condition)
 {
 	char	*current_line;
 
-	(void)terminal;
-	current_line = terminal->line->buffer + terminal->line->size;
-	while (!ft_strequ(current_line, condition))
+	while (1)
 	{
-		return (1);
+		if (terminal_get_line(terminal) == 0)
+		{
+			if (!(current_line = ft_strrchr(terminal->line->buffer, '\n')))
+				return (0);
+			if (ft_strequ(skip_white_spaces(current_line + 1), condition))
+			{
+				terminal_insert(terminal, '\n');
+				break ;
+			}
+			terminal_insert(terminal, '\n');
+		}
 	}
 	return (1);
 }
@@ -36,10 +51,12 @@ int	terminal_heredoc(t_terminal * terminal, char *eof)
 		write(STDIN_FILENO, "\n", 1);
 		return (0);
 	}
-	ZERO_IF_FAIL(condition = ft_strdup(eof + 1));
+	ZERO_IF_FAIL(condition = ft_strdup(skip_white_spaces(eof + 1)));
 	terminal_eol(terminal, 0);
 	terminal_insert(terminal, '\n');
+	terminal->input_mode = HEREDOC_INPUT;
 	heredoc_loop(terminal, condition);
 	free(condition);
+	terminal->input_mode = NORMAL_INPUT;
 	return (0);
 }

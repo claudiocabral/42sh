@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/18 13:46:49 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/18 15:19:35 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ typedef enum	e_input_mode
 	NORMAL_INPUT,
 	ESCAPE_INPUT,
 	BACKSLASH_INPUT,
-	QUOTE_INPUT
+	QUOTE_INPUT,
+	HEREDOC_INPUT,
 }				t_input_mode;
 
 typedef enum	e_terminal_command
@@ -145,5 +146,7 @@ int				choose_possibility(t_array *array, char *str,
 int				is_at_newline(t_terminal *terminal, int index);
 int				terminal_heredoc(t_terminal * terminal, char *eof);
 int				check_heredoc(char const *buffer, char const *last_line);
+int				terminal_get_line(t_terminal *terminal);
+char			*skip_white_spaces(char *str);
 
 #endif

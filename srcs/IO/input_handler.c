@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/18 13:27:58 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/18 15:48:47 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,8 @@ int			handle_regular_input(t_terminal *terminal, int c)
 
 int			handle_input(t_terminal *terminal, char c[16], int size)
 {
-	if (terminal->input_mode == NORMAL_INPUT)
+	if (terminal->input_mode == NORMAL_INPUT
+			|| terminal->input_mode == HEREDOC_INPUT)
 	{
 		if (size > 1 || (unsigned char)c[0] >= 128)
 			return (handle_string_input(terminal, c));
