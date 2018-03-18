@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/02/06 10:25:34 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/03/18 13:46:49 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,7 @@ void			adjust_terminal(t_terminal *terminal, int nbr_lines);
 int				choose_possibility(t_array *array, char *str,
 											t_terminal *terminal);
 int				is_at_newline(t_terminal *terminal, int index);
+int				terminal_heredoc(t_terminal * terminal, char *eof);
+int				check_heredoc(char const *buffer, char const *last_line);
 
 #endif
