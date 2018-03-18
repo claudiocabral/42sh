@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 15:28:33 by ccabral           #+#    #+#             */
-/*   Updated: 2018/02/02 12:12:20 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/03/18 17:04:01 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ int						terminal_previous_word(t_terminal *terminal, int c)
 
 int						terminal_next_word(t_terminal *terminal, int c)
 {
-	while (terminal->cursor != terminal->prompt_size + (int)terminal->line->size
-			&& ft_is_whitespace(terminal->line->buffer [terminal->cursor - 1]))
+	while (terminal->cursor != (int)terminal->line->size
+			&& !ft_is_whitespace(terminal->line->buffer [terminal->cursor]))
 		terminal_move_right(terminal, c);
 	while (terminal->cursor != (int)terminal->line->size
-			&& !ft_is_whitespace(terminal->line->buffer [terminal->cursor - 1]))
+			&& ft_is_whitespace(terminal->line->buffer [terminal->cursor]))
 		terminal_move_right(terminal, c);
 	return (1);
 }
