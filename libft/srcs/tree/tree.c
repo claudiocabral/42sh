@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 15:30:59 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/10 15:41:36 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/18 14:32:40 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_tree			*tree_create_node(void *element, size_t element_size)
 
 t_tree			*tree_add_child(t_tree *parent, t_tree *child)
 {
-	if (parent)
+	if (parent && child)
 	{
 		child->parent = parent;
 		ZERO_IF_FAIL(array_push_back(parent->children, &child));

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/14 18:24:22 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/18 14:38:46 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ t_tree		*simple_command(t_array *tokens, t_token **current)
 												GREATER, DGREATER, SENTINEL))
 		{
 			--(*current);
-			tree_add_child(tree, io_redirect(tokens, current));
+			if (!tree_add_child(tree, io_redirect(tokens, current)))
+			{
+				tree_free(tree, (t_freef) & noop);
+				return (0);
+			}
 		}
 		else
 			tree_add_child(tree, command_name(current));
@@ -71,7 +75,11 @@ t_tree		*command(t_tree *tree, t_array *tokens, t_token **current)
 			--(*current);
 			break ;
 		}
-		tree_add_child(commands, simple_command(tokens, current));
+		if (!tree_add_child(commands, simple_command(tokens, current)))
+		{
+			tree_free(commands, (t_freef) & noop);
+			return (0);
+		}
 	}
 	tree = tree_add_child(tree, commands);
 	return (tree);
