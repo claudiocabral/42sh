@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 15:04:31 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/16 12:50:29 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/16 16:11:34 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int			execute_pipe(t_tree *tree)
 		pipe_from(*(t_tree **)tree->children->begin, read_write);
 	else
 	{
-		if (waitpid(child, &ret, WUNTRACED) && ret == 0)
 			ret = pipe_to(*(t_tree **)(tree->children->begin
 					+ sizeof(t_tree *)), read_write);
+		waitpid(child, &ret, WUNTRACED);
 	}
 	restore_stdin(save, read_write[0]);
 	return (ret);
