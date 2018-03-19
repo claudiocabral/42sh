@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:56:11 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/18 16:49:58 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/19 13:59:12 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,17 @@ static int	lex_simple_redirection(t_array *tokens, char const *input,
 static int	heredoc_token_size(char const *input, int start,
 								char const *eof_begin, int eof_size)
 {
-	while (input[start])
+	int	pos;
+
+	pos = 0;
+	while (input[start + pos])
 	{
-		if (input[start] == '\n')
+		if (input[start + pos] == '\n')
 		{
-			if (ft_strnequ(input + start + 1, eof_begin, eof_size))
-				return (start + 1);
+			if (ft_strnequ(input + start + pos + 1, eof_begin, eof_size))
+				return (pos + 1);
 		}
-		++start;
+		++pos;
 	}
 	return (0);
 }
@@ -65,8 +68,8 @@ static int	lex_heredoc(t_array *tokens, char const *input, int start)
 		++start;
 	ZERO_IF_FAIL(pos = heredoc_token_size(input, start,
 						eof_token_begin, eof_token_size));
-	ZERO_IF_FAIL(add_token(tokens, TOKEN, input + start, start - pos));
-	return (pos + eof_token_size + 1);
+	ZERO_IF_FAIL(add_token(tokens, TOKEN, input + start, pos));
+	return (start + pos + eof_token_size + 1);
 }
 
 int			lex_redirection(t_array *tokens, char const *input, int start)

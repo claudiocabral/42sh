@@ -6,12 +6,13 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 14:17:27 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/18 15:55:34 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/19 14:01:29 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <ft_printf.h>
 #include <io.h>
 
 char	*skip_white_spaces(char *str)
@@ -27,6 +28,7 @@ int	heredoc_loop(t_terminal *terminal, char const *condition)
 
 	while (1)
 	{
+		ft_dprintf(STDIN_FILENO, "heredoc> ", 0);
 		if (terminal_get_line(terminal) == 0)
 		{
 			if (!(current_line = ft_strrchr(terminal->line->buffer, '\n')))

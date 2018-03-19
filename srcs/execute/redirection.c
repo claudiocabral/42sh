@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 15:13:51 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/16 14:51:28 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/19 13:59:47 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_fd_pair	heredoc(t_token *token)
 	fd.from = STDIN_FILENO;
 	content = token_get_string(token);
 	write(read_write[1], content, ft_strlen(content));
-	write(read_write[1], "\n", 1);
 	free(content);
 	close(read_write[1]);
 	return (fd);
