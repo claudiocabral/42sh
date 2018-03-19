@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 15:04:31 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/19 16:08:53 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/19 18:11:33 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int			execute_pipe(t_tree *tree)
 	{
 		close(read_write[0]);
 		close(read_write[1]);
+		close(save);
 	}
 	else if (child == 0)
 		pipe_from(*(t_tree **)tree->children->begin, read_write);
