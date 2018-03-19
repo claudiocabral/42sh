@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 16:33:21 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/19 14:48:45 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/19 15:10:08 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	match(t_token **token, ...)
 	int		ret;
 
 	va_start(ap, token);
-	ret = peek_impl(token, &ap);
+	if ((ret = peek_impl(token, &ap)))
+		++(*token);
 	va_end(ap);
-	++(*token);
 	return (ret);
 }
 

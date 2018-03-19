@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/19 14:10:54 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/19 15:38:03 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		execute_simple_command(t_tree *tree)
 		return (1);
 	ret = command_dispatch((char **)args->begin, get_environment(),
 			"./21sh");
-	array_apply(fds, 0, (t_applyf) & close_fd_pair);
+	array_apply_reverse(fds, 0, (t_applyf) & close_fd_pair);
 	array_free(fds, (t_freef) & noop);
 	array_free(args, (t_freef) & free_wrapper);
 	return (ret);

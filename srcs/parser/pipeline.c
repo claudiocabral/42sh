@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/18 14:38:46 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/19 14:46:34 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,11 @@ t_tree		*simple_command(t_array *tokens, t_token **current)
 	ZERO_IF_FAIL(tree = tree_create_node(&token, sizeof(t_token)));
 	while (*current != tokens->end)
 	{
-		if (match(current, SEMICOLON, PIPE, SENTINEL))
-		{
-			--(*current);
+		if (peek(current, SEMICOLON, PIPE, SENTINEL))
 			return (tree);
-		}
-		else if (match(current, IO_NUMBER, LESS, DLESS, LESSAND, GREATERAND,
+		else if (peek(current, IO_NUMBER, LESS, DLESS, LESSAND, GREATERAND,
 												GREATER, DGREATER, SENTINEL))
 		{
-			--(*current);
 			if (!tree_add_child(tree, io_redirect(tokens, current)))
 			{
 				tree_free(tree, (t_freef) & noop);
@@ -62,19 +58,14 @@ t_tree		*command(t_tree *tree, t_array *tokens, t_token **current)
 	t_token		token;
 	t_tree		*commands;
 
-	if (!match(current, TOKEN, SENTINEL))
+	if (!peek(current, TOKEN, SENTINEL))
 		return (0);
-	else
-		--(*current);
 	token = emit_token(COMMANDS, 0, 0, 0);
 	commands = tree_create_node(&token, sizeof(t_token));
 	while (*current != tokens->end)
 	{
-		if (match(current, SEMICOLON, PIPE, SENTINEL))
-		{
-			--(*current);
+		if (peek(current, SEMICOLON, PIPE, SENTINEL))
 			break ;
-		}
 		if (!tree_add_child(commands, simple_command(tokens, current)))
 		{
 			tree_free(commands, (t_freef) & noop);
