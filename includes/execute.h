@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:23:10 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/15 13:51:36 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/19 14:10:12 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int				command_dispatch(char **argv, char **env, char const *who);
 int				execute_commands(t_tree *tree);
 int				execute_simple_command(t_tree *tree);
 int				execute_pipe(t_tree	*tree);
+int				collect_args(t_tree **begin, t_tree **end,
+								t_array *args, t_array *fds);
 t_fd_pair		redirect(t_tree *tree);
 
 #endif

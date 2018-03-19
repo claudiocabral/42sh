@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:50:47 by claudioca         #+#    #+#             */
-/*   Updated: 2018/02/06 11:25:36 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/03/19 14:28:32 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ int		terminal_adjust_delete(t_terminal *terminal, int index, int column)
 	return (1);
 }
 
-void					terminal_delete_position_cursor(t_terminal *terminal,
-																		int c)
+void	terminal_delete_position_cursor(t_terminal *terminal, int c)
 {
 	int	column;
 	int	width;
@@ -57,7 +56,7 @@ void					terminal_delete_position_cursor(t_terminal *terminal,
 		write(STDIN_FILENO, &c, 1);
 }
 
-int						terminal_delete(t_terminal *terminal, int c)
+int		terminal_delete(t_terminal *terminal, int c)
 {
 	int	column;
 	int	index;
@@ -77,8 +76,8 @@ int						terminal_delete(t_terminal *terminal, int c)
 	terminal->cursor--;
 	column = get_position_in_line(terminal, terminal->cursor);
 	width = get_terminal_width();
-	if (column != width &&
-			(index = line_overflow(terminal, terminal->cursor, column, width - 1)))
+	if (column != width && (index =
+				line_overflow(terminal, terminal->cursor, column, width - 1)))
 	{
 		terminal_adjust_delete(terminal, index, column);
 		terminal_command(MOVE_RIGHT, column);
@@ -86,7 +85,7 @@ int						terminal_delete(t_terminal *terminal, int c)
 	return (1);
 }
 
-int						terminal_delete_current(t_terminal *terminal, int c)
+int		terminal_delete_current(t_terminal *terminal, int c)
 {
 	if ((unsigned int)terminal->cursor
 			>= terminal->line->size)
@@ -96,35 +95,13 @@ int						terminal_delete_current(t_terminal *terminal, int c)
 	return (1);
 }
 
-int						terminal_delete_word(t_terminal *terminal, int c)
+int		terminal_delete_word(t_terminal *terminal, int c)
 {
-	while (terminal->cursor &&
-			ft_is_whitespace(terminal->line->buffer [terminal->cursor - 1]))
+	while (terminal->cursor
+			&& ft_is_whitespace(terminal->line->buffer[terminal->cursor - 1]))
 		terminal_delete(terminal, c);
-	while (terminal->cursor &&
-			!ft_is_whitespace(terminal->line->buffer [terminal->cursor - 1]))
+	while (terminal->cursor
+			&& !ft_is_whitespace(terminal->line->buffer[terminal->cursor - 1]))
 		terminal_delete(terminal, c);
-	return (1);
-}
-
-int						terminal_delete_until_eol(t_terminal *terminal, int c)
-{
-	int		current_position;
-
-	current_position = terminal->cursor;
-	terminal_eol(terminal, c);
-	while (terminal->cursor > current_position)
-		terminal_delete(terminal, c);
-	return (1);
-}
-
-int						terminal_kill_line(t_terminal *terminal, int c)
-{
-	(void)c;
-	terminal_eol(terminal, 0);
-	write(0, "\n", 1);
-	string_clear(terminal->line);
-	print_prompt(terminal);
-	terminal->cursor = 0;
 	return (1);
 }

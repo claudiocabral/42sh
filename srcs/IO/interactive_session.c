@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/18 15:48:55 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/19 14:22:56 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,43 +29,12 @@ void				quit(t_terminal *terminal)
 	exit(0);
 }
 
-int					print_prompt(t_terminal *terminal)
-{
-	char const	*path;
-
-	path = ft_getenv("PWD");
-	if (ft_strcmp(path, "/"))
-	{
-		path = path ? ft_strrchr(path, '/') : 0;
-		path = path ? path + 1 : 0;
-	}
-	if (terminal->prompt_pointer == terminal->prompt)
-	{
-		terminal->prompt_size = ft_dprintf(2, "%s%c%s", path ? path : "",
-															path ? ' ' : 0,
-															terminal->prompt);
-	}
-	else
-		terminal->prompt_size = ft_dprintf(2, "%s", terminal->prompt_pointer);
-	return (terminal->prompt_size);
-}
-
-void			set_termios(struct termios *termios)
+void				set_termios(struct termios *termios)
 {
 	tcsetattr(STDIN_FILENO, TCSANOW, termios);
 }
 
-int	terminal_draw(t_terminal * terminal, int c)
-{
-	(void)
-	terminal_begining(terminal, 0);
-	print_prompt(terminal);
-	terminal_write(terminal, c);
-	terminal->cursor = terminal->line->size;
-	return (1);
-}
-
-int	terminal_get_line(t_terminal *terminal)
+int					terminal_get_line(t_terminal *terminal)
 {
 	int		size;
 	char	c[16];
@@ -80,7 +49,7 @@ int	terminal_get_line(t_terminal *terminal)
 		}
 		c[size] = 0;
 		if (handle_input(terminal, c, size) == 0)
-			return(0) ;
+			return (0);
 		string_copy(terminal->history->current, terminal->line);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/16 14:50:24 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/19 14:10:54 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #include <ft_printf.h>
 #include <token.h>
 #include <environment.h>
-#include <fcntl.h>
 
 int		command_dispatch(char **argv, char **env, char const *who)
 {
@@ -31,45 +30,6 @@ int		command_dispatch(char **argv, char **env, char const *who)
 		return (invoke_builtin(tmp, argv));
 	return (invoke(command_name_lookup(argv[0]), argv, env, who));
 	return (127);
-}
-
-int		branch_is_redirection(t_tree *tree)
-{
-
-		return (branch_equals(tree, GREATER)
-				|| branch_equals(tree, DGREATER)
-				|| branch_equals(tree, GREATERAND)
-				|| branch_equals(tree, LESS)
-				|| branch_equals(tree, DLESS)
-				|| branch_equals(tree, LESSAND));
-}
-
-int		collect_args(t_tree **begin, t_tree **end, t_array *args, t_array *fds)
-{
-
-	char		*tmp;
-	t_fd_pair	tmp_fd;
-
-	while (begin != end)
-	{
-		if (branch_is_redirection(*begin))
-		{
-			tmp_fd  = redirect(*begin);
-			ZERO_IF_FAIL(tmp_fd.to >= 0 && array_push_back(fds, &tmp_fd));
-		}
-		else
-		{
-			tmp = token_get_string((*begin)->element);
-			if (!tmp || !(array_push_back(args, &tmp)))
-			{
-				free(tmp);
-				array_free(args, (t_freef) & free_wrapper);
-				return (0);
-			}
-		}
-		++begin;
-	}
-	return (1);
 }
 
 void	close_fd_pair(t_fd_pair *fd, void *args)

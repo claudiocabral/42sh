@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 14:17:27 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/19 14:01:29 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/19 14:22:35 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*skip_white_spaces(char *str)
 	return (str);
 }
 
-int	heredoc_loop(t_terminal *terminal, char const *condition)
+int		heredoc_loop(t_terminal *terminal, char const *condition)
 {
 	char	*current_line;
 
@@ -44,9 +44,10 @@ int	heredoc_loop(t_terminal *terminal, char const *condition)
 	return (1);
 }
 
-int	terminal_heredoc(t_terminal * terminal, char *eof)
+int		terminal_heredoc(t_terminal *terminal, char *eof)
 {
 	char	*condition;
+
 	if (eof == terminal->line->buffer || *(eof - 1) != '<'
 			|| !eof[1])
 	{

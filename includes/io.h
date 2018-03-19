@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/18 15:19:35 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/19 14:16:58 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,7 @@ int				terminal_heredoc(t_terminal * terminal, char *eof);
 int				check_heredoc(char const *buffer, char const *last_line);
 int				terminal_get_line(t_terminal *terminal);
 char			*skip_white_spaces(char *str);
+int				is_open_bracket(char c);
+char			get_closing_bracket(char c);
 
 #endif

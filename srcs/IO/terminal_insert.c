@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:54:21 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/18 15:54:36 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/19 14:33:14 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,6 @@ int		terminal_insert_string(t_terminal *terminal, char *str)
 	return (1);
 }
 
-int						terminal_write(t_terminal *terminal, int c)
-{
-	(void)c;
-	terminal_command(INSERT, terminal->line->size);
-	write(STDIN_FILENO, terminal->line->buffer, terminal->line->size);
-	return (1);
-}
-
 int		terminal_adjust_insert(t_terminal *terminal, int index, int column)
 {
 	int		next;
@@ -106,6 +98,7 @@ int		terminal_adjust_insert(t_terminal *terminal, int index, int column)
 int		terminal_eof(t_terminal *terminal, int c)
 {
 	char	*last_line;
+
 	if (terminal->line->buffer[terminal->cursor]
 			== '\\')
 		return (terminal_insert(terminal, c));
@@ -116,11 +109,4 @@ int		terminal_eof(t_terminal *terminal, int c)
 		return (terminal_heredoc(terminal, last_line));
 	write(STDIN_FILENO, &c, 1);
 	return (0);
-}
-
-int		terminal_noop(t_terminal *terminal, int c)
-{
-	(void)terminal;
-	(void)c;
-	return (1);
 }

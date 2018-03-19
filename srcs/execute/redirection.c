@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 15:13:51 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/19 13:59:47 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/19 14:15:24 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_fd_pair	redirect_to_fd(t_array *args, char direction)
 {
 	t_fd_pair	fd;
 	t_tree		**children;
+	int			tmp;
 
 	fd.from = (direction - '<') / 2;
 	children = (t_tree **)args->begin;
@@ -59,7 +60,6 @@ t_fd_pair	redirect_to_fd(t_array *args, char direction)
 	}
 	if (direction == '<')
 	{
-		int tmp;
 		tmp = fd.to;
 		fd.to = fd.from;
 		fd.from = tmp;
@@ -84,11 +84,9 @@ t_fd_pair	redirect_to_file(t_array *args, int mode, char direction)
 		path = token_get_string((t_token *)children[1]->element);
 	}
 	if (!path)
-	{
 		fd.to = -1;
-		return (fd);
-	}
-	fd.to = open(path, mode, 0644);
+	else
+		fd.to = open(path, mode, 0644);
 	free(path);
 	if (fd.to < 0)
 		return (fd);
@@ -107,13 +105,15 @@ t_fd_pair	redirect(t_tree *tree)
 	if (branch_equals(tree, GREATER))
 		ret = redirect_to_file(tree->children, O_RDWR | O_TRUNC | O_CREAT, '>');
 	else if (branch_equals(tree, DGREATER))
-		ret = redirect_to_file(tree->children, O_RDWR | O_APPEND | O_CREAT, '>');
+		ret = redirect_to_file(tree->children,
+				O_RDWR | O_APPEND | O_CREAT, '>');
 	else if (branch_equals(tree, GREATERAND))
 		ret = redirect_to_fd(tree->children, '>');
 	else if (branch_equals(tree, LESS))
 		ret = redirect_to_file(tree->children, O_RDONLY, '<');
 	else if (branch_equals(tree, DLESS))
-		ret = heredoc((t_token *)(((t_tree **)tree->children->begin)[0])->element);
+		ret = heredoc((t_token *)
+				(((t_tree **)tree->children->begin)[0])->element);
 	else if (branch_equals(tree, LESSAND))
 		ret = redirect_to_fd(tree->children, '<');
 	return (ret);

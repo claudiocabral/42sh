@@ -6,45 +6,13 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 09:19:57 by claudioca         #+#    #+#             */
-/*   Updated: 2018/02/05 16:25:48 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/03/19 14:34:35 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <io.h>
 #include <ft_string.h>
 #include <unistd.h>
-
-int		terminal_bol(t_terminal *terminal, int c)
-{
-	terminal_command(HIDE_CURSOR, 0);
-	while (terminal->cursor)
-		terminal_move_left(terminal, c);
-	terminal_command(SHOW_CURSOR, 0);
-	return (1);
-}
-
-int		terminal_eol(t_terminal *terminal, int c)
-{
-	terminal_command(HIDE_CURSOR, 0);
-	while ((unsigned long)terminal->cursor !=
-			terminal->line->size)
-		terminal_move_right(terminal, c);
-	terminal_command(SHOW_CURSOR, 0);
-	return (1);
-}
-
-int		is_at_newline(t_terminal *terminal, int index)
-{
-
-	return (terminal->line->buffer[index - 1] == '\n'
-			|| (index != 0
-				&& get_position_in_line(terminal, index) == get_terminal_width()));
-}
-
-int		terminal_is_at_newline(t_terminal *terminal)
-{
-	return (is_at_newline(terminal, terminal->cursor));
-}
 
 int		terminal_adjust_cursor(int from, int to)
 {

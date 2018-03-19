@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:56:11 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/19 13:59:12 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/19 14:37:58 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static int	lex_simple_redirection(t_array *tokens, char const *input,
 	else
 		return (0);
 	return (1);
-
 }
 
 static int	heredoc_token_size(char const *input, int start,
