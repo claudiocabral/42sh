@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/14 15:55:58 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/20 15:00:35 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,92 +16,93 @@
 #include <token.h>
 #include <ft_printf.h>
 
-int			lex_quote(t_array *tokens, char const *input, int start)
+int			lex_quote(t_array *tokens, t_slice input)
 {
 	int	pos;
 
-	pos = start + 1;
-	while (input[pos] && input[pos] != input[start])
+	pos = input.size + 1;
+	while (input.ptr[pos] && input.ptr[pos] != input.ptr[input.size])
 		++pos;
-	if (input[pos] != input[start])
+	if (input.ptr[pos] != input.ptr[input.size])
 		return (-1);
-	if (add_token(tokens, TOKEN, input + start, pos - start))
+	if (add_token(tokens, TOKEN, input.ptr + input.size, pos - input.size))
 		return (pos + 1);
 	return (-1);
 }
 
-int			lex_operator(t_array *tokens, char const *input, int start)
+int			lex_operator(t_array *tokens, t_slice input, char *const *heredoc)
 {
 	int	ret;
 
 	ret = 0;
-	if (input[start] == ';')
-		ret = add_token(tokens, SEMICOLON, input + start, 1);
-	else if (input[start] == '&')
-		ret = add_token(tokens, AND, input + start, 1);
-	else if (input[start] == '|')
-		ret = add_token(tokens, PIPE, input + start, 1);
-	else if (input[start] == '<' || input[start] == '>')
-		ret = lex_redirection(tokens, input, start);
+	if (input.ptr[input.size] == ';')
+		ret = add_token(tokens, SEMICOLON, input.ptr + input.size, 1);
+	else if (input.ptr[input.size] == '&')
+		ret = add_token(tokens, AND, input.ptr + input.size, 1);
+	else if (input.ptr[input.size] == '|')
+		ret = add_token(tokens, PIPE, input.ptr + input.size, 1);
+	else if (input.ptr[input.size] == '<' || input.ptr[input.size] == '>')
+		ret = lex_redirection(tokens, input, heredoc);
 	if (ret)
-		return (start + ret);
+		return (input.size + ret);
 	return (-1);
 }
 
-int			lex_token(t_array *tokens, char const *input, int start, int pos)
+int			lex_token(t_array *tokens, t_slice input, int pos)
 {
-	while (input[pos])
+	while (input.ptr[pos])
 	{
-		if (input[pos] == '\\')
+		if (input.ptr[pos] == '\\')
 		{
 			++pos;
-			if (!input[pos])
+			if (!input.ptr[pos])
 				break ;
 		}
-		else if (token_delimiter(input[pos]))
+		else if (token_delimiter(input.ptr[pos]))
 			break ;
 		++pos;
 	}
-	if (add_token(tokens, TOKEN, input + start, pos - start))
+	if (add_token(tokens, TOKEN, input.ptr + input.size, pos - input.size))
 		return (pos);
 	return (-1);
 }
 
-int			lex_digit(t_array *tokens, char const *input, int start)
+int			lex_digit(t_array *tokens, t_slice input)
 {
 	int		pos;
 
-	pos = start;
-	while (ft_isdigit(input[pos]))
+	pos = input.size;
+	while (ft_isdigit(input.ptr[pos]))
 		++pos;
-	if (input[pos] == '<' || input[pos] == '>')
+	if (input.ptr[pos] == '<' || input.ptr[pos] == '>')
 	{
-		if (add_token(tokens, IO_NUMBER, input + start, pos - start))
+		if (add_token(tokens, IO_NUMBER, input.ptr + input.size,
+												pos - input.size))
 			return (pos);
 		return (-1);
 	}
-	return (lex_token(tokens, input, start, pos));
+	return (lex_token(tokens, input, pos));
 }
 
-int			lex_text(t_array *tokens, char const *input, int start)
+int			lex_text(t_array *tokens, t_slice input, char *const *heredoc)
 {
-	while (input[start])
+	while (input.ptr[input.size])
 	{
-		while (ft_is_whitespace(input[start]))
-			++start;
-		if (!input[start])
+		while (ft_is_whitespace(input.ptr[input.size]))
+			++input.size;
+		if (!input.ptr[input.size])
 			break ;
-		if (token_newline(input[start]))
-			start = push_newline_token(tokens, input, start);
-		else if (token_operator(input[start]))
-			start = lex_operator(tokens, input, start);
-		else if (ft_isdigit(input[start]))
-			start = lex_digit(tokens, input, start);
-		else if (token_quote(input[start]))
-			start = lex_quote(tokens, input, start);
+		if (token_newline(input.ptr[input.size]))
+			input.size = push_newline_token(tokens, input.ptr, input.size);
+		else if (token_operator(input.ptr[input.size]))
+			input.size = lex_operator(tokens, input, heredoc);
+		else if (ft_isdigit(input.ptr[input.size]))
+			input.size = lex_digit(tokens, input);
+		else if (token_quote(input.ptr[input.size]))
+			input.size = lex_quote(tokens, input);
 		else
-			start = lex_token(tokens, input, start, start);
-		if (start == -1)
+			input.size = lex_token(tokens, input, input.size);
+		if (input.size == -1)
 			return (-1);
 	}
 	return (1);

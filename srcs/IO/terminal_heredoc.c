@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 14:17:27 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/20 14:36:08 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/20 15:22:03 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int		heredoc_loop(t_terminal *terminal, t_slice eof)
 				return (0);
 			if (ft_strnequ(skip_white_spaces(current_line + 1), eof.ptr, eof.size))
 			{
-				terminal_insert(terminal, '\n');
+				//terminal_insert(terminal, '\n');
 				break ;
 			}
 			terminal_insert(terminal, '\n');

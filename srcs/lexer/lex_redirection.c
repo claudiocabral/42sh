@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:56:11 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/19 14:37:58 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/20 15:17:15 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,49 +48,51 @@ static int	heredoc_token_size(char const *input, int start,
 	return (0);
 }
 
-static int	lex_heredoc(t_array *tokens, char const *input, int start)
+static int	lex_heredoc(t_array *tokens, t_slice input, char *const *heredoc)
 {
 	char const	*eof_token_begin;
 	int			eof_token_size;
 	int			pos;
 
-	while (input[start] && ft_is_whitespace(input[start]))
-		++start;
-	eof_token_begin = input + start;
+	(void)heredoc;
+	while (input.ptr[input.size] && ft_is_whitespace(input.ptr[input.size]))
+		++input.size;
+	eof_token_begin = input.ptr + input.size;
 	eof_token_size = 0;
-	while (input[start] && input[start] != '\n')
+	while (input.ptr[input.size] && input.ptr[input.size] != '\n')
 	{
 		++eof_token_size;
-		++start;
+		++input.size;
 	}
-	if (input[start])
-		++start;
-	ZERO_IF_FAIL(pos = heredoc_token_size(input, start,
+	if (input.ptr[input.size])
+		++input.size;
+	ZERO_IF_FAIL(pos = heredoc_token_size(input.ptr, input.size,
 						eof_token_begin, eof_token_size));
-	ZERO_IF_FAIL(add_token(tokens, TOKEN, input + start, pos));
-	return (start + pos + eof_token_size + 1);
+	ZERO_IF_FAIL(add_token(tokens, TOKEN, input.ptr + input.size, pos));
+	return (input.size + pos + eof_token_size + 1);
 }
 
-int			lex_redirection(t_array *tokens, char const *input, int start)
+int			lex_redirection(t_array *tokens, t_slice input, char *const *heredoc)
 {
-	if (input[start] == '<' && input[start + 1] == '<')
+	if (input.ptr[input.size] == '<' && input.ptr[input.size + 1] == '<')
 	{
-		ZERO_IF_FAIL(add_token(tokens, DLESS, input + start, 2));
-		return (lex_heredoc(tokens, input, start + 2));
+		ZERO_IF_FAIL(add_token(tokens, DLESS, input.ptr + input.size, 2));
+		input.size += 2;
+		return (lex_heredoc(tokens, input, heredoc));
 	}
-	else if (input[start] == '<' && input[start + 1] == '&')
+	else if (input.ptr[input.size] == '<' && input.ptr[input.size + 1] == '&')
 	{
-		ZERO_IF_FAIL(add_token(tokens, LESSAND, input + start, 2));
+		ZERO_IF_FAIL(add_token(tokens, LESSAND, input.ptr + input.size, 2));
 	}
-	else if (input[start] == '>' && input[start + 1] == '>')
+	else if (input.ptr[input.size] == '>' && input.ptr[input.size + 1] == '>')
 	{
-		ZERO_IF_FAIL(add_token(tokens, DGREATER, input + start, 2));
+		ZERO_IF_FAIL(add_token(tokens, DGREATER, input.ptr + input.size, 2));
 	}
-	else if (input[start] == '>' && input[start + 1] == '&')
+	else if (input.ptr[input.size] == '>' && input.ptr[input.size + 1] == '&')
 	{
-		ZERO_IF_FAIL(add_token(tokens, GREATERAND, input + start, 2));
+		ZERO_IF_FAIL(add_token(tokens, GREATERAND, input.ptr + input.size, 2));
 	}
 	else
-		return (lex_simple_redirection(tokens, input, start));
+		return (lex_simple_redirection(tokens, input.ptr, input.size));
 	return (2);
 }
