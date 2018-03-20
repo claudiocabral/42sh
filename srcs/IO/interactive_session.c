@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/19 14:22:56 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/20 18:17:18 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int					terminal_get_line(t_terminal *terminal)
 		{
 			ft_dprintf(2, "Unknown input error\n");
 			handle_input(terminal, "\x03", 1);
+			quit(terminal);
 			continue ;
 		}
 		c[size] = 0;

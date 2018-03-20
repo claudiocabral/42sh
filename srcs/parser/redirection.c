@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:12:22 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/18 14:31:36 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/20 17:21:47 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ static t_tree	*add_redirect_arguments(t_tree *tree, t_tree *number,
 	if (tree && number)
 		tree_add_child(tree, number);
 	if (*current != tokens->end && match(current, TOKEN, SENTINEL))
-		tree_add_child(tree, tree_create_node(*current - 1,
-					sizeof(t_token)));
+		tree_add_child(tree, tree_create_node(*current - 1, sizeof(t_token)));
 	else
 	{
 		tree_free(tree, (t_freef) & noop);
@@ -35,13 +34,16 @@ static t_tree	*add_redirect_arguments(t_tree *tree, t_tree *number,
 t_tree			*io_redirect(t_array *tokens, t_token **current)
 {
 	t_tree	*number;
+	t_tree	*redirection;
 
 	number = 0;
 	if (match(current, IO_NUMBER, SENTINEL))
 		number = tree_create_node(*current - 1, sizeof(t_token));
 	if (!match(current, LESS, DLESS, LESSAND,
 				GREATER, DGREATER, GREATERAND, SENTINEL)
-			|| *current == tokens->end)
+			|| *current == tokens->end
+			|| !(redirection
+				= tree_create_node(*current - 1, sizeof(t_token))))
 	{
 		tree_free(number, (t_freef) & noop);
 		return (0);

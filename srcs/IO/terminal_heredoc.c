@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 14:17:27 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/20 15:38:51 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/20 16:24:05 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static int	terminal_heredoc(t_terminal *terminal, t_slice eof)
 
 t_slice	get_next_heredoc(char const **line)
 {
-	int	i;
+	int		i;
+	t_slice	eof;
 
 	i = 0;
 	while (**line)
@@ -61,9 +62,12 @@ t_slice	get_next_heredoc(char const **line)
 		if ((*line)[0] == '<' && (*line)[1] == '<')
 		{
 			*line = skip_white_spaces(*line + 2);
-			while ((*line)[i] && !ft_is_whitespace((*line)[i]))
+			while ((*line)[i] && !ft_is_whitespace((*line)[i])
+					&& (*line)[i] != '\n')
 				++i;
-			return (make_slice(*line, i));
+			eof = make_slice(*line, i);
+			*line += i;
+			return (eof);
 		}
 		++(*line);
 	}
@@ -74,8 +78,10 @@ int		collect_heredocs(t_terminal *terminal)
 {
 	t_slice		eof;
 	char const	*line;
+	char const	*end;
 
 	line = terminal->line->buffer;
+	end = line + terminal->line->size;
 	terminal->input_mode = HEREDOC_INPUT;
 	while ((eof = get_next_heredoc(&line)).ptr)
 			terminal_heredoc(terminal, eof);

@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 14:07:19 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/19 14:09:52 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/20 17:32:32 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int			collect_args(t_tree **begin, t_tree **end,
 		if (branch_is_redirection(*begin))
 		{
 			tmp_fd = redirect(*begin);
-			ZERO_IF_FAIL(tmp_fd.to >= 0 && array_push_back(fds, &tmp_fd));
+			ZERO_IF_FAIL(array_push_back(fds, &tmp_fd));
 		}
 		else
 		{
