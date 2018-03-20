@@ -6,7 +6,7 @@
 #    By: ccabral <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/24 13:19:14 by ccabral           #+#    #+#              #
-#    Updated: 2018/01/03 20:37:21 by claudioca        ###   ########.fr        #
+#    Updated: 2018/03/20 14:35:52 by ccabral          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@
 .PHONY: $(LIBFT_CLEAN) $(LIBFT_FCLEAN)
 
 $(LIBFT):	$(LIBFT_OBJS) \
+			$(LIBFT_SLICE_OBJS) \
 			$(LIBFT_ARRAY_OBJS) \
 			$(LIBFT_TREE_OBJS) \
 			$(LIBFT_BTREE_OBJS) \
@@ -24,6 +25,7 @@ $(LIBFT):	$(LIBFT_OBJS) \
 	@ar rcs $@ $^
 
 $(LIBFT_ARRAY_OBJS)/%.o: $(LIBFT_INCLUDES)/array.h
+$(LIBFT_SLICE_OBJS)/%.o: $(LIBFT_INCLUDES)/slice.h
 $(LIBFT_TREE_OBJS)/%.o: $(LIBFT_INCLUDES)/tree.h
 $(LIBFT_BTREE_OBJS)/%.o: $(LIBFT_INCLUDES)/ft_btree.h
 $(LIBFT_STRING_OBJS)/%.o: $(LIBFT_INCLUDES)/ft_string.h

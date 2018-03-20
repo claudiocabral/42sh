@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/20 13:13:30 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/21 17:04:07 by ccabral          ###   ########.fr        #
+#    Updated: 2018/03/20 14:35:10 by ccabral          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,6 +104,9 @@ LIBFT_ARRAY_OBJS := \
 				$(LIBFT_OBJ_DIR)/array/array_insert_remove.o \
 				$(LIBFT_OBJ_DIR)/array/array_sort.o \
 				$(LIBFT_OBJ_DIR)/array/array_apply.o
+
+LIBFT_SLICE_OBJS := \
+				$(LIBFT_OBJ_DIR)/slice/slice.o \
 
 LIBFT_BTREE_OBJS := \
 				$(LIBFT_OBJ_DIR)/btree/btree_apply.o \
