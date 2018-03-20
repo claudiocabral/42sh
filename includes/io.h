@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/19 14:16:58 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/20 14:34:32 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,11 +144,11 @@ void			adjust_terminal(t_terminal *terminal, int nbr_lines);
 int				choose_possibility(t_array *array, char *str,
 											t_terminal *terminal);
 int				is_at_newline(t_terminal *terminal, int index);
-int				terminal_heredoc(t_terminal * terminal, char *eof);
 int				check_heredoc(char const *buffer, char const *last_line);
 int				terminal_get_line(t_terminal *terminal);
-char			*skip_white_spaces(char *str);
+char			*skip_white_spaces(char const *str);
 int				is_open_bracket(char c);
 char			get_closing_bracket(char c);
+int				collect_heredocs(t_terminal *terminal);
 
 #endif

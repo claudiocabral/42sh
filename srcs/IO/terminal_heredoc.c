@@ -6,23 +6,25 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 14:17:27 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/19 14:22:35 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/20 14:36:08 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <libft.h>
 #include <ft_printf.h>
+#include <slice.h>
 #include <io.h>
 
-char	*skip_white_spaces(char *str)
+char	*skip_white_spaces(char const *str)
 {
 	while (*str && (*str == ' ' || *str == '\t'))
 		++str;
-	return (str);
+	return ((char *)str);
 }
 
-int		heredoc_loop(t_terminal *terminal, char const *condition)
+static int		heredoc_loop(t_terminal *terminal, t_slice eof)
 {
 	char	*current_line;
 
@@ -33,7 +35,7 @@ int		heredoc_loop(t_terminal *terminal, char const *condition)
 		{
 			if (!(current_line = ft_strrchr(terminal->line->buffer, '\n')))
 				return (0);
-			if (ft_strequ(skip_white_spaces(current_line + 1), condition))
+			if (ft_strnequ(skip_white_spaces(current_line + 1), eof.ptr, eof.size))
 			{
 				terminal_insert(terminal, '\n');
 				break ;
@@ -44,22 +46,42 @@ int		heredoc_loop(t_terminal *terminal, char const *condition)
 	return (1);
 }
 
-int		terminal_heredoc(t_terminal *terminal, char *eof)
+static int	terminal_heredoc(t_terminal *terminal, t_slice eof)
 {
-	char	*condition;
-
-	if (eof == terminal->line->buffer || *(eof - 1) != '<'
-			|| !eof[1])
-	{
-		write(STDIN_FILENO, "\n", 1);
-		return (0);
-	}
-	ZERO_IF_FAIL(condition = ft_strdup(skip_white_spaces(eof + 1)));
 	terminal_eol(terminal, 0);
 	terminal_insert(terminal, '\n');
+	heredoc_loop(terminal, eof);
+	return (0);
+}
+
+t_slice	get_next_heredoc(char const **line)
+{
+	int	i;
+
+	i = 0;
+	while (**line)
+	{
+		if ((*line)[0] == '<' && (*line)[1] == '<')
+		{
+			*line = skip_white_spaces(*line + 2);
+			while ((*line)[i] && !ft_is_whitespace((*line)[i]))
+				++i;
+			return (make_slice(*line, i));
+		}
+		++(*line);
+	}
+	return (error_slice());
+}
+
+int		collect_heredocs(t_terminal *terminal)
+{
+	t_slice		eof;
+	char const	*line;
+
+	line = terminal->line->buffer;
 	terminal->input_mode = HEREDOC_INPUT;
-	heredoc_loop(terminal, condition);
-	free(condition);
+	while ((eof = get_next_heredoc(&line)).ptr)
+			terminal_heredoc(terminal, eof);
 	terminal->input_mode = NORMAL_INPUT;
 	return (0);
 }
