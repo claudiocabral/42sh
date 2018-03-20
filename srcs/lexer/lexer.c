@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/20 15:56:19 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/20 19:29:33 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,15 @@ int			lex_text(t_array *tokens, t_slice input, char const **heredoc)
 	char const	*end;
 
 	end = *heredoc;
-	while (input.ptr + input.size != end)
+	if (*end)
+		--end;
+	while (input.ptr + input.size < end)
 	{
-		while (ft_is_whitespace(input.ptr[input.size]))
+		if (ft_is_whitespace(input.ptr[input.size]))
 			++input.size;
-		if (!input.ptr[input.size])
+		else if (!input.ptr[input.size])
 			break ;
-		if (token_newline(input.ptr[input.size]))
+		else if (token_newline(input.ptr[input.size]))
 			input.size = push_newline_token(tokens, input.ptr, input.size);
 		else if (token_operator(input.ptr[input.size]))
 			input.size = lex_operator(tokens, input, heredoc);
