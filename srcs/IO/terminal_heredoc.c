@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 14:17:27 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/20 16:24:05 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/20 19:36:22 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 #include <slice.h>
 #include <io.h>
 
-char	*skip_white_spaces(char const *str)
+char		*skip_white_spaces(char const *str)
 {
 	while (*str && (*str == ' ' || *str == '\t'))
 		++str;
 	return ((char *)str);
 }
 
-static int		heredoc_loop(t_terminal *terminal, t_slice eof)
+static int	heredoc_loop(t_terminal *terminal, t_slice eof)
 {
 	char	*current_line;
 
@@ -35,7 +35,8 @@ static int		heredoc_loop(t_terminal *terminal, t_slice eof)
 		{
 			if (!(current_line = ft_strrchr(terminal->line->buffer, '\n')))
 				return (0);
-			if (ft_strnequ(skip_white_spaces(current_line + 1), eof.ptr, eof.size))
+			if (ft_strnequ(skip_white_spaces(current_line + 1),
+												eof.ptr, eof.size))
 				break ;
 			terminal_insert(terminal, '\n');
 		}
@@ -51,7 +52,7 @@ static int	terminal_heredoc(t_terminal *terminal, t_slice eof)
 	return (0);
 }
 
-t_slice	get_next_heredoc(char const **line)
+t_slice		get_next_heredoc(char const **line)
 {
 	int		i;
 	t_slice	eof;
@@ -74,7 +75,7 @@ t_slice	get_next_heredoc(char const **line)
 	return (error_slice());
 }
 
-int		collect_heredocs(t_terminal *terminal)
+int			collect_heredocs(t_terminal *terminal)
 {
 	t_slice		eof;
 	char const	*line;
@@ -84,7 +85,7 @@ int		collect_heredocs(t_terminal *terminal)
 	end = line + terminal->line->size;
 	terminal->input_mode = HEREDOC_INPUT;
 	while ((eof = get_next_heredoc(&line)).ptr)
-			terminal_heredoc(terminal, eof);
+		terminal_heredoc(terminal, eof);
 	terminal->input_mode = NORMAL_INPUT;
 	return (0);
 }

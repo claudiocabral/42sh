@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:56:11 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/20 16:15:58 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/20 19:34:44 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ static int	lex_heredoc(t_array *tokens, t_slice input, char const **heredoc)
 	return (input.size - initial_size + 3);
 }
 
-int			lex_redirection(t_array *tokens, t_slice input, char const **heredoc)
+int			lex_redirection(t_array *tokens, t_slice input,
+										char const **heredoc)
 {
 	if (input.ptr[input.size] == '<' && input.ptr[input.size + 1] == '<')
 	{
