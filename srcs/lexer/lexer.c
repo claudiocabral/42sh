@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/20 15:00:35 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/20 15:56:19 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			lex_quote(t_array *tokens, t_slice input)
 	return (-1);
 }
 
-int			lex_operator(t_array *tokens, t_slice input, char *const *heredoc)
+int			lex_operator(t_array *tokens, t_slice input, char const **heredoc)
 {
 	int	ret;
 
@@ -84,9 +84,12 @@ int			lex_digit(t_array *tokens, t_slice input)
 	return (lex_token(tokens, input, pos));
 }
 
-int			lex_text(t_array *tokens, t_slice input, char *const *heredoc)
+int			lex_text(t_array *tokens, t_slice input, char const **heredoc)
 {
-	while (input.ptr[input.size])
+	char const	*end;
+
+	end = *heredoc;
+	while (input.ptr + input.size != end)
 	{
 		while (ft_is_whitespace(input.ptr[input.size]))
 			++input.size;
