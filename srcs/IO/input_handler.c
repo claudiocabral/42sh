@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 13:12:49 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 14:22:51 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ static t_input_handle	g_key_map[256] =
 	&terminal_noop,
 	&terminal_insert,
 	&terminal_insert,
+	&terminal_quotes,
 	&terminal_insert,
 	&terminal_insert,
 	&terminal_insert,
 	&terminal_insert,
-	&terminal_insert,
-	&terminal_insert,
+	&terminal_quotes,
 	&terminal_insert,
 	&terminal_insert,
 	&terminal_insert,
@@ -216,6 +216,7 @@ int			handle_regular_input(t_terminal *terminal, int c)
 int			handle_input(t_terminal *terminal, char c[16], int size)
 {
 	if (terminal->input_mode == NORMAL_INPUT
+			|| terminal->input_mode == QUOTE_INPUT
 			|| terminal->input_mode == HEREDOC_INPUT)
 	{
 		if (size > 1 || (unsigned char)c[0] >= 128)
@@ -224,8 +225,6 @@ int			handle_input(t_terminal *terminal, char c[16], int size)
 	}
 	else if (terminal->input_mode == BACKSLASH_INPUT)
 		return (terminal_backslash_input(terminal, c, size));
-	else if (terminal->input_mode == QUOTE_INPUT)
-		return (1);
 	else if (terminal->input_mode == ESCAPE_INPUT)
 	{
 		ft_memmove(c + sizeof(char), c, size);

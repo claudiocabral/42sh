@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2018/02/02 12:10:01 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/03/21 14:33:59 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void			free_terminal(t_terminal *terminal)
 
 static void		init_termios(t_terminal *terminal)
 {
+	signal(SIGINT, (void (*)(int))&interrupt_handler);
 	tcgetattr(0, &(terminal->original));
 	ft_memcpy(&(terminal->custom),
 			&(terminal->original), sizeof(struct termios));
@@ -54,9 +55,9 @@ static void		init_termios(t_terminal *terminal)
 int				init_terminal_strings(t_terminal *terminal, char const *prompt)
 {
 	ft_strcpy(terminal->prompt, prompt);
-	ft_strcpy(terminal->newline_prompt, "> ");
 	terminal->line = string_create(32);
 	terminal->clipboard = string_create(32);
+	terminal->quote = 0;
 	if (!terminal->line || !terminal->clipboard)
 		quit(terminal);
 	return (1);

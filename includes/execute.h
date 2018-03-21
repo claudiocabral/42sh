@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:23:10 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/19 14:10:12 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 14:05:35 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,8 @@ int				execute_pipe(t_tree	*tree);
 int				collect_args(t_tree **begin, t_tree **end,
 								t_array *args, t_array *fds);
 t_fd_pair		redirect(t_tree *tree);
+t_fd_pair		deal_with_aggregator(t_fd_pair fd);
+int				check_agreggator(t_token *token);
+void			swap_fd(t_fd_pair *fd);
 
 #endif

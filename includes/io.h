@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 11:48:15 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 14:15:27 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct	s_terminal
 	int				cursor;
 	int				prompt_size;
 	char			prompt[128];
-	char			newline_prompt[16];
+	char			quote;
 }				t_terminal;
 
 typedef int				(*t_input_handle)(t_terminal *, int character);
@@ -100,6 +100,7 @@ int				terminal_adjust_insert(t_terminal *terminal, int index,
 int				terminal_draw(t_terminal *terminal, int c);
 int				terminal_begining(t_terminal *terminal, int c);
 int				terminal_write(t_terminal *terminal, int c);
+int				terminal_quotes(t_terminal *terminal, int c);
 int				terminal_noop(t_terminal *terminal, int c);
 int				terminal_bol(t_terminal *terminal, int c);
 int				terminal_eol(t_terminal *terminal, int c);

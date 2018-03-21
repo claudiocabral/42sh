@@ -33,6 +33,7 @@ OBJS	=	objs/main.o \
 			objs/execute/collect_args.o \
 			objs/execute/dispatch_branch.o \
 			objs/execute/redirection.o \
+			objs/execute/redirection_aggregator.o \
 			objs/execute/pipe.o \
 			objs/execute/builtins.o \
 			objs/execute/path_entry.o \
@@ -58,6 +59,7 @@ OBJS	=	objs/main.o \
 			objs/IO/interactive_session.o \
 			objs/IO/dispatch_escape_string.o \
 			objs/IO/terminal_eof.o \
+			objs/IO/terminal_quotes.o \
 			objs/IO/terminal_line_movement.o \
 			objs/IO/terminal_kill_line.o \
 			objs/IO/terminal_dimensions.o \

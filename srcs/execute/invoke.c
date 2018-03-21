@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:16:45 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/20 17:03:18 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 14:30:48 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		wait_process(pid_t pid)
 	waitpid(pid, &stat_loc, 0);
 	if ((sig = interrupt_handler(0)))
 	{
-		kill(pid, sig);
+		//kill(pid, sig);
 		write(0, "^C\n", 3);
 	}
 	return (stat_loc);

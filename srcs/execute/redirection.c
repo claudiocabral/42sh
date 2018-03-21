@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 15:13:51 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/20 18:57:53 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 14:05:22 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,26 @@ t_fd_pair	redirect_to_fd(t_array *args, char direction)
 {
 	t_fd_pair	fd;
 	t_tree		**children;
-	int			tmp;
 
 	fd.from = (direction - '<') / 2;
 	children = (t_tree **)args->begin;
 	if (array_size(args) == 1)
-		fd.to = token_get_int((t_token *)children[0]->element);
+	{
+		if (check_agreggator((t_token *)children[0]->element) < 0)
+			return (deal_with_aggregator(fd));
+		else
+			fd.to = token_get_int((t_token *)children[0]->element);
+	}
 	else
 	{
 		fd.from = token_get_int((t_token *)children[0]->element);
-		fd.to = token_get_int((t_token *)children[1]->element);
+		if (check_agreggator((t_token *)children[1]->element) < 0)
+			return (deal_with_aggregator(fd));
+		else
+			fd.to = token_get_int((t_token *)children[1]->element);
 	}
 	if (direction == '<')
-	{
-		tmp = fd.to;
-		fd.to = fd.from;
-		fd.from = tmp;
-	}
+		swap_fd(&fd);
 	return (make_redirection(fd));
 }
 

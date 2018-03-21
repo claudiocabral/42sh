@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:54:21 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/20 15:17:25 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 14:09:29 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ int		terminal_eof(t_terminal *terminal, int c)
 	int	ret;
 
 	ret = 0;
-	if (terminal->line->buffer[terminal->cursor]
-			== '\\')
+	if (terminal->line->buffer[terminal->cursor] == '\\'
+			|| terminal->input_mode == QUOTE_INPUT)
 		return (terminal_insert(terminal, c));
 	else if (terminal->input_mode == HEREDOC_INPUT)
 		return (0);
