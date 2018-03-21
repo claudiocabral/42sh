@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 14:15:27 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 14:42:48 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,5 +151,6 @@ char			*skip_white_spaces(char const *str);
 int				is_open_bracket(char c);
 char			get_closing_bracket(char c);
 int				collect_heredocs(t_terminal *terminal);
+int				terminal_delete_quote(t_terminal *terminal);
 
 #endif

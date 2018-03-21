@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:50:47 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 13:02:07 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 14:38:47 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int		terminal_delete(t_terminal *terminal, int c)
 	if (!terminal->cursor
 			|| terminal->line->buffer[terminal->cursor - 1] == '\n')
 		return (1);
+	terminal_delete_quote(terminal);
 	terminal_delete_position_cursor(terminal, c);
 	terminal_command(DELETE, 1);
 	while (is_middle_of_unicode(

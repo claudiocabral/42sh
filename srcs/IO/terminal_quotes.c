@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 14:11:40 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/21 14:16:37 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 14:51:01 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,27 @@ int		terminal_quotes(t_terminal *terminal, int c)
 		return (1);
 	}
 	return (terminal_insert(terminal, c));
+}
+
+int	is_quote(char c)
+{
+	return (c == '\'' || c == '\"');
+}
+
+int	terminal_delete_quote(t_terminal *terminal)
+{
+	if (terminal->input_mode == QUOTE_INPUT)
+	{
+		if (terminal->quote == terminal->line->buffer[terminal->cursor - 1])
+		{
+			terminal->input_mode = NORMAL_INPUT;
+			terminal->quote = 0;
+		}
+	}
+	else if (is_quote(terminal->line->buffer[terminal->cursor - 1]))
+	{
+		terminal->input_mode = QUOTE_INPUT;
+		terminal->quote = terminal->line->buffer[terminal->cursor - 1];
+	}
+	return (1);
 }
