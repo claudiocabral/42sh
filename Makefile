@@ -82,6 +82,7 @@ OBJS	=	objs/main.o \
 			objs/builtins/setenv.o \
 			objs/builtins/unsetenv.o \
 			objs/builtins/cd.o \
+			objs/builtins/cd_utils.o \
 			objs/builtins/echo.o \
 			objs/builtins/pwd.o \
 			objs/environment/setenv.o \

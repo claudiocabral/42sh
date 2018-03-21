@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 13:01:51 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 11:43:39 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 18:24:37 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		cd_chdir(char const *path)
 	return (ret != 0);
 }
 
-int		cd_noflag(char *path)
+int		cd_flag(char *path)
 {
 	int			ret;
 	char		*new_path;
@@ -74,6 +74,7 @@ int		cd_noflag(char *path)
 		new_path = getcwd(0, 0);
 		ft_setenv("OLDPWD", ft_getenv("PWD"), 1);
 		ft_setenv("PWD", new_path, 1);
+		set_pwd(new_path);
 		free(new_path);
 	}
 	else
@@ -83,26 +84,27 @@ int		cd_noflag(char *path)
 
 int		cd(int argc, char **argv)
 {
-	char	*path;
-	int		flag;
+	t_string	*path;
+	char		*path_ptr;
+	int			flag;
 
 	flag = parse_args(&argc, &argv);
 	if (argc == 0)
-	{
 		return (cd_chdir(ft_getenv("HOME")));
-	}
 	else if (argc == 1)
 	{
-		if (!(path = ft_strequ(*argv, "-") ? ft_getenv("OLDPWD") : *argv))
+		if (!(path_ptr = ft_strequ(*argv, "-") ? ft_getenv("OLDPWD") : *argv))
 		{
 			ft_dprintf(2, "cd: OLDPWD not set\n");
 			return (1);
 		}
+		path = clean_path(path_ptr);
 		if (flag == 1)
-			return (cd_noflag(path));
-		else if (flag == -1)
-			return (cd_noflag(path));
-		return (cd_noflag(path));
+			flag = cd_flag(path->buffer);
+		else
+			flag = cd_flag(path->buffer);
+		string_free(path);
+		return (flag);
 	}
 	ft_dprintf(2, "cd: too many arguments\n");
 	return (1);

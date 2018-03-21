@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 17:35:19 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 18:15:32 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <term.h>
 #include <io.h>
 #include <environment.h>
+#include <builtins.h>
 
 void			termios_toggle_isig(t_terminal *term, int toggle)
 {
@@ -63,6 +64,16 @@ int				init_terminal_strings(t_terminal *terminal, char const *prompt)
 	return (1);
 }
 
+int				set_initial_path(void)
+{
+	char	*tmp;
+
+	ZERO_IF_FAIL(tmp = getcwd(0, 0));
+	set_pwd(tmp);
+	free(tmp);
+	return (1);
+}
+
 int				setup_terminal(t_terminal *terminal, char const *prompt)
 {
 	if (tgetent(0, ttyname(ttyslot())) <= 0)
@@ -86,7 +97,7 @@ int				setup_terminal(t_terminal *terminal, char const *prompt)
 	}
 	terminal->history_fd = 0;
 	terminal->fd = STDIN_FILENO;
-	terminal->prompt_size = ft_strlen(prompt);
+	set_initial_path();
 	terminal->cursor = 0;
 	terminal->line_number = 0;
 	return (1);
