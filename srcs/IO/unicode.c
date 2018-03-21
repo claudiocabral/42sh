@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 15:44:17 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/18 17:00:09 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 17:37:25 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,9 @@ int		get_letter_index(t_terminal *terminal)
 	int	i;
 
 	i = 0;
-	if (terminal->line->buffer[terminal->cursor - terminal->prompt_size]
-			& 0x80)
+	if (terminal->line->buffer[terminal->cursor] & 0x80)
 		++i;
-	while (is_middle_of_unicode(
-			terminal->line->buffer[terminal->cursor
-								- terminal->prompt_size - i]))
+	while (is_middle_of_unicode(terminal->line->buffer[terminal->cursor - i]))
 		++i;
 	return (i);
 }

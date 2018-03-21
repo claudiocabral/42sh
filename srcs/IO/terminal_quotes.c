@@ -6,13 +6,13 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 14:11:40 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/21 14:51:01 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 17:38:39 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <io.h>
 
-int		terminal_quotes(t_terminal *terminal, int c)
+int	terminal_quotes(t_terminal *terminal, int c)
 {
 	if (terminal->input_mode != QUOTE_INPUT)
 	{

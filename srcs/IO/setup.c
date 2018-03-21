@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 15:20:30 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 17:35:19 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int				setup_terminal(t_terminal *terminal, char const *prompt)
 	terminal->history = 0;
 	init_termios(terminal);
 	init_terminal_strings(terminal, prompt);
-	terminal->prompt_pointer = terminal->prompt;
 	terminal->history = ring_buffer_create(sizeof(t_string), 2000,
 			(t_freef) & string_clear);
 	ring_buffer_init(terminal->history, STRING_SIZE,

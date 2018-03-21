@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 16:23:21 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 17:33:48 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void				set_termios(struct termios *termios)
 	tcsetattr(STDIN_FILENO, TCSANOW, termios);
 }
 
-int					terminal_get_line(t_terminal *terminal, int fd, int buff_size)
+int					terminal_get_line(t_terminal *terminal,
+										int fd, int buff_size)
 {
 	int		size;
 	char	c[16];
@@ -45,7 +46,7 @@ int					terminal_get_line(t_terminal *terminal, int fd, int buff_size)
 		{
 			ft_dprintf(2, "Unknown input error\n");
 			handle_input(terminal, "\x03", 1);
-			return (size) ;
+			return (size);
 		}
 		c[size] = 0;
 		if (handle_input(terminal, c, size) == 0)
