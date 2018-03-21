@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:11:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/18 15:48:47 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 13:12:49 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static t_input_handle	g_key_map[256] =
 	&auto_complete,
 	&terminal_eof,
 	&terminal_delete_until_eol,
-	&terminal_eof,
+	&terminal_noop,
 	&terminal_eof,
 	&history_next,
 	&terminal_eof,

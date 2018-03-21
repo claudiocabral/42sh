@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:50:47 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/19 14:28:32 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 13:02:07 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,14 @@ int		terminal_delete(t_terminal *terminal, int c)
 	int	index;
 	int	width;
 
-	if (!terminal->cursor)
+	if (!terminal->cursor
+			|| terminal->line->buffer[terminal->cursor - 1] == '\n')
 		return (1);
 	terminal_delete_position_cursor(terminal, c);
 	terminal_command(DELETE, 1);
 	while (is_middle_of_unicode(
 				terminal->line->buffer[terminal->cursor - 1]))
-	{
-		string_delete(terminal->line, terminal->cursor - 1);
-		terminal->cursor--;
-	}
+		string_delete(terminal->line, terminal->cursor--);
 	string_delete(terminal->line, terminal->cursor - 1);
 	terminal->cursor--;
 	column = get_position_in_line(terminal, terminal->cursor);
@@ -97,11 +95,23 @@ int		terminal_delete_current(t_terminal *terminal, int c)
 
 int		terminal_delete_word(t_terminal *terminal, int c)
 {
+	int	tmp;
+
 	while (terminal->cursor
 			&& ft_is_whitespace(terminal->line->buffer[terminal->cursor - 1]))
+	{
+		tmp = terminal->cursor;
 		terminal_delete(terminal, c);
+		if (tmp == terminal->cursor)
+			return (1);
+	}
 	while (terminal->cursor
 			&& !ft_is_whitespace(terminal->line->buffer[terminal->cursor - 1]))
+	{
+		tmp = terminal->cursor;
 		terminal_delete(terminal, c);
+		if (tmp == terminal->cursor)
+			return (1);
+	}
 	return (1);
 }

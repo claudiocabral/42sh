@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 09:19:57 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/19 14:34:35 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 13:03:46 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int		terminal_adjust_cursor(int from, int to)
 
 int		terminal_move_left(t_terminal *terminal, int c)
 {
-	if (!terminal->cursor)
+	if (!terminal->cursor
+			|| terminal->line->buffer[terminal->cursor - 1] == '\n')
 		return (1);
 	if (terminal_is_at_newline(terminal))
 	{
