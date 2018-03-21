@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 14:33:59 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 15:20:30 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int				setup_terminal(t_terminal *terminal, char const *prompt)
 		return (0);
 	}
 	terminal->history_fd = 0;
+	terminal->fd = STDIN_FILENO;
 	terminal->prompt_size = ft_strlen(prompt);
 	terminal->cursor = 0;
 	terminal->line_number = 0;

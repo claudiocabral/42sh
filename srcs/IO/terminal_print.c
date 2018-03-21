@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 14:20:51 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/19 14:30:34 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 17:27:49 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,21 @@ int	print_prompt(t_terminal *terminal)
 	return (terminal->prompt_size);
 }
 
-int	terminal_draw(t_terminal *terminal, int c)
+int	terminal_draw(t_terminal *terminal, t_string *str)
 {
-	(void)
+	int	i;
+
 	terminal_begining(terminal, 0);
 	print_prompt(terminal);
-	terminal_write(terminal, c);
-	terminal->cursor = terminal->line->size;
+	string_clear(terminal->line);
+	terminal->cursor = 0;
+	i = 0;
+	while (str->buffer[i])
+	{
+		handle_input(terminal, str->buffer + i, 1);
+		++i;
+	}
+	//terminal_write(terminal, c);
+	//terminal->cursor = terminal->line->size;
 	return (1);
 }

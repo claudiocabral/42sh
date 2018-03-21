@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 14:42:48 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 16:59:55 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct	s_terminal
 	t_string		*clipboard;
 	t_input_mode	input_mode;
 	int				history_fd;
+	int				fd;
 	int				line_position;
 	int				line_number;
 	int				number_of_lines;
@@ -97,7 +98,7 @@ int				terminal_compare_string(t_terminal_command command,
 void			terminal_command(t_terminal_command command, int val);
 int				terminal_adjust_insert(t_terminal *terminal, int index,
 																int column);
-int				terminal_draw(t_terminal *terminal, int c);
+int				terminal_draw(t_terminal *terminal, t_string *str);
 int				terminal_begining(t_terminal *terminal, int c);
 int				terminal_write(t_terminal *terminal, int c);
 int				terminal_quotes(t_terminal *terminal, int c);
@@ -135,7 +136,7 @@ int				auto_complete(t_terminal *terminal, int c);
 void			auto_complete_push(t_array *array, char *base,
 														char *candidate);
 int				get_position_in_line(t_terminal *terminal, int index);
-int				get_next_terminal_command(int fd, t_string *str);
+int				get_next_terminal_command(t_terminal *terminal, t_string *str);
 int				print_options(t_array *array, t_terminal *terminal);
 DIR				*get_dir(char *path, char **str);
 void			search_dir(DIR *dir, char *str, t_array *array);
@@ -146,11 +147,12 @@ int				choose_possibility(t_array *array, char *str,
 											t_terminal *terminal);
 int				is_at_newline(t_terminal *terminal, int index);
 int				check_heredoc(char const *buffer, char const *last_line);
-int				terminal_get_line(t_terminal *terminal);
+int				terminal_get_line(t_terminal *terminal, int fd, int buff_size);
 char			*skip_white_spaces(char const *str);
 int				is_open_bracket(char c);
 char			get_closing_bracket(char c);
 int				collect_heredocs(t_terminal *terminal);
 int				terminal_delete_quote(t_terminal *terminal);
+void			terminal_adjust_mode(t_terminal *terminal);
 
 #endif

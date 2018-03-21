@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 14:28:55 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 16:23:21 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,18 @@ void				set_termios(struct termios *termios)
 	tcsetattr(STDIN_FILENO, TCSANOW, termios);
 }
 
-int					terminal_get_line(t_terminal *terminal)
+int					terminal_get_line(t_terminal *terminal, int fd, int buff_size)
 {
 	int		size;
 	char	c[16];
 
-	while ((size = read(STDIN_FILENO, c, 16)))
+	while ((size = read(fd, c, buff_size)))
 	{
 		if (size < 0)
 		{
 			ft_dprintf(2, "Unknown input error\n");
 			handle_input(terminal, "\x03", 1);
-			quit(terminal);
-			continue ;
+			return (size) ;
 		}
 		c[size] = 0;
 		if (handle_input(terminal, c, size) == 0)
@@ -62,7 +61,7 @@ static char	const	*prompt(t_terminal *terminal)
 	set_termios(&(terminal->custom));
 	history_load(terminal);
 	print_prompt(terminal);
-	terminal_get_line(terminal);
+	terminal_get_line(terminal, STDIN_FILENO, 16);
 	history_append(terminal);
 	string_clear(terminal->line);
 	terminal_command(CLEAR_BOTTOM, 0);

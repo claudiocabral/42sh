@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 18:53:37 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/19 14:17:36 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 17:11:35 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,39 @@ int		get_command(char buffer[2048], int begin, t_string *str)
 	return (begin);
 }
 
-int		get_next_terminal_command(int fd, t_string *str)
-{
-	static char	buffer[2048] = { 0 };
-	static int	begin = 0;
+//int		get_next_terminal_command(int fd, t_string *str)
+//{
+//	static char	buffer[2048] = { 0 };
+//	static int	begin = 0;
+//
+//	if (buffer[begin] && (begin = get_command(buffer, begin, str)))
+//		return (1);
+//	while ((begin = read(fd, buffer, 2047)) > 0)
+//	{
+//		buffer[begin] = 0;
+//		begin = 0;
+//		while (buffer[begin])
+//		{
+//			begin = get_command(buffer, begin, str);
+//			if (buffer[begin - 1] == '\n')
+//				return (1);
+//		}
+//	}
+//	buffer[0] = 0;
+//	begin = 0;
+//	return (0);
+//}
 
-	if (buffer[begin] && (begin = get_command(buffer, begin, str)))
-		return (1);
-	while ((begin = read(fd, buffer, 2047)) > 0)
-	{
-		buffer[begin] = 0;
-		begin = 0;
-		while (buffer[begin])
-		{
-			begin = get_command(buffer, begin, str);
-			if (buffer[begin - 1] == '\n')
-				return (1);
-		}
-	}
-	buffer[0] = 0;
-	begin = 0;
-	return (0);
+int		get_next_terminal_command(t_terminal *terminal, t_string *str)
+{
+	int	ret;
+
+	ret = terminal_get_line(terminal, terminal->history_fd, 1);
+	if (ret == -1)
+		return (ret);
+	string_copy(str, terminal->line);
+	string_clear(terminal->line);
+	terminal->cursor = 0;
+	terminal->line_number = 0;
+	return (!ret);
 }

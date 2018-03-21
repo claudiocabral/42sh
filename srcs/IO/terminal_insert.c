@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:54:21 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 14:09:29 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 16:34:35 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,20 +93,4 @@ int		terminal_adjust_insert(t_terminal *terminal, int index, int column)
 		terminal_adjust_insert(terminal, next, 2);
 	terminal_command(MOVE_UP, 1);
 	return (1);
-}
-
-int		terminal_eof(t_terminal *terminal, int c)
-{
-	int	ret;
-
-	ret = 0;
-	if (terminal->line->buffer[terminal->cursor] == '\\'
-			|| terminal->input_mode == QUOTE_INPUT)
-		return (terminal_insert(terminal, c));
-	else if (terminal->input_mode == HEREDOC_INPUT)
-		return (0);
-	else if (terminal->input_mode != HEREDOC_INPUT)
-		ret = collect_heredocs(terminal);
-	write(STDIN_FILENO, &c, 1);
-	return (ret);
 }

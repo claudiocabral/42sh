@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 14:17:27 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/20 19:36:22 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 16:23:37 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ static int	heredoc_loop(t_terminal *terminal, t_slice eof)
 {
 	char	*current_line;
 
+	if (terminal->fd != STDIN_FILENO)
+		return (1);
 	while (1)
 	{
 		ft_dprintf(STDIN_FILENO, "heredoc> ", 0);
-		if (terminal_get_line(terminal) == 0)
+		if (terminal_get_line(terminal, terminal->fd, 16) == 0)
 		{
 			if (!(current_line = ft_strrchr(terminal->line->buffer, '\n')))
 				return (0);

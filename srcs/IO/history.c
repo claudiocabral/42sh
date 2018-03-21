@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:52:09 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/19 14:18:42 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/21 16:31:44 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 int	history_previous(t_terminal *terminal, int c)
 {
 	(void)c;
-	string_copy(terminal->line,
+	//string_copy(terminal->line,
+	//		(t_string *)ring_buffer_previous(terminal->history));
+	terminal_draw(terminal,
 			(t_string *)ring_buffer_previous(terminal->history));
-	terminal_draw(terminal, 0);
 	return (1);
 }
 
@@ -32,8 +33,7 @@ int	history_next(t_terminal *terminal, int c)
 	if ((next = (t_string *)ring_buffer_next(terminal->history))
 			== terminal->history->next)
 		return (1);
-	string_copy(terminal->line, next);
-	terminal_draw(terminal, 0);
+	terminal_draw(terminal, next);
 	return (1);
 }
 
@@ -62,20 +62,26 @@ int	history_load(t_terminal *terminal)
 {
 	t_string	*str;
 	int			ret;
+	int	tmp;
 
+	tmp = dup(STDIN_FILENO);
+	close(STDIN_FILENO);
 	if (terminal->history_fd == 0
 			&& !history_open(terminal, O_RDONLY | O_CREAT))
 		return (0);
 	ring_buffer_clean(terminal->history, (t_freef) & string_clear);
+	terminal->fd = terminal->history_fd;
 	while (1)
 	{
 		str = ring_buffer_push_empty(terminal->history);
-		if ((ret = get_next_terminal_command(terminal->history_fd, str)) == -1)
+		if ((ret = get_next_terminal_command(terminal, str)) == -1)
 			break ;
 		else if (ret == 0)
 			break ;
 	}
 	close(terminal->history_fd);
+	dup2(tmp, STDIN_FILENO);
 	terminal->history_fd = 0;
+	terminal->fd = STDIN_FILENO;
 	return (ret != -1);
 }
