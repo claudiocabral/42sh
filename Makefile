@@ -78,6 +78,7 @@ OBJS	=	objs/main.o \
 			objs/IO/auto_complete_tools.o \
 			objs/IO/auto_complete_printer.o \
 			objs/IO/history.o \
+			objs/IO/history_cleanup.o \
 			objs/IO/input_handler.o \
 			objs/IO/setup.o \
 			objs/IO/setup_pwd.o \

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:52:09 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/22 16:28:29 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 16:55:19 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,6 @@ int	history_load(t_terminal *terminal)
 		else if (ret == 0)
 			break ;
 	}
-	terminal->buffer_size = 16;
-	close(terminal->history_fd);
-	dup2(tmp, STDIN_FILENO);
-	close(tmp);
-	terminal->history_fd = 0;
-	terminal->fd = STDIN_FILENO;
+	history_cleanup(terminal, tmp);
 	return (ret != -1);
 }
