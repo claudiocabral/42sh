@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 18:16:02 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/22 17:32:10 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 18:11:37 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,11 @@ t_string		*clean_path(char *path)
 	if (path[0] != '/')
 	{
 		string_append(str, pwd->buffer);
-		string_append(str, "/");
 	}
+	string_append(str, "/");
 	string_append(str, path);
+	if (str->buffer[str->size - 1] == '/')
+		string_delete(str, str->size -1);
 	string_replace(str, "//", "/");
 	string_replace(str, "./", "");
 	if (!clean_back_path(str))
