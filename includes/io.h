@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/22 17:21:39 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 18:59:25 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void			restore_terminal_position(t_terminal *terminal, int position);
 void			terminal_standout(t_terminal *terminal,
 							int initial_pos, int movement);
 int				set_initial_path(void);
-int				check_complete_heredoc(t_slice eof);
+int				check_complete_heredoc(t_slice eof, char const **line);
 void			history_cleanup(t_terminal *terminal, int save);
 char			*get_history_path(void);
 

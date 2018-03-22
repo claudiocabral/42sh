@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/24 14:43:51 by ccabral           #+#    #+#             */
-/*   Updated: 2017/11/06 17:43:46 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 19:10:19 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 			++little;
 			++i;
 		}
-		if (!*little)
+		if (!*little || i == len)
 			return ((char *)head);
 		little = tmp;
 		big = head + 1;

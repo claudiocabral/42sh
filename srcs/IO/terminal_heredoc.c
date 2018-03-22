@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 14:17:27 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/22 17:32:36 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 19:02:02 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ static int	heredoc_loop(t_terminal *terminal, t_slice eof)
 
 static int	terminal_heredoc(t_terminal *terminal, t_slice eof)
 {
-	if (check_complete_heredoc(eof))
-		return (0);
 	terminal_eol(terminal, 0);
 	terminal_insert(terminal, '\n');
 	heredoc_loop(terminal, eof);
@@ -83,13 +81,17 @@ int			collect_heredocs(t_terminal *terminal)
 {
 	t_slice		eof;
 	char const	*line;
-	char const	*end;
+	char		*heredoc;
 
 	line = terminal->line->buffer;
-	end = line + terminal->line->size;
 	terminal->input_mode = HEREDOC_INPUT;
+	heredoc = ft_strchr(line, '\n');
 	while ((eof = get_next_heredoc(&line)).ptr)
+	{
+		if (heredoc && check_complete_heredoc(eof, (char const **)&heredoc))
+			continue ;
 		terminal_heredoc(terminal, eof);
+	}
 	terminal->input_mode = NORMAL_INPUT;
 	return (0);
 }
