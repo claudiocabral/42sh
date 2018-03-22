@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 14:06:17 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 13:58:35 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 17:53:15 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@
 #include <hash_table.h>
 #include <environment.h>
 #include <execute.h>
+#include <unistd.h>
 
 int	main(int argc, char **argv, char **environ)
 {
+	if (!isatty(STDIN_FILENO))
+		return (1);
 	if (!ft_prepare_env(environ) || !init_path_table())
 	{
 		ft_dprintf(2, "21sh: failed to setup environment\n");
