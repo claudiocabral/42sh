@@ -6,14 +6,14 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 14:45:45 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/22 15:01:14 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 16:13:22 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_string.h>
 
-int	string_find(t_string *str, char const *target)
+int			string_find(t_string *str, char const *target)
 {
 	char	*ptr;
 
@@ -23,7 +23,7 @@ int	string_find(t_string *str, char const *target)
 	return (ptr - str->buffer);
 }
 
-int	string_replace(t_string *str, char const *search, char const *replace)
+int			string_replace(t_string *str, char const *search, char const *replace)
 {
 	int	pos;
 	int	i;

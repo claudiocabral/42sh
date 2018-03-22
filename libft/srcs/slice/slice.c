@@ -6,12 +6,11 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 14:32:42 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/22 11:41:54 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 16:13:31 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <slice.h>
-
 
 t_slice	make_slice(char const *ptr, int size)
 {
