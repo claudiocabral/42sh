@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/22 14:13:30 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 16:27:45 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int				init_terminal_strings(t_terminal *terminal, char const *prompt)
 	terminal->line = string_create(32);
 	terminal->clipboard = string_create(32);
 	terminal->quote = 0;
+	terminal->buffer_size = 16;
 	if (!terminal->line || !terminal->clipboard)
 		quit(terminal);
 	return (1);
@@ -72,7 +73,6 @@ int				setup_terminal(t_terminal *terminal, char const *prompt)
 		return (0);
 	}
 	init_command_table();
-	terminal->history = 0;
 	init_termios(terminal);
 	init_terminal_strings(terminal, prompt);
 	terminal->history = ring_buffer_create(sizeof(t_string), 2000,

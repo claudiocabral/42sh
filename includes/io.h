@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/22 14:13:47 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 16:50:12 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <shellma.h>
 # include <ring_buffer.h>
 # include <ft_string.h>
+# include <slice.h>
 # include <dirent.h>
 
 # define COMMAND_TABLE_SIZE 64
@@ -68,6 +69,7 @@ typedef struct	s_terminal
 	t_input_mode	input_mode;
 	int				history_fd;
 	int				fd;
+	int				buffer_size;
 	int				line_position;
 	int				line_number;
 	int				number_of_lines;
@@ -164,5 +166,6 @@ void			restore_terminal_position(t_terminal *terminal, int position);
 void			terminal_standout(t_terminal *terminal,
 							int initial_pos, int movement);
 int				set_initial_path(void);
+int				check_complete_heredoc(t_slice eof);
 
 #endif

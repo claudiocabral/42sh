@@ -70,6 +70,7 @@ OBJS	=	objs/main.o \
 			objs/IO/terminal_word_movement.o \
 			objs/IO/terminal_insert.o \
 			objs/IO/terminal_delete.o \
+			objs/IO/terminal_check_heredoc.o \
 			objs/IO/terminal_heredoc.o \
 			objs/IO/terminal_copy.o \
 			objs/IO/auto_complete.o \

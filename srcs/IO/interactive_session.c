@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 17:33:48 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 16:23:32 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int					terminal_get_line(t_terminal *terminal,
 
 	while ((size = read(fd, c, buff_size)))
 	{
-		if (size < 0)
+		if (size <= 0)
 		{
 			ft_dprintf(2, "Unknown input error\n");
 			handle_input(terminal, "\x03", 1);

@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 14:20:51 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/21 17:36:17 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 16:40:58 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,19 @@ int	terminal_draw(t_terminal *terminal, t_string *str)
 	print_prompt(terminal);
 	string_clear(terminal->line);
 	terminal->cursor = 0;
+	terminal->buffer_size = 1;
 	i = 0;
 	while (str->buffer[i])
 	{
-		handle_input(terminal, str->buffer + i, 1);
+		if (str->buffer[i] == '\n')
+		{
+			terminal_insert(terminal, str->buffer[i]);
+			++terminal->line_number;
+		}
+		else
+			handle_input(terminal, str->buffer + i, 1);
 		++i;
 	}
+	terminal->buffer_size = 16;
 	return (1);
 }

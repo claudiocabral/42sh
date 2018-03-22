@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:52:09 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 17:44:52 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 16:28:29 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	history_load(t_terminal *terminal)
 		return (0);
 	ring_buffer_clean(terminal->history, (t_freef) & string_clear);
 	terminal->fd = terminal->history_fd;
+	terminal->buffer_size = 1;
 	while (1)
 	{
 		str = ring_buffer_push_empty(terminal->history);
@@ -77,6 +78,7 @@ int	history_load(t_terminal *terminal)
 		else if (ret == 0)
 			break ;
 	}
+	terminal->buffer_size = 16;
 	close(terminal->history_fd);
 	dup2(tmp, STDIN_FILENO);
 	close(tmp);

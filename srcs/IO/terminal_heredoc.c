@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 14:17:27 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/21 16:23:37 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 16:50:02 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,16 @@ static int	heredoc_loop(t_terminal *terminal, t_slice eof)
 {
 	char	*current_line;
 
-	if (terminal->fd != STDIN_FILENO)
-		return (1);
 	while (1)
 	{
-		ft_dprintf(STDIN_FILENO, "heredoc> ", 0);
-		if (terminal_get_line(terminal, terminal->fd, 16) == 0)
+		if (terminal->fd == STDIN_FILENO && terminal->buffer_size != 1)
+			ft_dprintf(STDIN_FILENO, "heredoc> ", 0);
+		if (terminal_get_line(terminal, terminal->fd, terminal->buffer_size) == 0)
 		{
 			if (!(current_line = ft_strrchr(terminal->line->buffer, '\n')))
 				return (0);
 			if (ft_strnequ(skip_white_spaces(current_line + 1),
-												eof.ptr, eof.size))
+						eof.ptr, eof.size))
 				break ;
 			terminal_insert(terminal, '\n');
 		}
@@ -48,6 +47,8 @@ static int	heredoc_loop(t_terminal *terminal, t_slice eof)
 
 static int	terminal_heredoc(t_terminal *terminal, t_slice eof)
 {
+	if (check_complete_heredoc(eof))
+		return (0);
 	terminal_eol(terminal, 0);
 	terminal_insert(terminal, '\n');
 	heredoc_loop(terminal, eof);
