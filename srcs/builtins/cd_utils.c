@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 18:16:02 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/22 16:05:31 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 17:12:15 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,17 @@ t_string const	*set_pwd(char const *str)
 int			remove_previous_path(t_string *path, int pos)
 {
 	char	*begin;
+	int		tmp;
 
-	begin = ft_strnstr(path->buffer, "/", pos);
+	tmp = path->buffer[pos];
+	path->buffer[pos] = 0;
+	begin = ft_strrchr(path->buffer, '/');
 	if (!begin)
+	{
+		path->buffer[pos] = tmp;
 		return (0);
+	}
+	path->buffer[pos] = tmp;
 	string_delete_n(path, begin - path->buffer,
 			pos - (begin - path->buffer) + 3);
 	return (1);
@@ -71,7 +78,7 @@ int			clean_back_path(t_string *path)
 	}
 	if (path->size > 2 && ft_strequ(path->buffer + path->size - 3, "/.."))
 	{
-		if (!remove_previous_path(path, path->size -3))
+		if (!remove_previous_path(path, path->size - 3))
 			return (0);
 	}
 	if (path->size > 2 && ft_strequ(path->buffer + path->size - 2, "/."))

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/22 16:55:27 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 17:21:39 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,5 +168,6 @@ void			terminal_standout(t_terminal *terminal,
 int				set_initial_path(void);
 int				check_complete_heredoc(t_slice eof);
 void			history_cleanup(t_terminal *terminal, int save);
+char			*get_history_path(void);
 
 #endif

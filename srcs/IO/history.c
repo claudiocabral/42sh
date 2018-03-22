@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:52:09 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/22 16:55:19 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 17:29:02 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,17 @@ int	history_next(t_terminal *terminal, int c)
 
 int	history_open(t_terminal *terminal, int mode)
 {
-	if ((terminal->history_fd = open(".21sh_history", mode,
+	static char	*history_file = 0;
+
+	if (history_file == 0)
+	{
+		if (!(history_file = get_history_path()))
+		{
+			ft_dprintf(2, "21sh: failed to open history file\n");
+			return (0);
+		}
+	}
+	if ((terminal->history_fd = open(history_file, mode,
 					S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP)) == -1)
 	{
 		ft_dprintf(2, "21sh: failed to open history file\n");
@@ -62,11 +72,11 @@ int	history_load(t_terminal *terminal)
 	int			ret;
 	int			tmp;
 
-	tmp = dup(STDIN_FILENO);
-	close(STDIN_FILENO);
 	if (terminal->history_fd == 0
 			&& !history_open(terminal, O_RDONLY | O_CREAT))
 		return (0);
+	tmp = dup(STDIN_FILENO);
+	close(STDIN_FILENO);
 	ring_buffer_clean(terminal->history, (t_freef) & string_clear);
 	terminal->fd = terminal->history_fd;
 	terminal->buffer_size = 1;
