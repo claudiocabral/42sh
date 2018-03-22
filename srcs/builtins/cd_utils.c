@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 18:16:02 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/22 17:12:15 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 17:30:16 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int			clean_back_path(t_string *path)
 	}
 	if (path->size > 2 && ft_strequ(path->buffer + path->size - 2, "/."))
 		string_delete_n(path, path->size - 2, 2);
-	if (path->size && path->buffer[path->size - 1] == '/')
+	if (path->size > 1 && path->buffer[path->size - 1] == '/')
 		string_delete(path, path->size - 1);
 	if (path->size == 0)
 		return (0);
