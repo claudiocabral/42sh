@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/22 16:27:45 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 20:09:31 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int				setup_terminal(t_terminal *terminal, char const *prompt)
 			(t_freef) & string_clear);
 	ring_buffer_init(terminal->history, STRING_SIZE,
 		(void *(*)(void *, size_t)) &string_init, (t_freef) & string_free);
-	terminal->input_mode = NORMAL_INPUT;
 	if (!terminal->history)
 	{
 		free_terminal(terminal);
@@ -90,5 +89,6 @@ int				setup_terminal(t_terminal *terminal, char const *prompt)
 	set_initial_path();
 	terminal->cursor = 0;
 	terminal->line_number = 0;
+	terminal->input_mode = NORMAL_INPUT;
 	return (1);
 }

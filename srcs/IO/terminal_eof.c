@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 14:32:28 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/21 17:01:18 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 20:03:01 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,20 @@ int		terminal_write(t_terminal *terminal, int c)
 
 int		terminal_eof(t_terminal *terminal, int c)
 {
-	int	ret;
+	int			ret;
+	t_string	*str;
 
 	ret = 0;
 	if (terminal->input_mode == QUOTE_INPUT)
 	{
 		++terminal->line_number;
-		return (terminal_insert(terminal, c));
+		terminal_insert(terminal, c);
+		if (!(str = string_create(terminal->line->size)))
+			return (1);
+		//string_copy(str, terminal->line);
+		//terminal_draw(terminal, str);
+		string_free(str);
+		return (1);
 	}
 	else if (terminal->input_mode == HEREDOC_INPUT)
 		return (0);

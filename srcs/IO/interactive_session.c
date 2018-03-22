@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/22 16:23:32 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 20:09:53 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static char	const	*prompt(t_terminal *terminal)
 	set_termios(&(terminal->custom));
 	history_load(terminal);
 	print_prompt(terminal);
+	terminal->input_mode = NORMAL_INPUT;
 	terminal_get_line(terminal, STDIN_FILENO, 16);
 	history_append(terminal);
 	string_clear(terminal->line);
