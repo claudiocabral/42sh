@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 18:16:02 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/22 17:30:16 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 17:32:10 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,12 @@ t_string const	*set_pwd(char const *str)
 	set_oldpwd(path->buffer);
 	string_clear(path);
 	string_append(path, str);
-
 	if (ft_setenv("PWD", path->buffer, 1) != 0)
 		ft_dprintf(2, "cd: failed to updated PWD\n");
 	return (path);
 }
 
-int			remove_previous_path(t_string *path, int pos)
+int				remove_previous_path(t_string *path, int pos)
 {
 	char	*begin;
 	int		tmp;
@@ -67,7 +66,7 @@ int			remove_previous_path(t_string *path, int pos)
 	return (1);
 }
 
-int			clean_back_path(t_string *path)
+int				clean_back_path(t_string *path)
 {
 	int		pos;
 
@@ -90,7 +89,7 @@ int			clean_back_path(t_string *path)
 	return (1);
 }
 
-t_string	*clean_path(char *path)
+t_string		*clean_path(char *path)
 {
 	t_string		*str;
 	t_string const	*pwd;
