@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 09:19:57 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/22 19:53:33 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 20:20:44 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ int		get_position_in_line(t_terminal *terminal, int index)
 		if ((terminal->line->buffer[i] == '\n'
 					|| j > get_terminal_width()))
 			j = 1;
-		++j;
+		else
+			++j;
 		++i;
 	}
 	return (j);
