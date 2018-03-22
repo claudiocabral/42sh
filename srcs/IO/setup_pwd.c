@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   slice.h                                            :+:      :+:    :+:   */
+/*   setup_pwd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/20 14:33:05 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/22 11:42:19 by ccabral          ###   ########.fr       */
+/*   Created: 2018/03/22 14:13:14 by ccabral           #+#    #+#             */
+/*   Updated: 2018/03/22 14:14:34 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SLICE_H
-# define SLICE_H
+#include <unistd.h>
+#include <stdlib.h>
+#include <builtins.h>
+#include <io.h>
 
-typedef struct	s_slice
+int				set_initial_path(void)
 {
-	char const	*ptr;
-	int			size;
-}				t_slice;
+	char	*tmp;
 
-t_slice			make_slice(char const *ptr, int size);
-t_slice			error_slice(void);
-t_slice			slice_from_pointers(char const *begin, char const *end);
-
-#endif
+	ZERO_IF_FAIL(tmp = getcwd(0, 0));
+	set_pwd(tmp);
+	free(tmp);
+	return (1);
+}

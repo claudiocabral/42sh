@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 14:32:42 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/20 14:33:29 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 11:41:54 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,14 @@ t_slice	error_slice(void)
 
 	slice.ptr = 0;
 	slice.size = 0;
+	return (slice);
+}
+
+t_slice	slice_from_pointers(char const *begin, char const *end)
+{
+	t_slice	slice;
+
+	slice.ptr = begin;
+	slice.size = end - begin;
 	return (slice);
 }

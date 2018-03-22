@@ -58,6 +58,7 @@ OBJS	=	objs/main.o \
 			objs/IO/unicode.o \
 			objs/IO/interactive_session.o \
 			objs/IO/dispatch_escape_string.o \
+			objs/IO/terminal_standout.o \
 			objs/IO/terminal_eof.o \
 			objs/IO/terminal_quotes.o \
 			objs/IO/terminal_line_movement.o \
@@ -78,6 +79,7 @@ OBJS	=	objs/main.o \
 			objs/IO/history.o \
 			objs/IO/input_handler.o \
 			objs/IO/setup.o \
+			objs/IO/setup_pwd.o \
 			objs/builtins/exit.o \
 			objs/builtins/env.o \
 			objs/builtins/setenv.o \

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:31:11 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 18:50:38 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 14:13:47 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ int				terminal_insert_string(t_terminal *terminal, char *str);
 int				terminal_eof(t_terminal *terminal, int c);
 int				terminal_escape(t_terminal *terminal, int c);
 int				terminal_is_at_newline(t_terminal *terminal);
+int				terminal_copy(t_terminal *terminal, int c);
+int				terminal_paste(t_terminal *terminal, int c);
 int				history_open(t_terminal *terminal, int mode);
 int				history_load(t_terminal *terminal);
 int				history_append(t_terminal *terminal);
@@ -156,5 +158,11 @@ char			get_closing_bracket(char c);
 int				collect_heredocs(t_terminal *terminal);
 int				terminal_delete_quote(t_terminal *terminal);
 void			terminal_adjust_mode(t_terminal *terminal);
+int				terminal_rewrite(t_terminal *terminal);
+void			terminal_move_rewrite(t_terminal *terminal, int movement);
+void			restore_terminal_position(t_terminal *terminal, int position);
+void			terminal_standout(t_terminal *terminal,
+							int initial_pos, int movement);
+int				set_initial_path(void);
 
 #endif

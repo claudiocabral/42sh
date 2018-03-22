@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 18:15:32 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/22 14:13:30 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,6 @@ int				init_terminal_strings(t_terminal *terminal, char const *prompt)
 	terminal->quote = 0;
 	if (!terminal->line || !terminal->clipboard)
 		quit(terminal);
-	return (1);
-}
-
-int				set_initial_path(void)
-{
-	char	*tmp;
-
-	ZERO_IF_FAIL(tmp = getcwd(0, 0));
-	set_pwd(tmp);
-	free(tmp);
 	return (1);
 }
 
