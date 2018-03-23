@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:50:47 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 17:57:28 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/23 13:44:05 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	terminal_delete_position_cursor(t_terminal *terminal, int c)
 			write(STDIN_FILENO, terminal->line->buffer + index, 1);
 		else
 			write(STDIN_FILENO, " ", 1);
+		if (terminal->cursor == (long)terminal->line->size)
+			terminal_command(MOVE_LEFT, 1);
 	}
 	else
 		write(STDIN_FILENO, &c, 1);
@@ -75,7 +77,7 @@ int		terminal_delete(t_terminal *terminal, int c)
 	terminal->cursor--;
 	column = get_position_in_line(terminal, terminal->cursor);
 	width = get_terminal_width();
-	if (column != width && (index =
+	if ((index =
 				line_overflow(terminal, terminal->cursor, column, width - 1)))
 	{
 		terminal_adjust_delete(terminal, index, column);

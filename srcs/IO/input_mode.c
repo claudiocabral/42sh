@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 14:48:36 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/21 17:02:50 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/23 16:26:20 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ int		terminal_backslash_input(t_terminal *terminal, char c[16], int size)
 		ret = handle_string_input(terminal, c);
 	else if (*c == '\n')
 	{
-		++terminal->line_number;
-		ret = terminal_insert(terminal, *c);
+		if (terminal->cursor != (long)terminal->line->size)
+			terminal->input_mode = NORMAL_INPUT;
+		ret = terminal_eof(terminal, *c);
 	}
 	else
 		ret = handle_regular_input(terminal, *c);

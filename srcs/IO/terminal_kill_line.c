@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 14:24:47 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/19 14:25:01 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/23 13:46:02 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ int						terminal_kill_line(t_terminal *terminal, int c)
 	terminal_eol(terminal, 0);
 	write(0, "\n", 1);
 	string_clear(terminal->line);
+	terminal_command(CLEAR_BOTTOM, 0);
 	print_prompt(terminal);
 	terminal->cursor = 0;
+	terminal->input_mode = NORMAL_INPUT;
 	return (1);
 }

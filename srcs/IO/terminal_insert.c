@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:54:21 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 16:34:35 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/23 16:28:50 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		terminal_adjust_insert(t_terminal *terminal, int index, int column)
 	else
 	{
 		terminal_command(MOVE_LEFT, column);
-		terminal_command(MOVE_DOWN, 1);
+		write(STDIN_FILENO, "\n", 1);
 	}
 	terminal_command(INSERT, 1);
 	write(STDIN_FILENO, terminal->line->buffer + index++, 1);
