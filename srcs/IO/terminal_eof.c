@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 14:32:28 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/23 16:19:15 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/23 16:40:09 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int		terminal_eof(t_terminal *terminal, int c)
 			|| terminal->input_mode == BACKSLASH_INPUT)
 		return (terminal_insert_newline(terminal));
 	else if (terminal->input_mode == HEREDOC_INPUT)
+	{
+		terminal_eol(terminal, 0);
 		return (0);
+	}
 	else if (terminal->input_mode != HEREDOC_INPUT)
 		ret = collect_heredocs(terminal);
 	terminal_eol(terminal, 0);

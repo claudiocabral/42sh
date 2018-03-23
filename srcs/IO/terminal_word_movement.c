@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 15:28:33 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/23 16:30:07 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/23 16:42:33 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int						get_current_line(t_terminal *terminal)
 
 	i = 0;
 	k = 0;
-	j = terminal->input_mode == HEREDOC_INPUT ? 9 : terminal->prompt_size;
+	j = terminal->prompt_size;
 	while (i < terminal->cursor)
 	{
 		if (j > get_terminal_width())
@@ -43,7 +43,7 @@ int						get_current_line(t_terminal *terminal)
 int						terminal_begining(t_terminal *terminal, int c)
 {
 	if ((c = get_current_line(terminal)))
-		terminal_command(MOVE_UP, terminal->line_number);
+		terminal_command(MOVE_UP, c);
 	terminal_command(MOVE_LEFT, get_terminal_width());
 	terminal_command(CLEAR_BOTTOM, 0);
 	terminal->line_number = 0;
