@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 14:32:42 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/22 19:00:50 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/23 16:44:55 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ t_slice	slice_from_pointers(char const *begin, char const *end)
 
 char	*slice_find(char *str, t_slice needle)
 {
-	int	size;
-	int	i;
+	int		size;
+	int		i;
 	char	*result;
 
 	size = ft_strlen(str) - needle.size;
