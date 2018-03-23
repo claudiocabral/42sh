@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 12:09:18 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/19 14:19:05 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/23 16:57:47 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	get_terminal_width(void)
 {
 	struct winsize	ws;
 
+	ws.ws_col = 0;
 	ioctl(0, TIOCGWINSZ, &ws);
 	return (ws.ws_col == 0 ? 1 : ws.ws_col);
 }

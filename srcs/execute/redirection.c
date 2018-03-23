@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 15:13:51 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/21 14:05:22 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/23 16:53:52 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_fd_pair	make_redirection(t_fd_pair fd)
 t_fd_pair	heredoc(t_token *token)
 {
 	t_fd_pair	fd;
-	char		*content;
 	int			read_write[2];
 
 	fd.to = dup(STDIN_FILENO);
@@ -36,9 +35,7 @@ t_fd_pair	heredoc(t_token *token)
 	dup2(read_write[0], STDIN_FILENO);
 	close(read_write[0]);
 	fd.from = STDIN_FILENO;
-	content = token_get_string(token);
-	write(read_write[1], content, ft_strlen(content));
-	free(content);
+	write(read_write[1], token->begin, token->size);
 	close(read_write[1]);
 	return (fd);
 }

@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:12:22 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/20 19:36:00 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/03/23 16:56:26 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,13 @@ static t_tree	*add_redirect_arguments(t_tree *tree, t_tree *number,
 t_tree			*io_redirect(t_array *tokens, t_token **current)
 {
 	t_tree	*number;
-	t_tree	*redirection;
 
 	number = 0;
 	if (match(current, IO_NUMBER, SENTINEL))
 		number = tree_create_node(*current - 1, sizeof(t_token));
 	if (!match(current, LESS, DLESS, LESSAND,
 				GREATER, DGREATER, GREATERAND, SENTINEL)
-			|| *current == tokens->end
-			|| !(redirection = tree_create_node(*current - 1,
-												sizeof(t_token))))
+			|| *current == tokens->end)
 	{
 		tree_free(number, (t_freef) & noop);
 		return (0);
