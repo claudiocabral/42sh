@@ -38,8 +38,8 @@ int				fill_table(t_binary_path *path)
 		entry = readdir(dir);
 	while (entry)
 	{
-		tmp = ft_strdup(entry->d_name);
-		hash_table_insert(path->table, &tmp);
+		if ((tmp = ft_strdup(entry->d_name)))
+		    hash_table_insert(path->table, &tmp);
 		entry = readdir(dir);
 	}
 	closedir(dir);

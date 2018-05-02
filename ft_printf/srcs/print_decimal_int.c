@@ -54,7 +54,7 @@ char const		*print_signed_decimal(char const *format,
 
 	value = get_signed_int(modifiers);
 	sign = get_number_sign(value, modifiers);
-	value = (value < 0) ? -((unsigned long)value) : value;
+	value = (value < 0) ? -((long)value) : value;
 	if (!(str = ftprintf_itoa_base(value, "0123456789")))
 		return (format);
 	print_decimal_helper(str, sign, modifiers);

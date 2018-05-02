@@ -29,9 +29,7 @@ void	generic_print(t_modifiers *modifiers, t_getter get_value,
 void	print_with_padding(char const *str, t_modifiers *modifiers, int size)
 {
 	int	padding;
-	int	precision;
 
-	precision = ftprintf_max(modifiers->precision, size);
 	padding = modifiers->field_width - size;
 	if (!(modifiers->flags & MINUS))
 		print_padding(padding, modifiers->flags & ZERO, modifiers->fd);

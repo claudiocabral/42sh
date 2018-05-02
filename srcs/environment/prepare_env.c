@@ -64,3 +64,12 @@ char			*ft_getenv(char const *env)
 	}
 	return (val);
 }
+
+char			*ft_getenv_safe(char const *env)
+{
+	char *val;
+
+	if (!(val = ft_getenv(env)))
+		return ("");
+	return (val);
+}

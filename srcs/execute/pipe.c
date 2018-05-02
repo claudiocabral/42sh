@@ -10,6 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifdef __linux__
+# include <sys/wait.h>
+#endif
+
 #include <unistd.h>
 #include <ft_printf.h>
 #include <tree.h>

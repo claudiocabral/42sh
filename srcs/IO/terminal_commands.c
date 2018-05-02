@@ -25,9 +25,6 @@ static int		ft_putchar_stdin(int c)
 
 int				check_table(void)
 {
-	int	i;
-
-	i = 0;
 	return (1);
 }
 

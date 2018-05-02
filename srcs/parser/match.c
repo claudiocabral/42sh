@@ -17,9 +17,7 @@
 int	peek_impl(t_token **token, va_list *ap)
 {
 	t_tag	type;
-	int		i;
-
-	i = 0;
+	
 	while ((type = va_arg(*ap, t_tag)) != SENTINEL)
 	{
 		if ((*token)->type == type)

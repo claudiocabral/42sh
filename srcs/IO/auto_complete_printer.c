@@ -50,7 +50,7 @@ void		print_columns_helper(int nbr_columns, int nbr_rows,
 		{
 			ft_dprintf(0, "%*s%c",
 				i + (j + 1) * nbr_rows >= size ?
-				-1 * ft_strlen(*(it + i + j * nbr_rows)) : -1 * column_size,
+				-1 * (long)ft_strlen(*(it + i + j * nbr_rows)) : -1 * column_size,
 				*(it + i + j * nbr_rows),
 				i + (j + 1) * nbr_rows >= size ? '\n' : '\t');
 			++j;

@@ -87,11 +87,9 @@ char			**ft_strsplit(char const *str, char c)
 {
 	char	**word;
 	int		nbr_words;
-	int		size;
 
 	if (str == 0)
 		return (NULL);
-	size = 0;
 	while (*str == c)
 		++str;
 	nbr_words = ft_count_words(str, c);

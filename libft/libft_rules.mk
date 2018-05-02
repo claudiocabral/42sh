@@ -24,13 +24,13 @@ $(LIBFT):	$(LIBFT_OBJS) \
 			Makefile
 	@ar rcs $@ $^
 
-$(LIBFT_ARRAY_OBJS)/%.o: $(LIBFT_INCLUDES)/array.h
-$(LIBFT_SLICE_OBJS)/%.o: $(LIBFT_INCLUDES)/slice.h
-$(LIBFT_TREE_OBJS)/%.o: $(LIBFT_INCLUDES)/tree.h
-$(LIBFT_BTREE_OBJS)/%.o: $(LIBFT_INCLUDES)/ft_btree.h
-$(LIBFT_STRING_OBJS)/%.o: $(LIBFT_INCLUDES)/ft_string.h
-$(LIBFT_RING_BUFFER_OBJS)/%.o: $(LIBFT_INCLUDES)/ring_buffer.h
-$(LIBFT_HASH_TABLE_OBJS)/%.o: $(LIBFT_INCLUDES)/hash_table.h
+#$(LIBFT_ARRAY_OBJS)/%.o: $(LIBFT_INCLUDES)/array.h
+#$(LIBFT_SLICE_OBJS)/%.o: $(LIBFT_INCLUDES)/slice.h
+#$(LIBFT_TREE_OBJS)/%.o: $(LIBFT_INCLUDES)/tree.h
+#$(LIBFT_BTREE_OBJS)/%.o: $(LIBFT_INCLUDES)/ft_btree.h
+#$(LIBFT_STRING_OBJS)/%.o: $(LIBFT_INCLUDES)/ft_string.h
+#$(LIBFT_RING_BUFFER_OBJS)/%.o: $(LIBFT_INCLUDES)/ring_buffer.h
+#$(LIBFT_HASH_TABLE_OBJS)/%.o: $(LIBFT_INCLUDES)/hash_table.h
 
 $(LIBFT_OBJ_DIR)/%.o: $(LIBFT_PATH)/srcs/%.c $(LIBFT_INCLUDES)/libft.h
 	@[[ -d $(dir $@ ) ]] || mkdir -p $(dir $@)

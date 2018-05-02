@@ -27,12 +27,10 @@ int			string_replace(t_string *str, char const *search,
 											char const *replace)
 {
 	int	pos;
-	int	i;
 	int	size;
 
 	if (ft_strequ(search, replace))
 		return (0);
-	i = 0;
 	size = ft_strlen(search);
 	while ((pos = string_find(str, search)) >= 0)
 	{

@@ -117,7 +117,7 @@ include $(PRINTF_PATH)/printf_rules.mk
 
 $(NAME): $(OBJS) $(LIBFT) $(PRINTF)
 	$(CC) $(CFLAGS) $(OBJS) $(INC) -L$(LIBFT_PATH) -L$(PRINTF_PATH) \
-		-ltermcap -lft -lftprintf -o $@
+		-lncurses -ltermcap -lft -lftprintf -o $@
 
 
 objs/%.o: srcs/%.c $(DEPDIR)/%.dep Makefile

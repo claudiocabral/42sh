@@ -67,7 +67,8 @@ int				init_terminal_strings(t_terminal *terminal, char const *prompt)
 
 int				setup_terminal(t_terminal *terminal, char const *prompt)
 {
-	if (tgetent(0, ttyname(ttyslot())) <= 0)
+	char	*termtype = ft_getenv("TERM");
+	if (tgetent(0, termtype) <= 0)
 	{
 		ft_dprintf(2, "./21sh: Could not set terminal type\n" "Terminating\n");
 		return (0);

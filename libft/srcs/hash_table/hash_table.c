@@ -32,10 +32,11 @@ t_hash_table	*hash_table_create(size_t content_size, size_t nbr_elements,
 	hash_table->capacity = nbr_elements;
 	hash_table->content_size = content_size;
 	hash_table->size = 0;
+	ft_memset(hash_table->data, 0, hash_table->capacity);
 	return (hash_table);
 }
 
-void static		*hash_table_insert_helper(t_hash_table *table, uint8_t *block,
+static void		*hash_table_insert_helper(t_hash_table *table, uint8_t *block,
 													size_t capacity, void *data)
 {
 	uint64_t	hash;
