@@ -108,6 +108,14 @@ ifeq ($(DEBUG), 1)
 	CFLAGS	+=	$(CDEBUG)
 endif
 
+OS = $(shell uname -s)
+
+ifeq ($(OS),Linux)
+    LIBTERMCAP = ncurses
+else
+    LIBTERMCAP = termcap
+endif
+
 .PHONY: all clean fclean re
 
 all: $(NAME)
@@ -117,7 +125,7 @@ include $(PRINTF_PATH)/printf_rules.mk
 
 $(NAME): $(OBJS) $(LIBFT) $(PRINTF)
 	$(CC) $(CFLAGS) $(OBJS) $(INC) -L$(LIBFT_PATH) -L$(PRINTF_PATH) \
-		-lncurses -ltermcap -lft -lftprintf -o $@
+		-l$(LIBTERMCAP) -lft -lftprintf -o $@
 
 
 objs/%.o: srcs/%.c $(DEPDIR)/%.dep Makefile
