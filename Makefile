@@ -134,15 +134,15 @@ $(DEPDIR)/%.dep: ;
 include $(wildcard $(OBJS:objs/%.o=$(DEPDIR)/%.dep))
 
 fclean: clean
-	make $(PRINTF_FCLEAN)
-	make $(LIBFT_FCLEAN)
+	$(MAKE) $(PRINTF_FCLEAN)
+	$(MAKE) $(LIBFT_FCLEAN)
 ifeq ($(shell [ -e $(NAME) ] && echo 1 || echo 0),1)
 	rm -rf $(NAME)
 endif
 
 clean:
-	make $(LIBFT_CLEAN)
-	make $(PRINTF_CLEAN)
+	$(MAKE) $(LIBFT_CLEAN)
+	$(MAKE) $(PRINTF_CLEAN)
 ifeq ($(shell [ -e $(DEPDIR) ] && echo 1 || echo 0),1)
 	rm -rf $(DEPDIR)
 endif

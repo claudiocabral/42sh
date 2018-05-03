@@ -24,6 +24,8 @@ size_t			hash_table_find_index(t_hash_table *table, void const *data)
 	tmp = i;
 	while (1)
 	{
+	    if (table->metadata[i] == (uint8_t)hash_empty)
+			return (table->capacity + 1);
 		if (table->metadata[i] == H2(hash)
 			&& table->cmpf(table->data + i * table->content_size, data) == 0)
 			return (i);

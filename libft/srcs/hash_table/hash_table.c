@@ -14,7 +14,7 @@
 #include <hash_table.h>
 
 t_hash_table	*hash_table_create(size_t content_size, size_t nbr_elements,
-												t_hashf hash, t_cmpf cmpf)
+		t_hashf hash, t_cmpf cmpf)
 {
 	t_hash_table	*hash_table;
 
@@ -37,7 +37,7 @@ t_hash_table	*hash_table_create(size_t content_size, size_t nbr_elements,
 }
 
 static void		*hash_table_insert_helper(t_hash_table *table, uint8_t *block,
-													size_t capacity, void *data)
+		size_t capacity, void *data)
 {
 	uint64_t	hash;
 	uint64_t	i;
@@ -52,7 +52,7 @@ static void		*hash_table_insert_helper(t_hash_table *table, uint8_t *block,
 		{
 			block[i] = H2(hash);
 			ft_memcpy(helper + i * table->content_size,
-									data, table->content_size);
+					data, table->content_size);
 			return (helper + i * table->content_size);
 		}
 		i = (i + 1) & (capacity - 1);
@@ -73,11 +73,12 @@ t_hash_table	*hash_table_increase_size(t_hash_table *table)
 	{
 		if (table->metadata[i] != (uint8_t)hash_empty)
 			hash_table_insert_helper(table, memory_block, new_size,
-								table->data + i * table->content_size);
+					table->data + i * table->content_size);
 		++i;
 	}
 	free(table->metadata);
 	table->metadata = memory_block;
+	table->data = memory_block + new_size;
 	table->capacity = new_size;
 	return (table);
 }
@@ -88,7 +89,7 @@ void			*hash_table_insert(t_hash_table *table, void *data)
 		ZERO_IF_FAIL(hash_table_increase_size(table));
 	table->size++;
 	return (hash_table_insert_helper(table, table->metadata,
-											table->capacity, data));
+				table->capacity, data));
 }
 
 void			hash_table_apply(t_hash_table *table, t_applyf apply)
