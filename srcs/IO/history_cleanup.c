@@ -34,7 +34,7 @@ char	*get_history_path(void)
 	char	*tmp_path;
 
 	if (!(tmp_path = ft_getenv("HOME")))
-		return (0);
+	    tmp_path = ".";
 	if (!(path = (char *)malloc(sizeof(char)
 					* (ft_strlen(tmp_path)
 					+ ft_strlen("/.21_history") + 1))))

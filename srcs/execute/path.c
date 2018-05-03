@@ -57,7 +57,7 @@ int				hash_paths(t_array *paths)
 	char			*end;
 	t_binary_path	*tmp;
 
-	ZERO_IF_FAIL(begin = ft_getenv("PATH"));
+	begin = ft_getenv_safe("PATH");
 	while ((end = ft_strchr(begin, ':')))
 	{
 		tmp = make_path_entry(begin, end - begin);

@@ -18,6 +18,7 @@
 
 int				ft_setenv(char const *name, char const *val, int overwrite);
 char			*ft_getenv(char const *env);
+char			*ft_getenv_safe(char const *env);
 int				ft_prepare_env(char	**environ);
 char			**get_environment(void);
 t_array			*get_environment_array(void);

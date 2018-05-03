@@ -18,6 +18,7 @@ t_string	*string_create(size_t capacity)
 {
 	t_string	*string;
 
+	capacity += !capacity;
 	if (!(string = (t_string *)malloc(sizeof(t_string) * capacity)))
 		return (0);
 	if (!string_init(string, capacity))

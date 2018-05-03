@@ -47,7 +47,7 @@ char	*expand_env(char *value)
 {
 	char	*str;
 
-	str = ft_getenv(value + 1);
+	str = ft_getenv_safe(value + 1);
 	free(value);
 	return (str ? ft_strdup(str) : ft_strdup(""));
 }
@@ -61,14 +61,14 @@ char	*expand(char *value)
 	str = value;
 	if (ft_strncmp(value, "~/", 2) == 0)
 	{
-		size = ft_strlen(ft_getenv("HOME")) + ft_strlen(value);
+		size = ft_strlen(ft_getenv_safe("HOME")) + ft_strlen(value);
 		if (!(str = (char *)malloc(sizeof(char) * size)))
 		{
 			free(value);
 			return (0);
 		}
 		str[0] = 0;
-		ft_strcat(str, ft_getenv("HOME"));
+		ft_strcat(str, ft_getenv_safe("HOME"));
 		ft_strcat(str, "/");
 		ft_strcat(str, value + 2);
 		free(value);
@@ -76,7 +76,7 @@ char	*expand(char *value)
 	else if (ft_strcmp(value, "~") == 0)
 	{
 		free(value);
-		str = ft_strdup(ft_getenv("HOME"));
+		ZERO_IF_FAIL(str = ft_strdup(ft_getenv_safe("HOME")));
 	}
 	return (str[0] == '$' && str[1] ? expand_env(str) : str);
 }

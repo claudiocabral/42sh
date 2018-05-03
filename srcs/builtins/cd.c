@@ -68,7 +68,7 @@ int		cd_flag(char *path)
 	if (ret != -1)
 	{
 		new_path = getcwd(0, 0);
-		ft_setenv("OLDPWD", ft_getenv("PWD"), 1);
+		ft_setenv("OLDPWD", ft_getenv_safe("PWD"), 1);
 		ft_setenv("PWD", new_path, 1);
 		set_pwd(new_path);
 		free(new_path);
@@ -86,10 +86,10 @@ int		cd(int argc, char **argv)
 
 	flag = parse_args(&argc, &argv);
 	if (argc == 0)
-		return (cd_chdir(ft_getenv("HOME")));
+		return (cd_chdir(ft_getenv_safe("HOME")));
 	else if (argc == 1)
 	{
-		if (!(path_ptr = ft_strequ(*argv, "-") ? ft_getenv("OLDPWD") : *argv))
+		if (!(path_ptr = ft_strequ(*argv, "-") ? ft_getenv_safe("OLDPWD") : *argv))
 		{
 			ft_dprintf(2, "cd: OLDPWD not set\n");
 			return (1);
