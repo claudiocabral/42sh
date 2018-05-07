@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 11:05:38 by ccabral           #+#    #+#             */
-/*   Updated: 2018/02/02 13:07:23 by claudioca        ###   ########.fr       */
+/*   Updated: 2018/05/07 14:35:14 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void		print_columns_helper(int nbr_columns, int nbr_rows,
 		{
 			ft_dprintf(0, "%*s%c",
 				i + (j + 1) * nbr_rows >= size ?
-				-1 * (long)ft_strlen(*(it + i + j * nbr_rows)) : -1 * column_size,
+				-1 * (long)ft_strlen(*(it + i + j * nbr_rows))
+				: -1 * column_size,
 				*(it + i + j * nbr_rows),
 				i + (j + 1) * nbr_rows >= size ? '\n' : '\t');
 			++j;

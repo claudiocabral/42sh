@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 16:33:21 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/19 15:10:08 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/05/07 14:46:17 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int	peek_impl(t_token **token, va_list *ap)
 {
 	t_tag	type;
-	
+
 	while ((type = va_arg(*ap, t_tag)) != SENTINEL)
 	{
 		if ((*token)->type == type)

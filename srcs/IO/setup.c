@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:10:44 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/22 20:09:31 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/05/07 14:45:49 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,18 @@ int				init_terminal_strings(t_terminal *terminal, char const *prompt)
 
 int				setup_terminal(t_terminal *terminal, char const *prompt)
 {
-	char	*termtype = ft_getenv("TERM");
+	char	*termtype;
+
+	termtype = ft_getenv_safe("TERM");
 	if (tgetent(0, termtype) <= 0)
-	{
-		ft_dprintf(2, "./21sh: Could not set terminal type\n" "Terminating\n");
-		return (0);
-	}
+		return (ft_dprintf(2, "./21sh: Could not set terminal, bye.\n") == -2);
 	init_command_table();
 	init_termios(terminal);
 	init_terminal_strings(terminal, prompt);
 	terminal->history = ring_buffer_create(sizeof(t_string), 2000,
 			(t_freef) & string_clear);
 	ring_buffer_init(terminal->history, STRING_SIZE,
-		(void *(*)(void *, size_t)) &string_init, (t_freef) & string_free);
+			(void *(*)(void *, size_t)) &string_init, (t_freef) & string_free);
 	if (!terminal->history)
 	{
 		free_terminal(terminal);

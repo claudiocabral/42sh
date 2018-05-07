@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 13:01:51 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/22 16:07:31 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/05/07 14:33:26 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ int		cd(int argc, char **argv)
 		return (cd_chdir(ft_getenv_safe("HOME")));
 	else if (argc == 1)
 	{
-		if (!(path_ptr = ft_strequ(*argv, "-") ? ft_getenv_safe("OLDPWD") : *argv))
+		if (!(path_ptr = ft_strequ(*argv, "-")
+					? ft_getenv_safe("OLDPWD") : *argv))
 		{
 			ft_dprintf(2, "cd: OLDPWD not set\n");
 			return (1);

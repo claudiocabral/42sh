@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 16:54:15 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/22 17:25:03 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/05/07 14:36:12 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ char	*get_history_path(void)
 	char	*tmp_path;
 
 	if (!(tmp_path = ft_getenv("HOME")))
-	    tmp_path = ".";
+		tmp_path = ".";
 	if (!(path = (char *)malloc(sizeof(char)
 					* (ft_strlen(tmp_path)
-					+ ft_strlen("/.21_history") + 1))))
+						+ ft_strlen("/.21_history") + 1))))
 		return (0);
 	*path = 0;
 	ft_strcat(path, tmp_path);

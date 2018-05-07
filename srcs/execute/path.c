@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 13:50:55 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 12:03:51 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/05/07 14:34:27 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int				fill_table(t_binary_path *path)
 	while (entry)
 	{
 		if ((tmp = ft_strdup(entry->d_name)))
-		    hash_table_insert(path->table, &tmp);
+			hash_table_insert(path->table, &tmp);
 		entry = readdir(dir);
 	}
 	closedir(dir);
