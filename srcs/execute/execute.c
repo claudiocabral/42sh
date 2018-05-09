@@ -29,7 +29,6 @@ int		command_dispatch(char **argv, char **env, char const *who)
 	if ((tmp = get_builtin_command(argv[0])))
 		return (invoke_builtin(tmp, argv));
 	return (invoke(command_name_lookup(argv[0]), argv, env, who));
-	return (127);
 }
 
 void	close_fd_pair(t_fd_pair *fd, void *args)
