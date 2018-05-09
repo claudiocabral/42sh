@@ -18,7 +18,7 @@ int	print_prompt(t_terminal *terminal)
 {
 	char const	*path;
 
-	path = ft_getenv("PWD");
+	path = ft_getenv_safe("PWD");
 	if (ft_strcmp(path, "/"))
 	{
 		path = path ? ft_strrchr(path, '/') : 0;

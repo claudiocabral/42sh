@@ -19,6 +19,6 @@ int	pwd(int argc, char **argv)
 	(void)argv;
 	if (argc != 1)
 		ft_dprintf(2, "pwd: too many arguments\n");
-	ft_printf("%s\n", ft_getenv("PWD"));
+	ft_printf("%s\n", ft_getenv_safe("PWD"));
 	return (0);
 }

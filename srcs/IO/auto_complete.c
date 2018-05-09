@@ -65,7 +65,7 @@ char		*auto_complete_command(t_array *array, t_terminal *terminal)
 	char	*path;
 	char	*str;
 
-	ZERO_IF_FAIL(path = ft_getenv("PATH"));
+	path = ft_getenv_safe("PATH");
 	if ((str = ft_strrchr(terminal->line->buffer, ' ')))
 	{
 		++str;
