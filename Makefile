@@ -12,7 +12,9 @@
 # **************************************************************************** #
 
 NAME	:=	21sh
+ifeq (CC,)
 CC		:=	cc
+endif
 CFLAGS	:=	-Wextra -Werror -Wall
 CDEBUG	:=	-g
 
