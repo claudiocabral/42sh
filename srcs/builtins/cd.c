@@ -54,9 +54,9 @@ int		cd_chdir(char const *path)
 	else
 	{
 		ft_dprintf(2, "cd: failed to change to directory: %s\n", path);
-		return (0);
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 int		cd_flag(char *path)

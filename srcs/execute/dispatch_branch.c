@@ -19,7 +19,22 @@ int	branch_equals(t_tree *tree, t_tag type)
 	return (((t_token *)tree->element)->type == type);
 }
 
-int	execute_list(t_tree *tree)
+int	execute_or(t_tree *tree)
+{
+	t_tree	**it;
+	int		ret;
+
+	it = (t_tree **)tree->children->begin;
+	while (it != tree->children->end)
+	{
+		if ((ret = dispatch_branch(*it)) == 0)
+			break ;
+		++it;
+	}
+	return (ret);
+}
+
+int	execute_and(t_tree *tree)
 {
 	t_tree	**it;
 	int		ret;
@@ -29,6 +44,20 @@ int	execute_list(t_tree *tree)
 	{
 		if ((ret = dispatch_branch(*it)) != 0)
 			break ;
+		++it;
+	}
+	return (ret);
+}
+
+int	execute_list(t_tree *tree)
+{
+	t_tree	**it;
+	int		ret;
+
+	it = (t_tree **)tree->children->begin;
+	while (it != tree->children->end)
+	{
+		ret = dispatch_branch(*it);
 		++it;
 	}
 	return (ret);
