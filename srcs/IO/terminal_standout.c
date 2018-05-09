@@ -15,7 +15,8 @@
 
 int		terminal_rewrite(t_terminal *terminal)
 {
-	if (terminal->cursor == 0 || terminal->cursor == (long)terminal->line->size)
+	if (*terminal->line->buffer == 0
+			|| terminal->cursor == (long)terminal->line->size)
 		return (1);
 	write(STDIN_FILENO, terminal->line->buffer + terminal->cursor, 1);
 	terminal_command(MOVE_LEFT, 1);
@@ -24,19 +25,14 @@ int		terminal_rewrite(t_terminal *terminal)
 
 void	terminal_move_rewrite(t_terminal *terminal, int movement)
 {
-	if (terminal->cursor + movement < 0
-			|| terminal->cursor + movement >= (long)terminal->line->size)
+	if ((terminal->cursor + movement) < 0
+			|| (terminal->cursor + movement >= (long)terminal->line->size))
 		return ;
+	terminal_rewrite(terminal);
 	if (movement < 0)
-	{
-		terminal_rewrite(terminal);
 		terminal_move_left(terminal, 0);
-	}
 	else
-	{
-		terminal_rewrite(terminal);
 		terminal_move_right(terminal, 0);
-	}
 }
 
 void	restore_terminal_position(t_terminal *terminal, int position)
@@ -57,9 +53,9 @@ void	restore_terminal_position(t_terminal *terminal, int position)
 
 void	terminal_standout(t_terminal *terminal, int initial_pos, int movement)
 {
-	if ((movement > 0 && terminal->cursor + movement - initial_pos == 1)
+	if ((movement > 0 && (terminal->cursor + movement - initial_pos == 1))
 			|| (movement < 0
-				&& terminal->cursor + movement - initial_pos == -1))
+				&& (terminal->cursor + movement - initial_pos == -1)))
 		terminal_command(STANDOUT, 0);
 	else if (initial_pos < terminal->cursor)
 	{

@@ -50,7 +50,6 @@ int		terminal_copy(t_terminal *terminal, int c)
 
 	(void)c;
 	terminal_command(STANDOUT, 0);
-	terminal_rewrite(terminal);
 	clip = copy_loop(terminal, buffer);
 	if (!clip.ptr)
 		return (1);
