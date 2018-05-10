@@ -38,9 +38,19 @@ int			lex_operator(t_array *tokens, t_slice input, char const **heredoc)
 	if (input.ptr[input.size] == ';')
 		ret = add_token(tokens, SEMICOLON, input.ptr + input.size, 1);
 	else if (input.ptr[input.size] == '&')
-		ret = add_token(tokens, AND, input.ptr + input.size, 1);
+	{
+		if (input.ptr[input.size + 1] == '&')
+			ret = add_token(tokens, AND_IF, input.ptr + input.size, 2);
+		else
+			ret = add_token(tokens, AND, input.ptr + input.size, 1);
+	}
 	else if (input.ptr[input.size] == '|')
-		ret = add_token(tokens, PIPE, input.ptr + input.size, 1);
+	{
+		if (input.ptr[input.size + 1] == '|')
+			ret = add_token(tokens, OR_IF, input.ptr + input.size, 2);
+		else
+			ret = add_token(tokens, PIPE, input.ptr + input.size, 1);
+	}
 	else if (input.ptr[input.size] == '<' || input.ptr[input.size] == '>')
 		ret = lex_redirection(tokens, input, heredoc);
 	if (ret)
@@ -77,7 +87,7 @@ int			lex_digit(t_array *tokens, t_slice input)
 	if (input.ptr[pos] == '<' || input.ptr[pos] == '>')
 	{
 		if (add_token(tokens, IO_NUMBER, input.ptr + input.size,
-												pos - input.size))
+					pos - input.size))
 			return (pos);
 		return (-1);
 	}

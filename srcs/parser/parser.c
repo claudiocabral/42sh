@@ -20,7 +20,22 @@
 
 t_tree		*and_or(t_tree *tree, t_array *tokens, t_token **current)
 {
-	return (pipeline(tree, tokens, current));
+	t_tree	*branch;
+
+	branch = 0;
+	while (1)
+	{
+		if (peek(current, AND_IF, OR_IF, SENTINEL))
+		{
+			branch = tree_add_child(branch,
+					tree_create_node(*current++, sizeof(t_token)));
+		}
+		else if (*current != tokens->end)
+			branch = pipeline(branch, tokens, current);
+		else
+			break ;
+	}
+	return (tree_add_child(tree, branch));
 }
 
 t_tree		*list(t_tree *tree, t_array *tokens, t_token **current)
