@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 17:47:38 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/22 15:09:54 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/05/11 11:42:30 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ t_string		*string_append(t_string *dst, char const *src);
 int				string_replace(t_string *str, char const *search,
 												char const *replace);
 int				string_find(t_string *str, char const *target);
+char			*ft_strtok(char *str, const char *delim);
 
 #endif

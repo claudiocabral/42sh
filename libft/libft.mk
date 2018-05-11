@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/20 13:13:30 by claudioca         #+#    #+#              #
-#    Updated: 2018/03/22 14:52:27 by ccabral          ###   ########.fr        #
+#    Updated: 2018/05/11 11:45:04 by ctrouill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
 				$(LIBFT_OBJ_DIR)/ft_strlen.o \
 				$(LIBFT_OBJ_DIR)/ft_strlowcase.o \
 				$(LIBFT_OBJ_DIR)/ft_strmap.o \
+				$(LIBFT_OBJ_DIR)/ft_strtok.o \
 				$(LIBFT_OBJ_DIR)/ft_strmapi.o \
 				$(LIBFT_OBJ_DIR)/ft_strncat.o \
 				$(LIBFT_OBJ_DIR)/ft_strncmp.o \

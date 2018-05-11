@@ -6,13 +6,13 @@
 #    By: ccabral <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/24 13:19:14 by ccabral           #+#    #+#              #
-#    Updated: 2017/11/21 21:28:45 by claudioca        ###   ########.fr        #
+#    Updated: 2018/05/11 11:41:27 by ctrouill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 include libft.mk
 
-CC				:=	cc 
+CC				:=	cc
 CDEBUG			:=	-g
 CFLAGS			:=	-Wall -Wextra -Werror
 
