@@ -14,6 +14,8 @@
 # define LIBFT_H
 
 # include <string.h>
+# include <unistd.h>
+# define BUFF_SIZE 1337
 # define ZERO_IF_FAIL(x) if ((x) == 0) return (0)
 
 typedef struct	s_list
@@ -124,5 +126,11 @@ int				ft_strdup_wrapper(char **dst, char const *const *src,
 															void *dummy);
 int				ft_strncmp_wrapper(char const **a, char const **b);
 int				ft_strcmp_wrapper(char const **a, char const **b);
+void			ft_freejoin(const char **s1, const char **s2, char c);
+char			*ft_strjoinfree(char const *s1, char const *s2, char c);
+char			*ft_strnjoin(char const *s1, char const *s2, size_t n, char c);
+int				get_next_line(int fd, char **line);
+
+
 
 #endif

@@ -11,7 +11,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	:=	21sh
+NAME	:=	42sh
 ifeq (CC,)
 CC		:=	cc
 endif
@@ -54,36 +54,28 @@ OBJS	=	objs/main.o \
 			objs/parser/pipeline.o \
 			objs/parser/redirection.o \
 			objs/parser/match.o \
-			objs/IO/brackets.o \
-			objs/IO/get_next_terminal_command.o \
-			objs/IO/input_mode.o \
-			objs/IO/unicode.o \
-			objs/IO/interactive_session.o \
-			objs/IO/dispatch_escape_string.o \
-			objs/IO/terminal_standout.o \
-			objs/IO/terminal_eof.o \
-			objs/IO/terminal_quotes.o \
-			objs/IO/terminal_line_movement.o \
-			objs/IO/terminal_kill_line.o \
-			objs/IO/terminal_dimensions.o \
-			objs/IO/terminal_print.o \
-			objs/IO/terminal_commands.o \
-			objs/IO/terminal_movement.o \
-			objs/IO/terminal_word_movement.o \
-			objs/IO/terminal_insert.o \
-			objs/IO/terminal_delete.o \
-			objs/IO/terminal_check_heredoc.o \
-			objs/IO/terminal_heredoc.o \
-			objs/IO/terminal_copy.o \
-			objs/IO/auto_complete.o \
-			objs/IO/auto_complete_adjust.o \
-			objs/IO/auto_complete_tools.o \
-			objs/IO/auto_complete_printer.o \
-			objs/IO/history.o \
-			objs/IO/history_cleanup.o \
-			objs/IO/input_handler.o \
-			objs/IO/setup.o \
-			objs/IO/setup_pwd.o \
+			objs/IO_bis/adjust_cursor.o \
+			objs/IO_bis/control.o \
+			objs/IO_bis/copy_paste.o \
+			objs/IO_bis/delete.o \
+			objs/IO_bis/free.o \
+			objs/IO_bis/get_list.o \
+			objs/IO_bis/history.o \
+			objs/IO_bis/history_file.o \
+			objs/IO_bis/list_create.o \
+			objs/IO_bis/list_print.o \
+			objs/IO_bis/list_str_utils.o \
+			objs/IO_bis/list_utils.o \
+			objs/IO_bis/mcbe.o \
+			objs/IO_bis/mcblr.o \
+			objs/IO_bis/move_cursor_down.o \
+			objs/IO_bis/move_cursor_up.o \
+			objs/IO_bis/move_history.o \
+			objs/IO_bis/read_input.o \
+			objs/IO_bis/return_string.o \
+			objs/IO_bis/selected_list_utils.o \
+			objs/IO_bis/term.o \
+			objs/IO_bis/utils.o \
 			objs/builtins/exit.o \
 			objs/builtins/env.o \
 			objs/builtins/setenv.o \

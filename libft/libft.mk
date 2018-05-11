@@ -97,7 +97,9 @@ LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
 				$(LIBFT_OBJ_DIR)/ft_nbr_digits.o \
 				$(LIBFT_OBJ_DIR)/ft_next_power_of_two.o \
 				$(LIBFT_OBJ_DIR)/generic_tools.o \
-				$(LIBFT_OBJ_DIR)/ft_is_whitespace.o
+				$(LIBFT_OBJ_DIR)/ft_is_whitespace.o \
+				$(LIBFT_OBJ_DIR)/ft_strjoinfree.o \
+				$(LIBFT_OBJ_DIR)/get_next_line.o
 
 LIBFT_ARRAY_OBJS := \
 				$(LIBFT_OBJ_DIR)/array/array.o \
