@@ -46,6 +46,7 @@ t_fd_pair	redirect_to_fd(t_array *args, char direction)
 	t_tree		**children;
 
 	fd.from = (direction - '<') / 2;
+	fd.to = -1;
 	children = (t_tree **)args->begin;
 	if (array_size(args) == 1)
 	{

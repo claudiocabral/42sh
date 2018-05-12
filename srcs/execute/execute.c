@@ -72,6 +72,7 @@ int		execute_commands(t_tree *tree)
 	int			ret;
 
 	child = (t_tree **)tree->children->begin;
+	ret = 0;
 	while (child != tree->children->end)
 	{
 		if (*child)
@@ -85,7 +86,6 @@ int		execute(t_tree *tree)
 {
 	int	ret;
 
-	ret = 0;
 	if (!tree)
 		return (0);
 	ret = dispatch_branch(tree);

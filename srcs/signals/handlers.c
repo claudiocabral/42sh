@@ -14,18 +14,19 @@
 #include <stdlib.h>
 #include <io.h>
 
-int		interrupt_handler(int sig)
+void		interrupt_handler(int sig)
 {
-	static int	last_signal = 0;
-	int			tmp;
+	//static int	last_signal = 0;
+	//int			tmp;
 
-	if (sig)
-		last_signal = sig;
-	else
-	{
-		tmp = last_signal;
-		last_signal = 0;
-		return (tmp);
-	}
-	return (last_signal);
+	(void)sig;
+	//if (sig)
+	//	last_signal = sig;
+	//else
+	//{
+	//	//tmp = last_signal;
+	//	last_signal = 0;
+	//	//return (tmp);
+	//}
+	//return (last_signal);
 }

@@ -33,11 +33,11 @@ int		invoke_builtin(t_builtin const *command, char **args)
 int		wait_process(pid_t pid)
 {
 	int	stat_loc;
-	int	sig;
+//	int	sig;
 
 	waitpid(pid, &stat_loc, 0);
-	if ((sig = interrupt_handler(0)))
-		write(0, "^C\n", 3);
+//	if ((sig = interrupt_handler(0)))
+//		write(0, "^C\n", 3);
 	return (stat_loc);
 }
 

@@ -25,6 +25,7 @@ int	execute_or(t_tree *tree)
 	int		ret;
 
 	it = (t_tree **)tree->children->begin;
+	ret = 0;
 	while (it != tree->children->end)
 	{
 		if ((ret = dispatch_branch(*it)) == 0)
@@ -40,6 +41,7 @@ int	execute_and(t_tree *tree)
 	int		ret;
 
 	it = (t_tree **)tree->children->begin;
+	ret = 0;
 	while (it != tree->children->end)
 	{
 		if ((ret = dispatch_branch(*it)) != 0)
@@ -55,6 +57,7 @@ int	execute_list(t_tree *tree)
 	int		ret;
 
 	it = (t_tree **)tree->children->begin;
+	ret = 0;
 	while (it != tree->children->end)
 	{
 		ret = dispatch_branch(*it);

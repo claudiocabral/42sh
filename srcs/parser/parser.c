@@ -22,7 +22,7 @@ t_tree		*and_or(t_tree *tree, t_array *tokens, t_token **current)
 {
 	t_tree	*branch;
 
-	branch = 0;
+	ZERO_IF_FAIL(branch = pipeline(0, tokens, current));
 	while (1)
 	{
 		if (match(current, AND_IF, OR_IF, SENTINEL))
@@ -41,6 +41,7 @@ t_tree		*and_or(t_tree *tree, t_array *tokens, t_token **current)
 t_tree		*list(t_tree *tree, t_array *tokens, t_token **current)
 {
 	t_token token;
+	t_tree	*child;
 
 	token = emit_token(LIST, 0, 0, 0);
 	ZERO_IF_FAIL(tree = tree_add_child(tree,
@@ -51,7 +52,12 @@ t_tree		*list(t_tree *tree, t_array *tokens, t_token **current)
 			continue ;
 		else if (!peek(current, TOKEN_END, SENTINEL))
 		{
-			if (!(tree = tree_add_child(tree, and_or(0, tokens, current))))
+			if (!(child = and_or(0, tokens, current)))
+			{
+				tree_free(tree, &noop);
+				return (0);
+			}
+			if (!(tree = tree_add_child(tree, child)))
 				break ;
 		}
 		else
