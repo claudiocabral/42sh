@@ -5,6 +5,8 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+#include <stdio.h>
 
 #include "globbing.h"
 
@@ -15,6 +17,17 @@
 char*
 inclusive_expanders(t_glob *pc)
 {
+	char *tok = strtok(pc->raw, "*");
+	/*
+	 * Todo: Support list combinaison ...
+	 */
+	if (pc->raw[0] == '*' || pc->raw[strlen(pc->raw)] == '*') {
+		printf("uochurcoeducoeu\n");
+	}
+	while (tok != NULL) {
+		find_single_pattern(tok, ".");
+		tok = strtok(NULL, "*");
+	}
 	return (pc->raw);
 }
 
