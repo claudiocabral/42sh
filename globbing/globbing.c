@@ -11,7 +11,6 @@
 
 #include <globbing.h>
 
-
 /*
  * Trivial lexer for trivial
  * structure parsing
@@ -56,13 +55,10 @@ getflavor(const char *prop)
 int
 deglob(const char *input)
 {
-	int occur = 0;
-	char *tk = strtok(input, " \t\r");
+	char *tk = strtok((char*)input, " \t\r");
 
 	while (tk != NULL) {
-#ifdef DEBUG
 		printf("Raw: %s - Token: %d\n", tk, getflavor(tk));
-#endif
 		tk = strtok(NULL, " \t\r");
 	}
 	return (EXIT_SUCCESS);
