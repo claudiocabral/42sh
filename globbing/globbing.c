@@ -9,7 +9,7 @@
 #include <string.h>
 #include <assert.h>
 
-#include <globbing.h>
+#include "globbing.h"
 
 /*
  * Trivial lexer for trivial
@@ -52,13 +52,28 @@ getflavor(const char *prop)
 	}
 }
 
+static char*
+debugflavor(Flavor flavor)
+{
+	char *reference[SENTINEL + 1]
+		= {"INCLUSIVE",
+		   "ANYCHAR",
+		   "STRICTARRAY",
+		   "ARRAYRANGE",
+		   "STRICTARRAY_NOT",
+		   "ARRAYRANGE_NOT",
+		   "STRING_MATCHER",
+		   "SENTINEL"};
+	return (reference[flavor]);
+}
+
 int
 deglob(const char *input)
 {
 	char *tk = strtok((char*)input, " \t\r");
 
 	while (tk != NULL) {
-		printf("Raw: %s - Token: %d\n", tk, getflavor(tk));
+		printf("Raw: %s - Token: %s\n", tk, debugflavor(getflavor(tk)));
 		tk = strtok(NULL, " \t\r");
 	}
 	return (EXIT_SUCCESS);
