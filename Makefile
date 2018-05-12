@@ -7,11 +7,11 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/01/15 11:16:39 by ccabral          ###   ########.fr        #
+#    Updated: 2018/05/12 12:03:36 by iomonad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	:=	21sh
+NAME	:=	42sh
 ifeq (CC,)
 CC		:=	cc
 endif
