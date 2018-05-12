@@ -79,7 +79,7 @@ t_tree		*parse(t_array *tokens)
 	t_tree	*tree;
 	t_tree	*child;
 
-	if (!tokens || tokens->begin == tokens->end)
+	if (!tokens || peek((t_token**)&tokens->begin, TOKEN_END, SENTINEL))
 	{
 		array_free(tokens, &noop);
 		return (0);
