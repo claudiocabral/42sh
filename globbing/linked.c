@@ -8,7 +8,6 @@
 #include <string.h>
 
 #include "globbing.h"
-#include "linked.h"
 
 /*
  * Allocate new node
@@ -49,5 +48,21 @@ append(t_glob** head, t_glob *node)
 			iterator = iterator->next;
 		}
 		iterator->next = node;
+	}
+}
+
+/*
+ * Cleanup list
+ */
+void
+cleanup(t_glob* head)
+{
+	t_glob *temp = NULL;
+
+	while (head != NULL) {
+		temp = head;
+		head = head->next;
+		free(temp->raw);
+		free(temp);
 	}
 }

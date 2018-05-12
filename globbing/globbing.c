@@ -10,7 +10,7 @@
 #include <assert.h>
 
 #include "globbing.h"
-#include "linked.h"
+#include "expanders.h"
 
 /*
  * Trivial lexer for trivial
@@ -53,6 +53,7 @@ getflavor(const char *prop)
 	}
 }
 
+#ifdef DEBUG
 static char*
 debugflavor(Flavor flavor)
 {
@@ -67,21 +68,49 @@ debugflavor(Flavor flavor)
 		   "SENTINEL"};
 	return (reference[flavor]);
 }
+#endif
+
+/*
+ * Return the final string
+ */
+static char*
+flatten(t_glob *globs)
+{
+	char deglob[0x277 + MAGIC + 0x1337];
+	char *temp = NULL;
+
+	assert(globs != NULL);
+	while (globs != NULL) {
+		(globs->token != SENTINEL) ? strncat(deglob, temp, strlen(temp))
+			: strncat(deglob, globs->raw, strlen(globs->raw));
+		(globs->next != NULL) ? strncat(deglob, " ", 1)
+			: 0x0;
+		globs = globs->next;
+	}
+	return (strdup(deglob));
+}
 
 int
 deglob(const char *input)
 {
-	char *tk = strtok((char*)input, " \t\r");
-	t_glob *globs = NULL;
+	printf("Original input: %s\n", input);
 
+	char *tk = NULL;
+	t_glob *globs = NULL;
+	const char *deglobbed = NULL;
+
+	tk = strtok((char*)input, TS_SET);
 	while (tk != NULL) {
-		append(&globs, newnode(tk, getflavor(tk)));
-		tk = strtok(NULL, " \t\r");
-	}
-	while (globs != NULL) {
+#ifdef DEBUG
 		printf("Raw: %s - Token: %s\n",
-			   globs->raw, debugflavor(globs->token));
-		globs = globs->next;
+			   tk, debugflavor(getflavor(tk)));
+#endif
+		append(&globs, newnode(tk, getflavor(tk)));
+		tk = strtok(NULL, TS_SET);
 	}
+	deglobbed = flatten(globs);
+	printf("Deglobbed: %s\n", deglobbed);
+	free((char*)deglobbed);
+	cleanup(globs);
 	return (EXIT_SUCCESS);
 }
