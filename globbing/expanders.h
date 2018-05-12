@@ -19,7 +19,7 @@ char* stringmatcher_expanders(t_glob *pc);
 typedef struct s_callbacks
 {
 	Flavor flavor;
-	char (*callback)(t_glob*);
+	char *(*callback)(t_glob*);
 } t_callbacks;
 
 t_callbacks	callbacks[SENTINEL + 2] =
