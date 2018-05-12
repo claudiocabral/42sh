@@ -10,6 +10,7 @@
 #include <assert.h>
 
 #include "globbing.h"
+#include "linked.h"
 
 /*
  * Trivial lexer for trivial
@@ -71,10 +72,16 @@ int
 deglob(const char *input)
 {
 	char *tk = strtok((char*)input, " \t\r");
+	t_glob *globs = NULL;
 
 	while (tk != NULL) {
-		printf("Raw: %s - Token: %s\n", tk, debugflavor(getflavor(tk)));
+		append(&globs, newnode(tk, getflavor(tk)));
 		tk = strtok(NULL, " \t\r");
+	}
+	while (globs != NULL) {
+		printf("Raw: %s - Token: %s\n",
+			   globs->raw, debugflavor(globs->token));
+		globs = globs->next;
 	}
 	return (EXIT_SUCCESS);
 }
