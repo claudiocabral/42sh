@@ -29,3 +29,23 @@ find_single_pattern(const char* needle,
 		closedir(dir);
 	}
 }
+
+/*
+ * The lazy way
+ */
+void
+full_inclusive_pattern(const char *path)
+{
+	DIR* dir = NULL;
+	struct dirent *entry = NULL;
+
+	if ((dir = opendir(path)) != NULL) {
+		while ((entry = readdir(dir)) != NULL) {
+			if (strcmp(entry->d_name, ".") == 0
+				|| strcmp(entry->d_name, "..") == 0)
+				continue;
+			printf("Matching patterns: %s\n", entry->d_name);
+		}
+		closedir(dir);
+	}
+}

@@ -42,5 +42,6 @@ void    cleanup(t_glob* head);
 t_glob* newnode(const char *raw, Flavor flavor);
 void    append(t_glob** head, t_glob *node);
 void    find_single_pattern(const char* needle, const char *path);
+void    full_inclusive_pattern(const char *path);
 
 #endif /* GLOBBING_H */

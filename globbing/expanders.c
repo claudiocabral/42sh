@@ -17,16 +17,25 @@
 char*
 inclusive_expanders(t_glob *pc)
 {
-	char *tok = strtok(pc->raw, "*");
-	/*
-	 * Todo: Support list combinaison ...
-	 */
-	if (pc->raw[0] == '*' || pc->raw[strlen(pc->raw)] == '*') {
-		printf("uochurcoeducoeu\n");
+	char patterns[0x32];
+	char *tok;
+	size_t i = 0;
+
+	/* handle full cases */
+	if (strcmp(pc->raw, "*") == 0) {
+		full_inclusive_pattern(".");
+		return (pc->raw);
 	}
+
+	tok = strtok(pc->raw, "*");
 	while (tok != NULL) {
-		find_single_pattern(tok, ".");
+		/*
+		 *  Gestion des multimatch et
+		 * choix entre les logiques.
+		 */
+		patterns[i] = tok;
 		tok = strtok(NULL, "*");
+		i++;
 	}
 	return (pc->raw);
 }
