@@ -7,7 +7,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/05/12 12:03:36 by iomonad          ###   ########.fr        #
+#    Updated: 2018/05/12 12:44:51 by iomonad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME	:=	42sh
 ifeq (CC,)
 CC		:=	cc
 endif
-CFLAGS	:=	-Wextra -Werror -Wall
+CFLAGS	:=	-Wextra -Werror -Wall -msse2 -march=native -Wshadow -ftrapv
 CDEBUG	:=	-g
 
 LIBFT_PATH	:=	libft
@@ -162,6 +162,9 @@ endif
 ifeq ($(shell [ -e objs ] && echo 1 || echo 0),1)
 	rm -rf objs
 endif
+
+llvm-checks:
+	scan-build make
 
 re:
 	$(MAKE) fclean
