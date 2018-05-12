@@ -43,6 +43,8 @@ t_tree			*tree_add_child(t_tree *parent, t_tree *child)
 		ZERO_IF_FAIL(array_push_back(parent->children, &child));
 		return (parent);
 	}
+	if (!child)
+		return (parent);
 	return (child);
 }
 

@@ -71,6 +71,10 @@ int	dispatch_branch(t_tree *tree)
 		return (execute_list(tree));
 	else if (branch_equals(tree, PIPE))
 		return (execute_pipe(tree));
+	else if (branch_equals(tree, AND_IF))
+		return (execute_and(tree));
+	else if (branch_equals(tree, OR_IF))
+		return (execute_or(tree));
 	else
 		return (execute_commands(tree));
 }

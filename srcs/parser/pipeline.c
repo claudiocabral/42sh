@@ -34,11 +34,9 @@ t_tree		*simple_command(t_array *tokens, t_token **current)
 
 	token = emit_token(SIMPLE_COMMAND, 0, 0, 0);
 	ZERO_IF_FAIL(tree = tree_create_node(&token, sizeof(t_token)));
-	while (*current != tokens->end)
+	while (1)
 	{
-		if (peek(current, SEMICOLON, PIPE, SENTINEL))
-			return (tree);
-		else if (peek(current, IO_NUMBER, LESS, DLESS, LESSAND, GREATERAND,
+		if (peek(current, IO_NUMBER, LESS, DLESS, LESSAND, GREATERAND,
 												GREATER, DGREATER, SENTINEL))
 		{
 			if (!tree_add_child(tree, io_redirect(tokens, current)))
@@ -47,8 +45,10 @@ t_tree		*simple_command(t_array *tokens, t_token **current)
 				return (0);
 			}
 		}
-		else
+		else if (peek(current, TOKEN, SENTINEL))
 			tree_add_child(tree, command_name(current));
+		else
+			break ;
 	}
 	return (tree);
 }
@@ -62,15 +62,19 @@ t_tree		*command(t_tree *tree, t_array *tokens, t_token **current)
 		return (0);
 	token = emit_token(COMMANDS, 0, 0, 0);
 	commands = tree_create_node(&token, sizeof(t_token));
-	while (*current != tokens->end)
+	while (1)
 	{
-		if (peek(current, SEMICOLON, PIPE, SENTINEL))
-			break ;
-		if (!tree_add_child(commands, simple_command(tokens, current)))
+		if (peek(current, IO_NUMBER, LESS, DLESS, LESSAND, GREATERAND,
+									GREATER, DGREATER, TOKEN, SENTINEL))
 		{
-			tree_free(commands, (t_freef) & noop);
-			return (0);
+			if (!tree_add_child(commands, simple_command(tokens, current)))
+			{
+				tree_free(commands, (t_freef) & noop);
+				return (0);
+			}
 		}
+		else
+			break ;
 	}
 	tree = tree_add_child(tree, commands);
 	return (tree);
@@ -83,21 +87,23 @@ t_tree		*pipeline_sequence(t_tree *tree, t_array *tokens, t_token **current)
 	child = 0;
 	while (1)
 	{
-		if (match(current, SEMICOLON, SENTINEL))
-			break ;
-		if (!(child = command(0, tokens, current)))
+		if (peek(current, IO_NUMBER, LESS, DLESS, LESSAND, GREATERAND,
+									GREATER, DGREATER, TOKEN, SENTINEL))
 		{
-			tree_free(tree, (t_freef) & noop);
-			return (0);
+			if (!(child = command(0, tokens, current)))
+			{
+				tree_free(tree, (t_freef) & noop);
+				return (0);
+			}
+			tree = tree_add_child(tree, child);
 		}
-		tree = tree_add_child(tree, child);
-		if (*current == tokens->end)
-			break ;
-		if (match(current, PIPE, SENTINEL))
+		else if (match(current, PIPE, SENTINEL))
 		{
 			child = tree_create_node(*(current) - 1, sizeof(t_token));
 			tree = tree_add_child(child, tree);
 		}
+		else
+			break ;
 	}
 	return (tree);
 }

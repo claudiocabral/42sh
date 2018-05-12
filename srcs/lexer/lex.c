@@ -46,6 +46,19 @@ static char const	*lex_get_heredoc_pointer(char const *input)
 	return (input);
 }
 
+static t_array		*finalize_tokens(t_array *tokens)
+{
+	t_token	dummy;
+
+	dummy = emit_token(TOKEN_END, 0, 0, 0);
+	if (!(array_push_back(tokens, &dummy)))
+	{
+		array_free(tokens, &noop);
+		return (0);
+	}
+	return (tokens);
+}
+
 t_array				*lex(char const *input_ptr)
 {
 	t_array		*tokens;
@@ -63,5 +76,5 @@ t_array				*lex(char const *input_ptr)
 		array_free(tokens, &noop);
 		return (0);
 	}
-	return (tokens);
+	return (finalize_tokens(tokens));
 }
