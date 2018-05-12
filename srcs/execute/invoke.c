@@ -32,12 +32,17 @@ int		invoke_builtin(t_builtin const *command, char **args)
 
 int		wait_process(pid_t pid)
 {
-	int	stat_loc;
-//	int	sig;
+	int		stat_loc;
+	char	*res;
 
 	waitpid(pid, &stat_loc, 0);
-//	if ((sig = interrupt_handler(0)))
-//		write(0, "^C\n", 3);
+	if ((WIFSIGNALED(stat_loc)))
+		write(0, "\n", 1);
+	if((res = ft_itoa(stat_loc)))
+	{
+		ft_setenv("?", res, 1);
+		free(res);
+	}
 	return (stat_loc);
 }
 

@@ -54,6 +54,7 @@ OBJS	=	objs/main.o \
 			objs/parser/pipeline.o \
 			objs/parser/redirection.o \
 			objs/parser/match.o \
+			objs/IO/default.o \
 			objs/IO/brackets.o \
 			objs/IO/get_next_terminal_command.o \
 			objs/IO/input_mode.o \

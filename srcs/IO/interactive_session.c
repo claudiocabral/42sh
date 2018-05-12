@@ -24,6 +24,7 @@
 void				quit(t_terminal *terminal)
 {
 	termios_toggle_isig(terminal, 1);
+	set_termios(&(terminal->original));
 	write(STDIN_FILENO, "\n", 1);
 	free_terminal(terminal);
 	exit(0);
