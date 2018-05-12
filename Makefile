@@ -93,6 +93,7 @@ OBJS	=	objs/main.o \
 			objs/builtins/echo.o \
 			objs/builtins/pwd.o \
 			objs/environment/setenv.o \
+			objs/environment/setup.o \
 			objs/environment/environment.o \
 			objs/environment/prepare_env.o
 

@@ -26,5 +26,6 @@ t_array			*copy_environment(void);
 int				print_environment(t_array *env);
 void			environment_remove_if(char const *data, t_predf predicate);
 int				set_current_path(void);
+void			set_shlvl(void);
 
 #endif
