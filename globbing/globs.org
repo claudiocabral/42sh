@@ -2,7 +2,7 @@
 #+TITLE: Globs Milestone
 
 * TODO Globs quest
- 1) [ ] Pattern inclusif "*"
+ 1) [X] Pattern inclusif "*"
  2) [ ] Any char pattern "?"
  3) [ ] Char array matcher "[abc]"
  4) [ ] Char ranger matcher "[a-z]"
@@ -11,18 +11,18 @@
  7) [ ] String matcher "{}"
 
 
-|------------------+-------------------------------------------------|
-| Globbing Pattern | Defined or Undefined behaviour / Mandatory part |
-|------------------+-------------------------------------------------|
-|                  |                                                 |
-|                  |                                                 |
-|                  |                                                 |
-|                  |                                                 |
-|                  |                                                 |
-|                  |                                                 |
-|                  |                                                 |
-|                  |                                                 |
-|                  |                                                 |
-|                  |                                                 |
-|                  |                                                 |
-|------------------+-------------------------------------------------|
+|------------------+----------------------------------------------------------------------------|
+| Globbing Pattern | Defined or Undefined behaviour / Mandatory part                            |
+|------------------+----------------------------------------------------------------------------|
+| *.*              | Apply for matcher patterns, available for *file extension*/*Name matching* |
+|                  |                                                                            |
+|                  |                                                                            |
+|                  |                                                                            |
+|                  |                                                                            |
+|                  |                                                                            |
+|                  |                                                                            |
+|                  |                                                                            |
+|                  |                                                                            |
+|                  |                                                                            |
+|                  |                                                                            |
+|------------------+----------------------------------------------------------------------------|

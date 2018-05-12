@@ -10,6 +10,7 @@
 #include <assert.h>
 
 #include "globbing.h"
+#include "expanders.h"
 
 /*
  * Trivial lexer for trivial
@@ -75,32 +76,13 @@ debugflavor(Flavor flavor)
 static char*
 flatten(t_glob *globs)
 {
-	char deglob[MAGIC];
+	char deglob[0x277 + MAGIC + 0x1337];
+	char *temp = NULL;
 
 	assert(globs != NULL);
 	while (globs != NULL) {
-		/*
-		 * Process each tokens
-		 */
-		switch (globs->token) {
-		case INCLUSIVE:
-			break;
-		case ANYCHAR:
-			break;
-		case STRICTARRAY:
-			break;
-		case ARRAYRANGE:
-			break;
-		case STRICTARRAY_NOT:
-			break;
-		case ARRAYRANGE_NOT:
-			break;
-		case STRING_MATCHER:
-			break;
-		case SENTINEL:			/* Regular word */
-			strncat(deglob, globs->raw, strlen(globs->raw));
-			break;
-		}
+		(globs->token != SENTINEL) ? strncat(deglob, temp, strlen(temp))
+			: strncat(deglob, globs->raw, strlen(globs->raw));
 		(globs->next != NULL) ? strncat(deglob, " ", 1)
 			: 0x0;
 		globs = globs->next;
