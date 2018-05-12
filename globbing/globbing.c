@@ -81,6 +81,20 @@ flatten(t_glob *globs)
 
 	assert(globs != NULL);
 	while (globs != NULL) {
+		if (globs->token == INCLUSIVE)
+			temp = inclusive_expanders(globs);
+		else if (globs->token == ANYCHAR)
+			temp = anychar_expanders(globs);
+		else if (globs->token == STRICTARRAY)
+			temp = strictarray_expanders(globs);
+		else if (globs->token == ARRAYRANGE)
+			temp = arrayrange_expanders(globs);
+		else if (globs->token == STRICTARRAY_NOT)
+			temp = arrayrange_not_expanders(globs);
+		else if (globs->token == ARRAYRANGE_NOT)
+			temp = arrayrange_not_expanders(globs);
+		else if (globs->token == STRING_MATCHER)
+			temp = stringmatcher_expanders(globs);
 		(globs->token != SENTINEL) ? strncat(deglob, temp, strlen(temp))
 			: strncat(deglob, globs->raw, strlen(globs->raw));
 		(globs->next != NULL) ? strncat(deglob, " ", 1)
