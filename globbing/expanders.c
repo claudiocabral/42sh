@@ -27,7 +27,7 @@ inclusive_expanders(t_glob *pc)
 
 	assert(pc != NULL);
 
-	wpath = getwpath(pc->raw);
+	wpath = getwpath(pc->raw, pc->raw);
 	if (strcmp(pc->raw, INCLUSIVE_SET) == 0)
 		full_inclusive_pattern(wpath, results, 0);
 	else {
@@ -41,7 +41,11 @@ inclusive_expanders(t_glob *pc)
 		i = 0;
 	}
 	while (results[i] != NULL) {
-		strncat(final, results[i], strlen(results[i]));
+		char tmp[MAGIC];
+		strncat(tmp, pc->raw, strlen(pc->raw));
+		strncat(tmp, "/", 1);
+		strncat(tmp, results[i], strlen(results[i]));
+		strncat(final, tmp, strlen(results[i]));
 		if (results[i + 1] != NULL) {
 			strncat(final, SEPARATOR, 1);
 		}
