@@ -111,11 +111,9 @@ flatten(t_glob *globs)
 	return (strdup(deglob));
 }
 
-int
+char*
 deglob(const char *input)
 {
-	printf("Original input: %s\n", input);
-
 	char *tk = NULL;
 	t_glob *globs = NULL;
 	const char *deglobbed = NULL;
@@ -130,10 +128,9 @@ deglob(const char *input)
 		tk = strtok(NULL, TS_SET);
 	}
 	if ((deglobbed = flatten(globs)) == NULL) {
-		return (EXIT_FAILURE);
+		cleanup(globs);
+		exit(EXIT_FAILURE);
 	}
-	printf("Deglobbed: %s\n", deglobbed);
-	free((char*)deglobbed);
 	cleanup(globs);
-	return (EXIT_SUCCESS);
+	return ((char*)deglobbed);
 }

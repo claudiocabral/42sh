@@ -38,12 +38,13 @@ typedef struct	s_glob {
 }				t_glob;
 
 
-int     deglob(const char *input);
+char*   deglob(const char *input);
 void    append(t_glob** head, t_glob *node);
 void    cleanup(t_glob* head);
 t_glob* newnode(const char *raw, Flavor flavor);
 void    append(t_glob** head, t_glob *node);
 void    find_single_pattern(const char *path, char **patterns, char **results);
 void    full_inclusive_pattern(const char *path, char **results, size_t i);
+char*   getwpath(const char *wild);
 
 #endif /* GLOBBING_H */

@@ -2,7 +2,7 @@ NAME = globbing
 CC = cc
 CCFLAGS = -Wall -Wextra -pedantic -I.
 CCFLAGSD = -Wall -Wextra -pedantic -I. -DDEBUG
-SRC = main.c globbing.c linked.c expanders.c walker.c
+SRC = main.c globbing.c linked.c expanders.c walker.c utils.c
 
 all:
 	$(CC) $(CCFLAGS) $(SRC) -o $(NAME)

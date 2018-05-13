@@ -23,10 +23,13 @@ inclusive_expanders(t_glob *pc)
 	char *tok;
 	char final[MAGIC];
 	size_t i = 0;
+	char *wpath = NULL;
 
 	assert(pc != NULL);
+
+	wpath = getwpath(pc->raw);
 	if (strcmp(pc->raw, INCLUSIVE_SET) == 0)
-		full_inclusive_pattern(".", results, 0);
+		full_inclusive_pattern(wpath, results, 0);
 	else {
 		tok = strtok(pc->raw, INCLUSIVE_SET);
 		while (tok != NULL) {
@@ -34,7 +37,7 @@ inclusive_expanders(t_glob *pc)
 			tok = strtok(NULL, INCLUSIVE_SET);
 			i++;
 		}
-		find_single_pattern(".", patterns, results);
+		find_single_pattern(wpath, patterns, results);
 		i = 0;
 	}
 	while (results[i] != NULL) {
