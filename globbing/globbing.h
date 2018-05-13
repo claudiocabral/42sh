@@ -9,6 +9,8 @@
 #define DBG(x) (printf("%s, l%d: ", __FILE__, __LINE__); \
 				x;)
 #define TS_SET " \t\r"
+#define INCLUSIVE_SET "*"
+#define SEPARATOR " "
 #define MAGIC 0x1000
 
 /*
