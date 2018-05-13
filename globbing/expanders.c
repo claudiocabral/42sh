@@ -44,7 +44,7 @@ inclusive_expanders(t_glob *pc)
 		}
 		i++;
 	}
-	return (strdup(final));
+	return ((final[0] != '\0') ? strdup(final) : NULL);
 }
 
 /*

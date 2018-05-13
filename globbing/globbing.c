@@ -53,7 +53,6 @@ getflavor(const char *prop)
 	}
 }
 
-#ifdef DEBUG
 static char*
 debugflavor(Flavor flavor)
 {
@@ -68,7 +67,6 @@ debugflavor(Flavor flavor)
 		   "SENTINEL"};
 	return (reference[flavor]);
 }
-#endif
 
 /*
  * Return the final string
@@ -95,6 +93,15 @@ flatten(t_glob *globs)
 			temp = arrayrange_not_expanders(globs);
 		else if (globs->token == STRING_MATCHER)
 			temp = stringmatcher_expanders(globs);
+		/*
+		 * Matche checker
+		 */
+		if (globs->token != SENTINEL
+			&& (temp == NULL || temp[0] == '\0')) {
+			dprintf(2, "42sh: no matches found for %s token.\n",
+					debugflavor(globs->token));
+			return (NULL);
+		}
 		(globs->token != SENTINEL) ? strncat(deglob, temp, strlen(temp))
 			: strncat(deglob, globs->raw, strlen(globs->raw));
 		(globs->next != NULL) ? strncat(deglob, " ", 1)
@@ -122,7 +129,9 @@ deglob(const char *input)
 		append(&globs, newnode(tk, getflavor(tk)));
 		tk = strtok(NULL, TS_SET);
 	}
-	deglobbed = flatten(globs);
+	if ((deglobbed = flatten(globs)) == NULL) {
+		return (EXIT_FAILURE);
+	}
 	printf("Deglobbed: %s\n", deglobbed);
 	free((char*)deglobbed);
 	cleanup(globs);
