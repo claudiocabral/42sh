@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include <assert.h>
 
 #include "globbing.h"
 
@@ -17,27 +18,33 @@
 char*
 inclusive_expanders(t_glob *pc)
 {
-	char patterns[0x32];
+	char *patterns[0x32];
+	char *results[MAGIC];
 	char *tok;
+	char final[MAGIC];
 	size_t i = 0;
 
-	/* handle full cases */
-	if (strcmp(pc->raw, "*") == 0) {
-		full_inclusive_pattern(".");
-		return (pc->raw);
+	assert(pc != NULL);
+	if (strcmp(pc->raw, "*") == 0)
+		full_inclusive_pattern(".", results, 0);
+	else {
+		tok = strtok(pc->raw, "*");
+		while (tok != NULL) {
+			patterns[i] = tok;
+			tok = strtok(NULL, "*");
+			i++;
+		}
+		find_single_pattern(".", patterns, results);
+		i = 0;
 	}
-
-	tok = strtok(pc->raw, "*");
-	while (tok != NULL) {
-		/*
-		 *  Gestion des multimatch et
-		 * choix entre les logiques.
-		 */
-		patterns[i] = tok;
-		tok = strtok(NULL, "*");
+	while (results[i] != NULL) {
+		strncat(final, results[i], strlen(results[i]));
+		if (results[i + 1] != NULL) {
+			strncat(final, " ", 1);
+		}
 		i++;
 	}
-	return (pc->raw);
+	return (strdup(final));
 }
 
 /*
