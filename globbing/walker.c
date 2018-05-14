@@ -36,7 +36,7 @@ find_single_pattern(const char *path,
 			}
 			if (!(k ^= 1))
 				continue ;
-			results[j] = entry->d_name;
+			results[j] = strdup(entry->d_name);
 			j++;
 		}
 		closedir(dir);

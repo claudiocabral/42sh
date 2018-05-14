@@ -74,11 +74,16 @@ debugflavor(Flavor flavor)
 static char*
 flatten(t_glob *globs)
 {
-	char deglob[0x277 + MAGIC + 0x1337];
+	char deglob[MAGIC];
 	char *temp = NULL;
 
 	assert(globs != NULL);
-	while (globs != NULL) {
+	while (globs != NULL)
+	{
+		/*
+		 * Flavor assignation
+		 * block ~
+		 */
 		if (globs->token == INCLUSIVE)
 			temp = inclusive_expanders(globs);
 		else if (globs->token == ANYCHAR)
@@ -93,8 +98,9 @@ flatten(t_glob *globs)
 			temp = arrayrange_not_expanders(globs);
 		else if (globs->token == STRING_MATCHER)
 			temp = stringmatcher_expanders(globs);
+
 		/*
-		 * Matche checker
+		 * String crafting block
 		 */
 		if (globs->token != SENTINEL
 			&& (temp == NULL || temp[0] == '\0')) {
@@ -111,12 +117,16 @@ flatten(t_glob *globs)
 	return (strdup(deglob));
 }
 
+/*
+ * Return function wrapper
+ * for the runner middleware.
+ */
 char*
 deglob(const char *input)
 {
 	char *tk = NULL;
 	t_glob *globs = NULL;
-	const char *deglobbed = NULL;
+	char *deglobbed = NULL;
 
 	tk = strtok((char*)input, TS_SET);
 	while (tk != NULL) {
@@ -132,5 +142,5 @@ deglob(const char *input)
 		exit(EXIT_FAILURE);
 	}
 	cleanup(globs);
-	return ((char*)deglobbed);
+	return (deglobbed);
 }
