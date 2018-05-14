@@ -18,15 +18,15 @@
 char*
 inclusive_expanders(t_glob *pc)
 {
-	char *patterns[32];
+	char *patterns[MAGIC];
 	char *results[MAGIC];
-	char *tok;
 	char final[MAGIC];
 	size_t i = 0;
 	char *wpath = NULL;
+	char *tok;
 
 	wpath = getwpath(pc->raw);
-		assert(pc != NULL && pc->raw != NULL);
+	assert(pc != NULL && pc->raw != NULL);
 	if (strcmp(pc->raw, INCLUSIVE_SET) == 0)
 		full_inclusive_pattern(wpath, results, 0);
 	else {
