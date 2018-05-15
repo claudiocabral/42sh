@@ -66,7 +66,7 @@ t_string	*string_destructive_insert(t_string *string, char *where,
 	if ((where + size) >= string->buffer + string->capacity)
 		string->capacity = ft_realloc((void **)&(string->buffer),
 				string->capacity, (string->capacity + size) * 2);
-	if (!string->buffer)
+	if (!string->buffer || !string->capacity)
 		return (0);
 	ft_memcpy(where, what, size);
 	return (string);
