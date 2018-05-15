@@ -61,13 +61,19 @@ t_string	*string_destructive_insert(t_string *string, char *where,
 													char const *what)
 {
 	size_t	size;
+	size_t	offset;
 
+	if (where < string->buffer)
+		return (0);
 	size = ft_strlen(what) + 1;
-	if ((where + size) >= string->buffer + string->capacity)
+	offset = where - string->buffer;
+	if ((offset + size) >= string->capacity)
+	{
 		string->capacity = ft_realloc((void **)&(string->buffer),
 				string->capacity, (string->capacity + size) * 2);
+	}
 	if (!string->buffer || !string->capacity)
 		return (0);
-	ft_memcpy(where, what, size);
+	ft_memcpy(string->buffer + offset, what, size);
 	return (string);
 }
