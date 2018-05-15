@@ -9,8 +9,8 @@
 #include <string.h>
 #include <assert.h>
 
-#include <globbing.h>
-
+#include "globbing.h"
+#include "expanders.h"
 
 /*
  * Trivial lexer for trivial
@@ -53,17 +53,94 @@ getflavor(const char *prop)
 	}
 }
 
-int
+static char*
+debugflavor(Flavor flavor)
+{
+	char *reference[SENTINEL + 1]
+		= {"INCLUSIVE",
+		   "ANYCHAR",
+		   "STRICTARRAY",
+		   "ARRAYRANGE",
+		   "STRICTARRAY_NOT",
+		   "ARRAYRANGE_NOT",
+		   "STRING_MATCHER",
+		   "SENTINEL"};
+	return (reference[flavor]);
+}
+
+/*
+ * Return the final string
+ */
+static char*
+flatten(t_glob *globs)
+{
+	char deglob[MAGIC];
+	char *temp = NULL;
+
+	assert(globs != NULL);
+	while (globs != NULL)
+	{
+		/*
+		 * Flavor assignation
+		 * block ~
+		 */
+		if (globs->token == INCLUSIVE)
+			temp = inclusive_expanders(globs);
+		else if (globs->token == ANYCHAR)
+			temp = anychar_expanders(globs);
+		else if (globs->token == STRICTARRAY)
+			temp = strictarray_expanders(globs);
+		else if (globs->token == ARRAYRANGE)
+			temp = arrayrange_expanders(globs);
+		else if (globs->token == STRICTARRAY_NOT)
+			temp = arrayrange_not_expanders(globs);
+		else if (globs->token == ARRAYRANGE_NOT)
+			temp = arrayrange_not_expanders(globs);
+		else if (globs->token == STRING_MATCHER)
+			temp = stringmatcher_expanders(globs);
+
+		/*
+		 * String crafting block
+		 */
+		if (globs->token != SENTINEL
+			&& (temp == NULL || temp[0] == '\0')) {
+			dprintf(2, "42sh: no matches found for %s token.\n",
+					debugflavor(globs->token));
+			return (NULL);
+		}
+		(globs->token != SENTINEL) ? strncat(deglob, temp, strlen(temp))
+			: strncat(deglob, globs->raw, strlen(globs->raw));
+		(globs->next != NULL) ? strncat(deglob, " ", 1)
+			: 0x0;
+		globs = globs->next;
+	}
+	return (strdup(deglob));
+}
+
+/*
+ * Return function wrapper
+ * for the runner middleware.
+ */
+char*
 deglob(const char *input)
 {
-	int occur = 0;
-	char *tk = strtok(input, " \t\r");
+	char *tk = NULL;
+	t_glob *globs = NULL;
+	char *deglobbed = NULL;
 
+	tk = strtok((char*)input, TS_SET);
 	while (tk != NULL) {
 #ifdef DEBUG
-		printf("Raw: %s - Token: %d\n", tk, getflavor(tk));
+		printf("Raw: %s - Token: %s\n",
+			   tk, debugflavor(getflavor(tk)));
 #endif
-		tk = strtok(NULL, " \t\r");
+		append(&globs, newnode(tk, getflavor(tk)));
+		tk = strtok(NULL, TS_SET);
 	}
-	return (EXIT_SUCCESS);
+	if ((deglobbed = flatten(globs)) == NULL) {
+		cleanup(globs);
+		exit(EXIT_FAILURE);
+	}
+	cleanup(globs);
+	return (deglobbed);
 }

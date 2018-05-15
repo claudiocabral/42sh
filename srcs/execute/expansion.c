@@ -57,7 +57,6 @@ char	*expand(char *value)
 	size_t	size;
 	char	*str;
 
-	size = 0;
 	str = value;
 	if (ft_strncmp(value, "~/", 2) == 0)
 	{

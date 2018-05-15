@@ -42,7 +42,7 @@ char			*ft_strtok(char *str, const char *delim)
 	int			i;
 
 	s = (str) ? str : s;
-	if (*s == '\0' || (s = split_delimiters(s, (char*)delim)) == NULL)
+	if (!s || *s == '\0' || (s = split_delimiters(s, (char*)delim)) == NULL)
 		return (NULL);
 	ps = s;
 	while (*ps)

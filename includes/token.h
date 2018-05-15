@@ -62,6 +62,7 @@ typedef enum	e_tag
 	GREATER,
 	BANG,
 	IN,
+	TOKEN_END,
 	SENTINEL
 }				t_tag;
 

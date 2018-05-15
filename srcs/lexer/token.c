@@ -22,7 +22,7 @@ int			add_token(t_array *tokens, t_tag type, char const *begin,
 
 	fill_token(&token, type, begin, size);
 	if (array_push_back(tokens, &token))
-		return (1);
+		return (size);
 	return (0);
 }
 

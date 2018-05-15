@@ -65,7 +65,6 @@ int					ft_dprintf(int fd, char const *format, ...)
 	t_modifiers			modifiers;
 	unsigned long long	ret;
 
-	ret = 0;
 	va_start(args, format);
 	init_modifiers(&modifiers, fd, &args);
 	va_end(args);
@@ -83,7 +82,6 @@ int					ft_printf(char const *format, ...)
 	t_modifiers			modifiers;
 	unsigned long long	ret;
 
-	ret = 0;
 	va_start(args, format);
 	init_modifiers(&modifiers, 1, &args);
 	va_end(args);

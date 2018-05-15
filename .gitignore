@@ -1,7 +1,8 @@
-21sh
+42sh
 *.o
 *.a
 .deps
 *.dSYM
 .21sh_history
 globbing/globbing
+42sh

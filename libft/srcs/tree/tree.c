@@ -43,6 +43,8 @@ t_tree			*tree_add_child(t_tree *parent, t_tree *child)
 		ZERO_IF_FAIL(array_push_back(parent->children, &child));
 		return (parent);
 	}
+	if (!child)
+		return (parent);
 	return (child);
 }
 
@@ -71,7 +73,8 @@ void			tree_free_children(t_tree *root, t_freef freef)
 		while (child != root->children->end)
 		{
 			tree_free_children(*child, freef);
-			freef((*child)->element);
+			if (*child)
+				freef((*child)->element);
 			++child;
 		}
 		array_free(root->children, (t_freef)&free_wrapper);
@@ -89,7 +92,8 @@ void			tree_free(t_tree *root, t_freef freef)
 		while (child != root->children->end)
 		{
 			tree_free_children(*child, freef);
-			freef((*child)->element);
+			if (*child)
+				freef((*child)->element);
 			++child;
 		}
 		array_free(root->children, (t_freef)&free_wrapper);

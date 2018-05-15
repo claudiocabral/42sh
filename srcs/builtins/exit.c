@@ -13,10 +13,19 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <builtins.h>
+#include <term.h>
+#include <io.h>
 
 int	builtin_exit(int argc, char **argv)
 {
+	t_terminal	*terminal;
+
 	(void)argc;
 	(void)argv;
+	if ((terminal = default_terminal(0)))
+	{
+		termios_toggle_isig(terminal, 1);
+		set_termios(&(terminal->original));
+	}
 	exit(0);
 }

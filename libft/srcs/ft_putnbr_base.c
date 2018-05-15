@@ -77,6 +77,8 @@ void		ft_putnbr_base(int nbr, const char *base)
 		return ;
 	power_x[0] = 1;
 	power_x[1] = ft_get_base_size(base);
+	if (power_x[1] == 0)
+		return ;
 	i = 1;
 	last_digit = nbr;
 	while (last_digit >= power_x[1] || last_digit <= power_x[1] * -1)

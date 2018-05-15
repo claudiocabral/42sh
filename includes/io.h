@@ -169,5 +169,6 @@ int				set_initial_path(void);
 int				check_complete_heredoc(t_slice eof, char const **line);
 void			history_cleanup(t_terminal *terminal, int save);
 char			*get_history_path(void);
+t_terminal		*default_terminal(t_terminal *terminal);
 
 #endif

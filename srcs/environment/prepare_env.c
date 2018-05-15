@@ -35,8 +35,10 @@ int				ft_prepare_env(char **environ)
 		++i;
 	}
 	g_environ = array;
+	if (!ft_getenv("PATH"))
+		ft_setenv("PATH", "/usr/bin:/bin", 0);
+	set_shlvl();
 	set_current_path();
-	ft_setenv("PATH", "/usr/bin:/bin", 0);
 	return (1);
 }
 

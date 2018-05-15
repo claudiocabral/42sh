@@ -43,14 +43,14 @@ int	history_open(t_terminal *terminal, int mode)
 	{
 		if (!(history_file = get_history_path()))
 		{
-			ft_dprintf(2, "21sh: failed to open history file\n");
+			ft_dprintf(2, "42sh: failed to open history file\n");
 			return (0);
 		}
 	}
 	if ((terminal->history_fd = open(history_file, mode,
 					S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP)) == -1)
 	{
-		ft_dprintf(2, "21sh: failed to open history file\n");
+		ft_dprintf(2, "42sh: failed to open history file\n");
 		return (0);
 	}
 	return (1);

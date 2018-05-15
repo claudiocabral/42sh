@@ -22,15 +22,15 @@ t_tree		*and_or(t_tree *tree, t_array *tokens, t_token **current)
 {
 	t_tree	*branch;
 
-	branch = 0;
+	ZERO_IF_FAIL(branch = pipeline(0, tokens, current));
 	while (1)
 	{
-		if (peek(current, AND_IF, OR_IF, SENTINEL))
+		if (match(current, AND_IF, OR_IF, SENTINEL))
 		{
-			branch = tree_add_child(branch,
-					tree_create_node(*current++, sizeof(t_token)));
+			branch = tree_add_child(
+					tree_create_node(*current - 1, sizeof(t_token)), branch);
 		}
-		else if (*current != tokens->end)
+		else if (!peek(current, TOKEN_END, SENTINEL))
 			branch = pipeline(branch, tokens, current);
 		else
 			break ;
@@ -44,23 +44,24 @@ t_tree		*list(t_tree *tree, t_array *tokens, t_token **current)
 	t_tree	*child;
 
 	token = emit_token(LIST, 0, 0, 0);
-	ZERO_IF_FAIL(tree = tree_create_node(&token, sizeof(t_token)));
-	while (*current != tokens->end)
+	ZERO_IF_FAIL(tree = tree_add_child(tree,
+				tree_create_node(&token, sizeof(t_token))));
+	while (1)
 	{
 		if (match(current, SEMICOLON, SENTINEL))
 			continue ;
-		child = and_or(0, tokens, current);
-		if (!child)
+		else if (!peek(current, TOKEN_END, SENTINEL))
 		{
-			tree_free(tree, (t_freef) & noop);
-			return (0);
+			if (!(child = and_or(0, tokens, current)))
+			{
+				tree_free(tree, &noop);
+				return (0);
+			}
+			if (!(tree = tree_add_child(tree, child)))
+				break ;
 		}
-		tree = tree_add_child(tree, child);
-	}
-	if (tree->children->begin == tree->children->end)
-	{
-		tree_free(tree, (t_freef) & noop);
-		return (0);
+		else
+			break ;
 	}
 	return (tree);
 }
@@ -78,19 +79,20 @@ t_tree		*parse(t_array *tokens)
 	t_tree	*tree;
 	t_tree	*child;
 
-	if (!tokens || tokens->begin == tokens->end)
+	if (!tokens || peek((t_token**)&tokens->begin, TOKEN_END, SENTINEL))
 	{
 		array_free(tokens, &noop);
 		return (0);
 	}
 	tree = 0;
 	current = (t_token *)(tokens->begin);
-	while (current != tokens->end)
+	while (1)
 	{
-		if (!(child = complete_command(0, tokens, &current)))
+		if (peek(&current, TOKEN_END, SENTINEL))
+			break;
+		else if (!(child = complete_command(0, tokens, &current)))
 			break ;
-		tree = tree_add_child(tree, child);
-		if (!tree)
+		if (!(tree = tree_add_child(tree, child)))
 			break ;
 	}
 	array_free(tokens, &noop);

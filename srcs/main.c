@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **environ)
 		return (1);
 	if (!ft_prepare_env(environ) || !init_path_table())
 	{
-		ft_dprintf(2, "21sh: failed to setup environment\n");
+		ft_dprintf(2, "42sh: failed to setup environment\n");
 		return (1);
 	}
 	if (argc == 1)
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **environ)
 			return (process_input(argv[2]));
 		else
 		{
-			ft_dprintf(2, "21sh: -c: option requires an argument\n");
+			ft_dprintf(2, "42sh: -c: option requires an argument\n");
 			return (1);
 		}
 	}
