@@ -59,7 +59,7 @@ int		execute_simple_command(t_tree *tree)
 				(t_tree **)tree->children->end, args, fds))
 		return (1);
 	ret = command_dispatch((char **)args->begin, get_environment(),
-			"./21sh");
+			"./42sh");
 	array_apply_reverse(fds, 0, (t_applyf) & close_fd_pair);
 	array_free(fds, (t_freef) & noop);
 	array_free(args, (t_freef) & free_wrapper);

@@ -9,7 +9,7 @@
 #define DBG(x) (printf("%s, l%d: ", __FILE__, __LINE__); \
 				x;)
 #define TS_SET " \t\r"
-#define INCLUSIVE_SET "*/"
+#define INCLUSIVE_SET "*"
 #define SEPARATOR " "
 #define MAGIC 0x1000
 
@@ -45,6 +45,6 @@ t_glob* newnode(const char *raw, Flavor flavor);
 void    append(t_glob** head, t_glob *node);
 void    find_single_pattern(const char *path, char **patterns, char **results);
 void    full_inclusive_pattern(const char *path, char **results, size_t i);
-char*   getwpath(const char *wild, char *pattern);
+char*   getwpath(const char *wild);
 
 #endif /* GLOBBING_H */

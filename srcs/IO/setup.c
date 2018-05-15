@@ -68,7 +68,7 @@ int				init_terminal_strings(t_terminal *terminal, char const *prompt)
 int				setup_terminal(t_terminal *terminal, char const *prompt)
 {
 	if (tgetent(0, ft_getenv_safe("TERM")) <= 0)
-		return (ft_dprintf(2, "./21sh: Could not set terminal, bye.\n") == -2);
+		return (ft_dprintf(2, "./42sh: Could not set terminal, bye.\n") == -2);
 	init_command_table();
 	init_termios(terminal);
 	init_terminal_strings(terminal, prompt);

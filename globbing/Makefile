@@ -1,7 +1,7 @@
 NAME = globbing
 CC = cc
-CCFLAGS = -Wall -Wextra -pedantic -I.
-CCFLAGSD = -Wall -Wextra -pedantic -I. -DDEBUG
+CCFLAGS = -Wall -Wextra -pedantic -I. -g
+CCFLAGSD = -Wall -Wextra -pedantic -I. -g -DDEBUG
 SRC = main.c globbing.c linked.c expanders.c walker.c utils.c
 
 all:

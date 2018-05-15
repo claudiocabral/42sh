@@ -16,23 +16,4 @@ char* strictarray_not_expanders(t_glob *pc);
 char* arrayrange_not_expanders(t_glob *pc);
 char* stringmatcher_expanders(t_glob *pc);
 
-typedef struct s_callbacks
-{
-	Flavor flavor;
-	char *(*callback)(t_glob*);
-} t_callbacks;
-
-t_callbacks	callbacks[SENTINEL + 2] =
-{
-	{INCLUSIVE, inclusive_expanders},
-	{ANYCHAR, anychar_expanders},
-	{STRICTARRAY, strictarray_expanders},
-	{ARRAYRANGE, arrayrange_expanders},
-	{STRICTARRAY_NOT, strictarray_not_expanders},
-	{ARRAYRANGE_NOT, arrayrange_not_expanders},
-	{STRING_MATCHER, stringmatcher_expanders},
-	{SENTINEL, NULL},
-	{0}
-};
-
 #endif
