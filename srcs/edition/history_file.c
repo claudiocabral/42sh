@@ -20,7 +20,7 @@ int					open_history_file(void)
 
 	if (!(path = getenv("HOME")))
 		return (-1);
-	if (!(path = ft_strjoin(path, "/.21sh_history")))
+	if (!(path = ft_strjoin(path, "/.42sh_history")))
 		return (-1);
 	fd = open(path, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
 	ft_strdel(&path);

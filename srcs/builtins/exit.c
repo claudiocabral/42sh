@@ -14,18 +14,14 @@
 #include <unistd.h>
 #include <builtins.h>
 #include <term.h>
-#include <io.h>
+#include <mysh.h>
 
 int	builtin_exit(int argc, char **argv)
 {
-	t_terminal	*terminal;
-
 	(void)argc;
 	(void)argv;
-	if ((terminal = default_terminal(0)))
-	{
-		termios_toggle_isig(terminal, 1);
-		set_termios(&(terminal->original));
-	}
+	reset_sh(g_sh);
+	if (g_sh->history.fd_history != -1)
+		close(g_sh->history.fd_history);
 	exit(0);
 }

@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sessions.h                                         :+:      :+:    :+:   */
+/*   sigquit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
+/*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 15:41:07 by claudioca         #+#    #+#             */
-/*   Updated: 2017/11/30 15:41:31 by claudioca        ###   ########.fr       */
+/*   Created: 2018/03/09 09:51:32 by ctrouill          #+#    #+#             */
+/*   Updated: 2018/03/15 15:17:37 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SESSIONS_H
-# define SESSIONS_H
+#include <mysh.h>
 
-int	script_session(int argc, char **argv);
-
-#endif
+void	sigquit_callback(void)
+{
+	write(1, "\n", 1);
+	exit_shell(g_sh);
+}

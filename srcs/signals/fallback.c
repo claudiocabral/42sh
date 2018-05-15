@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_pwd.c                                        :+:      :+:    :+:   */
+/*   fallback.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/22 14:13:14 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/22 14:14:34 by ccabral          ###   ########.fr       */
+/*   Created: 2018/03/09 10:07:25 by ctrouill          #+#    #+#             */
+/*   Updated: 2018/03/14 11:07:21 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <builtins.h>
-#include <io.h>
+#include <mysh.h>
 
-int				set_initial_path(void)
+/*
+** When callback is not defined for different
+** and exotic signals, just call this function
+** not avoid call ignore.
+*/
+
+void	fallback_callback(void)
 {
-	char	*tmp;
-
-	ZERO_IF_FAIL(tmp = getcwd(0, 0));
-	set_pwd(tmp);
-	free(tmp);
-	return (1);
+	return ;
 }

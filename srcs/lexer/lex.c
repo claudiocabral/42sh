@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_printf.h>
-#include <shellma.h>
-#include <lexer.h>
-#include <io.h>
+#include <mysh.h>
 
 static char const	*skip_until_bracket(char const *input, char close)
 {

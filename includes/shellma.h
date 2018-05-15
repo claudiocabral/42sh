@@ -17,7 +17,7 @@
 # include <array.h>
 # include <tree.h>
 
-int				process_input(char const *input);
+int				process_input(char *input);
 t_array			*lex(char const *input);
 t_tree			*parse(t_array *tokens);
 int				execute(t_tree *tree);

@@ -41,17 +41,6 @@ void		reset_sh(t_sh *sh)
 }
 
 /*
-** Initialise termcaps
-** @return nil
-*/
-
-void		init_termcaps(t_sh *sh)
-{
-	tcgetattr(0, &sh->new_term);
-	set_sh(sh);
-}
-
-/*
 ** Prepare shell
 ** @return nil
 */
@@ -82,5 +71,6 @@ void		init_term(t_sh *sh)
 	}
 	if (term_fd <= 0)
 		exit(0);
-	init_termcaps(sh);
+	tcgetattr(0, &sh->new_term);
+	set_sh(sh);
 }

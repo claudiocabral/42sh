@@ -12,8 +12,13 @@
 
 #include <shellma.h>
 #include <unistd.h>
+#include <mysh.h>
 
-int	process_input(char const *str)
+int	process_input(char *str)
 {
-	return (execute(parse(lex(str))));
+	int	return_value;
+
+	return_value = execute(parse(lex(str)));
+	ft_strdel(&str);
+	return (return_value);
 }

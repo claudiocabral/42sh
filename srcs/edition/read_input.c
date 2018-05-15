@@ -35,7 +35,6 @@ char			*input_return(t_sh *sh, t_prompt **list)
 		display_prompt(*list, 0, 0);
 		prompt_return = list_to_str(list);
 		write_history(sh, list, prompt_return);
-		prompt_return = interpret_heredoc(prompt_return);
 		free_list(list);
 		get_address_list(list, 2);
 		history_reset_cursor(sh->history.history);

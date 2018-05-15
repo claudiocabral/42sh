@@ -31,7 +31,11 @@ include $(PRINTF_PATH)/printf.mk
 OBJS	=	objs/main.o \
 			objs/shellma.o \
 			objs/file/script_session.o \
-			objs/signals/handlers.o \
+			objs/signals/fallback.o \
+			objs/signals/sigint.o \
+			objs/signals/signals.o \
+			objs/signals/sigpipe.o \
+			objs/signals/sigquit.o \
 			objs/execute/collect_args.o \
 			objs/execute/dispatch_branch.o \
 			objs/execute/redirection.o \
@@ -54,28 +58,32 @@ OBJS	=	objs/main.o \
 			objs/parser/pipeline.o \
 			objs/parser/redirection.o \
 			objs/parser/match.o \
-			objs/IO_bis/adjust_cursor.o \
-			objs/IO_bis/control.o \
-			objs/IO_bis/copy_paste.o \
-			objs/IO_bis/delete.o \
-			objs/IO_bis/free.o \
-			objs/IO_bis/get_list.o \
-			objs/IO_bis/history.o \
-			objs/IO_bis/history_file.o \
-			objs/IO_bis/list_create.o \
-			objs/IO_bis/list_print.o \
-			objs/IO_bis/list_str_utils.o \
-			objs/IO_bis/list_utils.o \
-			objs/IO_bis/mcbe.o \
-			objs/IO_bis/mcblr.o \
-			objs/IO_bis/move_cursor_down.o \
-			objs/IO_bis/move_cursor_up.o \
-			objs/IO_bis/move_history.o \
-			objs/IO_bis/read_input.o \
-			objs/IO_bis/return_string.o \
-			objs/IO_bis/selected_list_utils.o \
-			objs/IO_bis/term.o \
-			objs/IO_bis/utils.o \
+			objs/edition/adjust_cursor.o \
+			objs/edition/control.o \
+			objs/edition/copy_paste.o \
+			objs/edition/delete.o \
+			objs/edition/free.o \
+			objs/edition/get_list.o \
+			objs/edition/history.o \
+			objs/edition/history_file.o \
+			objs/edition/list_create.o \
+			objs/edition/list_print.o \
+			objs/edition/list_str_utils.o \
+			objs/edition/list_utils.o \
+			objs/edition/mcbe.o \
+			objs/edition/mcblr.o \
+			objs/edition/move_cursor_down.o \
+			objs/edition/move_cursor_up.o \
+			objs/edition/move_history.o \
+			objs/edition/read_input.o \
+			objs/edition/return_string.o \
+			objs/edition/selected_list_utils.o \
+			objs/edition/term.o \
+			objs/edition/utils.o \
+			objs/edition/brackets.o \
+			objs/edition/interactive_session.o \
+			objs/heredoc/heredoc.o \
+			objs/heredoc/heredoc_delim.o \
 			objs/builtins/exit.o \
 			objs/builtins/env.o \
 			objs/builtins/setenv.o \

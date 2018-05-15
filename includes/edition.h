@@ -165,4 +165,9 @@ void					remove_selection(t_prompt *list, t_sh *sh);
 void					control_d(t_prompt **list);
 void					control_l(t_prompt **list);
 t_prompt				**get_address_list(t_prompt **list, char address);
+
+int						is_open_bracket(char c);
+char					get_closing_bracket(char c);
+
+int						interactive_session(void);
 #endif

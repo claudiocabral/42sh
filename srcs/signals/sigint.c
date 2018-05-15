@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup.h                                            :+:      :+:    :+:   */
+/*   sigint.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/28 14:23:23 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/04/18 08:55:05 by ctrouill         ###   ########.fr       */
+/*   Created: 2018/03/09 09:20:15 by ctrouill          #+#    #+#             */
+/*   Updated: 2018/04/18 17:42:42 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SETUP_H
-# define SETUP_H
+#include <mysh.h>
 
-# include <mysh.h>
-# include <locale.h>
+/*
+** Interrupt (ANSI)
+** Program interrupt. (ctrl-c)
+** @states prompt reset
+*/
 
-typedef struct			s_sh
+void			sigint_callback(void)
 {
-	struct termios		new_term;
-	char				*copy_str;
-	t_histo				history;
-	char				*heredoc_delim;
-}						t_sh;
+	t_prompt	**list;
 
-t_sh					*g_sh;
-
-void					exit_shell(t_sh *sh);
-void					set_sh(t_sh *sh);
-void					init_sh(t_sh *sh);
-
-#endif
+	list = get_address_list(NULL, 0);
+	if (list)
+	{
+		display_prompt(*list, 0, 0);
+		ft_putchar('\n');
+		free_list(list);
+		*list = init_list();
+		display_prompt(*list, 1, 1);
+	}
+}
