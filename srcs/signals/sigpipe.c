@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sessions.h                                         :+:      :+:    :+:   */
+/*   sigpipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
+/*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 15:41:07 by claudioca         #+#    #+#             */
-/*   Updated: 2017/11/30 15:41:31 by claudioca        ###   ########.fr       */
+/*   Created: 2018/04/18 10:46:27 by ctrouill          #+#    #+#             */
+/*   Updated: 2018/04/18 11:05:30 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SESSIONS_H
-# define SESSIONS_H
+#include <mysh.h>
 
-int	script_session(int argc, char **argv);
-
-#endif
+void	sigpipe_callback(void)
+{
+	dup2(0, STDIN_FILENO);
+	dup2(1, STDOUT_FILENO);
+	exit(0);
+}

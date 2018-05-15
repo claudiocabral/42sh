@@ -10,13 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sessions.h>
-#include <shellma.h>
-#include <ft_printf.h>
 #include <hash_table.h>
-#include <environment.h>
-#include <execute.h>
-#include <unistd.h>
+#include <mysh.h>
 
 int	main(int argc, char **argv, char **environ)
 {

@@ -10,9 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_HANDLERS_H
-# define SIGNAL_HANDLERS_H
+#ifndef SIGNALS_H
+# define SIGNALS_H
 
-void	interrupt_handler(int sig);
+/*
+** Core callbacks
+*/
 
+void	signal_init(void);
+void	proc_signal_callback(int sig);
+
+/*
+** Regular callbacks
+*/
+
+void	sigint_callback(void);
+void	sigquit_callback(void);
+void	fallback_callback(void);
+void	sigpipe_callback(void);
 #endif

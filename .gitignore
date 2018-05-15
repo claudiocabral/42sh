@@ -3,6 +3,6 @@
 *.a
 .deps
 *.dSYM
-.21sh_history
+.42sh_history
 globbing/globbing
 42sh

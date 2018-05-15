@@ -31,7 +31,11 @@ include $(PRINTF_PATH)/printf.mk
 OBJS	=	objs/main.o \
 			objs/shellma.o \
 			objs/file/script_session.o \
-			objs/signals/handlers.o \
+			objs/signals/fallback.o \
+			objs/signals/sigint.o \
+			objs/signals/signals.o \
+			objs/signals/sigpipe.o \
+			objs/signals/sigquit.o \
 			objs/execute/collect_args.o \
 			objs/execute/dispatch_branch.o \
 			objs/execute/redirection.o \
@@ -54,37 +58,32 @@ OBJS	=	objs/main.o \
 			objs/parser/pipeline.o \
 			objs/parser/redirection.o \
 			objs/parser/match.o \
-			objs/IO/default.o \
-			objs/IO/brackets.o \
-			objs/IO/get_next_terminal_command.o \
-			objs/IO/input_mode.o \
-			objs/IO/unicode.o \
-			objs/IO/interactive_session.o \
-			objs/IO/dispatch_escape_string.o \
-			objs/IO/terminal_standout.o \
-			objs/IO/terminal_eof.o \
-			objs/IO/terminal_quotes.o \
-			objs/IO/terminal_line_movement.o \
-			objs/IO/terminal_kill_line.o \
-			objs/IO/terminal_dimensions.o \
-			objs/IO/terminal_print.o \
-			objs/IO/terminal_commands.o \
-			objs/IO/terminal_movement.o \
-			objs/IO/terminal_word_movement.o \
-			objs/IO/terminal_insert.o \
-			objs/IO/terminal_delete.o \
-			objs/IO/terminal_check_heredoc.o \
-			objs/IO/terminal_heredoc.o \
-			objs/IO/terminal_copy.o \
-			objs/IO/auto_complete.o \
-			objs/IO/auto_complete_adjust.o \
-			objs/IO/auto_complete_tools.o \
-			objs/IO/auto_complete_printer.o \
-			objs/IO/history.o \
-			objs/IO/history_cleanup.o \
-			objs/IO/input_handler.o \
-			objs/IO/setup.o \
-			objs/IO/setup_pwd.o \
+			objs/edition/adjust_cursor.o \
+			objs/edition/control.o \
+			objs/edition/copy_paste.o \
+			objs/edition/delete.o \
+			objs/edition/free.o \
+			objs/edition/get_list.o \
+			objs/edition/history.o \
+			objs/edition/history_file.o \
+			objs/edition/list_create.o \
+			objs/edition/list_print.o \
+			objs/edition/list_str_utils.o \
+			objs/edition/list_utils.o \
+			objs/edition/mcbe.o \
+			objs/edition/mcblr.o \
+			objs/edition/move_cursor_down.o \
+			objs/edition/move_cursor_up.o \
+			objs/edition/move_history.o \
+			objs/edition/read_input.o \
+			objs/edition/return_string.o \
+			objs/edition/selected_list_utils.o \
+			objs/edition/term.o \
+			objs/edition/utils.o \
+			objs/edition/brackets.o \
+			objs/edition/interactive_session.o \
+			objs/heredoc/heredoc.o \
+			objs/heredoc/heredoc_delim.o \
 			objs/builtins/exit.o \
 			objs/builtins/env.o \
 			objs/builtins/setenv.o \
