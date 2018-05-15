@@ -28,7 +28,7 @@ void		control_d(t_prompt **list)
 	display_prompt(*list, 0, 1);
 	write(1, "\n", 1);
 	free_list(list);
-	exit (0);
+	exit_shell(g_sh);
 }
 
 void		control_l(t_prompt **list)
