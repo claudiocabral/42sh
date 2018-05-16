@@ -30,7 +30,7 @@ t_tree		*and_or(t_tree *tree, t_array *tokens, t_token **current)
 			branch = tree_add_child(
 					tree_create_node(*current - 1, sizeof(t_token)), branch);
 		}
-		else if (!peek(current, TOKEN_END, SENTINEL))
+		else if (!peek(current, SEMICOLON, TOKEN_END, SENTINEL))
 			branch = pipeline(branch, tokens, current);
 		else
 			break ;
