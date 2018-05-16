@@ -45,6 +45,7 @@ int				interactive_session(void)
 	init_sh(&sh);
 	while (1)
 	{
+		set_sh(&sh);
 		signal_init();
 		process_input(read_input(&sh));
 	}
