@@ -56,22 +56,3 @@ void		signal_init(void)
 	signal(SIGWINCH, signal_callback);
 	signal(SIGSYS, signal_callback);
 }
-
-/*
-** Signal handler
-** for forks and processes %
-*/
-
-void		proc_signal_callback(int sig)
-{
-	if (sig == SIGINT)
-	{
-		ft_printf("\n");
-		signal(SIGINT, proc_signal_callback);
-	}
-	else if (sig == SIGPIPE)
-	{
-		exit(0);
-		signal(SIGPIPE, proc_signal_callback);
-	}
-}
