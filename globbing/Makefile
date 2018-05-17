@@ -1,13 +1,13 @@
 NAME = globbing
 CC = cc
-CCFLAGS = -Wall -Wextra -pedantic -I. -g
-CCFLAGSD = -Wall -Wextra -pedantic -I. -g -DDEBUG
-SRC = main.c globbing.c linked.c expanders.c walker.c utils.c
+CCFLAGS = -Wall -Wextra -I. -I../libft/includes -g
+CCFLAGSD = -Wall -Wextra -I. -I../libft/includes -g
+SRC = main.c globbing.c
 
 all:
-	$(CC) $(CCFLAGS) $(SRC) -o $(NAME)
+	$(CC) $(CCFLAGS) $(SRC) -o $(NAME) -L../libft -lft
 debug:
-	$(CC) $(CCFLAGSD) $(SRC) -o $(NAME)
+	$(CC) $(CCFLAGSD) $(SRC) -o $(NAME) -L../libft -lft
 clean:
 	rm $(NAME)
 fclean: clean
