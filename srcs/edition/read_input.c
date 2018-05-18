@@ -81,17 +81,7 @@ char			input_possibilities_move(char *input, t_prompt **list)
 
 static void		input_possibilities_else(char *input, t_prompt **list, t_sh *sh)
 {
-	if ((!ft_strncmp(SHIFT_ALT_L, input, 3) ||
-		!ft_strncmp(SHIFT_ALT_R, input, 3)) && !input[3])
-		copy(list, input[2], sh);
-	else if (input[0] == -30 && input[1] == -105 &&
-		input[2] == -118 && input[3] == 0 && sh->copy_str)
-		paste(list, sh);
-	else if (input[0] == -53 && input[1] == -101 && input[2] == 0)
-		cut(list);
-	else if (input[0] == ECHAP && input[1] == 0)
-		remove_selection(*list, sh);
-	else if (!ft_strncmp(DOWN, input, 4) && !(*list)->next_list)
+	if (!ft_strncmp(DOWN, input, 4) && !(*list)->next_list)
 		history_down(list, sh->history.history);
 	else if (!ft_strncmp(UP, input, 4) && !(*list)->next_list)
 		history_up(list, sh->history.history);
@@ -120,14 +110,15 @@ char			*read_input(t_sh *sh)
 	char		input[4];
 	char		*str;
 	t_prompt	*list;
-
-	set_sh(sh);
+	
 	ft_memset(&input, 0, 4);
 	list = init_list();
 	get_address_list(&list, 1);
 	display_prompt(list, 1, 1);
-	while (read(0, input, 4))
+	while (read(0, &input, 1))
 	{
+		if (input[0] == 27)
+			read(0, &input[1], 3);
 		if (input[0] == RETURN)
 		{
 			if ((str = input_return(sh, &list)))
