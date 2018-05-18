@@ -61,8 +61,8 @@ int				remove_previous_path(t_string *path, int pos)
 		return (0);
 	}
 	path->buffer[pos] = tmp;
-	string_delete_n(path, begin - path->buffer,
-			pos - (begin - path->buffer) + 3);
+	string_delete_n(path, (begin + 1) - path->buffer,
+			pos - (begin - path->buffer) + 2);
 	return (1);
 }
 
@@ -70,9 +70,9 @@ int				clean_back_path(t_string *path)
 {
 	int		pos;
 
-	while ((pos = string_find(path, "../")) >= 0)
+	while ((pos = string_find(path, "../")) >= 1)
 	{
-		if (!remove_previous_path(path, pos))
+		if (!remove_previous_path(path, pos - 1))
 			return (0);
 	}
 	if (path->size > 2 && ft_strequ(path->buffer + path->size - 3, "/.."))
@@ -94,23 +94,21 @@ t_string		*clean_path(char *path)
 	t_string		*str;
 	t_string const	*pwd;
 
-	ZERO_IF_FAIL(str = string_create(ft_strlen(path)));
 	pwd = set_pwd(0);
+	ZERO_IF_FAIL(str = string_create(ft_strlen(path) + pwd->size + 2));
 	if (path[0] != '/')
-	{
 		string_append(str, pwd->buffer);
-	}
 	string_append(str, "/");
 	string_append(str, path);
-	if (str->buffer[str->size - 1] == '/')
-		string_delete(str, str->size - 1);
 	string_replace(str, "//", "/");
-	string_replace(str, "./", "");
 	if (!clean_back_path(str))
 	{
 		ft_dprintf(2, "cd: Error: invalid path\n");
 		return (0);
 	}
+	string_replace(str, "./", "");
 	string_replace(str, "//", "/");
+	if (str->size > 1 && str->buffer[str->size - 1] == '/')
+		string_delete(str, str->size - 1);
 	return (str);
 }
