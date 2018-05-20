@@ -112,7 +112,7 @@ char			*read_input(t_sh *sh)
 	t_prompt	*list;
 	
 	ft_memset(&input, 0, 4);
-	list = init_list();
+	ZERO_IF_FAIL(list = init_list());
 	get_address_list(&list, 1);
 	display_prompt(list, 1, 1);
 	while (read(0, &input, 1))
