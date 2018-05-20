@@ -74,11 +74,13 @@ int				remove_previous_path(t_string *path, int pos)
 	if (!begin)
 	{
 		path->buffer[pos] = tmp;
-		return (0);
+		string_delete_n(path, pos, 3);
+		return (1);
 	}
 	path->buffer[pos] = tmp;
 	string_delete_n(path, (begin + 1) - path->buffer,
 			pos - (begin - path->buffer) + 2);
+	string_replace(path, "//", "/");
 	return (1);
 }
 
@@ -88,6 +90,8 @@ int				clean_back_path(t_string *path)
 
 	while ((pos = string_find(path, "../")) >= 1)
 	{
+		if (path->buffer[pos - 1] != '/')
+			return (0);
 		if (!remove_previous_path(path, pos - 1))
 			return (0);
 	}
@@ -100,8 +104,6 @@ int				clean_back_path(t_string *path)
 		string_delete_n(path, path->size - 2, 2);
 	if (path->size > 1 && path->buffer[path->size - 1] == '/')
 		string_delete(path, path->size - 1);
-	if (path->size == 0)
-		return (0);
 	return (1);
 }
 
@@ -119,7 +121,7 @@ t_string		*clean_path(char *path)
 	string_replace(str, "//", "/");
 	if (!clean_back_path(str))
 	{
-		ft_dprintf(2, "cd: Error: invalid path\n");
+		ft_dprintf(2, "cd: no such file or directory: %s\n", path);
 		return (0);
 	}
 	string_replace(str, "./", "");
