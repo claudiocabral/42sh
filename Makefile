@@ -46,6 +46,7 @@ OBJS	=	objs/main.o \
 			objs/execute/path.o \
 			objs/execute/invoke.o \
 			objs/execute/execute.o \
+			objs/execute/execute_cleanup.o \
 			objs/execute/expansion.o \
 			objs/execute/command_name_lookup.o \
 			objs/lexer/lexer.o \
