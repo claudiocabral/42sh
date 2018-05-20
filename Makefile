@@ -59,6 +59,7 @@ OBJS	=	objs/main.o \
 			objs/parser/pipeline.o \
 			objs/parser/redirection.o \
 			objs/parser/match.o \
+			objs/parser/check_errors.o \
 			objs/edition/adjust_cursor.o \
 			objs/edition/control.o \
 			objs/edition/copy_paste.o \

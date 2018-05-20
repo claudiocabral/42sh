@@ -18,9 +18,10 @@
 #include <parser.h>
 #include <ft_printf.h>
 
-t_tree		*and_or(t_tree *tree, t_array *tokens, t_token **current)
+t_tree		*and_or(t_array *tokens, t_token **current)
 {
 	t_tree	*branch;
+	t_tree	*child;
 
 	ZERO_IF_FAIL(branch = pipeline(0, tokens, current));
 	while (1)
@@ -29,13 +30,19 @@ t_tree		*and_or(t_tree *tree, t_array *tokens, t_token **current)
 		{
 			branch = tree_add_child(
 					tree_create_node(*current - 1, sizeof(t_token)), branch);
+			if (!branch || !(child = pipeline(0, tokens, current)))
+				return (0);
+			if (!(tree_add_child(branch, child)))
+				return (0);
 		}
-		else if (!peek(current, SEMICOLON, TOKEN_END, SENTINEL))
+		else if (!peek(current, SEMICOLON, DSEMI, TOKEN_END, SENTINEL))
+		{
 			branch = pipeline(branch, tokens, current);
+		}
 		else
 			break ;
 	}
-	return (tree_add_child(tree, branch));
+	return (branch);
 }
 
 t_tree		*list(t_tree *tree, t_array *tokens, t_token **current)
@@ -52,7 +59,7 @@ t_tree		*list(t_tree *tree, t_array *tokens, t_token **current)
 			continue ;
 		else if (!peek(current, TOKEN_END, SENTINEL))
 		{
-			if (!(child = and_or(0, tokens, current)))
+			if (!(child = and_or(tokens, current)))
 			{
 				tree_free(tree, &noop);
 				return (0);
@@ -77,7 +84,6 @@ t_tree		*parse(t_array *tokens)
 {
 	t_token	*current;
 	t_tree	*tree;
-	t_tree	*child;
 
 	if (!tokens || peek((t_token**)&tokens->begin, TOKEN_END, SENTINEL))
 	{
@@ -89,14 +95,11 @@ t_tree		*parse(t_array *tokens)
 	while (1)
 	{
 		if (peek(&current, TOKEN_END, SENTINEL))
-			break;
-		else if (!(child = complete_command(0, tokens, &current)))
 			break ;
-		if (!(tree = tree_add_child(tree, child)))
+		else if (!(tree = complete_command(0, tokens, &current)))
+			break ;
+		else
 			break ;
 	}
-	array_free(tokens, &noop);
-	if (!tree)
-		ft_dprintf(2, "parse error\n");
-	return (tree);
+	return (parse_check_errors(tree, tokens, current));
 }

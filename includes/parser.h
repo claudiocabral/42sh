@@ -21,5 +21,6 @@ int		match(t_token **token, ...);
 int		peek(t_token **token, ...);
 t_tree	*pipeline(t_tree *tree, t_array *tokens, t_token **current);
 t_tree	*io_redirect(t_array *tokens, t_token **current);
+t_tree	*parse_check_errors(t_tree *tree, t_array *tokens, t_token *current);
 
 #endif
