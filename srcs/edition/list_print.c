@@ -45,7 +45,7 @@ void	basic_prompt(t_prompt *list)
 			ft_strlen(ft_strrchr(cwd, '/') + 1);
 		ft_strdel(&cwd);
 	}
-	ft_printf("%s /> ", RESET);
+	ft_printf("%s $> ", RESET);
 }
 
 void	print_prompt(t_prompt *list)
