@@ -38,6 +38,8 @@ int		cd_chdir(char const *path)
 {
 	if (!path)
 		return (1);
+	if (ft_strequ(path, ""))
+		return (0);
 	if (chdir(path) != -1)
 		set_pwd(path);
 	else

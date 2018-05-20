@@ -20,30 +20,46 @@ t_string const	*set_oldpwd(char const *str)
 {
 	static t_string	*path = 0;
 
-	if (path == 0)
-		path = string_create(32);
+	if (path == 0 && !(path = string_create(32)))
+		return (0);
 	if (!str)
 		return (path);
 	string_clear(path);
-	string_append(path, str);
+	if (!string_append(path, str))
+		return(0);
 	if (ft_setenv("OLDPWD", path->buffer, 1) != 0)
-		ft_dprintf(2, "cd: failed to updated PWD\n");
+	{
+		ft_dprintf(2, "cd: failed to updated OLDPWD\n");
+		return (0);
+	}
 	return (path);
 }
 
 t_string const	*set_pwd(char const *str)
 {
 	static t_string	*path = 0;
+	t_string const 	*ret;
 
 	if (path == 0)
-		path = string_create(32);
+	{
+		ZERO_IF_FAIL((path = string_create(32)));
+	}
 	if (!str)
 		return (path);
-	set_oldpwd(path->buffer);
+	if (*path->buffer)
+		ret = set_oldpwd(path->buffer);
+	else
+		ret = set_oldpwd(str);
+	if (!ret)
+		return (0);
 	string_clear(path);
-	string_append(path, str);
-	if (ft_setenv("PWD", path->buffer, 1) != 0)
+	if (!string_append(path, str))
+		return (0);
+	if (ft_setenv("PWD", path->buffer, 1) == -1)
+	{
 		ft_dprintf(2, "cd: failed to updated PWD\n");
+		return (0);
+	}
 	return (path);
 }
 
