@@ -39,7 +39,7 @@ t_bool			compute_match_bracket(t_helper *glob, char *str,
 				pattern += MAGIC_OFFSET;
 			}
 			status = ((*pattern == '[' && *(pattern + 1) == ':')) ?
-				(init_brackets_offset(&pattern, *str, 1, 1) != sign) : status;
+				(init_brackets_offset(&pattern, *str, 1, 1) != (int)sign) : status;
 			status = (((*pattern == *str) != sign)) ? 1 : status;
 		}
 		pattern++;
