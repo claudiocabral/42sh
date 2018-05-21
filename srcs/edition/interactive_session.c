@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 15:39:05 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/23 16:27:52 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/05/21 15:18:12 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int				interactive_session(void)
 
 	g_sh = &sh;
 	init_sh(&sh);
-	while (1)
+	while (42)
 	{
 		set_sh(&sh);
 		signal_init();

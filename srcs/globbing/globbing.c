@@ -6,14 +6,13 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 12:12:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/05/21 12:03:53 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/05/21 15:24:25 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
+#include <ft_printf.h>
 #include <unistd.h>
-#include <string.h>
 #include <assert.h>
 #include <dirent.h>
 #include <libft.h>
@@ -46,29 +45,27 @@ static char		*deflate(const char *origin, char *result, int state)
 
 char			*deglob(const char *input, char *token, char *blob)
 {
-	char		deglobed[4096];
+	char		*deglobed;
 
-	token = strtok((char*)input, " \t\n");
+	deglobed = ft_strnew(ft_strlen(input + 1));
+	token = ft_strtok((char*)input, " \t\n");
 	while (token != NULL)
 	{
 		if (needs_globbing(token, 0))
 		{
 			if ((blob = deflate(token, NULL, 0x0)) == NULL)
-			{
-				printf("Unmatched globs\n");
-				exit(EXIT_FAILURE);
-			}
-			strcat(deglobed, blob);
-			strcat(deglobed, " ");
+				return (NULL);
+			ft_strcat(deglobed, blob);
+			ft_strcat(deglobed, " ");
 			free(blob);
 		}
 		else
 		{
-			strcat(deglobed, token);
-			strcat(deglobed, " ");
+			ft_strcat(deglobed, token);
+			ft_strcat(deglobed, " ");
 		}
-		token = strtok(NULL, " \t\n");
+		token = ft_strtok(NULL, " \t\n");
 	}
-	return ((deglobed[0] == '\0') ? NULL
-			: strdup(deglobed));
+	return ((deglobed[0] == '\0') ? ft_strdup(" ")
+			: ft_strdup(deglobed));
 }

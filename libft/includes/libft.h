@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/09 09:25:06 by ccabral           #+#    #+#             */
-/*   Updated: 2018/05/21 14:16:43 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/05/21 14:58:24 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ char			*ft_strrev(char *str);
 char			*ft_strstr(const char *big, const char *little);
 char			*ft_strsub(const char *s, unsigned int start, size_t len);
 char			*ft_strtrim(char const *s);
+char			*ft_strtok(char *foo, const char *bar);
 char			*ft_strupcase(char *str);
 int				offsetcmp(const char *s1,
 					const char *s2,
