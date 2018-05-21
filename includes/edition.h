@@ -38,6 +38,7 @@
 # define HOME "\e[H"
 # define END "\e[F"
 # define ECHAP 27
+# define TAB 9
 
 /*
 ** prompt_type define:
