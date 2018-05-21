@@ -40,19 +40,10 @@ static void	signal_callback(int sig)
 
 void		signal_init(void)
 {
-	signal(SIGHUP, signal_callback);
 	signal(SIGINT, signal_callback);
 	signal(SIGQUIT, signal_callback);
 	signal(SIGILL, signal_callback);
 	signal(SIGTRAP, signal_callback);
 	signal(SIGABRT, signal_callback);
-	signal(SIGBUS, signal_callback);
-	signal(SIGFPE, signal_callback);
-	signal(SIGSEGV, signal_callback);
-	signal(SIGPIPE, signal_callback);
-	signal(SIGCHLD, signal_callback);
 	signal(SIGTERM, signal_callback);
-	signal(SIGTSTP, signal_callback);
-	signal(SIGWINCH, signal_callback);
-	signal(SIGSYS, signal_callback);
 }
