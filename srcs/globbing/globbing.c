@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 12:12:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/05/21 16:59:18 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/05/21 18:10:18 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ static char		*deflate(const char *origin, char *result, int state)
 
 	if ((state = compute_globbing(origin, &glob)) > 0)
 	{
-		printf("In the state scope\n");
 		if ((result = build_result(glob.final_list, NULL, 0, NULL)) != NULL)
 		{
-			printf("In the result scope\n");
 			return (result);
 		}
 	}
@@ -53,7 +51,7 @@ static char		*deflate(const char *origin, char *result, int state)
 
 char			*deglob(const char *input, char *token, char *blob)
 {
-	char		deglobed[409];
+	char		deglobed[1000];
 
 	token = ft_strtok((char*)input, " \t\n");
 	while (token != NULL)
@@ -71,9 +69,8 @@ char			*deglob(const char *input, char *token, char *blob)
 			ft_strcat(deglobed, token);
 			ft_strcat(deglobed, " ");
 		}
-		printf("debug: %s\n", deglobed);
 		token = ft_strtok(NULL, " \t\n");
 	}
-	return ((deglobed[0] == '\0') ? NULL
-			: strdup(deglobed));
+	return ((deglobed[0] == '\0') ? ft_strdup(" ")
+			: ft_strdup(deglobed));
 }

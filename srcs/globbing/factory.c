@@ -6,7 +6,7 @@
 /*   By: ctrouill <ctrouill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:47:22 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/05/21 17:11:06 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/05/21 17:58:09 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char		*build_result(t_list *results, t_list *tmp,
 				int len, char *final)
 {
 	tmp = results;
-	printf("Iterating: %p\n", tmp);
 	while (tmp != NULL)
 	{
 		len += tmp->content_size;
