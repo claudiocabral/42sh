@@ -6,7 +6,7 @@
 /*   By: ctrouill <ctrouill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:47:22 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/05/21 13:24:46 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/05/21 17:11:06 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "internals.h"
 
@@ -27,6 +28,7 @@ char		*build_result(t_list *results, t_list *tmp,
 				int len, char *final)
 {
 	tmp = results;
+	printf("Iterating: %p\n", tmp);
 	while (tmp != NULL)
 	{
 		len += tmp->content_size;
@@ -38,7 +40,7 @@ char		*build_result(t_list *results, t_list *tmp,
 	while (results != NULL)
 	{
 		tmp = results->next;
-		strcpy(final + len, (char*)results->content);
+		ft_strcpy(final + len, (char*)results->content);
 		len = len + results->content_size;
 		if (tmp != NULL)
 			*(final + len - 1) = ' ';
