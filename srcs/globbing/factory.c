@@ -59,7 +59,7 @@ static int	you_norminette_sucks(const char *pattern, t_helper gi,
 	t_list		*ps;
 	t_list		*next;
 
-	ps = ft_lstnew(pattern, ft_strlen(pattern) + 2);
+	ps = ft_lstnew(pattern, ft_strlen(pattern) + 1);
 	if (compile_glob_brace(ps, NULL, NULL, NULL) == -1)
 		p = -1;
 	while (ps != NULL)
