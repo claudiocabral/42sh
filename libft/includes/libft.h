@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/09 09:25:06 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/15 13:25:05 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/05/18 10:58:45 by iomonad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,10 @@ char			*ft_strnjoin(char const *s1, char const *s2, size_t n, char c);
 int				get_next_line(int fd, char **line);
 int				ft_cpy_ptr(void **dst, void **src, void *dummy);
 
-
+typedef enum	e_bool
+{
+	FALSE = 0,
+	TRUE
+}				t_bool;
 
 #endif
