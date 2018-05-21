@@ -67,7 +67,6 @@ static int	you_norminette_sucks(const char *pattern, t_helper gi,
 		next = ps->next;
 		if (!p && !ft_strchr(ps->content, '{'))
 			call_dirwalker(gi, ps->content, res, NULL);
-		free(ps->content);
 		free(ps);
 		ps = next;
 	}
