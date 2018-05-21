@@ -20,30 +20,46 @@ t_string const	*set_oldpwd(char const *str)
 {
 	static t_string	*path = 0;
 
-	if (path == 0)
-		path = string_create(32);
+	if (path == 0 && !(path = string_create(32)))
+		return (0);
 	if (!str)
 		return (path);
 	string_clear(path);
-	string_append(path, str);
+	if (!string_append(path, str))
+		return(0);
 	if (ft_setenv("OLDPWD", path->buffer, 1) != 0)
-		ft_dprintf(2, "cd: failed to updated PWD\n");
+	{
+		ft_dprintf(2, "cd: failed to updated OLDPWD\n");
+		return (0);
+	}
 	return (path);
 }
 
 t_string const	*set_pwd(char const *str)
 {
 	static t_string	*path = 0;
+	t_string const 	*ret;
 
 	if (path == 0)
-		path = string_create(32);
+	{
+		ZERO_IF_FAIL((path = string_create(32)));
+	}
 	if (!str)
 		return (path);
-	set_oldpwd(path->buffer);
+	if (*path->buffer)
+		ret = set_oldpwd(path->buffer);
+	else
+		ret = set_oldpwd(str);
+	if (!ret)
+		return (0);
 	string_clear(path);
-	string_append(path, str);
-	if (ft_setenv("PWD", path->buffer, 1) != 0)
+	if (!string_append(path, str))
+		return (0);
+	if (ft_setenv("PWD", path->buffer, 1) == -1)
+	{
 		ft_dprintf(2, "cd: failed to updated PWD\n");
+		return (0);
+	}
 	return (path);
 }
 
@@ -58,11 +74,13 @@ int				remove_previous_path(t_string *path, int pos)
 	if (!begin)
 	{
 		path->buffer[pos] = tmp;
-		return (0);
+		string_delete_n(path, pos, 3);
+		return (1);
 	}
 	path->buffer[pos] = tmp;
 	string_delete_n(path, (begin + 1) - path->buffer,
 			pos - (begin - path->buffer) + 2);
+	string_replace(path, "//", "/");
 	return (1);
 }
 
@@ -72,6 +90,8 @@ int				clean_back_path(t_string *path)
 
 	while ((pos = string_find(path, "../")) >= 1)
 	{
+		if (path->buffer[pos - 1] != '/')
+			return (0);
 		if (!remove_previous_path(path, pos - 1))
 			return (0);
 	}
@@ -84,8 +104,6 @@ int				clean_back_path(t_string *path)
 		string_delete_n(path, path->size - 2, 2);
 	if (path->size > 1 && path->buffer[path->size - 1] == '/')
 		string_delete(path, path->size - 1);
-	if (path->size == 0)
-		return (0);
 	return (1);
 }
 
@@ -103,7 +121,7 @@ t_string		*clean_path(char *path)
 	string_replace(str, "//", "/");
 	if (!clean_back_path(str))
 	{
-		ft_dprintf(2, "cd: Error: invalid path\n");
+		ft_dprintf(2, "cd: no such file or directory: %s\n", path);
 		return (0);
 	}
 	string_replace(str, "./", "");

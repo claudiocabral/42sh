@@ -38,7 +38,7 @@ int		wait_process(pid_t pid)
 	waitpid(pid, &stat_loc, 0);
 	if ((WIFSIGNALED(stat_loc)))
 		write(0, "\n", 1);
-	if((res = ft_itoa(stat_loc)))
+	if((res = ft_itoa(WEXITSTATUS(stat_loc))))
 	{
 		ft_setenv("?", res, 1);
 		free(res);

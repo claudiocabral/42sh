@@ -35,3 +35,10 @@ int				ft_strdup_wrapper(char **dst, char const *const *src,
 	ZERO_IF_FAIL(*dst = ft_strdup(*src));
 	return (1);
 }
+
+int				ft_cpy_ptr(void **dst, void **src, void *dummy)
+{
+	(void)dummy;
+	*dst = *src;
+	return (1);
+}

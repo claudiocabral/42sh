@@ -15,6 +15,7 @@
 
 # include <hash_table.h>
 # include <array.h>
+# include <ft_string.h>
 
 int				ft_setenv(char const *name, char const *val, int overwrite);
 char			*ft_getenv(char const *env);
@@ -27,5 +28,7 @@ int				print_environment(t_array *env);
 void			environment_remove_if(char const *data, t_predf predicate);
 int				set_current_path(void);
 void			set_shlvl(void);
+t_string const	*set_pwd(char const *str);
+t_string const	*set_oldpwd(char const *str);
 
 #endif

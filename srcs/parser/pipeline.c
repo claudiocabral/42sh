@@ -84,7 +84,6 @@ t_tree		*pipeline_sequence(t_tree *tree, t_array *tokens, t_token **current)
 {
 	t_tree	*child;
 
-	child = 0;
 	while (1)
 	{
 		if (peek(current, IO_NUMBER, LESS, DLESS, LESSAND, GREATERAND,

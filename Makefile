@@ -46,6 +46,7 @@ OBJS	=	objs/main.o \
 			objs/execute/path.o \
 			objs/execute/invoke.o \
 			objs/execute/execute.o \
+			objs/execute/execute_cleanup.o \
 			objs/execute/expansion.o \
 			objs/execute/command_name_lookup.o \
 			objs/lexer/lexer.o \
@@ -58,6 +59,7 @@ OBJS	=	objs/main.o \
 			objs/parser/pipeline.o \
 			objs/parser/redirection.o \
 			objs/parser/match.o \
+			objs/parser/check_errors.o \
 			objs/edition/adjust_cursor.o \
 			objs/edition/control.o \
 			objs/edition/copy_paste.o \

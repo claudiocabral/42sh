@@ -69,5 +69,7 @@ t_fd_pair		redirect(t_tree *tree);
 t_fd_pair		deal_with_aggregator(t_fd_pair fd);
 int				check_agreggator(t_token *token);
 void			swap_fd(t_fd_pair *fd);
+void			execute_cleanup(t_array *fds, t_array *args,
+													t_array *args_copy);
 
 #endif

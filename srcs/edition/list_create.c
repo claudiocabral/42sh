@@ -16,7 +16,8 @@ t_prompt			*init_list(void)
 {
 	t_prompt		*list;
 
-	list = create_elem(' ');
+	if (!(list = create_elem(' ')))
+		return (0);
 	list->cursor = 1;
 	list->prompt_type = STANDARD;
 	list->insertion = 1;

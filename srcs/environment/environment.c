@@ -50,7 +50,7 @@ int				set_current_path(void)
 {
 	char	*path;
 
-	if ((!(path = getcwd(0, 0))) || (ft_setenv("PWD", path, 1) == -1))
+	if ((!(path = getcwd(0, 0))) || (set_pwd(path) == 0))
 	{
 		ft_dprintf(2, "42sh: error, could not set PWD to %s\n", path);
 		free(path);

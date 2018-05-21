@@ -138,6 +138,7 @@ void			ft_freejoin(const char **s1, const char **s2, char c);
 char			*ft_strjoinfree(char const *s1, char const *s2, char c);
 char			*ft_strnjoin(char const *s1, char const *s2, size_t n, char c);
 int				get_next_line(int fd, char **line);
+int				ft_cpy_ptr(void **dst, void **src, void *dummy);
 
 typedef enum	e_bool
 {

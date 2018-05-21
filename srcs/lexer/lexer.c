@@ -30,13 +30,20 @@ int			lex_quote(t_array *tokens, t_slice input)
 	return (-1);
 }
 
+int			lex_semicolon(t_array *tokens, t_slice input)
+{
+	if (input.ptr[input.size + 1] != ';')
+		return (add_token(tokens, SEMICOLON, input.ptr + input.size, 1));
+	return (add_token(tokens, DSEMI, input.ptr + input.size, 2));
+}
+
 int			lex_operator(t_array *tokens, t_slice input, char const **heredoc)
 {
 	int	ret;
 
 	ret = 0;
 	if (input.ptr[input.size] == ';')
-		ret = add_token(tokens, SEMICOLON, input.ptr + input.size, 1);
+		ret = lex_semicolon(tokens, input);
 	else if (input.ptr[input.size] == '&')
 	{
 		if (input.ptr[input.size + 1] == '&')
