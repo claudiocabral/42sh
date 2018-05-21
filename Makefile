@@ -7,7 +7,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/05/12 12:44:51 by iomonad          ###   ########.fr        #
+#    Updated: 2018/05/21 14:32:49 by ctrouill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,6 +96,16 @@ OBJS	=	objs/main.o \
 			objs/builtins/pwd.o \
 			objs/environment/setenv.o \
 			objs/environment/setup.o \
+			objs/globbing/braks.o \
+			objs/globbing/directory.o \
+			objs/globbing/factory.o \
+			objs/globbing/globbing.o \
+			objs/globbing/init.o \
+			objs/globbing/mnesia.o \
+			objs/globbing/patterns.o \
+			objs/globbing/predicate.o \
+			objs/globbing/prepare.o \
+			objs/globbing/yougotit.o \
 			objs/environment/environment.o \
 			objs/environment/prepare_env.o
 

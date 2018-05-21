@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 09:36:22 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/05/21 14:08:48 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/05/21 14:28:47 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 # define INTERNALS_H
 
 # include <globbing.h>
-
-typedef enum	e_bool
-{
-	FALSE = 0,
-	TRUE
-}				t_bool;
 
 typedef struct	s_pattern
 {
@@ -36,7 +30,7 @@ typedef enum	e_flavor
 {
 	REGULAR = 0,
 	PATTERN,
-	SENTINEL
+	SENTINELLE
 }				t_flavor;
 
 /*

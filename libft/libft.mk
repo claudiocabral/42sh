@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/20 13:13:30 by claudioca         #+#    #+#              #
-#    Updated: 2018/05/21 14:21:49 by ctrouill         ###   ########.fr        #
+#    Updated: 2018/05/21 14:27:32 by ctrouill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
 				$(LIBFT_OBJ_DIR)/ft_striter.o \
 				$(LIBFT_OBJ_DIR)/ft_striteri.o \
 				$(LIBFT_OBJ_DIR)/ft_strjoin.o \
+				$(LIBFT_OBJ_DIR)/ft_strnjoin.o \
 				$(LIBFT_OBJ_DIR)/ft_strlcat.o \
 				$(LIBFT_OBJ_DIR)/ft_strlcpy.o \
 				$(LIBFT_OBJ_DIR)/ft_strlen.o \
@@ -85,6 +86,8 @@ LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
 				$(LIBFT_OBJ_DIR)/ft_strncpy.o \
 				$(LIBFT_OBJ_DIR)/ft_strnequ.o \
 				$(LIBFT_OBJ_DIR)/ft_strnew.o \
+				$(LIBFT_OBJ_DIR)/ft_freejoin.o \
+				$(LIBFT_OBJ_DIR)/ft_strjoin.o \
 				$(LIBFT_OBJ_DIR)/ft_strnstr.o \
 				$(LIBFT_OBJ_DIR)/ft_strrchr.o \
 				$(LIBFT_OBJ_DIR)/ft_strsplit.o \
