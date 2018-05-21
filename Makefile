@@ -7,7 +7,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/05/21 14:32:49 by ctrouill         ###   ########.fr        #
+#    Updated: 2018/05/21 15:37:29 by ctrouill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME	:=	42sh
 ifeq (CC,)
 CC		:=	cc
 endif
-CFLAGS	:=	-Wextra -Werror -Wall -march=native -Wshadow
+CFLAGS	:=	-Wextra -Werror -Wall -march=native -Wshadow #-fsanitize=address
 CDEBUG	:=	-g
 
 LIBFT_PATH	:=	libft
