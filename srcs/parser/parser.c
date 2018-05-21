@@ -37,7 +37,12 @@ t_tree		*and_or(t_array *tokens, t_token **current)
 		}
 		else if (!peek(current, SEMICOLON, DSEMI, TOKEN_END, SENTINEL))
 		{
-			branch = pipeline(branch, tokens, current);
+			if (!(child = pipeline(0, tokens, current)))
+			{
+				tree_free(branch, &noop);
+				return (0);
+			}
+			tree_add_child(branch, child);
 		}
 		else
 			break ;
@@ -51,11 +56,12 @@ t_tree		*list(t_tree *tree, t_array *tokens, t_token **current)
 	t_tree	*child;
 
 	token = emit_token(LIST, 0, 0, 0);
-	ZERO_IF_FAIL(tree = tree_add_child(tree,
-				tree_create_node(&token, sizeof(t_token))));
+	ZERO_IF_FAIL(tree = tree_create_node(&token, sizeof(t_token)));
 	while (1)
 	{
-		if (match(current, SEMICOLON, SENTINEL))
+		if (match(current, NEWLINE, SENTINEL))
+			break ;
+		else if (match(current, SEMICOLON, SENTINEL))
 			continue ;
 		else if (!peek(current, TOKEN_END, SENTINEL))
 		{
