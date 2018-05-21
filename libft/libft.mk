@@ -6,7 +6,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/20 13:13:30 by claudioca         #+#    #+#              #
-#    Updated: 2018/05/11 11:45:04 by ctrouill         ###   ########.fr        #
+#    Updated: 2018/05/21 14:21:49 by ctrouill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,12 @@ LIBFT_OBJ_DIR	:= $(LIBFT_PATH)/objs
 LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
 				$(LIBFT_OBJ_DIR)/median.o \
 				$(LIBFT_OBJ_DIR)/ft_lstnew.o \
+				$(LIBFT_OBJ_DIR)/ft_xlstnew.o \
 				$(LIBFT_OBJ_DIR)/ft_lstpush_back.o \
 				$(LIBFT_OBJ_DIR)/ft_lstdelone.o \
 				$(LIBFT_OBJ_DIR)/ft_lstdel.o \
 				$(LIBFT_OBJ_DIR)/ft_lstadd.o \
+				$(LIBFT_OBJ_DIR)/ft_lstprepend.o \
 				$(LIBFT_OBJ_DIR)/ft_lstiter.o \
 				$(LIBFT_OBJ_DIR)/ft_lstmap.o \
 				$(LIBFT_OBJ_DIR)/ft_atoi.o \
@@ -89,6 +91,7 @@ LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
 				$(LIBFT_OBJ_DIR)/ft_strstr.o \
 				$(LIBFT_OBJ_DIR)/ft_strsub.o \
 				$(LIBFT_OBJ_DIR)/ft_strtrim.o \
+				$(LIBFT_OBJ_DIR)/offsetcmp.o \
 				$(LIBFT_OBJ_DIR)/ft_strupcase.o \
 				$(LIBFT_OBJ_DIR)/ft_swap.o \
 				$(LIBFT_OBJ_DIR)/ft_quicksort.o \
@@ -98,8 +101,6 @@ LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
 				$(LIBFT_OBJ_DIR)/ft_next_power_of_two.o \
 				$(LIBFT_OBJ_DIR)/generic_tools.o \
 				$(LIBFT_OBJ_DIR)/ft_is_whitespace.o \
-				$(LIBFT_OBJ_DIR)/ft_freejoin.o \
-				$(LIBFT_OBJ_DIR)/ft_strnjoin.o \
 				$(LIBFT_OBJ_DIR)/ft_strjoinfree.o \
 				$(LIBFT_OBJ_DIR)/get_next_line.o
 

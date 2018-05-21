@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/09 09:25:06 by ccabral           #+#    #+#             */
-/*   Updated: 2018/05/18 10:58:45 by iomonad          ###   ########.fr       */
+/*   Updated: 2018/05/21 14:16:43 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ void			ft_lstdelone(t_list **alst,
 void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstadd(t_list **lst, t_list *new);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+void			ft_lstprepend(t_list **addr,
+						t_list *lst);
+t_list			*ft_xlstnew(const void *cnt,
+						size_t cnt_size);
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 char			**ft_strsplit(char const *str, char c);
 char			*ft_concat_params(int argc, char **argv);
@@ -65,6 +69,10 @@ char			*ft_strstr(const char *big, const char *little);
 char			*ft_strsub(const char *s, unsigned int start, size_t len);
 char			*ft_strtrim(char const *s);
 char			*ft_strupcase(char *str);
+int				offsetcmp(const char *s1,
+					const char *s2,
+					char *tmp1,
+					char *tmp2);
 void			ft_bzero(void *s, size_t n);
 int				ft_max(const int a, const int b);
 int				ft_atoi(const char *str);
