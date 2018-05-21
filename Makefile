@@ -84,6 +84,10 @@ OBJS	=	objs/main.o \
 			objs/edition/utils.o \
 			objs/edition/brackets.o \
 			objs/edition/interactive_session.o \
+			objs/edition/autocompletion/auto_complete.o \
+			objs/edition/autocompletion/auto_complete_printer.o \
+			objs/edition/autocompletion/auto_complete_tools.o \
+			objs/edition/autocompletion/autocompletion.o \
 			objs/heredoc/heredoc.o \
 			objs/heredoc/heredoc_delim.o \
 			objs/builtins/exit.o \
