@@ -39,17 +39,18 @@ char				*list_to_str(t_prompt **list)
 	i = return_str_len(*list);
 	if (!(str = ft_strnew(i)))
 		return (NULL);
-	str[i] = '\0';
 	i = 0;
 	while (tmp)
 	{
-		if (!(tmp->c == BACKSLASH && !tmp->next->next))
+		if (!((tmp->c == BACKSLASH && !tmp->next->next)
+			|| (tmp->insertion && !tmp->next_list)))
 		{
 			if (tmp->next && tmp->next->c == RETURN)
-				str[i++] = RETURN;
-			if (!(tmp->c == ' ' && tmp->next && tmp->next->c == RETURN) &&
+				str[i] = RETURN;
+			if (!(tmp->insertion && tmp->next && tmp->next->c == RETURN) &&
 				tmp->c != RETURN)
-				str[i++] = tmp->c;
+				str[i] = tmp->c;
+				i++;
 		}
 		tmp = tmp->next;
 		if (tmp && !tmp->next)

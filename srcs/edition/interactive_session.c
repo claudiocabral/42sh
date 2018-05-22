@@ -31,6 +31,7 @@ void	init_sh(t_sh *sh)
 		ioctl(0, TIOCSTI, "0");
 		if (read(0, &input_tmp, 1) == -1)
 			exit_shell(sh);
+		sh->copy_str = NULL;
 		sh->history.fd_history = open_history_file();
 		sh->history.history = history_file_to_list(sh->history.fd_history);
 		sh->heredoc_delim = NULL;

@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 12:12:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/05/21 15:51:47 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/05/21 18:10:18 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 #include <assert.h>
 #include <dirent.h>
 #include <libft.h>
+#include <string.h>
 #include <sys/types.h>
+#include <stdio.h>
 
 #include <globbing.h>
 #include "internals.h"
@@ -33,8 +35,12 @@ static char		*deflate(const char *origin, char *result, int state)
 	t_glob glob;
 
 	if ((state = compute_globbing(origin, &glob)) > 0)
+	{
 		if ((result = build_result(glob.final_list, NULL, 0, NULL)) != NULL)
+		{
 			return (result);
+		}
+	}
 	return (NULL);
 }
 
@@ -45,15 +51,14 @@ static char		*deflate(const char *origin, char *result, int state)
 
 char			*deglob(const char *input, char *token, char *blob)
 {
-	char		*deglobed;
+	char		deglobed[1000];
 
-	deglobed = ft_strnew(ft_strlen(input + 1) * 10);
 	token = ft_strtok((char*)input, " \t\n");
 	while (token != NULL)
 	{
 		if (needs_globbing(token, 0))
 		{
-			if ((blob = deflate(token, NULL, 0x0)) == NULL)
+			if ((blob = deflate(token, NULL, 0)) == NULL)
 				return (NULL);
 			ft_strcat(deglobed, blob);
 			ft_strcat(deglobed, " ");
@@ -66,6 +71,6 @@ char			*deglob(const char *input, char *token, char *blob)
 		}
 		token = ft_strtok(NULL, " \t\n");
 	}
-	return ((deglobed[0] == '\0') ? ft_strdup("")
-			: deglobed);
+	return ((deglobed[0] == '\0') ? ft_strdup(" ")
+			: ft_strdup(deglobed));
 }
