@@ -47,10 +47,10 @@ char				*list_to_str(t_prompt **list)
 		{
 			if (tmp->next && tmp->next->c == RETURN)
 				str[i] = RETURN;
-			if (!(tmp->insertion && tmp->next && tmp->next->c == RETURN) &&
-				tmp->c != RETURN)
+			if (!(tmp->insertion && tmp->next && tmp->next->c == RETURN)
+					&& tmp->c != RETURN)
 				str[i] = tmp->c;
-				i++;
+			i++;
 		}
 		tmp = tmp->next;
 		if (tmp && !tmp->next)
