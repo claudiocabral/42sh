@@ -3,15 +3,29 @@
 
 # include <mysh.h>
 
-// int             print_options(t_array *array, char *line);
+typedef struct	s_autocompl {
+	char		*str;
+	int			cursor;
+}				t_autocompl;
+
+typedef struct 		s_info {
+	int				size;
+	int 			width;
+	int				elem_col;
+	unsigned int 	max_size;
+}					t_info;
+
 void			auto_completion(t_prompt **list);
 char			*auto_complete(char *line);
-void			auto_complete_push(t_array *array, char *base, char *candidate);
 int             print_options(t_array *array, char *line);
 DIR             *get_dir(char *path, char **str);
 void            search_dir(DIR *dir, char *str, t_array *array);
 int             first_word(char *line);
 int             is_separator(char c);
-void            adjust_terminal(char *line, int nbr_lines);
-int             choose_possibility(t_array *array, char *str, char *line);
+
+
+char			*choose_possibility(t_array *array, char *str);
+void			sort_possibilites(t_autocompl *pos, t_info *info);
+void			display_possibilities(t_autocompl *possibilities, t_info *info);
+void		auto_complete_push(t_array *array, char *base, char *candidate);
 #endif

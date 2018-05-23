@@ -12,6 +12,24 @@
 
 #include <mysh.h>
 
+void		auto_complete_push(t_array *array, char *base, char *candidate)
+{
+	size_t	ret;
+
+	if (!base || !candidate)
+		return ;
+	if ((!*base || (ret = ft_strnequ(base, candidate, ft_strlen(base))))
+			&& !array_find(array, &candidate, (t_cmpf) & ft_strcmp_wrapper))
+		ret = (size_t)array_push_back(array, &candidate);
+	else
+	{
+		free(candidate);
+		return ;
+	}
+	if (!ret)
+		free(candidate);
+}
+
 char		*auto_complete_path(t_array *array, char *line)
 {
 	DIR				*dir;
@@ -98,19 +116,10 @@ char		*auto_complete(char *line)
 		else
 			str = auto_complete_command(array, line);
 	}
-	// ft_printf("AUTOCOMPLETE == %s\n", array->begin);
-	// char **it;
-    //
-	// it = (char **)array->begin;
-	// while (it != array->end)
-	// {
-		// ft_printf("IT == %s\n", *it);
-	// 	it++;
-	// }
 	if (str && array_size(array) == 1)
 		return (*(char **)array->begin + ft_strlen(str));
-	// else if (str)
-	// 	choose_possibility(array, str, terminal);
+	else if (str && array_size(array) > 1)
+		choose_possibility(array, str);
 	free(str);
 	array_free(array, (t_freef) & free_wrapper);
 	return (NULL);

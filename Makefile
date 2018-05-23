@@ -87,6 +87,8 @@ OBJS	=	objs/main.o \
 			objs/edition/autocompletion/auto_complete.o \
 			objs/edition/autocompletion/auto_complete_printer.o \
 			objs/edition/autocompletion/auto_complete_tools.o \
+			objs/edition/autocompletion/auto_complete_adjust.o \
+			objs/edition/autocompletion/possibilities_tools.o \
 			objs/edition/autocompletion/autocompletion.o \
 			objs/heredoc/heredoc.o \
 			objs/heredoc/heredoc_delim.o \
