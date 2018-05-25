@@ -53,6 +53,7 @@ char			*deglob(const char *input, char *token, char *blob)
 {
 	char		deglobed[1000];
 
+	ft_bzero(deglobed, 1000);
 	token = ft_strtok((char*)input, " \t\n");
 	while (token != NULL)
 	{
