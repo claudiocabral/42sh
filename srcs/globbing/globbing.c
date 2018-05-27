@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 12:12:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/05/26 11:48:48 by iomonad          ###   ########.fr       */
+/*   Updated: 2018/05/27 20:44:57 by iomonad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ static char		*deflate(const char *origin, char *result, int state)
 
 char			*deglob(const char *input, char *token, char *blob)
 {
-	char		deglobed[10000];
+	char		*deglobed = NULL;
 
-	ft_bzero(deglobed, 10000);
+	deglobed = ft_strnew(2);
 	token = ft_strtok((char*)input, " \t\n");
 	while (token != NULL)
 	{
@@ -61,17 +61,13 @@ char			*deglob(const char *input, char *token, char *blob)
 		{
 			if ((blob = deflate(token, NULL, 0)) == NULL)
 				return (NULL);
-			ft_strcat(deglobed, blob);
-			ft_strcat(deglobed, " ");
+			deglobed = ft_vjoin(3, deglobed, blob, " ");
 			free(blob);
 		}
 		else
-		{
-			ft_strcat(deglobed, token);
-			ft_strcat(deglobed, " ");
-		}
+			deglobed = ft_vjoin(3, deglobed, token, " ");
 		token = ft_strtok(NULL, " \t\n");
 	}
 	return ((deglobed[0] == '\0') ? ft_strdup(" ")
-			: ft_strdup(deglobed));
+			: deglobed);
 }

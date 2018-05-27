@@ -6,11 +6,13 @@
 /*   By: ctrouill <clement@trosa.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 11:15:30 by ctrouill          #+#    #+#             */
-/*   Updated: 2017/12/20 11:18:11 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/05/27 20:46:45 by iomonad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
+#include <stdlib.h>
+#include <stdarg.h>
 
 #undef MAXARG
 #define MAXARG 100
