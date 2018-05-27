@@ -12,33 +12,40 @@
 
 #include <mysh.h>
 
-void 			display_it(t_autocompl *possibilities, t_info *info)
+void 			display_it(t_autocompl *possibilities, t_infocompl *info)
 {
-	int		i;
+	int		col;
+	int		row;
+	int		position;
 	int		indent;
 
-	i = 0;
-	while (i < info->size)
+	row = 0;
+	while (row < info->row)
 	{
-		if (possibilities[i].cursor)
-			ft_putstr(REVERSE_VIDEO);
-		ft_putstr(possibilities[i].str);
-		if (possibilities[i].cursor)
-			ft_putstr(RESET);
-		if ((i + 1) % info->elem_col == 0)
-			ft_putchar('\n');
-		else
+		col = 0;
+		while (col < info->col)
 		{
-			indent = info->max_size - ft_strlen(possibilities[i].str);
-			while (indent-- >= 0)
+			position = col * info->row + row;
+			if (position < info->row && position)
+				ft_putchar('\n');
+			if (position < info->size)
+			{
+				if (possibilities[position].cursor)
+				ft_putstr(REVERSE_VIDEO);
+				ft_putstr(possibilities[position].str);
+				if (possibilities[position].cursor)
+				ft_putstr(RESET);
+				indent = info->max_size - ft_strlen(possibilities[position].str);
+				while (col + 1 < info->col && indent-- >= 0)
 				ft_putchar(' ');
+			}
+			col++;
 		}
-		i++;
+		row++;
 	}
-	ft_putchar('\n');
 }
 
-void			prepare_display(t_autocompl *possibilities, t_info *info)
+void			prepare_display(t_autocompl *possibilities, t_infocompl *info)
 {
 	struct winsize		w;
 	int					i;
@@ -53,12 +60,17 @@ void			prepare_display(t_autocompl *possibilities, t_info *info)
 			info->max_size = ft_strlen(possibilities[i].str) + 3;
 		i++;
 	}
-	info->elem_col = info->width / info->max_size;
+	info->col = info->width / info->max_size;
+	info->row = info->size / info->col;
+	if (info->size % info->col > 0)
+		info->row++;
 }
 
-void			display_possibilities(t_autocompl *possibilities, t_info *info)
+void			display_completion(t_infocompl *info)
 {
-	prepare_display(possibilities, info);
-	display_it(possibilities, info);
-	// tputs(tgetstr("up", NULL), 1, &ft_putc);
+	ft_putchar('\n');
+	prepare_display(info->array, info);
+	display_it(info->array, info);
+	while (info->row--)
+		tputs(tgetstr("up", NULL), 1, &ft_putc);
 }

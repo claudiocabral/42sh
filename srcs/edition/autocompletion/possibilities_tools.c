@@ -1,6 +1,6 @@
 #include <mysh.h>
 
-void		sort_possibilites(t_autocompl *pos, t_info *info)
+void		sort_possibilites(t_autocompl *pos, t_infocompl *info)
 {
 	char	*swap;
 	int		i;

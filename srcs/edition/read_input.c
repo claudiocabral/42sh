@@ -99,8 +99,6 @@ static void		input_possibilities_else(char *input, t_prompt **list, t_sh *sh)
 		delete_backspace(list);
 	else if (!ft_strncmp(DELETE, input, 4))
 		delete_delete(list);
-	else if (input[0] == TAB && input[1] == 0)
-		auto_completion(list);
 	else if (input[0] == 4 && !input[1] &&
 			!(*list)->previous_list && !(*list)->next)
 		control_d(list);
@@ -139,15 +137,22 @@ char			*read_input(t_sh *sh)
 		// ft_putchar('\n');
 		// ft_putnbr(input[3]);
 		// ft_putchar('\n');
-		if (input[0] == RETURN)
+		if ((input[0] == TAB && input[1] == 0) || (sh->completion && input[0] == ECHAP))
+			input_autocompletion(&input[0], &list, sh->completion);
+		else if (input[0] == RETURN)
 		{
 			if ((str = input_return(sh, &list)))
 				return (str);
 		}
-		else if (input_possibilities_move(&input[0], &list) == 1)
-			;
 		else
-			input_possibilities_else(&input[0], &list, sh);
+		{
+			//free sh->completion
+			sh->completion = NULL;
+			if (input_possibilities_move(&input[0], &list) == 1)
+				;
+			else
+				input_possibilities_else(&input[0], &list, sh);
+		}
 		get_address_list(&list, 1);
 		display_prompt(list, 1, 1);
 		ft_memset(&input, 0, 4);

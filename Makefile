@@ -15,7 +15,7 @@ NAME	:=	42sh
 ifeq (CC,)
 CC		:=	cc
 endif
-CFLAGS	:=	-Wextra -Werror -Wall -march=native -Wshadow #-fsanitize=address
+CFLAGS	:=	-Wextra -Werror -Wall -march=native -Wshadow -g#-fsanitize=address
 CDEBUG	:=	-g
 
 LIBFT_PATH	:=	libft

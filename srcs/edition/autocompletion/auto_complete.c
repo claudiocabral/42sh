@@ -99,15 +99,11 @@ char		*auto_complete(char *line)
 	char			*str;
 	char			*begin;
 
-	// ft_printf("LINE == %s$\n", line);
 	if (ft_strlen(line) == 0)
 		return (0);
 	ZERO_IF_FAIL(array = array_create(8, sizeof(char *)));
 	if (!first_word(line))
-	{
-		// ft_printf("first word\n");
 		str = auto_complete_path(array, line);
-	}
 	else
 	{
 		begin = ft_strrchr(line, ' ');
