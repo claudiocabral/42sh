@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/09 09:25:06 by ccabral           #+#    #+#             */
-/*   Updated: 2018/05/21 14:58:24 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/05/27 20:38:26 by iomonad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,5 +146,7 @@ typedef enum	e_bool
 	FALSE = 0,
 	TRUE
 }				t_bool;
+
+char			*ft_vjoin(size_t n, ...);
 
 #endif
