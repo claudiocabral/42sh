@@ -12,24 +12,30 @@
 
 #include <mysh.h>
 
-// int			nbr_characters(char const *str)
-// {
-// 	int	nbr;
-//
-// 	nbr = 0;
-// 	while (1)
-// 	{
-// 		while (is_middle_of_unicode(*str))
-// 			++str;
-// 		if (!*str)
-// 			break ;
-// 		++str;
-// 		++nbr;
-// 	}
-// 	return (nbr);
-// }
+void 			move_right_autocompl(t_autocompl *possibilities, t_infocompl *info)
+{
+	int		i;
 
-void 			move_down_autocompl(t_autocompl *possibilities, t_infocompl *info)
+	i = 0;
+	ft_printf("ROW = %d ## COL = %d\n", info->row, info->col);
+	while (i < info->size)
+	{
+		if (possibilities[i].cursor == 1)
+		{
+			ft_printf("I = %d\n", i);
+			if (i + info->row < info->size)
+				possibilities[i + info->row].cursor = 1;
+			ft_printf("I = %d\n", i + info->row);
+			// else
+			// 	possibilities[i % info->col].cursor = 1;
+			possibilities[i].cursor = 0;
+			return ;
+		}
+		i++;
+	}
+}
+
+void 			move_up_autocompl(t_autocompl *possibilities, t_infocompl *info)
 {
 	int		i;
 
@@ -38,8 +44,29 @@ void 			move_down_autocompl(t_autocompl *possibilities, t_infocompl *info)
 	{
 		if (possibilities[i].cursor == 1)
 		{
-			if (i + info->col < info->size)
-				possibilities[i + info->col].cursor = 1;
+			if (i - 1 > -1)
+				possibilities[i - 1].cursor = 1;
+			else
+				possibilities[info->size - 1].cursor = 1;
+			possibilities[i].cursor = 0;
+			return ;
+		}
+		i++;
+	}
+}
+
+void 			move_down_autocompl(t_autocompl *possibilities, t_infocompl *info)
+{
+	int		i;
+
+	i = 0;
+	ft_printf("ROW = %d ## COL = %d\n", info->row, info->col);
+	while (i < info->size)
+	{
+		if (possibilities[i].cursor == 1)
+		{
+			if (i + 1 < info->size)
+				possibilities[i + 1].cursor = 1;
 			else
 				possibilities[0].cursor = 1;
 			possibilities[i].cursor = 0;
@@ -54,8 +81,12 @@ void			input_autocompletion(char *input, t_prompt **list, t_infocompl *info)
 {
 	if (input[0] == TAB && input[1] == 0 && !info)
 		auto_completion(list);
-	else if (input[0] == TAB && input[1] == 0)
+	else if ((input[0] == TAB && input[1] == 0) || !ft_strncmp(input, DOWN, 4))
 		move_down_autocompl(info->array, info);
+	else if (!ft_strncmp(input, UP, 4))
+		move_up_autocompl(info->array, info);
+	else if (!ft_strncmp(input, RIGHT, 4))
+		move_right_autocompl(info->array, info);
 	(void)list;
 }
 
