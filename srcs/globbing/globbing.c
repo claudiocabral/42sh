@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 12:12:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/05/28 10:31:04 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/05/28 11:34:07 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ char			*deglob(const char *input, char *token, char *blob)
 				free(deglobed);
 				return (NULL);
 			}
-			tmp = ft_vjoin(3, deglobed, blob, " ");
+			if ((tmp = ft_vjoin(3, deglobed, blob, " ")) == NULL)
+				return (NULL);
 			free(deglobed);
 			deglobed = ft_strdup(tmp);
 			free(tmp);
@@ -74,7 +75,8 @@ char			*deglob(const char *input, char *token, char *blob)
 		}
 		else
 		{
-			tmp = ft_vjoin(3, deglobed, token, " ");
+			if ((tmp = ft_vjoin(3, deglobed, token, " ")) == NULL)
+				return (NULL);
 			free(deglobed);
 			deglobed = ft_strdup(tmp);
 			free(tmp);
