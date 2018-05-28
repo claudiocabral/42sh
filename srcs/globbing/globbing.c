@@ -55,7 +55,7 @@ char			*deglob(const char *input, char *token, char *blob)
 	char		*tmp = NULL;
 
 	deglobed = malloc(1);
-	ft_bzero(deglobed, ft_strlen(deglobed));
+	ft_bzero(deglobed, 1);
 	token = ft_strtok((char*)input, " \t\n");
 	while (token != NULL)
 	{
@@ -67,6 +67,7 @@ char			*deglob(const char *input, char *token, char *blob)
 				return (NULL);
 			}
 			tmp = ft_vjoin(3, deglobed, blob, " ");
+			free(deglobed);
 			deglobed = ft_strdup(tmp);
 			free(tmp);
 			free(blob);
@@ -74,6 +75,7 @@ char			*deglob(const char *input, char *token, char *blob)
 		else
 		{
 			tmp = ft_vjoin(3, deglobed, token, " ");
+			free(deglobed);
 			deglobed = ft_strdup(tmp);
 			free(tmp);
 		}
