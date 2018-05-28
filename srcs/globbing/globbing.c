@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 12:12:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/05/27 20:44:57 by iomonad          ###   ########.fr       */
+/*   Updated: 2018/05/28 10:31:04 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,32 @@ static char		*deflate(const char *origin, char *result, int state)
 char			*deglob(const char *input, char *token, char *blob)
 {
 	char		*deglobed = NULL;
+	char		*tmp = NULL;
 
-	deglobed = ft_strnew(2);
+	deglobed = malloc(1);
+	ft_bzero(deglobed, ft_strlen(deglobed));
 	token = ft_strtok((char*)input, " \t\n");
 	while (token != NULL)
 	{
 		if (needs_globbing(token, 0))
 		{
 			if ((blob = deflate(token, NULL, 0)) == NULL)
+			{
+				free(deglobed);
 				return (NULL);
-			deglobed = ft_vjoin(3, deglobed, blob, " ");
+			}
+			tmp = ft_vjoin(3, deglobed, blob, " ");
+			deglobed = ft_strdup(tmp);
+			free(tmp);
 			free(blob);
 		}
 		else
-			deglobed = ft_vjoin(3, deglobed, token, " ");
+		{
+			tmp = ft_vjoin(3, deglobed, token, " ");
+			deglobed = ft_strdup(tmp);
+			free(tmp);
+		}
 		token = ft_strtok(NULL, " \t\n");
 	}
-	return ((deglobed[0] == '\0') ? ft_strdup(" ")
-			: deglobed);
+	return (deglobed);
 }
