@@ -162,6 +162,7 @@ run_fuzz:
 	./fuzz -artifact_prefix=./fuzz_log/ fuzz_log
 
 fuzz:  $(OBJS) $(FUZZ_OBJ) $(LIBFT) $(PRINTF)
+	mkdir -p fuzz_log
 	$(CC) $(CFLAGS) $(OBJS) $(FUZZ_OBJ) $(INC) -L$(LIBFT_PATH) -L$(PRINTF_PATH) \
 		-l$(LIBTERMCAP) -lft -lftprintf $(CDEBUG) -o $@
 
