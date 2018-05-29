@@ -3,6 +3,7 @@
 *.a
 .deps
 *.dSYM
+fuzz
 .42sh_history
 globbing/globbing
 42sh
