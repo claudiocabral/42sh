@@ -4,6 +4,8 @@
 .deps
 *.dSYM
 fuzz
+crash*
+leak*
 .42sh_history
 globbing/globbing
 42sh

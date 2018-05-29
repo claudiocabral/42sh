@@ -27,7 +27,10 @@ int			process_input(char *str)
 	char	*input;
 
 	if ((input = deglob(str, NULL, NULL)) == NULL)
+	{
+		free(str);
 		return (ft_printf("42sh: No matchs found.\n"));
+	}
 	return_value = execute(parse(lex(input)));
 	ft_strdel(&str);
 	free(input);
