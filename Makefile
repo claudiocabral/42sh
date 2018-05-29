@@ -159,7 +159,7 @@ compile_fuzz: fuzz
 
 run_fuzz:
 	FUZZ=1 $(MAKE) compile_fuzz
-	./fuzz -artifact_prefix=./fuzz_log/
+	./fuzz -artifact_prefix=./fuzz_log/ fuzz_log
 
 fuzz:  $(OBJS) $(FUZZ_OBJ) $(LIBFT) $(PRINTF)
 	$(CC) $(CFLAGS) $(OBJS) $(FUZZ_OBJ) $(INC) -L$(LIBFT_PATH) -L$(PRINTF_PATH) \

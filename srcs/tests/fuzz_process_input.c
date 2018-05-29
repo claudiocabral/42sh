@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <mysh.h>
 #include <array.h>
+#include <globbing.h>
 
 #define llvm_fuzzer_test_one_input LLVMFuzzerTestOneInput
 
@@ -12,7 +13,8 @@ extern char **environ;
 int llvm_fuzzer_test_one_input(const uint8_t *data, size_t size)
 {
 	char	*str;
-	int		result;
+	char	*input;
+	t_tree	*tree;
 
 	if (!get_environment_array())
 	{
@@ -26,8 +28,15 @@ int llvm_fuzzer_test_one_input(const uint8_t *data, size_t size)
 	ZERO_IF_FAIL(str = (char *)malloc(size + 1));
 	ft_memcpy(str, data, size);
 	str[size] = 0;
-	result = process_input(str);
-	//array_free(get_environment_array(), (t_freef) & free_wrapper);
-	//free_global_paths();
-	return (result);
+	if ((input = deglob(str, NULL, NULL)) == NULL)
+	{
+		free(str);
+		return (ft_printf("42sh: No matchs found.\n"));
+	}
+	tree = parse(lex(input));
+	ft_strdel(&str);
+	free(input);
+	if (tree)
+		tree_free(tree, (t_freef) & noop);
+	return (tree == 0);
 }
