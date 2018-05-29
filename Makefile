@@ -7,7 +7,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/05/21 15:37:29 by ctrouill         ###   ########.fr        #
+#    Updated: 2018/05/29 21:20:26 by iomonad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -205,6 +205,9 @@ endif
 
 llvm-checks:
 	scan-build make
+
+# needed by dockerfile
+test: run_fuzz
 
 re:
 	$(MAKE) fclean
