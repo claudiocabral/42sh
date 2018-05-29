@@ -156,7 +156,11 @@ $(NAME): $(OBJS) $(MAIN_OBJ) $(LIBFT) $(PRINTF)
 fuzz:  $(OBJS) $(FUZZ_OBJ) $(LIBFT) $(PRINTF)
 	$(CC) $(CFLAGS) $(OBJS) $(FUZZ_OBJ) $(INC) -L$(LIBFT_PATH) -L$(PRINTF_PATH) \
 		-l$(LIBTERMCAP) -lft -lftprintf $(CDEBUG) -o $@
-	./$@
+
+run_fuzz:
+	$(MAKE) fclean
+	FUZZ=1 $(MAKE) fuzz
+	./fuzz -artifact_prefix=./fuzz_log/
 
 objs/%.o: srcs/%.c $(DEPDIR)/%.dep Makefile
 	$(eval DIR := $(dir $@))

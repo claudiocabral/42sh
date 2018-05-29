@@ -4,6 +4,7 @@
 .deps
 *.dSYM
 fuzz
+fuzz_log
 crash*
 leak*
 .42sh_history
