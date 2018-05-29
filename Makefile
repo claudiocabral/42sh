@@ -153,14 +153,18 @@ $(NAME): $(OBJS) $(MAIN_OBJ) $(LIBFT) $(PRINTF)
 	$(CC) $(CFLAGS) $(OBJS) $(MAIN_OBJ) $(INC) -L$(LIBFT_PATH) -L$(PRINTF_PATH) \
 		-l$(LIBTERMCAP) -lft -lftprintf -o $@
 
+compile_fuzz: fuzz
+	$(MAKE) fclean
+	FUZZ=1 $(MAKE) fuzz
+
+run_fuzz:
+	FUZZ=1 $(MAKE) compile_fuzz
+	./fuzz -artifact_prefix=./fuzz_log/
+
 fuzz:  $(OBJS) $(FUZZ_OBJ) $(LIBFT) $(PRINTF)
 	$(CC) $(CFLAGS) $(OBJS) $(FUZZ_OBJ) $(INC) -L$(LIBFT_PATH) -L$(PRINTF_PATH) \
 		-l$(LIBTERMCAP) -lft -lftprintf $(CDEBUG) -o $@
 
-run_fuzz:
-	$(MAKE) fclean
-	FUZZ=1 $(MAKE) fuzz
-	./fuzz -artifact_prefix=./fuzz_log/
 
 objs/%.o: srcs/%.c $(DEPDIR)/%.dep Makefile
 	$(eval DIR := $(dir $@))
@@ -180,6 +184,9 @@ fclean: clean
 	$(MAKE) $(LIBFT_FCLEAN)
 ifeq ($(shell [ -e $(NAME) ] && echo 1 || echo 0),1)
 	rm -rf $(NAME)
+endif
+ifeq ($(shell [ -e fuzz ] && echo 1 || echo 0),1)
+	rm -rf fuzz
 endif
 
 clean:
