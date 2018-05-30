@@ -12,90 +12,68 @@
 
 #include <mysh.h>
 
-int			get_biggest_column(t_array *array)
+void 			display_it(t_autocompl *possibilities, t_infocompl *info)
 {
-	char	**it;
-	int		max;
+	int		col;
+	int		row;
+	int		position;
+	int		indent;
 
-	it = (char **)array->begin;
-	max = 0;
-	while (it != array->end)
+	row = 0;
+	while (row < info->row)
 	{
-		max = ft_max(max, ft_strlen(*it));
-		++it;
-	}
-	return (max);
-}
-
-void		print_columns_helper(int nbr_columns, int nbr_rows,
-									int column_size, t_array *array)
-{
-	char	**it;
-	int		i;
-	int		j;
-	int		size;
-
-	(void)nbr_columns;
-	it = array->begin;
-	size = array_size(array);
-	i = 0;
-	while (i < nbr_rows)
-	{
-		j = 0;
-		while (i + (j * nbr_rows) < size)
+		col = 0;
+		while (col < info->col)
 		{
-			ft_dprintf(0, "%*s%c",
-				i + (j + 1) * nbr_rows >= size ?
-				-1 * (long)ft_strlen(*(it + i + j * nbr_rows))
-				: -1 * column_size,
-				*(it + i + j * nbr_rows),
-				i + (j + 1) * nbr_rows >= size ? '\n' : '\t');
-			++j;
+			position = col * info->row + row;
+			if (position < info->row && position)
+				ft_putchar('\n');
+			if (position < info->size)
+			{
+				if (possibilities[position].cursor)
+				ft_putstr(REVERSE_VIDEO);
+				ft_putstr(possibilities[position].str);
+				if (possibilities[position].cursor)
+				ft_putstr(RESET);
+				indent = info->max_size - ft_strlen(possibilities[position].str);
+				while (col + 1 < info->col && indent-- >= 0)
+				ft_putchar(' ');
+			}
+			col++;
 		}
-		++i;
+		row++;
 	}
 }
 
-// static int	print_columns(t_array *array)
-// {
-// 	int	column_size;
-// 	int	nbr_columns = 0;
-// 	int	nbr_rows;
-// 	int	size;
-//
-// 	size = array_size(array);
-// 	column_size = get_biggest_column(array);
-// 	// nbr_columns = ft_max(1, get_terminal_width() / ((column_size + 8) / 8 * 8));
-// 	nbr_rows = size / nbr_columns + ((size % nbr_columns) != 0);
-// 	print_columns_helper(nbr_columns, nbr_rows, column_size, array);
-// 	return (nbr_rows);
-// }
-
-void		auto_complete_push(t_array *array, char *base, char *candidate)
+void			prepare_display(t_autocompl *possibilities, t_infocompl *info)
 {
-	size_t	ret;
+	struct winsize		w;
+	int					i;
 
-	if (!base || !candidate)
-		return ;
-	if ((!*base || (ret = ft_strnequ(base, candidate, ft_strlen(base))))
-			&& !array_find(array, &candidate, (t_cmpf) & ft_strcmp_wrapper))
-		ret = (size_t)array_push_back(array, &candidate);
-	else
+	ioctl(0, TIOCGWINSZ, &w);
+	info->width = w.ws_col;
+	info->max_size = 0;
+	i = 0;
+	while (i < info->size)
 	{
-		free(candidate);
-		return ;
+		if (ft_strlen(possibilities[i].str) + 3 > info->max_size)
+			info->max_size = ft_strlen(possibilities[i].str) + 3;
+		i++;
 	}
-	if (!ret)
-		free(candidate);
+	info->col = info->width / info->max_size;
+	info->row = info->size / info->col;
+	if (info->size % info->col > 0)
+		info->row++;
 }
 
-// int			print_options(t_array *array, t_terminal *terminal)
-// {
-// 	int		nbr_lines;
-//
-// 	write(0, "\n", 1);
-// 	// terminal_command(CLEAR_BOTTOM, 0);
-// 	nbr_lines = print_columns(array) + 1;
-// 	adjust_terminal(terminal, nbr_lines);
-// 	return (1);
-// }
+void			display_completion(t_infocompl *info)
+{
+	int		tmp;
+
+	ft_putchar('\n');
+	prepare_display(info->array, info);
+	display_it(info->array, info);
+	tmp = info->row;
+	while (tmp--)
+		tputs(tgetstr("up", NULL), 1, &ft_putc);
+}

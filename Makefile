@@ -15,6 +15,7 @@ NAME	:=	42sh
 ifeq (CC,)
 CC		:=	cc
 endif
+
 CFLAGS	:=	$(CFLAGS) -Wextra -Werror -Wall -march=native -Wshadow
 CDEBUG	:=	-g
 
@@ -88,7 +89,10 @@ OBJS	=	objs/shellma.o \
 			objs/edition/autocompletion/auto_complete.o \
 			objs/edition/autocompletion/auto_complete_printer.o \
 			objs/edition/autocompletion/auto_complete_tools.o \
+			objs/edition/autocompletion/auto_complete_adjust.o \
+			objs/edition/autocompletion/possibilities_tools.o \
 			objs/edition/autocompletion/autocompletion.o \
+			objs/edition/autocompletion/move.o \
 			objs/heredoc/heredoc.o \
 			objs/heredoc/heredoc_delim.o \
 			objs/builtins/exit.o \

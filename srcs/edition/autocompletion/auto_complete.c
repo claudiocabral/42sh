@@ -12,6 +12,24 @@
 
 #include <mysh.h>
 
+void		auto_complete_push(t_array *array, char *base, char *candidate)
+{
+	size_t	ret;
+
+	if (!base || !candidate)
+		return ;
+	if ((!*base || (ret = ft_strnequ(base, candidate, ft_strlen(base))))
+			&& !array_find(array, &candidate, (t_cmpf) & ft_strcmp_wrapper))
+		ret = (size_t)array_push_back(array, &candidate);
+	else
+	{
+		free(candidate);
+		return ;
+	}
+	if (!ret)
+		free(candidate);
+}
+
 char		*auto_complete_path(t_array *array, char *line)
 {
 	DIR				*dir;
@@ -81,15 +99,11 @@ char		*auto_complete(char *line)
 	char			*str;
 	char			*begin;
 
-	// ft_printf("LINE == %s$\n", line);
 	if (ft_strlen(line) == 0)
 		return (0);
 	ZERO_IF_FAIL(array = array_create(8, sizeof(char *)));
 	if (!first_word(line))
-	{
-		// ft_printf("first word\n");
 		str = auto_complete_path(array, line);
-	}
 	else
 	{
 		begin = ft_strrchr(line, ' ');
@@ -98,20 +112,14 @@ char		*auto_complete(char *line)
 		else
 			str = auto_complete_command(array, line);
 	}
-	// ft_printf("AUTOCOMPLETE == %s\n", array->begin);
-	// char **it;
-    //
-	// it = (char **)array->begin;
-	// while (it != array->end)
-	// {
-		// ft_printf("IT == %s\n", *it);
-	// 	it++;
-	// }
+	begin = NULL;
 	if (str && array_size(array) == 1)
-		return (*(char **)array->begin + ft_strlen(str));
-	// else if (str)
-	// 	choose_possibility(array, str, terminal);
-	free(str);
+	{
+		begin = ft_strdup(*(char **)array->begin + ft_strlen(str));
+		ft_strdel(&str);
+	}
+	else if (str && array_size(array) > 1)
+		choose_possibility(array, str);
 	array_free(array, (t_freef) & free_wrapper);
-	return (NULL);
+	return (begin);
 }

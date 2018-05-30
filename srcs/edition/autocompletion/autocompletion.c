@@ -67,6 +67,8 @@ void	add_complete(t_prompt **list, char *to_add)
 		add_elem(list, create_elem(to_add[i]));
 		i++;
 	}
+	if (to_add)
+		ft_strdel(&to_add);
 }
 
 void	auto_completion(t_prompt **list)
@@ -77,5 +79,6 @@ void	auto_completion(t_prompt **list)
 	begin_list = *list;
 	line = str_to_cursor(list);
 	add_complete(list, auto_complete(line));
+	ft_strdel(&line);
 	*list = begin_list;
 }

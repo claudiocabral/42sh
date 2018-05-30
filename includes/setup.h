@@ -22,6 +22,7 @@ typedef struct			s_sh
 	char				*copy_str;
 	t_histo				history;
 	char				*heredoc_delim;
+	t_infocompl			*completion;
 }						t_sh;
 
 t_sh					*g_sh;

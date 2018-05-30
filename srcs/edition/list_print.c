@@ -26,6 +26,8 @@ void	display_prompt(t_prompt *list, char with_options, char adj_cursor)
 	print_all_list(list, with_options);
 	if (adj_cursor)
 		adjust_cursor(list);
+	if (g_sh->completion)
+		display_completion(g_sh->completion);
 }
 
 void	basic_prompt(t_prompt *list)

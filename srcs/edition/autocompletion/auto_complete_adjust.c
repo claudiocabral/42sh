@@ -10,67 +10,68 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <mysh.h>
+#include <mysh.h>
 
-int			nbr_characters(char const *str)
+void			add_possibilty(t_prompt **list, t_autocompl *array,
+					t_infocompl *info)
 {
-	int	nbr;
+	int	i;
 
-	nbr = 0;
-	while (1)
+	i = 0;
+	while (i < info->size)
 	{
-		while (is_middle_of_unicode(*str))
-			++str;
-		if (!*str)
-			break ;
-		++str;
-		++nbr;
-	}
-	return (nbr);
-}
-
-void		adjust_terminal(t_terminal *terminal, int nbr_lines)
-{
-	if (nbr_lines >= get_terminal_height())
-	{
-		print_prompt(terminal);
-		ft_dprintf(0, "%s", terminal->line->buffer);
-	}
-	else
-	{
-		terminal_command(MOVE_UP, nbr_lines);
-		terminal_command(MOVE_RIGHT,
-				terminal->prompt_size
-				+ nbr_characters(terminal->line->buffer));
+		if (array[i].cursor == 1)
+		{
+			add_complete(list, array[i].str + ft_strlen(info->str));
+			free_autocompletion(g_sh);
+			return ;
+		}
+		i++;
 	}
 }
 
-int			choose_possibility(t_array *array, char *str,
-		t_terminal *terminal)
+void			input_autocompletion(char *input, t_prompt **list,
+					t_infocompl *info)
 {
-	char	**it;
-	char	*candidate;
-	int		size;
-	int		max_size;
+	if (input[0] == TAB && input[1] == 0 && !info)
+		auto_completion(list);
+	else if ((input[0] == TAB && input[1] == 0) || !ft_strncmp(input, DOWN, 4))
+		move_down_autocompl(info->array, info);
+	else if (!ft_strncmp(input, UP, 4))
+		move_up_autocompl(info->array, info);
+	else if (!ft_strncmp(input, RIGHT, 4))
+		move_right_autocompl(info->array, info);
+	else if (!ft_strncmp(input, LEFT, 4))
+		move_left_autocompl(info->array, info);
+	else if (input[0] == RETURN && input[1] == 0)
+		add_possibilty(list, info->array, info);
+}
 
-	ZERO_IF_FAIL((it = (char **)array->begin) != array->end);
-	candidate = *it;
-	max_size = ft_strlen(candidate);
+void			choose_possibility(t_array *array, char *str)
+{
+	t_autocompl	*possibilities;
+	t_infocompl	*info;
+	int			size;
+	int			i;
+	char		**it;
+
+	size = array_size(array);
+	if (!(info = (t_infocompl *)malloc(sizeof(t_infocompl))))
+		return ;
+	if (!(possibilities = (t_autocompl *)malloc(sizeof(t_autocompl) * size)))
+		return ;
+	i = 0;
+	it = (char **)array->begin;
 	while (it != array->end)
 	{
-		size = 0;
-		while (size < max_size && (*it)[size] == candidate[size])
-			++size;
-		max_size = size;
-		++it;
+		possibilities[i].str = ft_strdup(*it);
+		possibilities[i].cursor = 0;
+		it++;
+		i++;
 	}
-	if ((size_t)size == ft_strlen(str))
-		return (print_options(array, terminal));
-	max_size = candidate[size];
-	candidate[size] = 0;
-	if (str)
-		terminal_insert_string(terminal,
-				candidate + ft_strlen(str));
-	candidate[size] = (char)max_size;
-	return (1);
+	info->size = size;
+	sort_possibilites(possibilities, info);
+	info->array = possibilities;
+	info->str = str;
+	g_sh->completion = info;
 }

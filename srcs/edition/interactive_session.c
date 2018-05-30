@@ -35,6 +35,7 @@ void	init_sh(t_sh *sh)
 		sh->history.fd_history = open_history_file();
 		sh->history.history = history_file_to_list(sh->history.fd_history);
 		sh->heredoc_delim = NULL;
+		sh->completion = NULL;
 	}
 }
 
