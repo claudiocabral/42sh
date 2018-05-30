@@ -31,7 +31,11 @@ t_tree		*and_or(t_array *tokens, t_token **current)
 			branch = tree_add_child(
 					tree_create_node(*current - 1, sizeof(t_token)), branch);
 			if (!branch || !(child = pipeline(0, tokens, current)))
+			{
+				if (branch)
+					tree_free(branch, &noop);
 				return (0);
+			}
 			if (!(tree_add_child(branch, child)))
 				return (0);
 		}

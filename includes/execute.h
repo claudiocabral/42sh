@@ -46,6 +46,7 @@ void			remove_quotes(char *str);
 int				init_builtins(void);
 int				generate_paths(void);
 int				init_path_table(void);
+void			free_global_paths(void);
 int				init_paths(t_array **paths);
 t_binary_path	*make_path_entry(char const *name, size_t size);
 t_string		*binary_path_set_buffer(t_binary_path *path,

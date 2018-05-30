@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 12:12:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/05/21 18:10:18 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/05/28 11:34:07 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,27 +51,37 @@ static char		*deflate(const char *origin, char *result, int state)
 
 char			*deglob(const char *input, char *token, char *blob)
 {
-	char		deglobed[1000];
+	char		*deglobed = NULL;
+	char		*tmp = NULL;
 
-	ft_bzero(deglobed, 1000);
+	deglobed = malloc(1);
+	ft_bzero(deglobed, 1);
 	token = ft_strtok((char*)input, " \t\n");
 	while (token != NULL)
 	{
 		if (needs_globbing(token, 0))
 		{
 			if ((blob = deflate(token, NULL, 0)) == NULL)
+			{
+				free(deglobed);
 				return (NULL);
-			ft_strcat(deglobed, blob);
-			ft_strcat(deglobed, " ");
+			}
+			if ((tmp = ft_vjoin(3, deglobed, blob, " ")) == NULL)
+				return (NULL);
+			free(deglobed);
+			deglobed = ft_strdup(tmp);
+			free(tmp);
 			free(blob);
 		}
 		else
 		{
-			ft_strcat(deglobed, token);
-			ft_strcat(deglobed, " ");
+			if ((tmp = ft_vjoin(3, deglobed, token, " ")) == NULL)
+				return (NULL);
+			free(deglobed);
+			deglobed = ft_strdup(tmp);
+			free(tmp);
 		}
 		token = ft_strtok(NULL, " \t\n");
 	}
-	return ((deglobed[0] == '\0') ? ft_strdup(" ")
-			: ft_strdup(deglobed));
+	return (deglobed);
 }

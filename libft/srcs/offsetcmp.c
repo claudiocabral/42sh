@@ -12,14 +12,12 @@
 
 #include <libft.h>
 
-int			offsetcmp(const char *s1,
-				const char *s2,
-				char *tmp1,
-				char *tmp2)
+int			offsetcmp(const char *s1, const char *s2,
+								char *tmp1, char *tmp2)
 {
 	tmp1 = (char*)s1;
 	tmp2 = (char*)s2;
-	while (!ft_isalnum(*s1) && !ft_isalnum(*s2))
+	while (*s1 && *s2 && !ft_isalnum(*s1) && !ft_isalnum(*s2))
 	{
 		s1++;
 		s2++;

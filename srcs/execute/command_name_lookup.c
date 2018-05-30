@@ -15,7 +15,7 @@
 #include <builtins.h>
 #include <execute.h>
 
-static	t_array			*g_paths;
+static	t_array			*g_paths = 0;
 
 void					free_paths(t_array *paths)
 {
@@ -33,6 +33,13 @@ void					free_paths(t_array *paths)
 	}
 	free(paths->begin);
 	free(paths);
+}
+
+void					free_global_paths(void)
+{
+	if (!g_paths)
+		return;
+	free_paths(g_paths);
 }
 
 int						generate_paths(void)

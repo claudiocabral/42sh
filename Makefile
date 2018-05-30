@@ -7,7 +7,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/05/21 15:37:29 by ctrouill         ###   ########.fr        #
+#    Updated: 2018/05/29 21:20:26 by iomonad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME	:=	42sh
 ifeq (CC,)
 CC		:=	cc
 endif
-CFLAGS	:=	-Wextra -Werror -Wall -march=native -Wshadow -g#-fsanitize=address
+
+CFLAGS	:=	$(CFLAGS) -Wextra -Werror -Wall -march=native -Wshadow
 CDEBUG	:=	-g
 
 LIBFT_PATH	:=	libft
@@ -28,8 +29,9 @@ POSTCOMPILE = @mv -f $(DEPDIR)/$*.Td $(DEPDIR)/$*.dep && touch $@
 include $(LIBFT_PATH)/libft.mk
 include $(PRINTF_PATH)/printf.mk
 
-OBJS	=	objs/main.o \
-			objs/shellma.o \
+MAIN_OBJ =	objs/main.o
+FUZZ_OBJ =	objs/tests/fuzz_process_input.o
+OBJS	=	objs/shellma.o \
 			objs/file/script_session.o \
 			objs/signals/fallback.o \
 			objs/signals/sigint.o \
@@ -126,6 +128,12 @@ ifeq ($(ASAN), 1)
 	CDEBUG += -fsanitize=address
 endif
 
+ifeq ($(FUZZ), 1)
+	CC = clang
+	DEBUG := 1
+	CDEBUG += -fsanitize=fuzzer,address,signed-integer-overflow
+endif
+
 ifeq ($(DEBUG), 1)
 	CFLAGS	+=	$(CDEBUG)
 endif
@@ -145,9 +153,22 @@ all: $(NAME)
 include $(LIBFT_PATH)/libft_rules.mk
 include $(PRINTF_PATH)/printf_rules.mk
 
-$(NAME): $(OBJS) $(LIBFT) $(PRINTF)
-	$(CC) $(CFLAGS) $(OBJS) $(INC) -L$(LIBFT_PATH) -L$(PRINTF_PATH) \
+$(NAME): $(OBJS) $(MAIN_OBJ) $(LIBFT) $(PRINTF)
+	$(CC) $(CFLAGS) $(OBJS) $(MAIN_OBJ) $(INC) -L$(LIBFT_PATH) -L$(PRINTF_PATH) \
 		-l$(LIBTERMCAP) -lft -lftprintf -o $@
+
+compile_fuzz: fuzz
+	$(MAKE) fclean
+	FUZZ=1 $(MAKE) fuzz
+
+run_fuzz:
+	FUZZ=1 $(MAKE) compile_fuzz
+	./fuzz -artifact_prefix=./fuzz_log/ fuzz_log
+
+fuzz:  $(OBJS) $(FUZZ_OBJ) $(LIBFT) $(PRINTF)
+	mkdir -p fuzz_log
+	$(CC) $(CFLAGS) $(OBJS) $(FUZZ_OBJ) $(INC) -L$(LIBFT_PATH) -L$(PRINTF_PATH) \
+		-l$(LIBTERMCAP) -lft -lftprintf $(CDEBUG) -o $@
 
 
 objs/%.o: srcs/%.c $(DEPDIR)/%.dep Makefile
@@ -169,6 +190,9 @@ fclean: clean
 ifeq ($(shell [ -e $(NAME) ] && echo 1 || echo 0),1)
 	rm -rf $(NAME)
 endif
+ifeq ($(shell [ -e fuzz ] && echo 1 || echo 0),1)
+	rm -rf fuzz
+endif
 
 clean:
 	$(MAKE) $(LIBFT_CLEAN)
@@ -185,6 +209,9 @@ endif
 
 llvm-checks:
 	scan-build make
+
+# needed by dockerfile
+test: run_fuzz
 
 re:
 	$(MAKE) fclean
