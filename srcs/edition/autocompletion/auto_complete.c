@@ -112,11 +112,14 @@ char		*auto_complete(char *line)
 		else
 			str = auto_complete_command(array, line);
 	}
+	begin = NULL;
 	if (str && array_size(array) == 1)
-		return (*(char **)array->begin + ft_strlen(str));
+	{
+		begin = ft_strdup(*(char **)array->begin + ft_strlen(str));
+		ft_strdel(&str);
+	}
 	else if (str && array_size(array) > 1)
 		choose_possibility(array, str);
-	free(str);
 	array_free(array, (t_freef) & free_wrapper);
-	return (NULL);
+	return (begin);
 }

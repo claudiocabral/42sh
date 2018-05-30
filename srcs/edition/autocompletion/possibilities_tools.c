@@ -21,3 +21,24 @@ void		sort_possibilites(t_autocompl *pos, t_infocompl *info)
 			i++;
 	}
 }
+
+void			free_autocompletion(t_sh *sh)
+{
+	t_infocompl	*info;
+	int			i;
+
+	i = 0;
+	info = sh->completion;
+	if (!info)
+		return ;
+	while (i < info->size)
+	{
+		if (info->array[i].cursor == 0)
+			ft_strdel(&(info->array[i].str));
+		i++;
+	}
+	free(info->array);
+	ft_strdel(&info->str);
+	free(info);
+	sh->completion = NULL;
+}

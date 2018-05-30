@@ -68,9 +68,12 @@ void			prepare_display(t_autocompl *possibilities, t_infocompl *info)
 
 void			display_completion(t_infocompl *info)
 {
+	int		tmp;
+
 	ft_putchar('\n');
 	prepare_display(info->array, info);
 	display_it(info->array, info);
-	while (info->row--)
+	tmp = info->row;
+	while (tmp--)
 		tputs(tgetstr("up", NULL), 1, &ft_putc);
 }

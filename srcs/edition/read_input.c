@@ -127,17 +127,8 @@ char			*read_input(t_sh *sh)
 	display_prompt(list, 1, 1);
 	while (read(0, &input, 4))
 	{
-		// if (input[0] == 27 || input[0] == '1' || input[0] == -30)
-		// 	read(0, &input[1], 3);
-		// ft_putnbr(input[0]);
-		// ft_putchar('\n');
-		// ft_putnbr(input[1]);
-		// ft_putchar('\n');
-		// ft_putnbr(input[2]);
-		// ft_putchar('\n');
-		// ft_putnbr(input[3]);
-		// ft_putchar('\n');
-		if ((input[0] == TAB && input[1] == 0) || (sh->completion && input[0] == ECHAP))
+		if ((input[0] == TAB && input[1] == 0) || (sh->completion &&
+				(input[0] == ECHAP || (input[0] == RETURN && input[1] == 0))))
 			input_autocompletion(&input[0], &list, sh->completion);
 		else if (input[0] == RETURN)
 		{
@@ -146,8 +137,7 @@ char			*read_input(t_sh *sh)
 		}
 		else
 		{
-			//free sh->completion
-			sh->completion = NULL;
+			free_autocompletion(sh);
 			if (input_possibilities_move(&input[0], &list) == 1)
 				;
 			else
