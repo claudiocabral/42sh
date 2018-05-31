@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:22:38 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 13:18:33 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/05/31 02:31:01 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ int				set_current_path(void);
 void			set_shlvl(void);
 t_string const	*set_pwd(char const *str);
 t_string const	*set_oldpwd(char const *str);
+int				glob_match(char const *s1, char const *s2);
+int				glob_match_wrapper(char const **s1, char const **s2);
 
 #endif

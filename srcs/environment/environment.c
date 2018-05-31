@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:49:07 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/15 13:19:34 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/05/31 04:22:13 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,13 @@ void			environment_remove_if(char const *data, t_predf predicate)
 void			print_env(char const **env, void *dummy)
 {
 	(void)dummy;
-	ft_printf("%s\n", *env);
+	int			ret;
+	const char		*str;
+
+	str = *env;
+	ret = ft_strchri(str, '=');
+	if (ret != -1)
+		ft_printf("%s\n", *env);
 }
 
 int				print_environment(t_array *env)

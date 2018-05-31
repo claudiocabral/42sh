@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 11:40:55 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/15 13:01:48 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/05/31 02:19:03 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int						init_builtins(void)
 	add_builtin("env", &env);
 	add_builtin("setenv", &builtin_setenv);
 	add_builtin("unsetenv", &builtin_unsetenv);
+	add_builtin("unset", &builtin_unset);
+	add_builtin("export", &builtin_export);
 	return (1);
 }
 

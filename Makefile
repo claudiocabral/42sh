@@ -51,6 +51,8 @@ OBJS	=	objs/shellma.o \
 			objs/execute/execute_cleanup.o \
 			objs/execute/expansion.o \
 			objs/execute/command_name_lookup.o \
+			objs/execute/localvar.o \
+			objs/execute/expand_localvar.o \
 			objs/lexer/lexer.o \
 			objs/lexer/lex.o \
 			objs/lexer/lex_redirection.o \
@@ -103,6 +105,10 @@ OBJS	=	objs/shellma.o \
 			objs/builtins/cd_utils.o \
 			objs/builtins/echo.o \
 			objs/builtins/pwd.o \
+			objs/builtins/unset.o \
+			objs/builtins/export.o \
+			objs/builtins/print_export.o \
+			objs/builtins/utils.o \
 			objs/environment/setenv.o \
 			objs/environment/setup.o \
 			objs/globbing/braks.o \
@@ -116,7 +122,8 @@ OBJS	=	objs/shellma.o \
 			objs/globbing/prepare.o \
 			objs/globbing/yougotit.o \
 			objs/environment/environment.o \
-			objs/environment/prepare_env.o
+			objs/environment/prepare_env.o \
+			objs/environment/prepare_localvar.o 
 
 
 INC	=	-Iincludes \

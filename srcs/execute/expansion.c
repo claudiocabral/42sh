@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 13:35:18 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/22 19:38:30 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/05/31 04:13:05 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ char	*expand(char *value)
 		free(value);
 		ZERO_IF_FAIL(str = ft_strdup(ft_getenv_safe("HOME")));
 	}
-	return (str[0] == '$' && str[1] ? expand_env(str) : str);
+	return (str);
 }

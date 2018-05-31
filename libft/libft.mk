@@ -62,6 +62,7 @@ LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
 				$(LIBFT_OBJ_DIR)/ft_strcapitalize.o \
 				$(LIBFT_OBJ_DIR)/ft_strcat.o \
 				$(LIBFT_OBJ_DIR)/ft_strchr.o \
+				$(LIBFT_OBJ_DIR)/ft_strchri.o \
 				$(LIBFT_OBJ_DIR)/ft_strclr.o \
 				$(LIBFT_OBJ_DIR)/ft_strcmp.o \
 				$(LIBFT_OBJ_DIR)/ft_strcmp_until.o \
