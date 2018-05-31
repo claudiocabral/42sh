@@ -74,12 +74,10 @@ int			export_localvar(char *var)
 
 void			set_localvar(char *token, int only_var)
 {
-	char		*tmp;
 	int			ret;
 	int			before_anycmd;
 
 	before_anycmd = token_var_valid(-1);
-	tmp = NULL;
 	if (((ret = ft_strchri(token, '=')) != -1) && before_anycmd == 0)
 	{
 		if (only_var)

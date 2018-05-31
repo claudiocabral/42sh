@@ -47,10 +47,8 @@ int			only_var(t_tree **begin, t_tree **end)
 {
 	char	*tmp;
 	int		ret;
-	int		i;
 	t_tree	**beg;
 
-	i = 0;
 	beg = begin;
 	while (beg != end)
 	{

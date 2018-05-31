@@ -15,22 +15,24 @@
 #include <environment.h>
 #include <libft.h>
 
-void			print_export_all(char const **env)
+void			print_export_all(char const **env, void *dummy)
 {
 	int			ret;
 	const char		*str;
 
+	(void)dummy;
 	str = *env;
 	ret = ft_strchri(str, '=');
 	ft_printf("export %s", str);
 	ret == -1 ? ft_printf("=\'\'\n") : ft_printf("\n");
 }
 
-void			print_export_env(char const **env)
+void			print_export_env(char const **env, void *dummy)
 {
 	int			ret;
 	const char		*str;
 
+	(void)dummy;
 	str = *env;
 	ret = ft_strchri(str, '=');
 	ft_printf("%s", str);

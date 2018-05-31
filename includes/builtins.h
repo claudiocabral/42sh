@@ -30,8 +30,8 @@ int				builtin_export(int ac, char **av);
 int				export_error(char *av, t_array *env, int mode);
 int				ft_strncmp_wrapperb(char const **a, char const **b);
 int				identify_opt(char **av, t_array *env);
-void			print_export_all(char const **env);
-void			print_export_env(char const **env);
+void			print_export_all(char const **env, void *dummy);
+void			print_export_env(char const **env, void *dummy);
 int				print_export(char **av, t_array *env, int i);
 int				builtin_unset(int argc, char **argv);
 
