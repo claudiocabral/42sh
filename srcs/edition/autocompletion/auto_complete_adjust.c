@@ -22,7 +22,7 @@ void			add_possibilty(t_prompt **list, t_autocompl *array,
 	{
 		if (array[i].cursor == 1)
 		{
-			add_complete(list, array[i].str + ft_strlen(info->str));
+			add_complete(list, ft_strdup(array[i].str + ft_strlen(info->str)));
 			free_autocompletion(g_sh);
 			return ;
 		}
