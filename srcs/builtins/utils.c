@@ -6,7 +6,7 @@
 /*   By: gfloure <>                                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 06:05:15 by gfloure           #+#    #+#             */
-/*   Updated: 2018/05/25 16:47:41 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/01 03:31:45 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,21 @@ int			identify_opt(char **av, t_array *env)
 	int		i;
 	int		j;
 
-	i = 1;
+	i = 0;
 	j = 1;
-	if (av[i])
+	while (av[++i] && av[i][0] == '-')
 	{
-		while (av[i] && av[i][0] == '-')
+		if (ft_strequ(av[i], "--"))
+			continue ;
+		j = 1;
+		while (av[i][j])
 		{
-			j = 1;
-			while (av[i][j])
+			if (av[i][j++] != 'p')
 			{
-				if (av[i][j++] != 'p')
-				{
-					export_error(av[i], env, 1);
-					return (-1);
-				}
+				export_error(av[i], env, 1);
+				return (-1);
 			}
-			i++;
 		}
 	}
-	return (j > 1 ? i : 0);
+	return (i >= 1 ? i : 0);
 }

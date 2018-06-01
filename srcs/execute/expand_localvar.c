@@ -6,21 +6,34 @@
 /*   By: gfloure <>                                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 23:13:20 by gfloure           #+#    #+#             */
-/*   Updated: 2018/05/31 04:48:14 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/01 00:15:43 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <localvar.h>
 #include <environment.h>
+#include <execute.h>
 
 char	*search_allvar(char *value)
 {
 	char	*str;
 
-	if (!(str = getenv(value)))
+	if (!(str = ft_getenv(value)))
 		if (!(str = ft_getvar(value)))
 			str = NULL;
 	return (str ? ft_strdup(str) : NULL);
+}
+
+int		remove_quotes_var(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s && s[i])
+		if (!(s[i > 0 ? i - 1 : 0] == '\\'))
+			if (remove_quotes(&s[i]) == -1)
+				i++;
+	return (1);
 }
 
 void	replace_var(t_string *str, int *i)

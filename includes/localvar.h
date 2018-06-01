@@ -6,7 +6,7 @@
 /*   By: gfloure <>                                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 22:35:42 by gfloure           #+#    #+#             */
-/*   Updated: 2018/05/25 18:57:38 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/05/31 23:59:29 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char		*ft_getvar(char const *var);
 int			is_valid_var(char *av);
 int			export_localvar(char *var);
 char		*ft_getenv_b(char const *var);
+int			remove_quotes_var(char *s);
 
 
 #endif

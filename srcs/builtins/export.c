@@ -6,7 +6,7 @@
 /*   By: gfloure <>                                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 00:45:23 by gfloure           #+#    #+#             */
-/*   Updated: 2018/05/31 04:43:06 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/01 03:32:12 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int				parse_export(int ac, char **av, t_array *env)
 			print_export(av, env, ret);
 			return (0);
 		}
-		return (ret >= 0 ? 1 : -1);
+		return (ret >= 0 ? ret : -1);
 	}
 	return (0);
 }
@@ -68,9 +68,10 @@ int				export_withequal(char *av, int ret)
 
 	ZERO_IF_FAIL(tmp = ft_strsub(av, 0, ret));
 	if (is_valid_var(av) == -1)
-		export_error(av, NULL, 2);
+		return (export_error(av, NULL, 2));
 	var = array_find(get_environment_array(), &tmp, (t_cmpf) &
 			ft_strncmp_wrapperb);
+	remove_quotes_var(&av[ret + 1]);
 	if (var)
 	{
 		free(*var);
@@ -85,13 +86,13 @@ int				export_withequal(char *av, int ret)
 	return (1);
 }
 
-void			export_withoutequal(char *av)
+int				export_withoutequal(char *av)
 {
 	char		**var;
 	char		*tmp;
 
 	if (is_valid_var(av) == -1)
-		export_error(av, NULL, 2);
+		return (export_error(av, NULL, 2));
 	var = array_find(get_localvar_array(), &av, (t_cmpf) &
 		ft_strncmp_wrapperb);
 	tmp = var ? ft_strdup(*var) : NULL;
@@ -99,13 +100,13 @@ void			export_withoutequal(char *av)
 	{
 		array_push_back(get_environment_array(), &tmp);
 		free(*var);
-		return ;
 	}
 	else
 	{
 		tmp = ft_strdup(av);
 		array_push_back(get_environment_array(), &tmp);
 	}
+	return (1);;
 }
 
 int				builtin_export(int ac, char **av)
@@ -120,16 +121,14 @@ int				builtin_export(int ac, char **av)
 		ft_dprintf(2, "export: failed copy_environment()\n");
 		return (-1);
 	}
-	if (parse_export(ac, av, env) > 0)
-	{
-		while (av[++i])
+	if ((i = parse_export(ac, av, env) > 0))
+		while (av[i])
 		{
 			if ((ret = ft_strchri(av[i], '=')) != -1)
-				export_withequal(av[i], ret);
+				export_withequal(av[i++], ret);
 			else
-				export_withoutequal(av[i]);
+				export_withoutequal(av[i++]);
 		}
-	}
 	env ? array_free(env, (t_freef) & free_wrapper) : 0;
 	return (1);
 }

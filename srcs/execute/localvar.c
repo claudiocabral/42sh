@@ -6,7 +6,7 @@
 /*   By: gfloure <>                                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 05:36:28 by gfloure           #+#    #+#             */
-/*   Updated: 2018/05/31 04:04:19 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/01 00:00:06 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int			export_localvar(char *var)
 	char		**var_elem;
 
 	ZERO_IF_FAIL(tmp = ft_strsub(var, 0, ft_strchri(var, '=')));
+	remove_quotes_var(&var[ft_strlen(tmp) + 1]);
 	if (is_valid_var(var) == -1)
 		return (-1);
 	if ((var_elem = get_elem(tmp)))

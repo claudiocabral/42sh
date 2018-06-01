@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 13:35:18 by claudioca         #+#    #+#             */
-/*   Updated: 2018/05/31 04:13:05 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/01 00:15:45 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,16 @@ void	remove_backslash(char *str)
 	}
 }
 
-void	remove_quotes(char *str)
+int		remove_quotes(char *str)
 {
 	int	size;
 
 	if (*str != '"' && *str != '\'')
-		return ;
+		return (-1);
 	size = ft_strlen(str);
 	ft_memmove(str, str + sizeof(char), size);
 	str[size - 1] = 0;
+	return (1);
 }
 
 char	*expand_env(char *value)
