@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:19:30 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/03 17:33:47 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/03 22:07:13 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int			process_input(char *str)
 		free(str);
 		return (ft_printf("42sh: No matchs found.\n"));
 	}
+	input = alias_replace((char *)input);
 	return_value = execute(parse(lex(input)));
-	ft_strdel(&str);
-	free(input);
+	str ? ft_strdel(&str) : 0;
+	input ? free(input) : 0;
 	return (return_value);
 }

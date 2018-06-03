@@ -110,6 +110,8 @@ OBJS	=	objs/shellma.o \
 			objs/builtins/unset.o \
 			objs/builtins/export.o \
 			objs/builtins/print_export.o \
+			objs/builtins/alias.o \
+			objs/builtins/unalias.o \
 			objs/builtins/utils.o \
 			objs/environment/setenv.o \
 			objs/environment/setup.o \
@@ -126,7 +128,8 @@ OBJS	=	objs/shellma.o \
 			objs/config/loader.o \
 			objs/environment/environment.o \
 			objs/environment/prepare_env.o \
-			objs/environment/prepare_localvar.o
+			objs/environment/prepare_localvar.o \
+			objs/environment/prepare_alias.o
 
 
 INC	=	-Iincludes \

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:31:42 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/20 16:16:46 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/03 22:02:38 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_array				*lex(char const *input_ptr)
 	t_slice		input;
 	char const	*heredoc;
 
+	get_quote(0);
 	input.ptr = input_ptr;
 	input.size = 0;
 	heredoc = lex_get_heredoc_pointer(input_ptr);

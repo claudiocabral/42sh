@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 14:57:56 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/20 15:55:57 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/02 04:18:45 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int			lex_operator(t_array *tokens, t_slice input, char const **heredoc);
 int			lex_quote(t_array *tokens, t_slice input);
 int			lex_redirection(t_array *tokens, t_slice input,
 										char const **heredoc);
+int			get_quote(int quote);
 
 #endif

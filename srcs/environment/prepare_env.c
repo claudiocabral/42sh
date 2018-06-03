@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 12:05:53 by ccabral           #+#    #+#             */
-/*   Updated: 2018/05/31 23:49:00 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/01 04:32:07 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int				ft_prepare_env(char **environ)
 	if (!ft_getenv("PATH"))
 		ft_setenv("PATH", "/usr/bin:/bin", 0);
 	ft_prepare_localvar();
+	ft_prepare_alias();
 	set_shlvl();
 	set_current_path();
 	return (1);

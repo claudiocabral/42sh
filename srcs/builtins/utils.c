@@ -6,7 +6,7 @@
 /*   By: gfloure <>                                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 06:05:15 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/01 03:31:45 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/01 14:52:23 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ int			ft_strncmp_wrapperb(char const **a, char const **b)
 	return (ft_strcmp_untilb(*a, *b, '='));
 }
 
-int			identify_opt(char **av, t_array *env)
+int			identify_opt(char **av, t_array *env, int mode)
 {
 	int		i;
 	int		j;
+	int		opt;
 
 	i = 0;
 	j = 1;
+	opt = -1;
 	while (av[++i] && av[i][0] == '-')
 	{
 		if (ft_strequ(av[i], "--"))
@@ -49,10 +51,14 @@ int			identify_opt(char **av, t_array *env)
 		{
 			if (av[i][j++] != 'p')
 			{
-				export_error(av[i], env, 1);
+				mode == 1 ? export_error(av[i], env, 1) :
+					alias_error(av[i], av[i][j - 1], 1);
 				return (-1);
 			}
+			opt++;
 		}
 	}
-	return (i >= 1 ? i : 0);
+	if (opt >= 0 && mode == 2)
+		array_apply(env, 0, (t_applyf) & print_alias_all);
+	return (i > 1 ? i : 1);
 }

@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 11:40:55 by ccabral           #+#    #+#             */
-/*   Updated: 2018/05/31 02:19:03 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/01 03:43:26 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int						init_builtins(void)
 	add_builtin("unsetenv", &builtin_unsetenv);
 	add_builtin("unset", &builtin_unset);
 	add_builtin("export", &builtin_export);
+	add_builtin("alias", &builtin_alias);
+	add_builtin("unalias", &builtin_unalias);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gfloure <>                                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 00:45:23 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/01 03:32:12 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/01 04:59:36 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int				parse_export(int ac, char **av, t_array *env)
 		array_apply(env, 0, (t_applyf) & print_export_env);
 	else
 	{
-		if ((ret = identify_opt(av, env)) > 1)
+		if ((ret = identify_opt(av, env, 1)) > 1)
 		{
 			print_export(av, env, ret);
 			return (0);
@@ -118,7 +118,7 @@ int				builtin_export(int ac, char **av)
 	i = 0;
 	if (!(env = copy_environment()))
 	{
-		ft_dprintf(2, "export: failed copy_environment()\n");
+		ft_dprintf(2, "42sh: export: failed copy_environment()\n");
 		return (-1);
 	}
 	if ((i = parse_export(ac, av, env) > 0))

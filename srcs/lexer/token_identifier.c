@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 14:10:39 by claudioca         #+#    #+#             */
-/*   Updated: 2018/05/31 02:26:26 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/02 04:24:18 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	token_newline(char c)
 
 int	token_operator(char c)
 {
-	return (c == ';' || c == '&' || c == '|'
-			|| c == '<' || c == '>');
+	return ((get_quote(-42) == 0) && (c == ';' || c == '&' || c == '|'
+			|| c == '<' || c == '>'));
 }
 
 int	token_quote(char c)
