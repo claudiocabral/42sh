@@ -6,12 +6,13 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 14:06:17 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/22 17:53:15 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/03 19:00:30 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <hash_table.h>
 #include <mysh.h>
+#include <loader.h>
 
 int	main(int argc, char **argv, char **environ)
 {
@@ -22,6 +23,8 @@ int	main(int argc, char **argv, char **environ)
 		ft_dprintf(2, "42sh: failed to setup environment\n");
 		return (1);
 	}
+	if (rc_loadable(SH_RC))
+		load_n_eval(SH_RC);
 	if (argc == 1)
 		return (interactive_session());
 	else if (ft_strequ(argv[1], "-c"))

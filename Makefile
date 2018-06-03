@@ -7,7 +7,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/06/03 17:26:53 by ctrouill         ###   ########.fr        #
+#    Updated: 2018/06/03 19:01:19 by ctrouill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -123,9 +123,10 @@ OBJS	=	objs/shellma.o \
 			objs/globbing/predicate.o \
 			objs/globbing/prepare.o \
 			objs/globbing/yougotit.o \
+			objs/config/loader.o \
 			objs/environment/environment.o \
 			objs/environment/prepare_env.o \
-			objs/environment/prepare_localvar.o 
+			objs/environment/prepare_localvar.o
 
 
 INC	=	-Iincludes \
