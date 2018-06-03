@@ -7,7 +7,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/05/29 21:20:26 by iomonad          ###   ########.fr        #
+#    Updated: 2018/06/03 17:26:53 by ctrouill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ CDEBUG	:=	-g
 
 LIBFT_PATH	:=	libft
 PRINTF_PATH = 	ft_printf
+
+MAKEFLAGS += -j4 --no-print-directory
 
 DEPDIR := .deps
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.Td
