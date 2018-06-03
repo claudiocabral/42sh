@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 12:12:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/05/28 11:34:07 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/03 17:33:33 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,9 @@ static char		*deflate(const char *origin, char *result, int state)
 ** for the runner middleware.
 */
 
-char			*deglob(const char *input, char *token, char *blob)
+char			*deglob(const char *input, char *token, char *blob,
+					char *deglobed, char *tmp)
 {
-	char		*deglobed = NULL;
-	char		*tmp = NULL;
-
 	deglobed = malloc(1);
 	ft_bzero(deglobed, 1);
 	token = ft_strtok((char*)input, " \t\n");

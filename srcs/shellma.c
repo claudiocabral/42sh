@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:19:30 by claudioca         #+#    #+#             */
-/*   Updated: 2018/05/28 21:03:11 by iomonad          ###   ########.fr       */
+/*   Updated: 2018/06/03 17:33:47 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			process_input(char *str)
 	int		return_value;
 	char	*input;
 
-	if ((input = deglob(str, NULL, NULL)) == NULL)
+	if ((input = deglob(str, NULL, NULL, NULL, NULL)) == NULL)
 	{
 		free(str);
 		return (ft_printf("42sh: No matchs found.\n"));

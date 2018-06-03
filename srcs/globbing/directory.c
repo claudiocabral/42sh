@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:58:42 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/05/21 13:36:28 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/03 18:04:26 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,6 @@ static void		verify_pattern(char **name, char *tmp, int i)
 }
 
 /*
-** Verify is the current path is not an unix
-** current and upper reference.
-** @return Boolean[Success]
-*/
-
-static t_bool	is_not_posix_internal(char start, char pat)
-{
-	return ((start != '.'
-		|| pat == '.'));
-}
-
-/*
 ** Walker body for the glory of the norm
 ** @return nil
 */
@@ -59,8 +47,7 @@ static void		walker_body(t_helper *h, struct dirent *entry,
 {
 	h->filename = ft_strjoin(h->cur_path, entry->d_name);
 	h->file_bak = h->filename;
-	if (is_not_posix_internal(*entry->d_name, *(*pattern)) &&
-		pattern_dispatcher(h, entry->d_name, *pattern, matches))
+	if (pattern_dispatcher(h, entry->d_name, *pattern, matches))
 	{
 		ft_memset(h->filename, 0x20, MAGIC_OFFSET);
 		store_result(matches, h->filename, NULL, NULL);
@@ -86,6 +73,9 @@ t_bool			call_dirwalker(t_helper h, char *pattern,
 	struct dirent	*entry;
 
 	h.cur_path = retrieve_valid_path(h.file_bak, pattern, 0, 0);
+	if (ft_strcmp(".", h.cur_path) == 0
+		|| ft_strcmp("..", h.cur_path) == 0)
+		return (FALSE);
 	verify_pattern(&pattern, NULL, 0);
 	if ((mydir = opendir(h.cur_path)) != NULL)
 	{
