@@ -6,7 +6,7 @@
 /*   By: gfloure <>                                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/01 03:41:08 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/03 22:02:12 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/03 22:16:23 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,76 +21,15 @@
 int				alias_error(char *av, char opt, int mode)
 {
 	if (mode == 1)
+	{
 		ft_dprintf(2, "42sh: alias: -%c: invalid option\n", opt);
+		ft_dprintf(2, "usage: alias [-p] [name..]");
+	}
 	else if (mode == 2)
 		ft_dprintf(2, "42sh: alias: %s: not found\n", av);
 	else if (mode == 3)
 		ft_dprintf(2, "42sh: %s: alias not found\n", av);
 	return (-1);
-}
-
-void			print_alias_all(char const **alias, void *dummy)
-{
-	t_string	*tmp;
-	int			ret;
-	const char	*str;
-
-	(void)dummy;
-	ret = 0;
-	str = *alias;
-	if (str)
-	{
-		tmp = string_create(0);
-		string_append(tmp, str);
-		ret = ft_strchri(tmp->buffer, '=');
-		if (tmp->buffer[ret + 1])
-		{
-			string_insert(tmp, '\'', ret + 1);
-			string_insert(tmp, '\'', ft_strlen(tmp->buffer));
-		}
-		ft_printf("%s", tmp->buffer);
-		!tmp->buffer[ret + 1] ? ft_printf("\'\'\n") : ft_printf("\n");
-		tmp ? string_free(tmp) : 0;
-	}
-}
-
-int				print_alias(char **av, t_array *alias, int i)
-{
-	const char	**str;
-	char		*tmp;
-	t_array		*array;
-
-	if ((av && !av[i]) || !av)
-	{
-		if (alias)
-			array_apply(alias, 0, (t_applyf) & print_alias_all);
-		return (1);
-	}
-	ZERO_IF_FAIL(array = array_create(8, sizeof(char *)));
-	while (av && av[i])
-	{
-		tmp = ft_strjoin("alias ", av[i]);
-		if ((str = array_find(alias, &tmp, \
-						(t_cmpf) & ft_strncmp_wrapperb)))
-			array_push_back(array, str);
-		else
-			alias_error(av[i], 0, 3);
-		tmp ? free(tmp) : 0;
-		str = NULL;
-		i++;
-	}
-	array_apply(array, 0, (t_applyf) & print_alias_all);
-	array_free(array, &noop);
-	return (1);
-}
-
-int			is_valid_alias(char *alias)
-{
-	(void)alias;
-	int		i;
-
-	i = 0;
-	return (1);
 }
 
 char			*alias_replace_process(char *av)
@@ -111,48 +50,6 @@ char			*alias_replace_process(char *av)
 	return (tmp ? tmp : av);
 }
 
-int				get_next(char *str)
-{
-	int			i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ';')
-			return (i + 1);
-		i++;
-	}
-	return (i);
-}
-
-int				ft_strchral(char *s)
-{
-	int			i;
-
-	i = -1;
-	while (s[++i])
-		if (s[i] == ' ' || s[i] == ';')
-			return (i);
-	return (i > 1 ? i  : -1);
-}
-
-int				get_alias_to_replace(t_string *str, int *i)
-{
-	char		*tmp;
-	char		*tmp1;
-	int			ret;
-
-	while ((ret = ft_strchral(&str->buffer[*i])) != -1)
-	{
-		tmp = ft_strsub(str->buffer, *i, ret);
-		tmp1 = alias_replace_process(tmp);
-		string_delete_n(str, *i, ret);
-		string_insert_string(str, tmp1, *i);
-		tmp ? free(tmp) : 0;
-		*i += get_next(&str->buffer[*i]);
-	}
-	return (1);
-}
 
 char			*alias_replace(char *input)
 {

@@ -13,7 +13,7 @@
 
 NAME	:=	42sh
 ifeq (CC,)
-CC		:=	cc
+CC		:=	clang
 endif
 
 CFLAGS	:=	$(CFLAGS) -Wextra -Werror -Wall -march=native -Wshadow
@@ -112,6 +112,8 @@ OBJS	=	objs/shellma.o \
 			objs/builtins/print_export.o \
 			objs/builtins/alias.o \
 			objs/builtins/unalias.o \
+			objs/builtins/print_alias.o \
+			objs/builtins/alias_utils.o \
 			objs/builtins/utils.o \
 			objs/environment/setenv.o \
 			objs/environment/setup.o \

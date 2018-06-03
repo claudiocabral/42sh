@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 13:44:19 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/03 21:36:30 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/03 22:21:22 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,8 @@ void			print_alias_all(char const **alias, void *dummy);
 int				print_alias(char **av, t_array *alias, int i);
 int				alias_error(char *av, char opt, int mode);
 char			*alias_replace(char *av);
+int				get_alias_to_replace(t_string *str, int *i);
+int				is_valid_alias(char *alias);
+char			*alias_replace_process(char *av);
 
 #endif
