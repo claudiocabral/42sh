@@ -13,7 +13,7 @@
 
 NAME	:=	42sh
 ifeq (CC,)
-CC		:=	clang
+CC		:=	cc
 endif
 
 CFLAGS	:=	$(CFLAGS) -Wextra -Werror -Wall -march=native -Wshadow
