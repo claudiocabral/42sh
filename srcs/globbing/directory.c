@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:58:42 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/03 18:04:26 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/03 18:41:07 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,10 @@ t_bool			call_dirwalker(t_helper h, char *pattern,
 	struct dirent	*entry;
 
 	h.cur_path = retrieve_valid_path(h.file_bak, pattern, 0, 0);
-	if (ft_strcmp(".", h.cur_path) == 0
-		|| ft_strcmp("..", h.cur_path) == 0)
-		return (FALSE);
 	verify_pattern(&pattern, NULL, 0);
-	if ((mydir = opendir(h.cur_path)) != NULL)
+	if (ft_strcmp(".", h.cur_path) != 0 &&
+		ft_strcmp("..", h.cur_path) != 0 &&
+		(mydir = opendir(h.cur_path)) != NULL)
 	{
 		while ((entry = readdir(mydir)))
 			walker_body(&h, entry, &pattern, &matches);
