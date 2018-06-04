@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 14:06:17 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/04 02:16:58 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/04 02:48:48 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	main(int argc, char **argv, char **environ)
 		ft_dprintf(2, "42sh: failed to setup environment\n");
 		return (1);
 	}
-	if (rc_loadable(SH_RC))
-		load_n_eval(SH_RC);
+	load_n_eval(ft_strdup(SH_RC));
 	if (argc == 1)
 		return (interactive_session());
 	else if (ft_strequ(argv[1], "-c"))
