@@ -6,7 +6,7 @@
 /*   By: gfloure <>                                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/01 03:41:19 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/02 14:05:26 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/04 03:19:26 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@
 int			unalias_error(char *av, char opt, int mode)
 {
 	if (mode == 1)
+	{
 		ft_dprintf(2, "42sh: unalias: -%c: invalid option\n", opt);
+		ft_dprintf(2, "unalias: usage: unalias [-a] [name...]");
+	}
 	else if (mode == 2)
 		ft_dprintf(2, "42sh: unalias: %s: not found\n", av);
 	else if (mode == 3)

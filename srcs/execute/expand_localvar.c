@@ -6,7 +6,7 @@
 /*   By: gfloure <>                                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 23:13:20 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/04 01:26:32 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/04 03:30:02 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*search_allvar(char *value)
 int		remove_quotes_var(char *s)
 {
 	if ((s[0] == '"' && s[ft_strlen(s) - 1] == '"')
-			|| (s[0] == '\'' || s[ft_strlen(s) - 1] == '"'))
+			|| (s[0] == '\'' && s[ft_strlen(s) - 1] == '\''))
 	{
 		remove_quotes(&s[0]);
 		remove_quotes(&s[ft_strlen(s) - 1]);

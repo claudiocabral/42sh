@@ -6,7 +6,7 @@
 /*   By: ctrouill <iomonad@riseup.net>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 18:44:04 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/04 02:56:10 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/04 03:23:11 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,5 @@ void			load_n_eval(const char *rc)
 		free(line);
 		close(fd);
 	}
+	rc ? free((char *)rc) : 0;
 }
