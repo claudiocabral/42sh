@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 11:19:55 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/03 23:59:55 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/04 03:14:34 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void			choose_possibility(t_array *array, char *str)
 	info->size = size;
 	sort_possibilites(possibilities, info);
 	info->array = possibilities;
-	info->str ? free(info->str) : 0;
 	info->str = str;
 	g_sh->completion = info;
 }

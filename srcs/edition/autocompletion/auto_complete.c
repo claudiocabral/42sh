@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:51:53 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/03 22:37:13 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/04 02:59:39 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void		auto_complete_push(t_array *array, char *base, char *candidate)
 		free(candidate);
 		return ;
 	}
-	if (!ret)
-		free(candidate);
 }
 
 char		*auto_complete_path(t_array *array, char *line)
