@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/09 09:25:06 by ccabral           #+#    #+#             */
-/*   Updated: 2018/05/27 20:38:26 by iomonad          ###   ########.fr       */
+/*   Updated: 2018/05/31 02:32:25 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char			*ft_itoa(int nb);
 char			*ft_strcapitalize(char *str);
 char			*ft_strcat(char *dest, const char *src);
 char			*ft_strchr(const char *s, int c);
+int				ft_strchri(const char *s, int c);
 char			*ft_strcpy(char *dest, const char *src);
 char			*ft_strdup(const char *src);
 char			*ft_strndup(const char *src, size_t size);

@@ -51,7 +51,7 @@ void			prepare_display(t_autocompl *possibilities, t_infocompl *info)
 	int					i;
 
 	ioctl(0, TIOCGWINSZ, &w);
-	info->width = w.ws_col;
+	info->width = w.ws_col != 0 ? w.ws_col : 1;
 	info->max_size = 0;
 	i = 0;
 	while (i < info->size)
@@ -60,7 +60,7 @@ void			prepare_display(t_autocompl *possibilities, t_infocompl *info)
 			info->max_size = ft_strlen(possibilities[i].str) + 3;
 		i++;
 	}
-	info->col = info->width / info->max_size;
+	info->col = info->width / info->max_size == 0 ? info->max_size : 1;
 	info->row = info->size / info->col;
 	if (info->size % info->col > 0)
 		info->row++;

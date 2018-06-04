@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 09:49:32 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/05/21 13:23:48 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/03 17:31:00 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ t_bool			compute_match_bracket(t_helper *glob, char *str,
 				pattern += MAGIC_OFFSET;
 			}
 			status = ((*pattern == '[' && *(pattern + 1) == ':')) ?
-				(init_brackets_offset(&pattern, *str, 1, 1) != (int)sign) : status;
+				(init_brackets_offset(&pattern, *str, 1, 1) != (int)sign)
+					: status;
 			status = (((*pattern == *str) != sign)) ? 1 : status;
 		}
 		pattern++;
 	}
-	pattern += !(!*pattern);
+	pattern += *pattern;
 	return (status && pattern_dispatcher(glob, str + 1, pattern, results));
 }
 

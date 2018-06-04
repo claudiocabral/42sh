@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 15:13:51 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/23 16:53:52 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/05/31 02:38:55 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ t_fd_pair	redirect_to_file(t_array *args, int mode, char direction)
 	fd.from = (direction - '<') / 2;
 	children = (t_tree **)args->begin;
 	if (array_size(args) == 1)
-		path = token_get_string((t_token *)children[0]->element);
+		path = token_get_string((t_token *)children[0]->element, 0);
 	else
 	{
 		fd.from = token_get_int((t_token *)children[0]->element);
-		path = token_get_string((t_token *)children[1]->element);
+		path = token_get_string((t_token *)children[1]->element, 0);
 	}
 	if (!path)
 		fd.to = -1;

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:50:24 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/19 15:38:03 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/04 01:26:29 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@
 #include <ft_printf.h>
 #include <token.h>
 #include <environment.h>
+#include <localvar.h>
 
 int		command_dispatch(char **argv, char **env, char const *who)
 {
 	void const	*tmp;
 
+	if (!argv[0])
+		return (-1);
 	if (ft_strchr(argv[0], '/'))
 		return (invoke(argv[0], argv, env, who));
 	if ((tmp = get_builtin_command(argv[0])))
@@ -69,6 +72,7 @@ int		execute_commands(t_tree *tree)
 	ret = 0;
 	while (child != tree->children->end)
 	{
+		token_var_valid(0);
 		if (*child)
 			ret = execute_simple_command(*child);
 		++child;

@@ -7,13 +7,13 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/05/29 21:20:26 by iomonad          ###   ########.fr        #
+#    Updated: 2018/06/03 19:01:19 by ctrouill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:=	42sh
 ifeq (CC,)
-CC		:=	cc
+CC		:= cc
 endif
 
 CFLAGS	:=	$(CFLAGS) -Wextra -Werror -Wall -march=native -Wshadow
@@ -21,6 +21,8 @@ CDEBUG	:=	-g
 
 LIBFT_PATH	:=	libft
 PRINTF_PATH = 	ft_printf
+
+MAKEFLAGS += -j4 --no-print-directory
 
 DEPDIR := .deps
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.Td
@@ -51,11 +53,15 @@ OBJS	=	objs/shellma.o \
 			objs/execute/execute_cleanup.o \
 			objs/execute/expansion.o \
 			objs/execute/command_name_lookup.o \
+			objs/execute/localvar.o \
+			objs/execute/expand_localvar.o \
 			objs/lexer/lexer.o \
 			objs/lexer/lex.o \
 			objs/lexer/lex_redirection.o \
+			objs/lexer/lex_comment.o \
 			objs/lexer/token.o \
 			objs/lexer/token_get.o \
+			objs/lexer/token_quote.o \
 			objs/lexer/token_identifier.o \
 			objs/parser/parser.o \
 			objs/parser/pipeline.o \
@@ -103,6 +109,14 @@ OBJS	=	objs/shellma.o \
 			objs/builtins/cd_utils.o \
 			objs/builtins/echo.o \
 			objs/builtins/pwd.o \
+			objs/builtins/unset.o \
+			objs/builtins/export.o \
+			objs/builtins/print_export.o \
+			objs/builtins/alias.o \
+			objs/builtins/unalias.o \
+			objs/builtins/print_alias.o \
+			objs/builtins/alias_utils.o \
+			objs/builtins/utils.o \
 			objs/environment/setenv.o \
 			objs/environment/setup.o \
 			objs/globbing/braks.o \
@@ -115,8 +129,11 @@ OBJS	=	objs/shellma.o \
 			objs/globbing/predicate.o \
 			objs/globbing/prepare.o \
 			objs/globbing/yougotit.o \
+			objs/config/loader.o \
 			objs/environment/environment.o \
-			objs/environment/prepare_env.o
+			objs/environment/prepare_env.o \
+			objs/environment/prepare_localvar.o \
+			objs/environment/prepare_alias.o
 
 
 INC	=	-Iincludes \

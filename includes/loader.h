@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   globbing.h                                         :+:      :+:    :+:   */
+/*   loader.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ctrouill <iomonad@riseup.net>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/12 02:51:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/03 17:33:32 by ctrouill         ###   ########.fr       */
+/*   Created: 2018/06/03 18:56:41 by ctrouill          #+#    #+#             */
+/*   Updated: 2018/06/04 02:51:34 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GLOBBING_H
-# define GLOBBING_H
+#ifndef LOADER_H
+# define LOADER_H
 
-# include <libft.h>
-# include "../srcs/globbing/internals.h"
+# include <mysh.h>
 
-# define MAGIC_OFFSET 0x2
+# define SH_RC "~/.42shrc"
 
-char	*deglob(const char *input, char *token, char *blob, char *a, char *b);
+char	*rc_loadable(const char *rc);
+void	load_n_eval(const char *rc);
 
 #endif

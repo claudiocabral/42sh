@@ -22,5 +22,6 @@
 #include "shellma.h"
 #include "signal_handlers.h"
 #include "token.h"
+#include "localvar.h"
 
 #endif

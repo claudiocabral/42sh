@@ -6,12 +6,13 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:13:20 by claudioca         #+#    #+#             */
-/*   Updated: 2018/05/07 15:15:45 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/04 01:51:22 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <hash_table.h>
+#include <stdio.h>
 
 size_t			hash_table_find_index(t_hash_table *table, void const *data)
 {

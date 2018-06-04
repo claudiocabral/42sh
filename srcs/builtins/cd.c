@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 13:01:51 by claudioca         #+#    #+#             */
-/*   Updated: 2018/05/07 14:33:26 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/04 04:21:57 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,30 @@
 #include <ft_string.h>
 #include <environment.h>
 #include <builtins.h>
+
+int			cd_error(char *av, char opt, int mode)
+{
+	if (mode == 1)
+		ft_dprintf(2, "42sh: cd: OLDPWD not set\n");
+	else if (mode == 2)
+	{
+		ft_dprintf(2, "42sh: cd: Too many arguments\n");
+		return (1);
+	}
+	else if (mode == 3)
+	{
+		ft_dprintf(2, "42sh: cd: usage: cd [-L|-P] [dir]\n");
+		return (1);
+	}
+	else if (mode == 4)
+		ft_dprintf(2, "42sh: cd: -%c: invalid option\n", opt);
+	else if (mode == 5)
+	{
+		ft_dprintf(2, "42sh: cd: failed to change to directory: %s\n", av);
+		return (1);
+	}
+	return (-1);
+}
 
 int			parse_args(int *argc, char ***argv)
 {
@@ -31,6 +55,8 @@ int			parse_args(int *argc, char ***argv)
 			*argv += 1;
 			break ;
 		}
+		if (ft_strequ(**argv, "-"))
+			break ;
 		while (*(++(**(argv))))
 		{
 			if (***argv == 'P')
@@ -38,10 +64,7 @@ int			parse_args(int *argc, char ***argv)
 			else if (***argv == 'L')
 				flag = 0;
 			else
-			{
-				ft_dprintf(2, "cd: -%c: invalid option\n", ***argv);
-				return (-1);
-			}
+				return (cd_error(NULL, ***argv, 4));
 		}
 	}
 	return (flag);
@@ -56,10 +79,7 @@ int			cd_chdir(char const *path)
 	if (chdir(path) != -1)
 		set_pwd(path);
 	else
-	{
-		ft_dprintf(2, "cd: failed to change to directory: %s\n", path);
-		return (1);
-	}
+		return (cd_error((char *)path, 0, 5));
 	return (0);
 }
 
@@ -67,25 +87,23 @@ int			cd_flag(char *path)
 {
 	int			ret;
 	char		*new_path;
+	char		*cur;
 
+	cur = ft_strdup(ft_getenv_safe("PWD"));
 	ret = chdir(path);
+	new_path = NULL;
 	if (ret != -1)
 	{
+		ft_setenv("OLDPWD", cur, 1);
 		new_path = getcwd(0, 0);
-		ft_setenv("OLDPWD", ft_getenv_safe("PWD"), 1);
 		ft_setenv("PWD", new_path, 1);
 		set_pwd(new_path);
 		free(new_path);
 	}
 	else
-		ft_dprintf(2, "cd: failed to change to directory: %s\n", path);
+		cd_error(path, 0, 5);
+	cur ? free(cur) : 0;
 	return (ret);
-}
-
-static int	cd_usage(void)
-{
-	ft_dprintf(2, "cd: usage: cd [-L|-P] [dir]\n");
-	return (1);
 }
 
 int			cd(int argc, char **argv)
@@ -94,17 +112,18 @@ int			cd(int argc, char **argv)
 	char		*path_ptr;
 	int			flag;
 
+	path_ptr = NULL;
 	if ((flag = parse_args(&argc, &argv)) == -1)
-		return (cd_usage());
+		return (cd_error(NULL, 0, 3));
 	if (argc == 0)
 		path_ptr = ft_getenv_safe("HOME");
 	else if (argc == 1)
-		path_ptr = ft_strequ(*argv, "-") ? ft_getenv_safe("OLDPWD") : *argv;
-	else
 	{
-		ft_dprintf(2, "cd: too many arguments\n");
-		return (1);
+		if (!(path_ptr = ft_strequ(*argv, "-") ? ft_getenv("OLDPWD") : *argv))
+			return (cd_error(NULL, 0, 1));
 	}
+	else
+		return (cd_error(NULL, 0, 2));
 	if (!(path = clean_path(path_ptr)))
 		return (1);
 	if (flag == 1)

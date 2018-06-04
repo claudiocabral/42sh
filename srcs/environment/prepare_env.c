@@ -6,12 +6,14 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 12:05:53 by ccabral           #+#    #+#             */
-/*   Updated: 2018/01/12 15:16:44 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/01 04:32:07 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <environment.h>
 #include <array.h>
+#include <localvar.h>
+#include <builtins.h>
 
 static t_array	*g_environ = 0;
 
@@ -37,6 +39,8 @@ int				ft_prepare_env(char **environ)
 	g_environ = array;
 	if (!ft_getenv("PATH"))
 		ft_setenv("PATH", "/usr/bin:/bin", 0);
+	ft_prepare_localvar();
+	ft_prepare_alias();
 	set_shlvl();
 	set_current_path();
 	return (1);
@@ -58,7 +62,7 @@ char			*ft_getenv(char const *env)
 	char *val;
 
 	val = 0;
-	ptr = array_find(g_environ, &env, (t_cmpf) & ft_strncmp_wrapper);
+	ptr = array_find(g_environ, &env, (t_cmpf) & ft_strncmp_wrapperb);
 	if (ptr)
 	{
 		val = ft_strchr(*ptr, '=');
