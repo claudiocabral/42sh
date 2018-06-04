@@ -10,10 +10,8 @@ void		sort_possibilites(t_autocompl *pos, t_infocompl *info)
 	{
 		if (ft_strcmp(pos[i].str, pos[i + 1].str) > 0)
 		{
-			swap = ft_strdup(pos[i].str);
-			ft_strdel(&(pos[i].str));
-			pos[i].str = ft_strdup(pos[i + 1].str);
-			ft_strdel(&(pos[i + 1].str));
+			swap = pos[i].str;
+			pos[i].str = pos[i + 1].str;
 			pos[i + 1].str = swap;
 			i = 0;
 		}
