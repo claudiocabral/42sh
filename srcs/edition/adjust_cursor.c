@@ -37,21 +37,29 @@ unsigned int		up_accordingto_len(t_prompt *list)
 	return (nb_up);
 }
 
-void				adjust_cursor(t_prompt *list)
+int					get_height_prompt(t_prompt *list)
 {
-	unsigned int	nb_up;
+	unsigned int	height;
 	t_prompt		*tmp;
 
 	tmp = get_first_list(list);
-	nb_up = 0;
+	height = 0;
 	while (tmp)
 	{
-		nb_up += up_accordingto_len(tmp);
-		nb_up += list_nb_return(tmp);
+		height += up_accordingto_len(tmp);
+		height += list_nb_return(tmp);
 		if (tmp && get_last_elem(tmp)->c != RETURN && tmp->next_list)
-			nb_up++;
+			height++;
 		tmp = tmp->next_list;
 	}
+	return (height);
+}
+
+void				adjust_cursor(t_prompt *list)
+{
+	int nb_up;
+
+	nb_up = get_height_prompt(list);
 	while (nb_up > 0)
 	{
 		tputs(tgetstr("up", NULL), 1, &ft_putc);

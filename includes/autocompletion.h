@@ -11,9 +11,13 @@ typedef struct	s_autocompl {
 typedef struct 		s_infocompl {
 	int				size;
 	int 			width;
+	int				height;
+	int				height_prompt;
 	int				col;
 	int				row;
 	unsigned int 	max_size;
+	int				display_start;
+	int				display_end;
 	char			*str;
 	t_autocompl		*array;
 }					t_infocompl;
