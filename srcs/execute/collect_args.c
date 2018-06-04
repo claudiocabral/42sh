@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 14:07:19 by ccabral           #+#    #+#             */
-/*   Updated: 2018/05/31 04:15:29 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/04 00:28:17 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int			collect_args(t_tree **begin, t_tree **end,
 				continue ;
 			if (!tmp || !(array_push_back(args, &tmp)))
 			{
-				free(tmp);
+				tmp ? free(tmp) : 0;
 				array_free(args, (t_freef) & free_wrapper);
 				return (0);
 			}

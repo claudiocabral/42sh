@@ -6,12 +6,13 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 13:35:18 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/01 00:15:45 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/04 01:13:59 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <lexer.h>
 #include <environment.h>
+#include <ft_printf.h>
 
 void	remove_backslash(char *str)
 {

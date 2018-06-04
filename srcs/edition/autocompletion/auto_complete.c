@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 10:51:53 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/17 11:57:19 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/03 22:37:13 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ void		search_builtins(char *str, t_array *array)
 	auto_complete_push(array, str, ft_strdup("pwd"));
 	auto_complete_push(array, str, ft_strdup("setenv"));
 	auto_complete_push(array, str, ft_strdup("unsetenv"));
+	auto_complete_push(array, str, ft_strdup("export"));
+	auto_complete_push(array, str, ft_strdup("unset"));
+	auto_complete_push(array, str, ft_strdup("alias"));
+	auto_complete_push(array, str, ft_strdup("unalias"));
 }
 
 void		auto_complete_loop(t_array *array, char *path, char *str)

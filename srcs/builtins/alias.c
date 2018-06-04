@@ -6,7 +6,7 @@
 /*   By: gfloure <>                                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/01 03:41:08 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/03 22:16:23 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/04 02:02:44 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int			core_alias(char *av)
 	if (is_valid_alias(av) == -1)
 	{
 		tmp ? free(tmp) : 0;
-		return (export_error(av, NULL, 2));
+		return (alias_error(av, 0, 2));
 	}
 	var = array_find(get_alias_array(), &tmp, (t_cmpf) &
 		ft_strncmp_wrapperb);
