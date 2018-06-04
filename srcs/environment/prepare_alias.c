@@ -6,7 +6,7 @@
 /*   By: gfloure <>                                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/01 04:09:01 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/02 04:45:31 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/04 02:28:41 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,29 +71,6 @@ int			is_alias(char *line)
 	return (1);
 }
 
-int			init_alias(void)
-{
-	char	*line;
-	int		fd;
-	int		ret;
-
-	if ((fd = open(".42sh_alias", O_CREAT | O_RDWR | O_APPEND, S_IRWXU)) == -1)
-		return (-1);
-	while (1)
-	{
-		if ((ret = get_next_line(fd, &line)) == 0)
-		{
-			is_alias(line);
-			ft_strdel(&line);
-			close(fd);
-			return (1);
-		}
-		is_alias(line);
-		ft_strdel(&line);
-	}
-	return (-1);
-}
-
 t_array		*get_alias_array(void)
 {
 	return (g_alias);
@@ -117,6 +94,5 @@ char		*ft_getalias(char const *var)
 int			ft_prepare_alias(void)
 {
 	ZERO_IF_FAIL(g_alias = array_create(sizeof(char *), 32));
-	init_alias();
 	return (1);
 }
