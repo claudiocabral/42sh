@@ -82,6 +82,7 @@ int				token_newline(char c);
 int				token_quote(char c);
 int				token_operator(char c);
 int				token_delimiter(char c);
+int				token_comment(char c);
 char			*token_get_string(t_token *token, int only_var);
 int				token_get_int(t_token *token);
 

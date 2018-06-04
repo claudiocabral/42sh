@@ -111,12 +111,11 @@ int			lex_text(t_array *tokens, t_slice input, char const **heredoc)
 	end = *heredoc;
 	if (*end)
 		--end;
-	while (input.ptr + input.size < end)
+	while (input.size >= 0 && (input.ptr + input.size < end)
+							&& input.ptr[input.size])
 	{
 		if (ft_is_whitespace(input.ptr[input.size]))
 			++input.size;
-		else if (!input.ptr[input.size])
-			break ;
 		else if (token_newline(input.ptr[input.size]))
 			input.size = push_newline_token(tokens, input.ptr, input.size);
 		else if (token_operator(input.ptr[input.size]))
@@ -125,10 +124,10 @@ int			lex_text(t_array *tokens, t_slice input, char const **heredoc)
 			input.size = lex_digit(tokens, input);
 		else if (token_quote(input.ptr[input.size]))
 			input.size = lex_quote(tokens, input);
+		else if (token_comment(input.ptr[input.size]))
+			input.size = lex_comment(input);
 		else
 			input.size = lex_token(tokens, input, input.size);
-		if (input.size == -1)
-			return (-1);
 	}
-	return (1);
+	return (input.size == -1 ? -1 : 1);
 }

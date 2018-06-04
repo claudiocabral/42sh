@@ -58,8 +58,10 @@ OBJS	=	objs/shellma.o \
 			objs/lexer/lexer.o \
 			objs/lexer/lex.o \
 			objs/lexer/lex_redirection.o \
+			objs/lexer/lex_comment.o \
 			objs/lexer/token.o \
 			objs/lexer/token_get.o \
+			objs/lexer/token_quote.o \
 			objs/lexer/token_identifier.o \
 			objs/parser/parser.o \
 			objs/parser/pipeline.o \

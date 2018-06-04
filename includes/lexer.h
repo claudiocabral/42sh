@@ -25,6 +25,7 @@ int			lex_digit(t_array *tokens, t_slice input);
 int			lex_token(t_array *tokens, t_slice input, int pos);
 int			lex_operator(t_array *tokens, t_slice input, char const **heredoc);
 int			lex_quote(t_array *tokens, t_slice input);
+int			lex_comment(t_slice input);
 int			lex_redirection(t_array *tokens, t_slice input,
 										char const **heredoc);
 int			get_quote(int quote);
