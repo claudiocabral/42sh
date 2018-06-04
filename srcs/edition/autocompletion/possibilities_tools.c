@@ -33,8 +33,7 @@ void			free_autocompletion(t_sh *sh)
 		return ;
 	while (i < info->size)
 	{
-		if (info->array[i].cursor == 0)
-			ft_strdel(&(info->array[i].str));
+		ft_strdel(&(info->array[i].str));
 		i++;
 	}
 	free(info->array);

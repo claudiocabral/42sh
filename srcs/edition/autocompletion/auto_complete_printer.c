@@ -37,7 +37,7 @@ void 			display_it(t_autocompl *possibilities, t_infocompl *info)
 				ft_putstr(RESET);
 				indent = info->max_size - ft_strlen(possibilities[position].str);
 				while (col + 1 < info->col && indent-- >= 0)
-				ft_putchar(' ');
+					ft_putchar(' ');
 			}
 			col++;
 		}
@@ -74,6 +74,6 @@ void			display_completion(t_infocompl *info)
 	prepare_display(info->array, info);
 	display_it(info->array, info);
 	tmp = info->row;
-	while (tmp--)
+	while (tmp-- > 0)
 		tputs(tgetstr("up", NULL), 1, &ft_putc);
 }
