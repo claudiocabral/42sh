@@ -20,7 +20,7 @@ int	token_newline(char c)
 int	token_operator(char c)
 {
 	return ((get_quote(-42) == 0) && (c == ';' || c == '&' || c == '|'
-			|| c == '<' || c == '>' || c == '`'));
+			|| c == '<' || c == '>'));
 }
 
 int	token_comment(char c)
