@@ -141,6 +141,7 @@ void					free_elem(t_prompt **elem);
 void					free_list(t_prompt **list);
 
 void					adjust_cursor(t_prompt *list);
+int						get_height_prompt(t_prompt *list);
 void					remove_cursor(t_prompt	*list);
 
 void					history_add_command(t_histo_list **history,

@@ -24,10 +24,10 @@ void	display_prompt(t_prompt *list, char with_options, char adj_cursor)
 	tputs(tgetstr("cr", NULL), 1, &ft_putc);
 	tputs(tgetstr("cd", NULL), 1, &ft_putc);
 	print_all_list(list, with_options);
-	if (adj_cursor)
-		adjust_cursor(list);
 	if (g_sh->completion)
 		display_completion(g_sh->completion);
+	if (adj_cursor)
+		adjust_cursor(list);
 }
 
 void	basic_prompt(t_prompt *list)

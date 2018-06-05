@@ -28,6 +28,7 @@ void			sigint_callback(void)
 		display_prompt(*list, 0, 0);
 		ft_putchar('\n');
 		free_list(list);
+		free_autocompletion(g_sh);
 		*list = init_list();
 		display_prompt(*list, 1, 1);
 	}
