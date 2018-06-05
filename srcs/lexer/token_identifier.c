@@ -20,7 +20,7 @@ int	token_newline(char c)
 int	token_operator(char c)
 {
 	return ((get_quote(-42) == 0) && (c == ';' || c == '&' || c == '|'
-			|| c == '<' || c == '>'));
+			|| c == '<' || c == '>' || c == '`'));
 }
 
 int	token_comment(char c)
@@ -33,7 +33,7 @@ int	token_white_space(int c)
 	int		backup;
 
 	backup = get_quote(-42);
-	if (c == '\'' || c == '"')
+	if (c == '\'' || c == '"' || c == '`')
 	{
 		backup == 0 ? get_quote(c) : 0;
 		backup == c ? get_quote(0) : 0;
