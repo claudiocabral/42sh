@@ -15,9 +15,11 @@
 void			calc_start_end(t_autocompl *possibilities, t_infocompl *info)
 {
 	int		h;
+	int		height_prompt;
 	int		row_cursor;
 
-	h = info->height - (get_height_prompt(*(get_address_list(NULL, 0))) + 1);
+	height_prompt = get_height_prompt(*(get_address_list(NULL, 0))) + 1;
+	h = info->height - height_prompt;
 	row_cursor = 0;
 	while (row_cursor < info->size)
 	{
@@ -34,7 +36,7 @@ void			calc_start_end(t_autocompl *possibilities, t_infocompl *info)
 	else
 	{
 		info->display_start = 0;
-		info->display_end = info->row < info->height ? info->row : info->height - 1;
+		info->display_end = info->row < info->height ? info->row : info->height - height_prompt;
 	}
 }
 

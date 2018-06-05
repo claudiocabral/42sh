@@ -12,7 +12,6 @@ typedef struct 		s_infocompl {
 	int				size;
 	int 			width;
 	int				height;
-	int				height_prompt;
 	int				col;
 	int				row;
 	unsigned int 	max_size;
