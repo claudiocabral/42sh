@@ -1,6 +1,6 @@
 int	token_quote(char c)
 {
-	return (c == '"' || c == '\'');
+	return (c == '"' || c == '\'' || c == '`');
 }
 
 int	get_quote(int quote)

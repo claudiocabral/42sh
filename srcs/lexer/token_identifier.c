@@ -33,7 +33,7 @@ int	token_white_space(int c)
 	int		backup;
 
 	backup = get_quote(-42);
-	if (c == '\'' || c == '"')
+	if (c == '\'' || c == '"' || c == '`')
 	{
 		backup == 0 ? get_quote(c) : 0;
 		backup == c ? get_quote(0) : 0;
