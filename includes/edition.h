@@ -39,6 +39,7 @@
 # define END "\e[F"
 # define ECHAP 27
 # define TAB 9
+# define SHIFT_TAB "\e[Z"
 
 /*
 ** prompt_type define:

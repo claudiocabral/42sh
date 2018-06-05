@@ -37,7 +37,7 @@ void			input_autocompletion(char *input, t_prompt **list,
 		auto_completion(list);
 	else if ((input[0] == TAB && input[1] == 0) || !ft_strncmp(input, DOWN, 4))
 		move_down_autocompl(info->array, info);
-	else if (!ft_strncmp(input, UP, 4))
+	else if (!ft_strncmp(input, UP, 4) || !ft_strncmp(input, SHIFT_TAB, 4))
 		move_up_autocompl(info->array, info);
 	else if (!ft_strncmp(input, RIGHT, 4))
 		move_right_autocompl(info->array, info);
