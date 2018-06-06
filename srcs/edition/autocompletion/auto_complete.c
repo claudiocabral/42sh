@@ -121,7 +121,19 @@ char		*auto_complete(char *line)
 		ft_strdel(&str);
 	}
 	else if (str && array_size(array) > 1)
+	{
+
 		choose_possibility(array, str);
+		// char **it;
+        //
+		// it = array->begin;
+		// while (it != array->end)
+		// {
+		// 	ft_putendl(*it);
+		// 	it++;
+		// }
+		// ft_putendl(*it);
+	}
 	array_free(array, (t_freef) & free_wrapper);
 	return (begin);
 }

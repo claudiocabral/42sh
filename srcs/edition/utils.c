@@ -74,9 +74,11 @@ char				is_quote_close(t_prompt *list)
 	dquote = 0;
 	while (list)
 	{
-		if (!dquote && list->c == '\'' && list->prompt_type != HEREDOC)
+		if (!dquote && list->c == '\'' && list->prompt_type != HEREDOC &&
+			(!list->previous || list->previous->c != '\\'))
 			quote = (!quote) ? 1 : 0;
-		if (!quote && list->c == '"' && list->prompt_type != HEREDOC)
+		if (!quote && list->c == '"' && list->prompt_type != HEREDOC &&
+			(!list->previous || list->previous->c != '\\'))
 			dquote = (!dquote) ? 1 : 0;
 		list = (list->next) ? list->next : list->next_list;
 	}
