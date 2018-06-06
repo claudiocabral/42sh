@@ -60,6 +60,8 @@ void	print_prompt(t_prompt *list)
 		write(1, "dquote> ", 8);
 	else if (list->prompt_type == HEREDOC)
 		write(1, "heredoc> ", 9);
+	else if (list->prompt_type == BQUOTE)
+		write(1, "bquote> ", 8);
 	else
 		basic_prompt(list);
 }

@@ -24,7 +24,7 @@ unsigned int		prompt_len(t_prompt *list)
 		return (2);
 	else if (list->prompt_type == QUOTE)
 		return (7);
-	else if (list->prompt_type == DQUOTE)
+	else if (list->prompt_type == DQUOTE || list->prompt_type == BQUOTE)
 		return (8);
 	else if (list->prompt_type == HEREDOC)
 		return (9);
