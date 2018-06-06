@@ -50,6 +50,7 @@
 # define QUOTE 2
 # define DQUOTE 3
 # define HEREDOC 4
+# define BQUOTE 5
 
 typedef struct s_sh		t_sh;
 

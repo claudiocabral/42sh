@@ -69,22 +69,29 @@ char				is_quote_close(t_prompt *list)
 {
 	char	quote;
 	char	dquote;
+	char	bquote;
 
 	quote = 0;
 	dquote = 0;
+	bquote = 0;
 	while (list)
 	{
-		if (!dquote && list->c == '\'' && list->prompt_type != HEREDOC &&
-			(!list->previous || list->previous->c != '\\'))
+		if (!dquote && !bquote && list->c == '\'' && list->prompt_type !=
+			HEREDOC && (!list->previous || list->previous->c != '\\'))
 			quote = (!quote) ? 1 : 0;
-		if (!quote && list->c == '"' && list->prompt_type != HEREDOC &&
-			(!list->previous || list->previous->c != '\\'))
+		if (!quote && !bquote && list->c == '"' && list->prompt_type != HEREDOC
+			&& (!list->previous || list->previous->c != '\\'))
 			dquote = (!dquote) ? 1 : 0;
+		if (!quote && !dquote && list->c == '`' && list->prompt_type != HEREDOC
+			&& (!list->previous || list->previous->c != '\\'))
+			bquote = (!bquote) ? 1 : 0;
 		list = (list->next) ? list->next : list->next_list;
 	}
 	if (dquote)
 		return (DQUOTE);
 	if (quote)
 		return (QUOTE);
+	if (bquote)
+		return (BQUOTE);
 	return (-1);
 }
