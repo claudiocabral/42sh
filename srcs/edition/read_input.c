@@ -29,8 +29,10 @@ char			*input_return(t_sh *sh, t_prompt **list)
 	last_char = get_last_elem(get_last_list(*list));
 	if (last_char->previous)
 		last_char = last_char->previous;
-	if (last_char->c != BACKSLASH && is_quote_close(get_first_list(*list)) == -1
-		&& !check_heredoc(get_first_list(*list)))
+	if ((last_char->c != BACKSLASH || (last_char->c == BACKSLASH &&
+		last_char->previous && last_char->previous->c == BACKSLASH)) &&
+		is_quote_close(get_first_list(*list)) == -1 &&
+		!check_heredoc(get_first_list(*list)))
 	{
 		display_prompt(*list, 0, 0);
 		prompt_return = list_to_str(list);

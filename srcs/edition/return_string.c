@@ -17,7 +17,6 @@ unsigned int		return_str_len(t_prompt *list)
 	unsigned int	len;
 
 	len = 0;
-	list = get_first_list(list);
 	while (list)
 	{
 		if (list->next && !(list->c == BACKSLASH && !list->next->next))
@@ -36,25 +35,18 @@ char				*list_to_str(t_prompt **list)
 	char			*str;
 
 	tmp = get_first_list(*list);
-	i = return_str_len(*list);
+	i = return_str_len(tmp);
 	if (!(str = ft_strnew(i)))
 		return (NULL);
 	i = 0;
 	while (tmp)
 	{
-		if (!((tmp->c == BACKSLASH && !tmp->next->next)
-			|| (tmp->insertion && !tmp->next_list)))
-		{
-			if (tmp->next && tmp->next->c == RETURN)
-				str[i] = RETURN;
-			if (!(tmp->insertion && tmp->next && tmp->next->c == RETURN)
-					&& tmp->c != RETURN)
-				str[i] = tmp->c;
-			i++;
-		}
-		tmp = tmp->next;
+		if (!tmp->insertion)
+				str[i++] = tmp->c;
 		if (tmp && !tmp->next)
 			tmp = tmp->next_list;
+		else
+			tmp = tmp->next;
 	}
 	return (str);
 }
