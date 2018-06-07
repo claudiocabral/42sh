@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 14:39:10 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/04 02:24:22 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/07 01:52:34 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ char		*token_get_string(t_token *token, int only_var)
 		str = ft_strdup("");
 	if (!str)
 		return (0);
+	remove_quotes(str);
 	remove_backslash(str);
 	ZERO_IF_FAIL(str = expand(str));
-	remove_quotes(str);
 	ZERO_IF_FAIL(str = expand_localvar(str));
 	set_localvar(str, only_var);
 	return (str);
