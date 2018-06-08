@@ -41,6 +41,7 @@ static void	signal_callback(int sig)
 void		signal_init(void)
 {
 	signal(SIGINT, signal_callback);
+	signal(SIGTSTP, signal_callback);
 	signal(SIGQUIT, signal_callback);
 	signal(SIGILL, signal_callback);
 	signal(SIGTRAP, signal_callback);

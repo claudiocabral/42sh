@@ -39,21 +39,6 @@ char		*auto_complete_path(t_array *array, char *line)
 	return (str);
 }
 
-void		search_builtins(char *str, t_array *array)
-{
-	auto_complete_push(array, str, ft_strdup("cd"));
-	auto_complete_push(array, str, ft_strdup("echo"));
-	auto_complete_push(array, str, ft_strdup("env"));
-	auto_complete_push(array, str, ft_strdup("exit"));
-	auto_complete_push(array, str, ft_strdup("pwd"));
-	auto_complete_push(array, str, ft_strdup("setenv"));
-	auto_complete_push(array, str, ft_strdup("unsetenv"));
-	auto_complete_push(array, str, ft_strdup("export"));
-	auto_complete_push(array, str, ft_strdup("unset"));
-	auto_complete_push(array, str, ft_strdup("alias"));
-	auto_complete_push(array, str, ft_strdup("unalias"));
-}
-
 void		auto_complete_loop(t_array *array, char *path, char *str)
 {
 	char	*path_end;
@@ -61,7 +46,6 @@ void		auto_complete_loop(t_array *array, char *path, char *str)
 	DIR		*dir;
 
 	while (*path)
-
 	{
 		if (!(path_end = ft_strchr(path, ':')))
 			path_end = ft_strchr(path, 0);
@@ -101,8 +85,6 @@ char		*auto_complete(char *line)
 	char			*str;
 	char			*begin;
 
-	if (ft_strlen(line) == 0)
-		return (0);
 	ZERO_IF_FAIL(array = array_create(8, sizeof(char *)));
 	if (!first_word(line))
 		str = auto_complete_path(array, line);
@@ -121,19 +103,7 @@ char		*auto_complete(char *line)
 		ft_strdel(&str);
 	}
 	else if (str && array_size(array) > 1)
-	{
-
 		choose_possibility(array, str);
-		// char **it;
-        //
-		// it = array->begin;
-		// while (it != array->end)
-		// {
-		// 	ft_putendl(*it);
-		// 	it++;
-		// }
-		// ft_putendl(*it);
-	}
 	array_free(array, (t_freef) & free_wrapper);
 	return (begin);
 }
