@@ -42,6 +42,7 @@ char			*input_return(t_sh *sh, t_prompt **list)
 		history_reset_cursor(sh->history.history);
 		reset_sh(sh);
 		tputs(tgetstr("do", NULL), 1, &ft_putc);
+		ft_printf("STR = %s\n", prompt_return);
 		return (prompt_return);
 	}
 	expand_line(list);

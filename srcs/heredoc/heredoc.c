@@ -32,13 +32,13 @@ t_prompt	*forward_list(t_prompt *list, size_t iteration)
 
 t_prompt	*to_begin_heredoc(t_prompt *list)
 {
-	while (list->next)
+	while (list && list->next)
 	{
 		if (list->c == '\n')
 			return (list);
 		list = list->next;
 	}
-	return (list->next_list);
+	return (!list ? list : list->next_list);
 }
 
 /*
@@ -58,7 +58,8 @@ int			check_heredoc(t_prompt *list)
 	{
 		if (list->c == '<' && list->next && list->next->c == '<')
 		{
-			list = find_delim(list);
+			if (!(list = find_delim(list)))
+				break ;
 			if (!g_sh->heredoc_delim && list)
 				list = set_delim(list);
 			if (!heredoc)
@@ -71,8 +72,7 @@ int			check_heredoc(t_prompt *list)
 		else
 		{
 			list = list->next;
-			if (!list->next && list->next_list)
-				list = list->next_list;
+			list = (!list->next && list->next_list) ? list->next_list : list;
 		}
 	}
 	return (0);
