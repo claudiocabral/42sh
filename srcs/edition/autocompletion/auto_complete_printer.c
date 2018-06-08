@@ -27,7 +27,7 @@ void			calc_start_end(t_autocompl *possibilities, t_infocompl *info)
 			break ;
 		row_cursor++;
 	}
-	row_cursor = row_cursor == info->size ? 0: row_cursor % info->row + 1;
+	row_cursor = row_cursor == info->size ? 0 : row_cursor % info->row + 1;
 	if (row_cursor > h)
 	{
 		info->display_start = row_cursor - h;
@@ -36,44 +36,51 @@ void			calc_start_end(t_autocompl *possibilities, t_infocompl *info)
 	else
 	{
 		info->display_start = 0;
-		info->display_end = info->row < info->height ? info->row : info->height - height_prompt;
+		info->display_end = info->row < info->height ?
+			info->row : info->height - height_prompt;
 	}
 }
 
-void 			display_it(t_autocompl *possibilities, t_infocompl *info)
+void			display_col(t_autocompl *possibilities, t_infocompl *info,
+					int row, int *first_nl)
 {
-	int		col;
+	int pos;
+	int col_indent[2];
+
+	col_indent[0] = 0;
+	while (col_indent[0] < info->col)
+	{
+		pos = col_indent[0] * info->row + row;
+		if (pos < info->row && pos)
+			(*first_nl)++;
+		if (pos < info->row && pos && (!info->display_start ||
+			(info->display_start > 0 && *first_nl > 1)))
+			ft_putchar('\n');
+		if (pos < info->size)
+		{
+			if (possibilities[pos].cursor)
+				ft_putstr(REVERSE_VIDEO);
+			ft_putstr(possibilities[pos].str);
+			if (possibilities[pos].cursor)
+				ft_putstr(RESET);
+			col_indent[1] = info->max_size - ft_strlen(possibilities[pos].str);
+			while (col_indent[0] + 1 < info->col && col_indent[1]-- >= 0)
+				ft_putchar(' ');
+		}
+		col_indent[0]++;
+	}
+}
+
+void			display_it(t_autocompl *possibilities, t_infocompl *info)
+{
 	int		row;
-	int		position;
-	int		indent;
 	int		first_nl;
 
 	row = info->display_start;
 	first_nl = 0;
-
 	while (row < info->display_end && row < info->row)
 	{
-		col = 0;
-		while (col < info->col)
-		{
-			position = col * info->row + row;
-			if (position < info->row && position)
-				first_nl++;
-			if (position < info->row && position && (!info->display_start || (info->display_start > 0 && first_nl > 1)))
-				ft_putchar('\n');
-			if (position < info->size)
-			{
-				if (possibilities[position].cursor)
-					ft_putstr(REVERSE_VIDEO);
-				ft_putstr(possibilities[position].str);
-				if (possibilities[position].cursor)
-					ft_putstr(RESET);
-				indent = info->max_size - ft_strlen(possibilities[position].str);
-				while (col + 1 < info->col && indent-- >= 0)
-					ft_putchar(' ');
-			}
-			col++;
-		}
+		display_col(possibilities, info, row, &first_nl);
 		row++;
 	}
 }
@@ -94,7 +101,8 @@ void			prepare_display(t_autocompl *possibilities, t_infocompl *info)
 			info->max_size = ft_strlen(possibilities[i].str) + 3;
 		i++;
 	}
-	info->col = info->width / info->max_size == 0 ? 1 : info->width / info->max_size;
+	info->col = info->width / info->max_size == 0 ?
+		1 : info->width / info->max_size;
 	info->row = info->size / info->col;
 	if (info->size % info->col > 0)
 		info->row++;

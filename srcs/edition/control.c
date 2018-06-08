@@ -36,3 +36,36 @@ void		control_l(t_prompt **list)
 	tputs(tgetstr("cl", NULL), 1, &ft_putc);
 	display_prompt(*list, 1, 1);
 }
+
+void		control_k(t_prompt **list)
+{
+	t_prompt	*tmp;
+	char		delete;
+
+	delete = 0;
+	tmp = *list;
+	while (tmp)
+	{
+		if (tmp->cursor && !delete)
+			delete = 1;
+		if (delete)
+		delete_delete(list);
+		tmp = tmp->next;
+	}
+}
+
+void		control_u(t_prompt **list)
+{
+	t_prompt		*tmp;
+	unsigned int	i;
+
+	tmp = *list;
+	i = 0;
+	while (tmp && !tmp->cursor)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	while (i-- > 0)
+		delete_backspace(list);
+}

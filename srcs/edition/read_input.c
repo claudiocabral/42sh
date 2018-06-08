@@ -91,6 +91,9 @@ static void		input_possibilities_else(char *input, t_prompt **list, t_sh *sh)
 		paste(list, sh);
 	else if (input[0] == -53 && input[1] == -101 && input[2] == 0)
 		cut(list);
+	else if (input[0] == 4 && !input[1] &&
+		!(*list)->previous_list && !(*list)->next)
+			control_d(list)	;
 	else if (input[0] == ECHAP && input[1] == 0)
 		remove_selection(*list, sh);
 	else if (!ft_strncmp(DOWN, input, 4) && !(*list)->next_list)
@@ -99,11 +102,12 @@ static void		input_possibilities_else(char *input, t_prompt **list, t_sh *sh)
 		history_up(list, sh->history.history);
 	else if (input[0] == BACKSPACE)
 		delete_backspace(list);
-	else if (!ft_strncmp(DELETE, input, 4))
+	else if (!ft_strncmp(DELETE, input, 4) || (input[0] == 4 && input[1] == 0))
 		delete_delete(list);
-	else if (input[0] == 4 && !input[1] &&
-			!(*list)->previous_list && !(*list)->next)
-		control_d(list);
+	else if (input[0] == 11 && input[1] == 0)
+		control_k(list);
+	else if (input[0] == 21 && input[1] == 0)
+		control_u(list);
 	else if (input[0] == 12 && !input[1])
 		control_l(list);
 	else if (input[0] > 31 && input[1] == 0)
@@ -129,6 +133,14 @@ char			*read_input(t_sh *sh)
 	display_prompt(list, 1, 1);
 	while (read(0, &input, 4))
 	{
+		// ft_putnbr(input[0]);
+		// ft_putchar('\n');
+		// ft_putnbr(input[1]);
+		// ft_putchar('\n');
+		// ft_putnbr(input[2]);
+		// ft_putchar('\n');
+		// ft_putnbr(input[3]);
+		// ft_putchar('\n');
 		if ((input[0] == TAB && input[1] == 0) || (sh->completion &&
 				(input[0] == ECHAP || (input[0] == RETURN && input[1] == 0))))
 			input_autocompletion(&input[0], &list, sh->completion);

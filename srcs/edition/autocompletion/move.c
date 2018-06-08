@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jblazy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/08 16:07:26 by jblazy            #+#    #+#             */
+/*   Updated: 2018/06/08 16:07:28 by jblazy           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <mysh.h>
 
-void 			move_left_autocompl(t_autocompl *possibilities,
+void			move_left_autocompl(t_autocompl *possibilities,
 					t_infocompl *info)
 {
 	int		i;
@@ -15,8 +27,8 @@ void 			move_left_autocompl(t_autocompl *possibilities,
 				possibilities[i - info->row].cursor = 1;
 			else if (i == 0)
 				possibilities[(info->col - 1) * info->row].cursor = 1;
-			else if (i - 1 + (info->col- 1) * info->row < info->size)
-				possibilities[i - 1 + (info->col- 1) * info->row].cursor = 1;
+			else if (i - 1 + (info->col - 1) * info->row < info->size)
+				possibilities[i - 1 + (info->col - 1) * info->row].cursor = 1;
 			else
 				possibilities[i - 1 + (info->col - 2) * info->row].cursor = 1;
 			return ;
@@ -25,7 +37,7 @@ void 			move_left_autocompl(t_autocompl *possibilities,
 	}
 }
 
-void 			move_right_autocompl(t_autocompl *possibilities,
+void			move_right_autocompl(t_autocompl *possibilities,
 					t_infocompl *info)
 {
 	int		i;
@@ -48,7 +60,7 @@ void 			move_right_autocompl(t_autocompl *possibilities,
 	}
 }
 
-void 			move_up_autocompl(t_autocompl *possibilities, t_infocompl *info)
+void			move_up_autocompl(t_autocompl *possibilities, t_infocompl *info)
 {
 	int		i;
 
@@ -68,7 +80,7 @@ void 			move_up_autocompl(t_autocompl *possibilities, t_infocompl *info)
 	}
 }
 
-void 			move_down_autocompl(t_autocompl *possibilities,
+void			move_down_autocompl(t_autocompl *possibilities,
 					t_infocompl *info)
 {
 	int		i;

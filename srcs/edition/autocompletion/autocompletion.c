@@ -12,56 +12,68 @@
 
 #include <mysh.h>
 
-char	*str_to_cursor(t_prompt **list)
+unsigned int	get_len(t_prompt **tmp, unsigned int len, unsigned int begin)
 {
-	unsigned int	len;
-	unsigned int	i;
-	t_prompt		*tmp;
-	char			*str;
-
 	len = 0;
-	tmp = *list;
-	while (tmp)
+	while ((*tmp) && !(*tmp)->cursor)
 	{
-		if (tmp->cursor)
-			break ;
-		if (!tmp->next && tmp->next_list)
+		if (!(*tmp)->next && (*tmp)->next_list)
 		{
-			tmp = tmp->next_list;
-			*list = tmp;
+			(*tmp) = (*tmp)->next_list;
 			len = 0;
 		}
 		else
-			tmp = tmp->next;
+			(*tmp) = (*tmp)->next;
 		len++;
 	}
-	while (tmp && !ft_is_whitespace(tmp->c))
+	while (*tmp && !ft_is_whitespace((*tmp)->c))
 	{
 		len++;
-		tmp = tmp->next;
+		(*tmp) = (*tmp)->next;
 	}
-	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
+	begin = len;
+	while (*tmp && (*tmp)->previous && !ft_is_whitespace((*tmp)->previous->c))
+	{
+		begin--;
+		(*tmp) = (*tmp)->previous;
+	}
+	return (len - begin);
+}
+
+char			*str_to_cursor(t_prompt *tmp)
+{
+	unsigned int	len;
+	unsigned int	i;
+	char			*str;
+
+	len = get_len(&tmp, 0, 0);
+	if (!(str = ft_strnew(len)))
 		return (NULL);
-	ft_bzero(str, len + 1);
 	i = 0;
-	while (*list && i < len)
+	while (tmp && i < len)
 	{
-		if (!(*list)->insertion)
-			str[i] = (*list)->c;
-		i++;
-		if (!(*list)->next && (*list)->next_list)
-			*list = (*list)->next_list;
-		else
-			*list = (*list)->next;
+		if (!tmp->insertion)
+			str[i++] = tmp->c;
+		tmp = tmp->next;
 	}
 	return (str);
 }
 
-void	add_complete(t_prompt **list, char *to_add)
+t_prompt		*get_cursor(t_prompt *tmp)
+{
+	while (tmp->next && !tmp->cursor)
+		tmp = tmp->next;
+	return (tmp);
+}
+
+void			add_complete(t_prompt **list, char *to_add)
 {
 	unsigned int	i;
+	t_prompt		*tmp;
 
 	i = 0;
+	while ((tmp = get_cursor(*list)) && tmp->c != ' ')
+		move_right(list);
 	while (to_add && to_add[i])
 	{
 		add_elem(list, create_elem(to_add[i]));
@@ -71,13 +83,13 @@ void	add_complete(t_prompt **list, char *to_add)
 		ft_strdel(&to_add);
 }
 
-void	auto_completion(t_prompt **list)
+void			auto_completion(t_prompt **list)
 {
 	char		*line;
 	t_prompt	*begin_list;
 
 	begin_list = *list;
-	line = str_to_cursor(list);
+	line = str_to_cursor(*list);
 	add_complete(list, auto_complete(line));
 	ft_strdel(&line);
 	*list = begin_list;
