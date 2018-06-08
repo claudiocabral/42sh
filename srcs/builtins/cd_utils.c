@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 18:16:02 by ccabral           #+#    #+#             */
-/*   Updated: 2018/03/23 16:43:26 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/08 18:01:15 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_string const	*set_oldpwd(char const *str)
 		return (path);
 	string_clear(path);
 	if (!string_append(path, str))
-		return(0);
+		return (0);
 	if (ft_setenv("OLDPWD", path->buffer, 1) != 0)
 	{
 		ft_dprintf(2, "cd: failed to updated OLDPWD\n");
@@ -38,7 +38,7 @@ t_string const	*set_oldpwd(char const *str)
 t_string const	*set_pwd(char const *str)
 {
 	static t_string	*path = 0;
-	t_string const 	*ret;
+	t_string const	*ret;
 
 	if (path == 0)
 	{

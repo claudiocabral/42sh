@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfloure <>                                 +#+  +:+       +#+        */
+/*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/25 16:43:44 by gfloure           #+#    #+#             */
-/*   Updated: 2018/05/31 04:34:08 by gfloure          ###   ########.fr       */
+/*   Created: 2018/06/08 18:04:23 by gfloure           #+#    #+#             */
+/*   Updated: 2018/06/08 18:04:36 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void			print_export_all(char const **env, void *dummy)
 {
 	int			ret;
-	const char		*str;
+	const char	*str;
 
 	(void)dummy;
 	str = *env;
@@ -30,7 +30,7 @@ void			print_export_all(char const **env, void *dummy)
 void			print_export_env(char const **env, void *dummy)
 {
 	int			ret;
-	const char		*str;
+	const char	*str;
 
 	(void)dummy;
 	str = *env;

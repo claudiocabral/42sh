@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alias_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfloure <>                                 +#+  +:+       +#+        */
+/*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/03 22:15:38 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/04 02:01:55 by gfloure          ###   ########.fr       */
+/*   Created: 2018/06/08 17:57:19 by gfloure           #+#    #+#             */
+/*   Updated: 2018/06/08 18:00:35 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int				ft_strchral(char *s)
 	while (s[++i])
 		if (s[i] == ' ' || s[i] == ';')
 			return (i);
-	return (i > 1 ? i  : -1);
+	return (i > 1 ? i : -1);
 }
 
 int				get_alias_to_replace(t_string *str, int *i)
@@ -56,9 +56,8 @@ int				get_alias_to_replace(t_string *str, int *i)
 	return (1);
 }
 
-int			is_valid_alias(char *alias)
+int				is_valid_alias(char *alias)
 {
-	(void)alias;
 	int		i;
 
 	i = 0;
@@ -66,4 +65,3 @@ int			is_valid_alias(char *alias)
 		return (-1);
 	return (1);
 }
-

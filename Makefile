@@ -129,6 +129,7 @@ OBJS	=	objs/shellma.o \
 			objs/globbing/predicate.o \
 			objs/globbing/prepare.o \
 			objs/globbing/yougotit.o \
+			objs/globbing/strtok_glob.o \
 			objs/config/loader.o \
 			objs/environment/environment.o \
 			objs/environment/prepare_env.o \

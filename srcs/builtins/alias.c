@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alias.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfloure <>                                 +#+  +:+       +#+        */
+/*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/01 03:41:08 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/04 02:02:44 by gfloure          ###   ########.fr       */
+/*   Created: 2018/06/08 17:50:09 by gfloure           #+#    #+#             */
+/*   Updated: 2018/06/08 19:27:21 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int				alias_error(char *av, char opt, int mode)
 	if (mode == 1)
 	{
 		ft_dprintf(2, "42sh: alias: -%c: invalid option\n", opt);
-		ft_dprintf(2, "usage: alias [-p] [name..]");
+		ft_dprintf(2, "usage: alias [-p] [name..]\n");
 	}
 	else if (mode == 2)
 		ft_dprintf(2, "42sh: alias: %s: not found\n", av);
@@ -50,7 +50,6 @@ char			*alias_replace_process(char *av)
 	return (tmp ? tmp : av);
 }
 
-
 char			*alias_replace(char *input)
 {
 	t_string	*str;
@@ -69,23 +68,22 @@ char			*alias_replace(char *input)
 	return (input);
 }
 
-int			core_alias(char *av)
+int				core_alias(char *av)
 {
 	char		*tmp;
-	char		*tmp1;
 	char		**var;
 	int			ret;
 
-	ZERO_IF_FAIL(tmp = ft_strsub(av, 0, ret = ft_strchri(av, '=')));
-	tmp = ft_strjoinfree("alias ", tmp, 'R');
+	ZERO_IF_FAIL(tmp = ft_strjoinfree("alias ",
+				ft_strsub(av, 0, ret = ft_strchri(av, '=')), 'R'));
 	if (is_valid_alias(av) == -1)
 	{
 		tmp ? free(tmp) : 0;
 		return (alias_error(av, 0, 2));
 	}
-	var = array_find(get_alias_array(), &tmp, (t_cmpf) &
-		ft_strncmp_wrapperb);
+	var = array_find(get_alias_array(), &tmp, (t_cmpf) & ft_strncmp_wrapperb);
 	remove_quotes_var(&av[ret + 1]);
+	tmp ? free(tmp) : 0;
 	if (var)
 	{
 		free(*var);
@@ -93,18 +91,17 @@ int			core_alias(char *av)
 	}
 	else
 	{
-		tmp1 = ft_strjoin("alias ", av);
-		array_push_back(get_alias_array(), &tmp1);
+		tmp = ft_strjoin("alias ", av);
+		array_push_back(get_alias_array(), &tmp);
 	}
-	tmp ? free(tmp) : 0;
 	return (1);
 }
 
-int			builtin_alias(int argc, char **av)
+int				builtin_alias(int argc, char **av)
 {
-	t_array	*alias;
-	int		i;
-	int		ret;
+	t_array		*alias;
+	int			i;
+	int			ret;
 
 	if (!(alias = get_alias_array()))
 		return (-1);
@@ -112,8 +109,10 @@ int			builtin_alias(int argc, char **av)
 		return (-1);
 	if (argc == 1)
 		return (print_alias(NULL, alias, 0));
+		ft_printf("b\n");
 	while (av[i])
 	{
+		ft_printf("c\n");
 		if ((ret = ft_strchri(av[i], '=')) != -1)
 			core_alias(av[i]);
 		else

@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfloure <>                                 +#+  +:+       +#+        */
+/*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/16 06:05:15 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/01 14:52:23 by gfloure          ###   ########.fr       */
+/*   Created: 2018/06/08 18:09:22 by gfloure           #+#    #+#             */
+/*   Updated: 2018/06/08 19:24:10 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <environment.h>
 #include <builtins.h>
-#include <stdio.h>
 
 int			ft_strcmp_untilb(char const *s1, char const *s2, char c)
 {

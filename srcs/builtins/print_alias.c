@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_alias.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfloure <>                                 +#+  +:+       +#+        */
+/*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/03 22:14:32 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/03 22:22:07 by gfloure          ###   ########.fr       */
+/*   Created: 2018/06/08 18:01:28 by gfloure           #+#    #+#             */
+/*   Updated: 2018/06/08 18:01:52 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ int				print_alias(char **av, t_array *alias, int i)
 	while (av && av[i])
 	{
 		tmp = ft_strjoin("alias ", av[i]);
-		if ((str = array_find(alias, &tmp, \
-						(t_cmpf) & ft_strncmp_wrapperb)))
+		if ((str = array_find(alias, &tmp, (t_cmpf) & ft_strncmp_wrapperb)))
 			array_push_back(array, str);
 		else
 			alias_error(av[i], 0, 3);

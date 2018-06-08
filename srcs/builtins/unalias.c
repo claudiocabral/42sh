@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unalias.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfloure <>                                 +#+  +:+       +#+        */
+/*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/01 03:41:19 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/04 03:19:26 by gfloure          ###   ########.fr       */
+/*   Created: 2018/06/08 18:07:41 by gfloure           #+#    #+#             */
+/*   Updated: 2018/06/08 18:09:09 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			id_opt(char **av, t_array *alias)
 			if (av[i][j++] != 'a')
 				return (unalias_error(av[i], av[i][j - 1], 1));
 			else
-				array_clear(alias, (t_freef)&free_wrapper);
+				array_clear(alias, (t_freef) & free_wrapper);
 		}
 	}
 	return (i > 1 ? i : 1);
@@ -61,7 +61,7 @@ int			alias_remove_if(char const *data, t_predf predicate)
 
 	size = array_size(get_alias_array());
 	tmp = ft_strjoin("alias ", data);
-	array_remove_if(get_alias_array(), &tmp, (t_freef)&free_wrapper,
+	array_remove_if(get_alias_array(), &tmp, (t_freef) & free_wrapper,
 		predicate);
 	if (size == array_size(get_alias_array()))
 		unalias_error((char *)data, 0, 2);
@@ -71,10 +71,8 @@ int			alias_remove_if(char const *data, t_predf predicate)
 
 int			builtin_unalias(int argc, char **argv)
 {
-	(void)argc;
 	t_array	*alias;
 	int		i;
-
 
 	if (argc == 1)
 		return (unalias_error(NULL, 0, 3));
@@ -83,6 +81,6 @@ int			builtin_unalias(int argc, char **argv)
 	if ((i = id_opt(argv, alias)) < 0)
 		return (-1);
 	while (argv[i])
-		alias_remove_if(argv[i++], (t_predf) & glob_match_wrapper);
+		alias_remove_if(argv[i++], (t_predf)&glob_match_wrapper);
 	return (1);
 }

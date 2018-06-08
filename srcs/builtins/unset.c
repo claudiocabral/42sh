@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfloure <>                                 +#+  +:+       +#+        */
+/*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/25 19:07:49 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/01 03:34:44 by gfloure          ###   ########.fr       */
+/*   Created: 2018/06/08 18:04:46 by gfloure           #+#    #+#             */
+/*   Updated: 2018/06/08 18:07:25 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int		unset_error(int mode)
 void	localenv_remove_if(char const *data, t_predf predicate)
 {
 	array_remove_if(get_environment_array(), &data,
-		(t_freef)&free_wrapper, predicate);
+		(t_freef) & free_wrapper, predicate);
 	array_remove_if(get_localvar_array(), &data,
-		(t_freef)&free_wrapper, predicate);
+		(t_freef) & free_wrapper, predicate);
 }
 
 int		check_opt(char **argv)
@@ -71,7 +71,7 @@ int		builtin_unset(int argc, char **argv)
 	while (i < argc)
 	{
 		if (opt == 1 || opt == 0)
-			localenv_remove_if(argv[i], (t_predf) & glob_match_wrapper);
+			localenv_remove_if(argv[i], (t_predf)&glob_match_wrapper);
 		if (glob_match(argv[i], "PATH"))
 			generate_paths();
 		i++;

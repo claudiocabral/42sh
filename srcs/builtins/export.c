@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfloure <>                                 +#+  +:+       +#+        */
+/*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/16 00:45:23 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/01 04:59:36 by gfloure          ###   ########.fr       */
+/*   Created: 2018/06/08 18:02:10 by gfloure           #+#    #+#             */
+/*   Updated: 2018/06/08 19:26:59 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 
 int				export_error(char *av, t_array *env, int mode)
 {
-	(void)env;
 	int			i;
 
+	(void)env;
 	if (mode == 1)
 	{
 		i = 0;
@@ -37,10 +37,8 @@ int				export_error(char *av, t_array *env, int mode)
 		ft_dprintf(2, "42sh: export: %s: is not an identifier\n", av);
 	else if (mode == 3)
 		ft_dprintf(2, "export: no such variable: %s\n", av);
-
 	return (-1);
 }
-
 
 int				parse_export(int ac, char **av, t_array *env)
 {
@@ -106,7 +104,7 @@ int				export_withoutequal(char *av)
 		tmp = ft_strdup(av);
 		array_push_back(get_environment_array(), &tmp);
 	}
-	return (1);;
+	return (1);
 }
 
 int				builtin_export(int ac, char **av)
@@ -116,6 +114,7 @@ int				builtin_export(int ac, char **av)
 	int			ret;
 
 	i = 0;
+	ft_printf(" av[1]->%s\n", av[1]);
 	if (!(env = copy_environment()))
 	{
 		ft_dprintf(2, "42sh: export: failed copy_environment()\n");
