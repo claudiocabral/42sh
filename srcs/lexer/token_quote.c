@@ -11,3 +11,12 @@ int	get_quote(int quote)
 		ret = quote;
 	return (ret);
 }
+
+int	skip_char(int skip)
+{
+	static int	ret;
+
+	if (skip != -42)
+		ret = skip;
+	return (ret);
+}

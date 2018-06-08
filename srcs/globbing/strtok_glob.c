@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 19:03:32 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/08 19:10:02 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/09 01:02:58 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ char			*strtok_glob(char *str, const char *delim, char *end)
 	}
 	ret = s;
 	s = ps;
+	end[0] = ' ';
 	return (ret);
 }

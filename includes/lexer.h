@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 14:57:56 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/02 04:18:45 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/08 23:26:03 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int			lex_comment(t_slice input);
 int			lex_redirection(t_array *tokens, t_slice input,
 										char const **heredoc);
 int			get_quote(int quote);
+int			skip_char(int skip);
 
 #endif

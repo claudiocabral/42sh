@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 17:50:09 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/08 19:27:21 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/08 20:19:31 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,8 @@ int				builtin_alias(int argc, char **av)
 		return (-1);
 	if (argc == 1)
 		return (print_alias(NULL, alias, 0));
-		ft_printf("b\n");
 	while (av[i])
 	{
-		ft_printf("c\n");
 		if ((ret = ft_strchri(av[i], '=')) != -1)
 			core_alias(av[i]);
 		else

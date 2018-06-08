@@ -6,7 +6,7 @@
 /*   By: jblazy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 10:44:22 by jblazy            #+#    #+#             */
-/*   Updated: 2018/03/05 17:24:59 by jblazy           ###   ########.fr       */
+/*   Updated: 2018/06/09 00:57:31 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,17 @@ char				is_quote_close(t_prompt *list)
 	bquote = 0;
 	while (list)
 	{
+		if (list->c == '\\')
+		{
+			list = (list->next->next) ? list->next->next : list->next_list->next_list;
+			continue ;
+		}
 		if (!dquote && !bquote && list->c == '\'' && list->prompt_type !=
-			HEREDOC && (!list->previous || list->previous->c != '\\'))
+			HEREDOC)
 			quote = (!quote) ? 1 : 0;
-		if (!quote && !bquote && list->c == '"' && list->prompt_type != HEREDOC
-			&& (!list->previous || list->previous->c != '\\'))
+		if (!quote && !bquote && list->c == '"' && list->prompt_type != HEREDOC)
 			dquote = (!dquote) ? 1 : 0;
-		if (!quote && !dquote && list->c == '`' && list->prompt_type != HEREDOC
-			&& (!list->previous || list->previous->c != '\\'))
+		if (!quote && !dquote && list->c == '`' && list->prompt_type != HEREDOC)
 			bquote = (!bquote) ? 1 : 0;
 		list = (list->next) ? list->next : list->next_list;
 	}

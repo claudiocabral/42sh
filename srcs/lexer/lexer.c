@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/02 04:24:53 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/09 00:59:26 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ int			lex_quote(t_array *tokens, t_slice input)
 	int	pos;
 
 	pos = input.size + 1;
-	while (input.ptr[pos] && input.ptr[pos] != input.ptr[input.size])
-		++pos;
+	while (input.ptr[pos] && ((input.ptr[pos] != input.ptr[input.size])))
+		if (input.ptr[pos++] == '\\')
+			pos++;
 	if (input.ptr[pos] != input.ptr[input.size])
 		return (-1);
 	if (add_token(tokens, TOKEN, input.ptr + input.size, pos - input.size))
