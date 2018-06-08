@@ -39,7 +39,7 @@ void	init_sh(t_sh *sh)
 	}
 }
 
-int				interactive_session(void)
+int		interactive_session(void)
 {
 	t_sh			sh;
 

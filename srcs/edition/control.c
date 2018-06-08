@@ -49,7 +49,7 @@ void		control_k(t_prompt **list)
 		if (tmp->cursor && !delete)
 			delete = 1;
 		if (delete)
-		delete_delete(list);
+			delete_delete(list);
 		tmp = tmp->next;
 	}
 }
