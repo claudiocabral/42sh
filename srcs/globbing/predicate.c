@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 12:53:07 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/05/21 10:42:49 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/08 17:34:32 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 t_bool	needs_globbing(const char *needle, size_t i)
 {
+	if (ft_strcmp(needle, "$?") == 0)
+		return (FALSE);
 	while (needle[i] != '\0')
 	{
 		if (needle[i] == 0x2a

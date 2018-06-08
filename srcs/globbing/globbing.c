@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 12:12:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/03 17:33:33 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/08 17:32:32 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char			*deglob(const char *input, char *token, char *blob,
 {
 	deglobed = malloc(1);
 	ft_bzero(deglobed, 1);
-	token = ft_strtok((char*)input, " \t\n");
+	token = ft_strtok((char*)input, DSET);
 	while (token != NULL)
 	{
 		if (needs_globbing(token, 0))
@@ -79,7 +79,7 @@ char			*deglob(const char *input, char *token, char *blob,
 			deglobed = ft_strdup(tmp);
 			free(tmp);
 		}
-		token = ft_strtok(NULL, " \t\n");
+		token = ft_strtok(NULL, DSET);
 	}
 	return (deglobed);
 }
