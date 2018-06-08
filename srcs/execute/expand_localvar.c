@@ -6,7 +6,7 @@
 /*   By: gfloure <>                                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 23:13:20 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/04 03:30:02 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/09 01:16:02 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	replace_var(t_string *str, int *i)
 	int			j;
 
 	j = 1;
-	while (str->buffer[*i + j] && ft_is_whitespace(str->buffer[*i + j]) == 0)
+	while (str->buffer[*i + j] && ft_is_whitespace(str->buffer[*i + j]) == 0
+		&& str->buffer[*i + j] != '=')
 		if (str->buffer[*i + ++j] == '$')
 			break ;
 	if (j > 1)

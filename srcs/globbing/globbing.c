@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 12:12:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/08 22:31:15 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/09 01:55:35 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <libft.h>
 #include <string.h>
 #include <sys/types.h>
-#include <stdio.h>
+#include <lexer.h>
 
 #include <globbing.h>
 #include "internals.h"
@@ -56,6 +56,7 @@ char			*deglob(const char *input, char *token, char *blob,
 
 	deglobed = malloc(1);
 	ft_bzero(deglobed, 1);
+	get_quote(0);
 	token = strtok_glob((char*)input, " \t\n", ending);
 	while (token != NULL)
 	{

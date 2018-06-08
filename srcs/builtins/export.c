@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 18:02:10 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/08 19:26:59 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/09 01:16:37 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ int				builtin_export(int ac, char **av)
 	int			ret;
 
 	i = 0;
-	ft_printf(" av[1]->%s\n", av[1]);
 	if (!(env = copy_environment()))
 	{
 		ft_dprintf(2, "42sh: export: failed copy_environment()\n");
