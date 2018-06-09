@@ -42,6 +42,7 @@ char			*input_return(t_sh *sh, t_prompt **list)
 		history_reset_cursor(sh->history.history);
 		reset_sh(sh);
 		tputs(tgetstr("do", NULL), 1, &ft_putc);
+		// ft_printf("STR = %s\n", prompt_return);
 		return (prompt_return);
 	}
 	expand_line(list);
@@ -83,18 +84,18 @@ char			input_possibilities_move(char *input, t_prompt **list)
 
 static void		input_possibilities_else(char *input, t_prompt **list, t_sh *sh)
 {
-	if ((!ft_strncmp(SHIFT_ALT_L, input, 3) ||
-		!ft_strncmp(SHIFT_ALT_R, input, 3)) && !input[3])
+	if ((input[0] == -61 && input[1] == ALT_A) ||
+		(input[0] == -30 && input[1] == -120 && input[2] == ALT_D))
 		copy(list, input[2], sh);
-	else if (input[0] == -30 && input[1] == -105 &&
-		input[2] == -118 && input[3] == 0 && sh->copy_str)
+	else if (input[0] == -30 && input[1] == -120 && input[2] == ALT_V
+			&& sh->copy_str)
 		paste(list, sh);
-	else if (input[0] == -53 && input[1] == -101 && input[2] == 0)
+	else if (input[0] == -30 && input[1] == -119 && input[2] == ALT_X)
 		cut(list);
 	else if (input[0] == 4 && !input[1] &&
 		!(*list)->previous_list && !(*list)->next)
-			control_d(list)	;
-	else if (input[0] == ECHAP && input[1] == 0)
+		control_d(list)	;
+	else if (input[0] == -61 && input[1] == ALT_S)
 		remove_selection(*list, sh);
 	else if (!ft_strncmp(DOWN, input, 4) && !(*list)->next_list)
 		history_down(list, sh->history.history);
@@ -131,8 +132,10 @@ char			*read_input(t_sh *sh)
 	ZERO_IF_FAIL(list = init_list());
 	get_address_list(&list, 1);
 	display_prompt(list, 1, 1);
-	while (read(0, &input, 4))
+	while (read(0, &input, 1))
 	{
+		if (input[0] == '\e' || input[0] == -30 || input[0] == -61)
+			read(0, &input[1], 3);
 		// ft_putnbr(input[0]);
 		// ft_putchar('\n');
 		// ft_putnbr(input[1]);
