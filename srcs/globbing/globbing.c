@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 12:12:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/09 15:26:02 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/09 18:26:59 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static char		*deflate(const char *origin, char *result, int state)
 
 	if ((state = compute_globbing(origin, &glob)) > 0)
 	{
+		dot_reduce(&glob.final_list, origin, NULL);
 		if ((result = build_result(glob.final_list, NULL, 0, NULL)) != NULL)
 		{
 			return (result);
