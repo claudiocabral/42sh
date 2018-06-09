@@ -41,6 +41,7 @@ LIBFT_OBJS	:=	$(LIBFT_OBJ_DIR)/noop.o \
 				$(LIBFT_OBJ_DIR)/ft_itoa.o \
 				$(LIBFT_OBJ_DIR)/ft_max.o \
 				$(LIBFT_OBJ_DIR)/ft_memalloc.o \
+				$(LIBFT_OBJ_DIR)/ft_memdup.o \
 				$(LIBFT_OBJ_DIR)/ft_memccpy.o \
 				$(LIBFT_OBJ_DIR)/ft_memchr.o \
 				$(LIBFT_OBJ_DIR)/ft_memcmp.o \

@@ -16,7 +16,7 @@ ifeq (CC,)
 CC		:= cc
 endif
 
-CFLAGS	:=	$(CFLAGS) -Wextra -Werror -Wall -march=native -Wshadow
+CFLAGS	:=	$(CFLAGS) -g -Wextra -Werror -Wall -march=native -Wshadow
 CDEBUG	:=	-g
 
 LIBFT_PATH	:=	libft
