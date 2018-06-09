@@ -64,6 +64,6 @@ char			*strtok_glob(char *str, const char *delim, char *end)
 	}
 	ret = s;
 	s = ps;
-	end[0] = ' ';
+	end[0] = 0;
 	return (ret);
 }
