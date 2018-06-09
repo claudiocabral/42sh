@@ -37,7 +37,6 @@ int			process_input_after_backtick(char *str)
 		return (ft_printf("42sh: No matchs found.\n"));
 	}
 	input = alias_replace((char *)input);
-	input = backtits_replace(input);
 	return_value = execute(parse(lex(input)));
 	str ? ft_strdel(&str) : 0;
 	input ? free(input) : 0;
