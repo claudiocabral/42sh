@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 17:50:09 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/08 20:19:31 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/09 02:42:40 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@ char			*alias_replace_process(char *av)
 	{
 		string_free(str);
 		return (tmp);
+	}
+	else
+	{
+		string_free(str);
+		string_append(str, "alias ");
+		string_append(str, av);
+		tmp = ft_getalias(str->buffer);
+		str = string_create(0);
 	}
 	string_free(str);
 	return (tmp ? tmp : av);

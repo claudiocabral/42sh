@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 12:53:07 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/09 01:56:48 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/09 02:22:48 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_bool	needs_globbing(const char *needle, size_t i)
 		{
 			backup == 0 ? get_quote(needle[i]) : 0;
 			backup == needle[i] ? get_quote(0) : 0;
+			backup = get_quote(-42);
 		}
 		if ((needle[i] == 0x2a || needle[i] == 0x5b || needle[i] == 0x7b
 			|| needle[i] == 0x3f) && (y && i < y) && get_quote(-42) == 0)
