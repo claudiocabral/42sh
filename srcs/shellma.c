@@ -206,9 +206,9 @@ char 		*backtits_replace(char *str)
 	char 	*start;
 	char	*stop;
 	char	*exec;
-	char	*output;
-	int	p[2];
-	int	out;
+	int		p[2];
+	int		out;
+	char    print[1024];
 
 	start = ft_strchr(str, '`');
 	if (!start)
@@ -219,55 +219,26 @@ char 		*backtits_replace(char *str)
 		out = dup(1);
 	pipe(p);
 	dup2(p[1], 1);
-	execute(parse(lex(exec)));
 	close(p[1]);
-	output = NULL;
-	
-	fflush(stdout);
-	write(1, "\0", 1);
-	char    print[1024];
+	execute(parse(lex(exec)));
+	close(1);
 
 	print[read(p[0], print, 1023)] = '\0';
 	read(p[0], print, 1023); 
 	dup2(out, 1);
+	close(p[0]);
+	close(out);
 
 	dellines((char*)print);
 
 	return (ft_strreplace(str, (char*) print, start - str, stop - str));
 }
 
-char 		*backtits_replace2(char *str)
-{
-	char 	*start;
-	char	*stop;
-	char	*exec;
-	char    print[1024];
-	int	p[2];
-	int	out;
-	int 	t;
-
-	start = ft_strchr(str, '`');
-	if (!start)
-		return (str);
-	if(!(stop = ft_strchr(start + 1, '`')))
-		return (str); // Error !
-	exec = ft_memdup(start + 1, stop - start - 1);
-		out = dup(1);
-	pipe(p);
-	dup2(p[1], 1);
-	execute(parse(lex(exec)));
-	fflush(stdout);
-	t = read(p[0], print, 1023);
-	print[t] = '\0';
-	dup2(out, 1);
-	return (ft_strreplace(str, (char*) print, start - str, stop - str));
-}
-
 
 /*
-** Centralized executor
-** @return program status
-*/
+ ** Centralized executor
+ ** @return program status
+ */
 
 int			process_input(char *str)
 {
