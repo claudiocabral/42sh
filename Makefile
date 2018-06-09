@@ -7,7 +7,7 @@
 #    By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 19:57:39 by claudioca         #+#    #+#              #
-#    Updated: 2018/06/03 19:01:19 by ctrouill         ###   ########.fr        #
+#    Updated: 2018/06/09 16:58:09 by ctrouill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -128,6 +128,7 @@ OBJS	=	objs/shellma.o \
 			objs/globbing/patterns.o \
 			objs/globbing/predicate.o \
 			objs/globbing/prepare.o \
+			objs/globbing/reducers.o \
 			objs/globbing/yougotit.o \
 			objs/globbing/strtok_glob.o \
 			objs/config/loader.o \

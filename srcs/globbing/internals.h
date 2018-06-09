@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 09:36:22 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/08 19:06:44 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/09 18:28:05 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define INTERNALS_H
 
 # include <globbing.h>
+
+# define DOOM "  ."
 
 typedef struct	s_pattern
 {
@@ -141,5 +143,11 @@ t_bool			needs_globbing(const char *needle, size_t i);
 t_bool			prepare_gbuff(t_helper *gbuff);
 t_bool			prepare_glob(t_glob *glob);
 char			*strtok_glob(char *str, const char *delim, char *end);
+
+/*
+** @reducers.c
+*/
+
+void			dot_reduce(t_list **head, const char *origin, t_list *aref);
 
 #endif
