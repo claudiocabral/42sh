@@ -19,13 +19,20 @@ void		copy(t_prompt **list, char input, t_sh *sh)
 
 	tmp = *list;
 	while (tmp->next && !tmp->cursor)
+	{
 		tmp = tmp->next;
-	tmp->selected = (!tmp->selected && !tmp->insertion) ? 1 : 0;
-	selected_str = selectedlist_to_str(get_first_list(*list));
-	if (sh->copy_str)
-		ft_strdel(&sh->copy_str);
-	sh->copy_str = selected_str;
-	if (input == 'C')
+		if (!tmp->next && tmp->next_list)
+			tmp = tmp->next_list;
+	}
+	if (!tmp->insertion)
+	{
+		tmp->selected = (!tmp->selected) ? 1 : 0;
+		selected_str = selectedlist_to_str(get_first_list(*list));
+		if (sh->copy_str)
+			ft_strdel(&sh->copy_str);
+		sh->copy_str = selected_str;
+	}
+	if (input == ALT_D)
 		move_right(list);
 	else
 		move_left(list);
