@@ -6,16 +6,16 @@
 /*   By: jblazy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 10:44:22 by jblazy            #+#    #+#             */
-/*   Updated: 2018/06/09 00:57:31 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/09 04:29:43 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mysh.h>
 
 /*
-**	Write function use by the termcap library.
-**	@return int
-*/
+ **	Write function use by the termcap library.
+ **	@return int
+ */
 
 int					ft_putc(int c)
 {
@@ -23,9 +23,9 @@ int					ft_putc(int c)
 }
 
 /*
-**	Check if the string is only made of spaces or not.
-**	@return 1 if there is only spaces, 0 if there is something else.
-*/
+ **	Check if the string is only made of spaces or not.
+ **	@return 1 if there is only spaces, 0 if there is something else.
+ */
 
 int					is_only_space(char *str)
 {
@@ -49,8 +49,8 @@ char				is_operand(char c)
 }
 
 /*
-**	@return 1 if the character can be skip, it is used by move_rigt/left.
-*/
+ **	@return 1 if the character can be skip, it is used by move_rigt/left.
+ */
 
 char				is_skipable(char c)
 {
@@ -60,10 +60,10 @@ char				is_skipable(char c)
 }
 
 /*
-**	Check if a quote or double quote is unclose in the current list.
-**	@return a define (cf. edition.h) which says if a quote is unclose or -1
-**		if everything is close.
-*/
+ **	Check if a quote or double quote is unclose in the current list.
+ **	@return a define (cf. edition.h) which says if a quote is unclose or -1
+ **		if everything is close.
+ */
 
 char				is_quote_close(t_prompt *list)
 {
@@ -77,17 +77,17 @@ char				is_quote_close(t_prompt *list)
 	while (list)
 	{
 		if (list->c == '\\')
+			list = (list->next) ? list->next : list->next_list;
+		else
 		{
-			list = (list->next->next) ? list->next->next : list->next_list->next_list;
-			continue ;
+			if (!dquote && !bquote && list->c == '\'' && list->prompt_type !=
+					HEREDOC)
+				quote = (!quote) ? 1 : 0;
+			if (!quote && !bquote && list->c == '"' && list->prompt_type != HEREDOC)
+				dquote = (!dquote) ? 1 : 0;
+			if (!quote && !dquote && list->c == '`' && list->prompt_type != HEREDOC)
+				bquote = (!bquote) ? 1 : 0;
 		}
-		if (!dquote && !bquote && list->c == '\'' && list->prompt_type !=
-			HEREDOC)
-			quote = (!quote) ? 1 : 0;
-		if (!quote && !bquote && list->c == '"' && list->prompt_type != HEREDOC)
-			dquote = (!dquote) ? 1 : 0;
-		if (!quote && !dquote && list->c == '`' && list->prompt_type != HEREDOC)
-			bquote = (!bquote) ? 1 : 0;
 		list = (list->next) ? list->next : list->next_list;
 	}
 	if (dquote)
