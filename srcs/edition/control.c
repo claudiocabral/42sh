@@ -69,3 +69,16 @@ void		control_u(t_prompt **list)
 	while (i-- > 0)
 		delete_backspace(list);
 }
+
+void		control_w(t_prompt **list)
+{
+	t_prompt		*tmp;
+	unsigned int	i;
+
+	tmp = *list;
+	i = 0;
+	while (tmp)
+	{
+		i++;
+	}
+}

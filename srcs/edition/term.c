@@ -40,6 +40,11 @@ void		reset_sh(t_sh *sh)
 	tcsetattr(0, TCSANOW, &sh->new_term);
 }
 
+void		norm_rly(void)
+{
+	ft_putendl_fd("Could not access to the terminal data base, sorry.", 2);
+}
+
 /*
 ** Prepare shell
 ** @return nil
@@ -59,10 +64,7 @@ void		init_term(t_sh *sh)
 	}
 	term_fd = tgetent(NULL, term_type);
 	if (term_fd < 0)
-	{
-		ft_putstr_fd("Could not access to the terminal ", 2);
-		ft_putendl_fd("data base, sorry.", 2);
-	}
+		norm_rly();
 	else if (term_fd == 0)
 	{
 		ft_putstr_fd("The terminal type \"", 2);

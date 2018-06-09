@@ -77,17 +77,17 @@ char				is_quote_close(t_prompt *list)
 	while (list)
 	{
 		if (list->c == '\\')
+			list = (list->next) ? list->next : list->next_list;
+		else
 		{
-			list = (list->next->next) ? list->next->next : list->next_list->next_list;
-			continue ;
-		}
-		if (!dquote && !bquote && list->c == '\'' && list->prompt_type !=
+			if (!dquote && !bquote && list->c == '\'' && list->prompt_type !=
 			HEREDOC)
-			quote = (!quote) ? 1 : 0;
-		if (!quote && !bquote && list->c == '"' && list->prompt_type != HEREDOC)
-			dquote = (!dquote) ? 1 : 0;
-		if (!quote && !dquote && list->c == '`' && list->prompt_type != HEREDOC)
-			bquote = (!bquote) ? 1 : 0;
+				quote = (!quote) ? 1 : 0;
+			if (!quote && !bquote && list->c == '"' && list->prompt_type != HEREDOC)
+				dquote = (!dquote) ? 1 : 0;
+			if (!quote && !dquote && list->c == '`' && list->prompt_type != HEREDOC)
+				bquote = (!bquote) ? 1 : 0;
+		}
 		list = (list->next) ? list->next : list->next_list;
 	}
 	if (dquote)
