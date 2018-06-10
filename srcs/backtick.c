@@ -14,6 +14,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <libft.h>
+#include <ft_string.h>
 
 char	*get_back_tick_content(char *str, size_t pos, char **start, char **stop)
 {
@@ -43,22 +44,38 @@ int		collect_command_output(char *str, int read_write[2])
 	return (1);
 }
 
+char	*escapeshell(char *origin)
+{
+	t_string	*str1;
+
+	str1 = ft_memalloc(sizeof(t_string));
+	str1->buffer = ft_strdup(origin);
+	str1->size = ft_strlen(origin);
+	str1->capacity = ft_strlen(origin);
+	string_replace(str1, "$", "\\$");
+	string_replace(str1, "\"", "\\\"");
+	origin = str1->buffer;
+	free(str1);
+	return (origin);
+}
+
 char	*command_output_to_string(int read_write[2])
 {
 	char	buffer[1024];
 	char	*str;
 	char	*tmp;
+	char	*tmp2;
 	int		size;
 
-	str = ft_strdup("");
+	ZERO_IF_FAIL(str = ft_strdup(""));
 	while ((size = read(read_write[0], buffer, 1023)))
 	{
-		if (!str)
-			break ;
 		buffer[size] = '\0';
 		tmp = str;
-		str = ft_vjoin(4, str, "\"", buffer, "\"");
+		tmp2 = escapeshell(buffer);
+		str = ft_vjoin(4, str, "\"", tmp2, "\"");
 		free(tmp);
+		free(tmp2);
 	}
 	dup2(read_write[1], 1);
 	close(read_write[0]);
