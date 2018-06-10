@@ -32,7 +32,6 @@ include $(LIBFT_PATH)/libft.mk
 include $(PRINTF_PATH)/printf.mk
 
 MAIN_OBJ =	objs/main.o
-FUZZ_OBJ =	objs/tests/fuzz_process_input.o
 OBJS	=	objs/shellma.o \
 			objs/backtick.o \
 			objs/file/script_session.o \
@@ -153,12 +152,6 @@ ifeq ($(ASAN), 1)
 	#CDEBUG += -fsanitize=address
 endif
 
-ifeq ($(FUZZ), 1)
-	CC = clang
-	DEBUG := 1
-	CDEBUG += -fsanitize=fuzzer,address,signed-integer-overflow
-endif
-
 ifeq ($(DEBUG), 1)
 	CFLAGS	+=	$(CDEBUG)
 endif
@@ -182,20 +175,6 @@ $(NAME): $(OBJS) $(MAIN_OBJ) $(LIBFT) $(PRINTF)
 	$(CC) $(CFLAGS) $(OBJS) $(MAIN_OBJ) $(INC) -L$(LIBFT_PATH) -L$(PRINTF_PATH) \
 		-l$(LIBTERMCAP) -lft -lftprintf -o $@
 
-compile_fuzz: fuzz
-	$(MAKE) fclean
-	FUZZ=1 $(MAKE) fuzz
-
-run_fuzz:
-	FUZZ=1 $(MAKE) compile_fuzz
-	./fuzz -artifact_prefix=./fuzz_log/ fuzz_log
-
-fuzz:  $(OBJS) $(FUZZ_OBJ) $(LIBFT) $(PRINTF)
-	mkdir -p fuzz_log
-	$(CC) $(CFLAGS) $(OBJS) $(FUZZ_OBJ) $(INC) -L$(LIBFT_PATH) -L$(PRINTF_PATH) \
-		-l$(LIBTERMCAP) -lft -lftprintf $(CDEBUG) -o $@
-
-
 objs/%.o: srcs/%.c $(DEPDIR)/%.dep Makefile
 	$(eval DIR := $(dir $@))
 	$(eval CURRENT_DEPDIR := $(DIR:objs/%=$(DEPDIR)/%))
@@ -215,9 +194,6 @@ fclean: clean
 ifeq ($(shell [ -e $(NAME) ] && echo 1 || echo 0),1)
 	rm -rf $(NAME)
 endif
-ifeq ($(shell [ -e fuzz ] && echo 1 || echo 0),1)
-	rm -rf fuzz
-endif
 
 clean:
 	$(MAKE) $(LIBFT_CLEAN)
@@ -234,10 +210,6 @@ endif
 
 llvm-checks:
 	scan-build make
-
-# needed by dockerfile
-test: run_fuzz
-
 re:
 	$(MAKE) fclean
 	$(MAKE) all
