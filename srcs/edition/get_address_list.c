@@ -12,62 +12,13 @@
 
 #include <mysh.h>
 
-void		control_d(t_prompt **list)
+t_prompt	**get_address_list(t_prompt **list, char address)
 {
-	display_prompt(*list, 0, 1);
-	write(1, "\n", 1);
-	free_list(list);
-	exit_shell(g_sh);
-}
+	static t_prompt	**ref;
 
-void		control_l(t_prompt **list)
-{
-	tputs(tgetstr("cl", NULL), 1, &ft_putc);
-	display_prompt(*list, 1, 1);
-}
-
-void		control_k(t_prompt **list)
-{
-	t_prompt	*tmp;
-	char		delete;
-
-	delete = 0;
-	tmp = *list;
-	while (tmp)
-	{
-		if (tmp->cursor && !delete)
-			delete = 1;
-		if (delete)
-			delete_delete(list);
-		tmp = tmp->next;
-	}
-}
-
-void		control_u(t_prompt **list)
-{
-	t_prompt		*tmp;
-	unsigned int	i;
-
-	tmp = *list;
-	i = 0;
-	while (tmp && !tmp->cursor)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	while (i-- > 0)
-		delete_backspace(list);
-}
-
-void		control_w(t_prompt **list)
-{
-	t_prompt		*tmp;
-	unsigned int	i;
-
-	tmp = *list;
-	i = 0;
-	while (tmp)
-	{
-		i++;
-	}
+	if (address)
+		ref = list;
+	if (address == 2)
+		ref = NULL;
+	return (ref);
 }
