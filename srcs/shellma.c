@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:19:30 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/10 17:02:17 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/10 19:34:57 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,28 @@
 #include <ft_printf.h>
 #include <libft.h>
 #include <backtick.h>
+#include <lexer.h>
 
 int			process_input_after_backtick(char *str)
 {
 	int		return_value;
 	char	*input;
+	char const *heredoc;
+	char	*line;
 
-	str = alias_replace(str);
-	if ((input = deglob(str, NULL, NULL, malloc(1))) == NULL)
+	heredoc = lex_get_heredoc_pointer(str);
+	if (heredoc)
+		line = ft_strndup(str, heredoc - str);
+	else
+		line = ft_strdup(str);
+	if ((input = deglob(line, NULL, NULL, malloc(1))) == NULL)
 	{
-		free(str);
+		free(line);
 		return (ft_printf("42sh: No matchs found.\n"));
 	}
 	input = alias_replace((char *)input);
-	return_value = execute(parse(lex(input)));
+	line = ft_vjoin(2, input, heredoc);
+	return_value = execute(parse(lex(line)));
 	str ? ft_strdel(&str) : 0;
 	input ? free(input) : 0;
 	return (return_value);

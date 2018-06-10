@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:31:42 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/10 18:26:19 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 19:25:44 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char const	*skip_until_bracket(char const *input, char close)
 	return (input);
 }
 
-static char const	*lex_get_heredoc_pointer(char const *input)
+char const			*lex_get_heredoc_pointer(char const *input)
 {
 	while (*input)
 	{
