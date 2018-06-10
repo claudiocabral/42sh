@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:16:45 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/21 17:33:02 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/10 06:11:12 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		check_access(char const *command, char const *command_name,
 {
 	struct stat	buff;
 
-	if (stat(command, &buff) == -1)
+	if (!command || stat(command, &buff) == -1)
 	{
 		ft_dprintf(2, "%s: command not found: %s\n", who, command_name);
 		return (0);

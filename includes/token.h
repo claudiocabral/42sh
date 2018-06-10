@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 16:17:12 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/08 23:25:42 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/09 17:55:14 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int				add_token(t_array *tokens, t_tag type, char const *begin,
 																size_t size);
 int				token_newline(char c);
 int				token_quote(char c);
+int				token_var(char c);
 int				token_operator(char c);
 int				token_delimiter(char c);
 int				token_comment(char c);

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 13:35:18 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/04 01:13:59 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 06:38:27 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,71 @@
 #include <environment.h>
 #include <ft_printf.h>
 
+int		special_char(char c)
+{
+	return (c == 'n' || c == 't' || c == 'r' || c == 'f' || c == 'v' || c == 'b');
+}
+
+char	get_special_char(char c)
+{
+	if (c == 'n')
+		return ('\n');
+	if (c == 't')
+		return ('\t');
+	if (c == 'r')
+		return ('\r');
+	if (c == 'f')
+		return ('\f');
+	if (c == 'v')
+		return ('\v');
+	if (c == 'b')
+		return ('\b');
+	return (0);
+}
+
+void	change_special_char(char *str)
+{
+	int	i;
+	char	quote;
+	char	next;
+
+	i = 0;
+	quote = 0;
+	while (str[i])
+	{
+		if (token_quote(str[i]))
+		{
+			if (quote == 0)
+				quote = str[i];
+			else
+				quote = quote == str[i] ? 0 : quote;
+		}
+		if (str[i] == '\\' && str[i + 1])
+		{
+			next = str[i + 1] ? str[i + 1] : 0;
+			if (special_char(next) && quote != 0)
+				str[i + 1] = get_special_char(next);
+			i++;
+		}
+		i += 1;
+	}
+
+}
+
 void	remove_backslash(char *str)
 {
-	if (*str == '"' || *str == '\'')
-		return ;
-	while (*str)
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		if (*str == '\\')
+		if (str[i] == '\\')
 		{
-			if (str[1] == '\n')
-				ft_memmove(str, str + sizeof(char) * 2, ft_strlen(str));
-			else
-				ft_memmove(str, str + sizeof(char), ft_strlen(str));
-			if (!*str)
+			ft_memmove(&str[i], &str[i] + sizeof(char), ft_strlen(&str[i]));
+			if (!str[i])
 				break ;
 		}
-		++str;
+		i++;
 	}
 }
 
