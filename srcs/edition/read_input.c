@@ -42,7 +42,6 @@ char			*input_return(t_sh *sh, t_prompt **list)
 		history_reset_cursor(sh->history.history);
 		reset_sh(sh);
 		tputs(tgetstr("do", NULL), 1, &ft_putc);
-		// ft_printf("STR = %s\n", prompt_return);
 		return (prompt_return);
 	}
 	expand_line(list);
@@ -138,14 +137,6 @@ char			*read_input(t_sh *sh)
 	{
 		if (input[0] == '\e' || input[0] == -30 || input[0] == -61)
 			read(0, &input[1], 3);
-		// ft_putnbr(input[0]);
-		// ft_putchar('\n');
-		// ft_putnbr(input[1]);
-		// ft_putchar('\n');
-		// ft_putnbr(input[2]);
-		// ft_putchar('\n');
-		// ft_putnbr(input[3]);
-		// ft_putchar('\n');
 		if ((input[0] == TAB && input[1] == 0) || (sh->completion &&
 				(input[0] == ECHAP || (input[0] == RETURN && input[1] == 0))))
 			input_autocompletion(&input[0], &list, sh->completion);
