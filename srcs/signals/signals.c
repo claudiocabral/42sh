@@ -23,10 +23,6 @@ static void	signal_callback(int sig)
 {
 	if (sig == SIGINT)
 		sigint_callback();
-	else if (sig == SIGQUIT)
-		sigquit_callback();
-	//else if (sig == SIGPIPE)
-	//	sigpipe_callback();
 	else
 		fallback_callback();
 	signal_init();
