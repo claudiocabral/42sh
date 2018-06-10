@@ -121,6 +121,7 @@ OBJS	=	objs/shellma.o \
 			objs/builtins/unalias.o \
 			objs/builtins/print_alias.o \
 			objs/builtins/alias_utils.o \
+			objs/builtins/help.o \
 			objs/builtins/utils.o \
 			objs/environment/good_alias_name.o \
 			objs/environment/prepare_env.o \

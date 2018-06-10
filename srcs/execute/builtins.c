@@ -50,6 +50,7 @@ int						init_builtins(void)
 	add_builtin("export", &builtin_export);
 	add_builtin("alias", &builtin_alias);
 	add_builtin("unalias", &builtin_unalias);
+	add_builtin("help", &help);
 	return (1);
 }
 

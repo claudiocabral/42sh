@@ -47,5 +47,5 @@ char			*alias_replace(char *av);
 int				get_alias_to_replace(t_string *str, int *i);
 int				is_valid_alias(char *alias);
 char			*alias_replace_process(char *av);
-
+int				help(int argc, char **argv);
 #endif
