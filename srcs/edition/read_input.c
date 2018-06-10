@@ -109,6 +109,8 @@ static void		input_possibilities_else(char *input, t_prompt **list, t_sh *sh)
 		control_k(list);
 	else if (input[0] == 21 && input[1] == 0)
 		control_u(list);
+	else if (input[0] == 23 && input[1] == 0)
+		control_w(list);
 	else if (input[0] == 12 && !input[1])
 		control_l(list);
 	else if (input[0] > 31 && input[1] == 0)

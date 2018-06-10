@@ -66,8 +66,15 @@ void		control_w(t_prompt **list)
 
 	tmp = *list;
 	i = 0;
-	while (tmp)
+	while (tmp && !tmp->cursor)
 	{
-		i++;
+		if (!is_skipable(tmp->c) && tmp->next && tmp->next->cursor == 0
+			&& is_skipable(tmp->next->c))
+			i = 0;
+		else
+			i++;
+		tmp = tmp->next;
 	}
+	while (i-- > 0)
+		delete_backspace(list);
 }
