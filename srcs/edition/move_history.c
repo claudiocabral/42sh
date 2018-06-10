@@ -12,21 +12,6 @@
 
 #include <mysh.h>
 
-static void				history_link_list(t_prompt *previous_list,
-					t_prompt *next_list, t_prompt **list)
-{
-	if (next_list)
-	{
-		list_set_link(next_list, *list, "next");
-		list_set_link(*list, (*list)->next_list, "previous");
-	}
-	if (previous_list)
-	{
-		list_set_link(previous_list, *list, "previous");
-		list_set_link(*list, (*list)->previous_list, "next");
-	}
-}
-
 /*
 ** Move down in history
 ** @return nil
@@ -53,8 +38,6 @@ void					history_down(t_prompt **list, t_histo_list *history)
 			*list = str_to_list(tmp->previous->command);
 		else
 			*list = init_list();
-		list_apply_type(*list, save_type);
-		history_link_list(previous_list, next_list, list);
 	}
 }
 
@@ -81,7 +64,5 @@ void					history_up(t_prompt **list, t_histo_list *history)
 		save_type = (*list)->prompt_type;
 		free_list(list);
 		*list = str_to_list(tmp->command);
-		list_apply_type(*list, save_type);
-		history_link_list(previous_list, next_list, list);
 	}
 }
