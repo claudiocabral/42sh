@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 09:36:22 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/09 18:28:05 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/10 14:37:17 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int				compute_globbing(const char *pattern, t_glob *g);
 t_bool			needs_globbing(const char *needle, size_t i);
 t_bool			prepare_gbuff(t_helper *gbuff);
 t_bool			prepare_glob(t_glob *glob);
-char			*strtok_glob(char *str, const char *delim, char *end);
+char			*strtok_glob(char *str, const char *delim, char *end, int fdp);
 
 /*
 ** @reducers.c
