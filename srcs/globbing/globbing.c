@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 12:12:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/10 14:49:29 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/10 16:58:27 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,27 @@ static char		*deflate(const char *origin, char *result, int state)
 	return (NULL);
 }
 
+static void		*bullshit(char *deglobed)
+{
+	free(deglobed);
+	return (NULL);
+}
+
+static void		c0uc0u_tu_v3ux(char **deglobed, char **tmp, char **blob)
+{
+	free(*deglobed);
+	*deglobed = ft_strdup(*tmp);
+	free(*tmp);
+	free(*blob);
+}
+
+static void		st4llm4n_wuz_r1ght(char **deglobed, char **tmp)
+{
+	free(*deglobed);
+	*deglobed = ft_strdup(*tmp);
+	free(*tmp);
+}
+
 /*
 ** Return function wrapper
 ** for the runner middleware.
@@ -56,7 +77,6 @@ char			*deglob(const char *input, char *token, char *blob,
 	char		ending[2];
 	char		*tmp;
 
-	deglobed = malloc(1);
 	ft_bzero(deglobed, 1);
 	get_quote(0);
 	token = strtok_glob((char*)input, " \t\n", ending, 0);
@@ -65,24 +85,16 @@ char			*deglob(const char *input, char *token, char *blob,
 		if (needs_globbing(token, 0))
 		{
 			if ((blob = deflate(token, NULL, 0)) == NULL)
-			{
-				free(deglobed);
-				return (NULL);
-			}
+				return (bullshit(deglobed));
 			if ((tmp = ft_vjoin(3, deglobed, blob, ending)) == NULL)
 				return (NULL);
-			free(deglobed);
-			deglobed = ft_strdup(tmp);
-			free(tmp);
-			free(blob);
+			c0uc0u_tu_v3ux(&deglobed, &tmp, &blob);
 		}
 		else
 		{
 			if ((tmp = ft_vjoin(3, deglobed, token, ending)) == NULL)
 				return (NULL);
-			free(deglobed);
-			deglobed = ft_strdup(tmp);
-			free(tmp);
+			st4llm4n_wuz_r1ght(&deglobed, &tmp);
 		}
 		token = strtok_glob(NULL, " \t\n", ending, 0);
 	}

@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 17:50:09 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/09 15:12:00 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/10 17:15:13 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,23 @@ int				alias_error(char *av, char opt, int mode)
 char			*alias_replace_process(char *av)
 {
 	char		*tmp;
+	char		*tmp1;
+	char		*tmp2;
+	int			i;
 	t_string	*str;
 
 	str = string_create(0);
 	string_append(str, "alias ");
 	string_append(str, av);
 	tmp = ft_getalias(str->buffer);
+	tmp1 = NULL;
 	if (tmp)
 	{
+		tmp2 = tmp;
+		i = loop_alias_replace(&tmp, &tmp2, &tmp1);
 		string_free(str);
-		return (tmp);
+		i < 100 && tmp1 ? free(tmp1) : 0;
+		return (tmp && i < 100 ? tmp : av);
 	}
 	string_free(str);
 	return (tmp ? tmp : av);

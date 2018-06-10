@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 18:16:02 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/08 18:01:15 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 17:26:08 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int				clean_back_path(t_string *path)
 {
 	int		pos;
 
-	while ((pos = string_find(path, "../")) >= 1)
+	while ((pos = string_find(path, "../", 0)) >= 1)
 	{
 		if (path->buffer[pos - 1] != '/')
 			return (0);

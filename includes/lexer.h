@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 14:57:56 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/10 06:21:31 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 16:57:24 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ int			get_quote(int quote);
 int			skip_char(int skip);
 void		change_special_char(char *str);
 void		remove_all_quotes(char *token);
+int			lex_semicolon(t_array *tokens, t_slice input);
 
 #endif

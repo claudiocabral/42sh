@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 14:10:39 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/10 03:21:19 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 16:49:35 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,4 @@ int	token_white_space(int c)
 	if (ft_is_whitespace(c) && backup == 0)
 		return (1);
 	return (0);
-}
-
-int	token_delimiter(char c)
-{
-	return (token_newline(c) || token_operator(c) || token_white_space(c));
 }

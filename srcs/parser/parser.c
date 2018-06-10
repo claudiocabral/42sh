@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:02:35 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/08 20:30:48 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 17:07:38 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,22 @@
 #include <parser.h>
 #include <ft_printf.h>
 
+int			match_and_or(t_tree **branch, t_tree **child,
+						t_array *tokens, t_token **current)
+{
+	*branch = tree_add_child(
+			tree_create_node(*current - 1, sizeof(t_token)), *branch);
+	if (!*branch || !(*child = pipeline(0, tokens, current)))
+	{
+		if (*branch)
+			tree_free(*branch, &noop);
+		return (0);
+	}
+	if (!(tree_add_child(*branch, *child)))
+		return (0);
+	return (1);
+}
+
 t_tree		*and_or(t_array *tokens, t_token **current)
 {
 	t_tree	*branch;
@@ -28,15 +44,7 @@ t_tree		*and_or(t_array *tokens, t_token **current)
 	{
 		if (match(current, AND_IF, OR_IF, SENTINEL))
 		{
-			branch = tree_add_child(
-					tree_create_node(*current - 1, sizeof(t_token)), branch);
-			if (!branch || !(child = pipeline(0, tokens, current)))
-			{
-				if (branch)
-					tree_free(branch, &noop);
-				return (0);
-			}
-			if (!(tree_add_child(branch, child)))
+			if (!match_and_or(&branch, &child, tokens, current))
 				return (0);
 		}
 		else if (!peek(current, SEMICOLON, DSEMI, TOKEN_END, SENTINEL))
