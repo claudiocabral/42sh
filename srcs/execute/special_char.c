@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup.c                                            :+:      :+:    :+:   */
+/*   special_char.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccabral <ccabral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/10 14:10:49 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/10 14:10:52 by ccabral          ###   ########.fr       */
+/*   Created: 2018/06/10 14:36:49 by ccabral           #+#    #+#             */
+/*   Updated: 2018/06/10 14:37:27 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <environment.h>
-
-void	set_shlvl(void)
+int		special_char(char c)
 {
-	char	*level;
-	int		value;
-	char	*str;
+	return (c == 'n' || c == 't' || c == 'r'
+			|| c == 'f' || c == 'v' || c == 'b');
+}
 
-	level = ft_getenv_safe("SHLVL");
-	value = ft_atoi(level);
-	if (!(str = ft_itoa(value + 1)))
-		return ;
-	ft_setenv("SHLVL", str, 1);
-	free(str);
+char	get_special_char(char c)
+{
+	if (c == 'n')
+		return ('\n');
+	if (c == 't')
+		return ('\t');
+	if (c == 'r')
+		return ('\r');
+	if (c == 'f')
+		return ('\f');
+	if (c == 'v')
+		return ('\v');
+	if (c == 'b')
+		return ('\b');
+	return (0);
 }

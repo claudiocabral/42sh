@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup.c                                            :+:      :+:    :+:   */
+/*   good_alias_name.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccabral <ccabral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/10 14:10:49 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/10 14:10:52 by ccabral          ###   ########.fr       */
+/*   Created: 2018/06/10 14:12:28 by ccabral           #+#    #+#             */
+/*   Updated: 2018/06/10 14:12:46 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <environment.h>
-
-void	set_shlvl(void)
+int			good_alias_name(char *tmp)
 {
-	char	*level;
-	int		value;
-	char	*str;
+	int		i;
 
-	level = ft_getenv_safe("SHLVL");
-	value = ft_atoi(level);
-	if (!(str = ft_itoa(value + 1)))
-		return ;
-	ft_setenv("SHLVL", str, 1);
-	free(str);
+	i = 0;
+	while (tmp[i])
+	{
+		if (tmp[i] == ' ' || tmp[i] == '\t')
+			return (-1);
+		++i;
+	}
+	return (1);
 }

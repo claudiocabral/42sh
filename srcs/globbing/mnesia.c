@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 11:01:09 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/03 18:07:32 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/10 11:25:23 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <dirent.h>
 #include <sys/types.h>
+#include <stdio.h>
 
 #include "internals.h"
 
@@ -69,7 +70,7 @@ char		*retrieve_valid_path(char *local, char *name,
 	}
 	if (local == NULL)
 	{
-		if (i == 0)
+		if (i == 0 || name[ft_strlen(name) - 1] == '*')
 		{
 			name = ".";
 			j = 1;

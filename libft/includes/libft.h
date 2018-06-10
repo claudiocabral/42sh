@@ -141,7 +141,7 @@ char			*ft_strjoinfree(char const *s1, char const *s2, char c);
 char			*ft_strnjoin(char const *s1, char const *s2, size_t n, char c);
 int				get_next_line(int fd, char **line);
 int				ft_cpy_ptr(void **dst, void **src, void *dummy);
-
+char			*ft_memdup(char *mem, size_t len);
 typedef enum	e_bool
 {
 	FALSE = 0,

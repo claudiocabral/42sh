@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:22:38 by claudioca         #+#    #+#             */
-/*   Updated: 2018/05/31 02:31:01 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 14:16:00 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ t_string const	*set_pwd(char const *str);
 t_string const	*set_oldpwd(char const *str);
 int				glob_match(char const *s1, char const *s2);
 int				glob_match_wrapper(char const **s1, char const **s2);
+int				good_alias_name(char *tmp);
 
 #endif

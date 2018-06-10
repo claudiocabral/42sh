@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 14:10:39 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/08 23:15:43 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 03:21:19 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 int	token_newline(char c)
 {
 	return (c == '\n');
+}
+
+int	token_var(char c)
+{
+	return (c == '$');
 }
 
 int	token_operator(char c)

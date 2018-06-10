@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/09 00:59:26 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 05:08:43 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,41 @@
 #include <token.h>
 #include <ft_printf.h>
 
-int			lex_quote(t_array *tokens, t_slice input)
+int			lex_quote(t_array *tokens, t_slice input, int posb)
+{
+	int		pos;
+
+	pos = posb + 1;
+	while ((input.ptr[pos]) && ((input.ptr[pos] != input.ptr[posb])))
+	{
+		if (input.ptr[pos++] == '\\')
+			pos++;
+	}
+	if (input.ptr[pos] != input.ptr[posb])
+		return (-1);
+	if (token_quote(input.ptr[pos + 1] || token_var(input.ptr[pos + 1])) ||
+			!token_delimiter(input.ptr[pos + 1]))
+		return (lex_token(tokens, input, pos + 1));
+	else if (add_token(tokens, TOKEN, input.ptr + input.size, pos - input.size + 1))
+		return (pos + 1);
+	return (-1);
+}
+
+int			lex_var(t_array *tokens, t_slice input, int posb)
 {
 	int	pos;
 
-	pos = input.size + 1;
-	while (input.ptr[pos] && ((input.ptr[pos] != input.ptr[input.size])))
-		if (input.ptr[pos++] == '\\')
-			pos++;
-	if (input.ptr[pos] != input.ptr[input.size])
-		return (-1);
-	if (add_token(tokens, TOKEN, input.ptr + input.size, pos - input.size))
-		return (pos + 1);
+	pos = posb + 1;
+	while ((input.ptr[pos]) && ((input.ptr[pos] != input.ptr[input.size])))
+	{
+		if (!ft_isalnum(input.ptr[pos]))
+			break ;
+		pos++;
+	}
+	if (input.ptr[pos] && (token_quote(input.ptr[pos]) || token_var(input.ptr[pos]) || !token_delimiter(input.ptr[pos])))
+		return (lex_token(tokens, input, pos));
+	else if (add_token(tokens, TOKEN, input.ptr + input.size, pos - input.size))
+		return (pos);
 	return (-1);
 }
 
@@ -71,21 +94,31 @@ int			lex_operator(t_array *tokens, t_slice input, char const **heredoc)
 
 int			lex_token(t_array *tokens, t_slice input, int pos)
 {
+	int		i;
+
+	get_quote(0);
+	i = 0;
 	while (input.ptr[pos])
 	{
 		if (input.ptr[pos] == '\\')
 		{
-			++pos;
+			pos += 2;
 			if (!input.ptr[pos])
 				break ;
 		}
-		else if (token_delimiter(input.ptr[pos]))
+		if (token_delimiter(input.ptr[pos]))
 			break ;
-		++pos;
+		else if (token_quote(input.ptr[pos]) && (i = 1))
+			pos = lex_quote(tokens, input, pos);
+		else if (token_var(input.ptr[pos]) && (i = 1))
+			pos = lex_var(tokens, input, pos);
+		else
+			++pos;
 	}
-	if (add_token(tokens, TOKEN, input.ptr + input.size, pos - input.size))
-		return (pos);
-	return (-1);
+	if (i != 1)
+		if (add_token(tokens, TOKEN, input.ptr + input.size, pos - input.size))
+			return (pos);
+	return (pos == -1 ? -1 : pos);
 }
 
 int			lex_digit(t_array *tokens, t_slice input)
@@ -113,7 +146,7 @@ int			lex_text(t_array *tokens, t_slice input, char const **heredoc)
 	if (*end)
 		--end;
 	while (input.size >= 0 && (input.ptr + input.size < end)
-							&& input.ptr[input.size])
+			&& input.ptr[input.size])
 	{
 		if (ft_is_whitespace(input.ptr[input.size]))
 			++input.size;
@@ -124,9 +157,11 @@ int			lex_text(t_array *tokens, t_slice input, char const **heredoc)
 		else if (ft_isdigit(input.ptr[input.size]))
 			input.size = lex_digit(tokens, input);
 		else if (token_quote(input.ptr[input.size]))
-			input.size = lex_quote(tokens, input);
+			input.size = lex_quote(tokens, input, input.size);
 		else if (token_comment(input.ptr[input.size]))
 			input.size = lex_comment(input);
+		else if (token_var(input.ptr[input.size]))
+			input.size = lex_var(tokens, input, input.size);
 		else
 			input.size = lex_token(tokens, input, input.size);
 	}

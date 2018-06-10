@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 11:48:51 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/12 11:51:14 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/10 14:21:09 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void					free_paths(t_array *paths)
 void					free_global_paths(void)
 {
 	if (!g_paths)
-		return;
+		return ;
 	free_paths(g_paths);
 }
 

@@ -12,17 +12,6 @@
 
 #include <mysh.h>
 
-t_prompt	**get_address_list(t_prompt **list, char address)
-{
-	static t_prompt	**ref;
-
-	if (address)
-		ref = list;
-	if (address == 2)
-		ref = NULL;
-	return (ref);
-}
-
 void		control_d(t_prompt **list)
 {
 	display_prompt(*list, 0, 1);
@@ -79,16 +68,13 @@ void		control_w(t_prompt **list)
 	i = 0;
 	while (tmp && !tmp->cursor)
 	{
-		// if (is_skipable(tmp->c))
-		if (!is_skipable(tmp->c) && tmp->next && tmp->next->cursor == 0 && is_skipable(tmp->next->c))
+		if (!is_skipable(tmp->c) && tmp->next && tmp->next->cursor == 0
+			&& is_skipable(tmp->next->c))
 			i = 0;
 		else
 			i++;
 		tmp = tmp->next;
 	}
-	// if (tmp->insertion)
-	// 	i++;
-	ft_printf("I = %d\n", i);
 	while (i-- > 0)
 		delete_backspace(list);
 }

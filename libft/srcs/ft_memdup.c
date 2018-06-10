@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup.c                                            :+:      :+:    :+:   */
+/*   ft_memdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccabral <ccabral@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprevot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/10 14:10:49 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/10 14:10:52 by ccabral          ###   ########.fr       */
+/*   Created: 2018/02/13 22:43:06 by mprevot           #+#    #+#             */
+/*   Updated: 2018/02/13 22:43:24 by mprevot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <environment.h>
+#include "libft.h"
 
-void	set_shlvl(void)
+char		*ft_memdup(char *mem, size_t len)
 {
-	char	*level;
-	int		value;
-	char	*str;
+	char	*newalloc;
+	size_t	i;
 
-	level = ft_getenv_safe("SHLVL");
-	value = ft_atoi(level);
-	if (!(str = ft_itoa(value + 1)))
-		return ;
-	ft_setenv("SHLVL", str, 1);
-	free(str);
+	i = 0;
+	ZERO_IF_FAIL(newalloc = ft_memalloc(len + 4));
+	while (i < len)
+	{
+		newalloc[i] = mem[i];
+		i++;
+	}
+	return (newalloc);
 }

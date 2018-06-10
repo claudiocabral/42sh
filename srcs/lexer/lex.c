@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:31:42 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/08 22:42:29 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 04:48:02 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char const	*lex_get_heredoc_pointer(char const *input)
 		else if (input[0] == '\\' && input[1])
 			input += 2;
 		else if (*input == '\n')
-			return (input + 1);
+			input += 1;
 		else
 			++input;
 	}

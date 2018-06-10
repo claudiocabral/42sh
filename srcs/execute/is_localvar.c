@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup.c                                            :+:      :+:    :+:   */
+/*   is_localvar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccabral <ccabral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/10 14:10:49 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/10 14:10:52 by ccabral          ###   ########.fr       */
+/*   Created: 2018/06/10 14:29:21 by ccabral           #+#    #+#             */
+/*   Updated: 2018/06/10 14:38:29 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <environment.h>
+#include <stdlib.h>
 
-void	set_shlvl(void)
+int			is_localvar(char *tmp)
 {
-	char	*level;
-	int		value;
-	char	*str;
-
-	level = ft_getenv_safe("SHLVL");
-	value = ft_atoi(level);
-	if (!(str = ft_itoa(value + 1)))
-		return ;
-	ft_setenv("SHLVL", str, 1);
-	free(str);
+	if (tmp && tmp[0] == 0)
+	{
+		free(tmp);
+		return (1);
+	}
+	return (-1);
 }

@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup.c                                            :+:      :+:    :+:   */
+/*   control.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccabral <ccabral@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jblazy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/10 14:10:49 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/10 14:10:52 by ccabral          ###   ########.fr       */
+/*   Created: 2018/03/15 11:26:42 by jblazy            #+#    #+#             */
+/*   Updated: 2018/03/15 11:27:02 by jblazy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <environment.h>
+#include <mysh.h>
 
-void	set_shlvl(void)
+t_prompt	**get_address_list(t_prompt **list, char address)
 {
-	char	*level;
-	int		value;
-	char	*str;
+	static t_prompt	**ref;
 
-	level = ft_getenv_safe("SHLVL");
-	value = ft_atoi(level);
-	if (!(str = ft_itoa(value + 1)))
-		return ;
-	ft_setenv("SHLVL", str, 1);
-	free(str);
+	if (address)
+		ref = list;
+	if (address == 2)
+		ref = NULL;
+	return (ref);
 }

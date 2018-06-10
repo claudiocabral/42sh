@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 14:39:10 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/09 00:04:40 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 06:21:05 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,38 @@
 #include <token.h>
 #include <execute.h>
 #include <localvar.h>
+
+void		remove_all_quotes(char *token)
+{
+	int		i;
+	int		y;
+	int		quote;
+
+	i = 0;
+	while (token[i])
+	{
+		if (token[i] && token[i] == '\\')
+			i += 2;
+		if (token[i] && token_quote(token[i]))
+		{
+			y = i + 1;
+			quote = token[i];
+			while (token[y] && (token[y] != token[i]))
+			{
+				if (token[y] == '\\')
+					y++;
+				y++;
+			}
+			if (token[y] == token[i])
+			{
+				remove_quotes(&token[y]);
+				remove_quotes(&token[i]);
+				i = y - 2;
+			}
+		}
+		i++;
+	}
+}
 
 char		*token_get_string(t_token *token, int only_var)
 {
@@ -25,10 +57,11 @@ char		*token_get_string(t_token *token, int only_var)
 		str = ft_strdup("");
 	if (!str)
 		return (0);
-	remove_quotes(str);
-	remove_backslash(str);
 	ZERO_IF_FAIL(str = expand(str));
 	ZERO_IF_FAIL(str = expand_localvar(str));
+	change_special_char(str);
+	remove_all_quotes(str);
+	remove_backslash(str);
 	set_localvar(str, only_var);
 	return (str);
 }

@@ -40,7 +40,9 @@ OBJS	=	objs/shellma.o \
 			objs/signals/signals.o \
 			objs/signals/sigpipe.o \
 			objs/signals/sigquit.o \
+			objs/execute/special_char.o \
 			objs/execute/collect_args.o \
+			objs/execute/is_localvar.o \
 			objs/execute/dispatch_branch.o \
 			objs/execute/redirection.o \
 			objs/execute/redirection_aggregator.o \
@@ -68,6 +70,7 @@ OBJS	=	objs/shellma.o \
 			objs/parser/redirection.o \
 			objs/parser/match.o \
 			objs/parser/check_errors.o \
+			objs/edition/get_address_list.o \
 			objs/edition/adjust_cursor.o \
 			objs/edition/control.o \
 			objs/edition/copy_paste.o \
@@ -117,6 +120,11 @@ OBJS	=	objs/shellma.o \
 			objs/builtins/print_alias.o \
 			objs/builtins/alias_utils.o \
 			objs/builtins/utils.o \
+			objs/environment/good_alias_name.o \
+			objs/environment/prepare_env.o \
+			objs/environment/prepare_localvar.o \
+			objs/environment/prepare_alias.o \
+			objs/environment/environment.o \
 			objs/environment/setenv.o \
 			objs/environment/setup.o \
 			objs/globbing/braks.o \
@@ -131,11 +139,7 @@ OBJS	=	objs/shellma.o \
 			objs/globbing/reducers.o \
 			objs/globbing/yougotit.o \
 			objs/globbing/strtok_glob.o \
-			objs/config/loader.o \
-			objs/environment/environment.o \
-			objs/environment/prepare_env.o \
-			objs/environment/prepare_localvar.o \
-			objs/environment/prepare_alias.o
+			objs/config/loader.o
 
 
 INC	=	-Iincludes \
@@ -144,7 +148,7 @@ INC	=	-Iincludes \
 
 ifeq ($(ASAN), 1)
 	DEBUG := 1
-	CDEBUG += -fsanitize=address
+	#CDEBUG += -fsanitize=address
 endif
 
 ifeq ($(FUZZ), 1)

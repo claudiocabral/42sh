@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:23:10 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/01 00:02:46 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 14:37:17 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,8 @@ int				check_agreggator(t_token *token);
 void			swap_fd(t_fd_pair *fd);
 void			execute_cleanup(t_array *fds, t_array *args,
 													t_array *args_copy);
+int				is_localvar(char *tmp);
+int				special_char(char c);
+char			get_special_char(char c);
 
 #endif

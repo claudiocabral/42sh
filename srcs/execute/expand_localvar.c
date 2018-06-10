@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_localvar.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfloure <>                                 +#+  +:+       +#+        */
+/*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 23:13:20 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/09 01:16:02 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 14:35:51 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 #include <environment.h>
 #include <execute.h>
 
-char	*search_allvar(char *value)
+char		*search_allvar(char *value)
 {
 	char	*str;
 
 	if (!(str = ft_getenv(value)))
 		if (!(str = ft_getvar(value)))
 			str = NULL;
-	return (str ? ft_strdup(str) : NULL);
+	return (str ? str : NULL);
 }
 
-int		remove_quotes_var(char *s)
+int			remove_quotes_var(char *s)
 {
 	if ((s[0] == '"' && s[ft_strlen(s) - 1] == '"')
 			|| (s[0] == '\'' && s[ft_strlen(s) - 1] == '\''))
@@ -35,48 +35,66 @@ int		remove_quotes_var(char *s)
 	return (1);
 }
 
-void	replace_var(t_string *str, int *i)
+void		replace_var(t_string *str, int *i)
 {
 	char		*tmp;
 	char		*tmp1;
 	int			j;
 
 	j = 1;
-	while (str->buffer[*i + j] && ft_is_whitespace(str->buffer[*i + j]) == 0
-		&& str->buffer[*i + j] != '=')
-		if (str->buffer[*i + ++j] == '$')
+	while (str->buffer[*i + j] && ft_is_whitespace(str->buffer[*i + j]) == 0)
+		if ((str->buffer[*i + ++j] == '$') || !ft_isalnum(str->buffer[*i + j]))
 			break ;
 	if (j > 1)
 	{
 		tmp = ft_strsub(str->buffer, *i, j);
 		tmp1 = ft_strcmp(tmp + 1, "$") == 0 ? ft_itoa((int)getpid()) :
-			search_allvar(tmp + 1);
-		tmp1 = !tmp1 ? "" : tmp1;
-		*i -= 1;
-		string_replace(str, tmp, tmp1);
+			ft_strdup(search_allvar(tmp + 1));
+		tmp1 = !tmp1 ? ft_strdup("") : tmp1;
+		string_delete_n(str, *i, j);
+		string_insert_string(str, tmp1, *i);
 		tmp ? free(tmp) : 0;
-		ft_strlen(tmp1) > 1 ? free(tmp1) : 0;
+		*i += ft_strlen(tmp1) - 1;
+		tmp1 ? free(tmp1) : 0;
 	}
 }
 
-char	*expand_localvar(char *value)
+static char	*finish_expansion(char *value, t_string *str)
+{
+	free(value);
+	if (str && str->buffer)
+	{
+		value = ft_strdup(str->buffer);
+		string_free(str);
+	}
+	return (value);
+}
+
+char		*expand_localvar(char *value)
 {
 	t_string	*str;
-	int		i;
+	int			i;
+	char		quote;
 
 	i = -1;
 	str = string_create(0);
 	str = string_append(str, value);
+	quote = 0;
 	while (str->buffer[++i])
 	{
-		if (str->buffer[i] == '$' && (str->buffer[i > 0 ? i - 1 : 0] != '\\'))
+		if (token_quote(str->buffer[i]))
+		{
+			if (quote == 0)
+				quote = str->buffer[i];
+			else
+				quote = quote == str->buffer[i] ? 0 : quote;
+		}
+		if (str->buffer[i] == '\\')
+			i += 2;
+		if (!str->buffer[i])
+			break ;
+		if (str->buffer[i] == '$' && (quote != '\''))
 			replace_var(str, &i);
-		else if (str->buffer[i] == '$' &&
-				(str->buffer[i > 0 ? i - 1 : 0] == '\\'))
-			string_delete(str, i - 1);
 	}
-	value ? free(value) : 0;
-	value = ft_strdup(str->buffer);
-	str ? string_free(str) : 0;
-	return (value);
+	return (finish_expansion(value, str));
 }
