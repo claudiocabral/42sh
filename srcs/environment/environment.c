@@ -35,10 +35,10 @@ void			environment_remove_if(char const *data, t_predf predicate)
 
 void			print_env(char const **env, void *dummy)
 {
-	(void)dummy;
 	int			ret;
-	const char		*str;
+	const char	*str;
 
+	(void)dummy;
 	str = *env;
 	ret = ft_strchri(str, '=');
 	if (ret != -1)

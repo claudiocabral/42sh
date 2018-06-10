@@ -12,17 +12,6 @@
 
 #include <mysh.h>
 
-t_prompt	**get_address_list(t_prompt **list, char address)
-{
-	static t_prompt	**ref;
-
-	if (address)
-		ref = list;
-	if (address == 2)
-		ref = NULL;
-	return (ref);
-}
-
 void		control_d(t_prompt **list)
 {
 	display_prompt(*list, 0, 1);

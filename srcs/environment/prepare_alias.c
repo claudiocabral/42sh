@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_alias.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfloure <>                                 +#+  +:+       +#+        */
+/*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/01 04:09:01 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/04 02:28:41 by gfloure          ###   ########.fr       */
+/*   Created: 2018/06/10 14:13:48 by gfloure           #+#    #+#             */
+/*   Updated: 2018/06/10 14:16:44 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <builtins.h>
 #include <array.h>
@@ -19,19 +18,9 @@
 #include <ft_printf.h>
 #include <stdlib.h>
 #include <execute.h>
+#include <environment.h>
 
 static t_array *g_alias = 0;
-
-int			good_alias_name(char *tmp)
-{
-	int		i;
-
-	i = 0;
-	while (tmp[i])
-		if (tmp[i] == ' ' || tmp[i++] == '\t')
-			return (-1);
-	return (1);
-}
 
 int			remove_quote_value(char *s)
 {
