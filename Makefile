@@ -68,6 +68,7 @@ OBJS	=	objs/shellma.o \
 			objs/parser/redirection.o \
 			objs/parser/match.o \
 			objs/parser/check_errors.o \
+			objs/edition/get_address_list.o \
 			objs/edition/adjust_cursor.o \
 			objs/edition/control.o \
 			objs/edition/copy_paste.o \
@@ -117,6 +118,11 @@ OBJS	=	objs/shellma.o \
 			objs/builtins/print_alias.o \
 			objs/builtins/alias_utils.o \
 			objs/builtins/utils.o \
+			objs/environment/good_alias_name.o \
+			objs/environment/prepare_env.o \
+			objs/environment/prepare_localvar.o \
+			objs/environment/prepare_alias.o \
+			objs/environment/environment.o \
 			objs/environment/setenv.o \
 			objs/environment/setup.o \
 			objs/globbing/braks.o \
@@ -131,11 +137,7 @@ OBJS	=	objs/shellma.o \
 			objs/globbing/reducers.o \
 			objs/globbing/yougotit.o \
 			objs/globbing/strtok_glob.o \
-			objs/config/loader.o \
-			objs/environment/environment.o \
-			objs/environment/prepare_env.o \
-			objs/environment/prepare_localvar.o \
-			objs/environment/prepare_alias.o
+			objs/config/loader.o
 
 
 INC	=	-Iincludes \
