@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   localvar.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfloure <>                                 +#+  +:+       +#+        */
+/*   By: mprevot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/24 22:35:42 by gfloure           #+#    #+#             */
-/*   Updated: 2018/05/31 23:59:29 by gfloure          ###   ########.fr       */
+/*   Created: 2018/06/10 12:03:41 by mprevot           #+#    #+#             */
+/*   Updated: 2018/06/10 12:03:43 by mprevot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LOCALVAR_H
 # define LOCALVAR_H
 
-#include <ft_printf.h>
-#include <ft_string.h>
-#include <libft.h>
-#include <array.h>
+# include <ft_printf.h>
+# include <ft_string.h>
+# include <libft.h>
+# include <array.h>
 
 void		set_localvar(char *token, int only_var);
 int			token_var_valid(int save);
@@ -31,6 +31,5 @@ int			is_valid_var(char *av);
 int			export_localvar(char *var);
 char		*ft_getenv_b(char const *var);
 int			remove_quotes_var(char *s);
-
 
 #endif
