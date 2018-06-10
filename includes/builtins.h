@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 13:44:19 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/03 22:21:22 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 17:14:55 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ char			*alias_replace(char *av);
 int				get_alias_to_replace(t_string *str, int *i);
 int				is_valid_alias(char *alias);
 char			*alias_replace_process(char *av);
+int				loop_alias_replace(char **tmp, char **tmp2, char **tmp1);
 
 #endif
