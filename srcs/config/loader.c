@@ -6,7 +6,7 @@
 /*   By: ctrouill <iomonad@riseup.net>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 18:44:04 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/10 18:07:15 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/10 18:07:49 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int				rc_loadable(const char *rc)
 {
 	struct stat	buf;
 
+	if (!rc)
+		return (0);
 	if (lstat(rc, &buf) == -1)
 		return (0);
 	if (buf.st_mode & S_IFREG)
