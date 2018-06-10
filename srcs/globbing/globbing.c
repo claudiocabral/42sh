@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 12:12:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/10 14:37:52 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/10 14:49:29 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ static char		*deflate(const char *origin, char *result, int state)
 */
 
 char			*deglob(const char *input, char *token, char *blob,
-					char *deglobed, char *tmp)
+					char *deglobed)
 {
 	char		ending[2];
+	char		*tmp;
 
 	deglobed = malloc(1);
 	ft_bzero(deglobed, 1);

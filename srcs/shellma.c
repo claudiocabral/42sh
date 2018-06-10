@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:19:30 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/09 02:19:50 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 14:49:28 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			process_input_after_backtick(char *str)
 	char	*input;
 
 	str = alias_replace(str);
-	if ((input = deglob(str, NULL, NULL, NULL, NULL)) == NULL)
+	if ((input = deglob(str, NULL, NULL, NULL)) == NULL)
 	{
 		free(str);
 		return (ft_printf("42sh: No matchs found.\n"));
@@ -56,11 +56,8 @@ char		*ft_strreplace(char *origin, char *piece, size_t pos, size_t len)
 	char *total;
 
 	debut = ft_memdup(origin, pos);
-//	ft_printf("Début : '%s'\n", debut);
 	millieu = piece;
-//	ft_printf("Millieu : '%s'\n", millieu);
 	fin = ft_strdup(origin + len + 1);
-//	ft_printf("Fin : '%s'\n", fin + 1);
 	total = ft_vjoin(3, debut, millieu, fin);
 	free(debut);
 	free(fin);
@@ -117,15 +114,15 @@ char 		*backtits_replace(char *str, size_t pos)
 		mem = ft_vjoin(2, mem, print);
 		free(oldmem);
 	}
-	
+
 
 	dup2(out, 1);
 	close(p[0]);
 	close(out);
 
 	dellines((char*)mem);
-	
-	
+
+
 	now = (ft_strreplace(str, (char*) mem, start - str, stop - str));
 	free(str);
 	now = (backtits_replace(now, (start - str) + ft_strlen(mem)));

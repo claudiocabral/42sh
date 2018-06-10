@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 02:51:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/08 17:32:31 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/10 14:49:39 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@
 
 # define DSET " "
 
-char	*deglob(const char *input, char *token, char *blob, char *a, char *b);
+char	*deglob(const char *input, char *token, char *blob, char *poulet);
 
 #endif
