@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:19:30 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/10 14:49:28 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/10 16:17:00 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,8 @@
 #include <mysh.h>
 #include <globbing.h>
 #include <ft_printf.h>
-#include <stdio.h>
-
-
-#include "libft.h"
-
-/*
- ** Centralized executor
- ** @return program status
- */
+#include <libft.h>
+#include <backtick.h>
 
 int			process_input_after_backtick(char *str)
 {
@@ -43,11 +36,6 @@ int			process_input_after_backtick(char *str)
 	return (return_value);
 }
 
-/*
-** process_backtits("echo `echo salut`")
-** return "echo salut"
-*/
-
 char		*ft_strreplace(char *origin, char *piece, size_t pos, size_t len)
 {
 	char *debut;
@@ -64,7 +52,6 @@ char		*ft_strreplace(char *origin, char *piece, size_t pos, size_t len)
 	return (total);
 }
 
-
 void		dellines(char *str)
 {
 	size_t	i;
@@ -78,62 +65,27 @@ void		dellines(char *str)
 	}
 }
 
-char 		*backtits_replace(char *str, size_t pos)
+char		*backticks_replace(char *str, size_t pos)
 {
-	char 	*start;
-	char	*stop;
 	char	*exec;
-	int		p[2];
-	int		out;
-	char    print[1024];
-	char	*now;
-	char	*mem;
-	char 	*oldmem;
-	int 	t;
+	int		read_write[2];
+	char	*new_str;
+	char	*begin;
+	char	*end;
 
-
-	start = ft_strchr(str + pos, '`');
-	if (!start)
+	if (!(exec = get_back_tick_content(str, pos, &begin, &end)))
 		return (str);
-	if(!(stop = ft_strchr(start + 1, '`')))
-		return (str); // Error !
-
-	exec = ft_memdup(start + 1, stop - start - 1);
-		out = dup(1);
-	pipe(p);
-	dup2(p[1], 1);
-	close(p[1]);
-	process_input_after_backtick(exec);
-	close(1);
-
-	mem = ft_strdup("");
-	while((t = read(p[0], print, 1023)))
+	if (!(collect_command_output(exec, read_write)))
 	{
-		print[t] = '\0';
-		oldmem = mem;
-		mem = ft_vjoin(2, mem, print);
-		free(oldmem);
+		free(exec);
+		return (str);
 	}
-
-
-	dup2(out, 1);
-	close(p[0]);
-	close(out);
-
-	dellines((char*)mem);
-
-
-	now = (ft_strreplace(str, (char*) mem, start - str, stop - str));
-	free(str);
-	now = (backtits_replace(now, (start - str) + ft_strlen(mem)));
-	free(mem);
-	return (now);
+	new_str = command_output_to_string(read_write);
+	dellines(new_str);
+	return (replace_backtick(str, new_str, begin, end));
 }
-
-
-
 
 int			process_input(char *str)
 {
-	return process_input_after_backtick(backtits_replace(str, 0));
+	return (process_input_after_backtick(backticks_replace(str, 0)));
 }

@@ -34,6 +34,7 @@ include $(PRINTF_PATH)/printf.mk
 MAIN_OBJ =	objs/main.o
 FUZZ_OBJ =	objs/tests/fuzz_process_input.o
 OBJS	=	objs/shellma.o \
+			objs/backtick.o \
 			objs/file/script_session.o \
 			objs/signals/fallback.o \
 			objs/signals/sigint.o \
