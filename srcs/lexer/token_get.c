@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 14:39:10 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/10 06:21:05 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 16:48:47 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 #include <token.h>
 #include <execute.h>
 #include <localvar.h>
+
+int			skip_until_equals(char *token, int pos, int target)
+{
+	while (token[pos] && (token[pos] != token[target]))
+	{
+		if (token[pos] == '\\')
+			++pos;
+		if (token[pos])
+			++pos;
+	}
+	return (pos);
+}
 
 void		remove_all_quotes(char *token)
 {
@@ -30,12 +42,7 @@ void		remove_all_quotes(char *token)
 		{
 			y = i + 1;
 			quote = token[i];
-			while (token[y] && (token[y] != token[i]))
-			{
-				if (token[y] == '\\')
-					y++;
-				y++;
-			}
+			y = skip_until_equals(token, y, i);
 			if (token[y] == token[i])
 			{
 				remove_quotes(&token[y]);

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/10 05:08:43 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 16:57:08 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,49 +16,11 @@
 #include <token.h>
 #include <ft_printf.h>
 
-int			lex_quote(t_array *tokens, t_slice input, int posb)
+int			lex_and(t_array *tokens, t_slice input)
 {
-	int		pos;
-
-	pos = posb + 1;
-	while ((input.ptr[pos]) && ((input.ptr[pos] != input.ptr[posb])))
-	{
-		if (input.ptr[pos++] == '\\')
-			pos++;
-	}
-	if (input.ptr[pos] != input.ptr[posb])
-		return (-1);
-	if (token_quote(input.ptr[pos + 1] || token_var(input.ptr[pos + 1])) ||
-			!token_delimiter(input.ptr[pos + 1]))
-		return (lex_token(tokens, input, pos + 1));
-	else if (add_token(tokens, TOKEN, input.ptr + input.size, pos - input.size + 1))
-		return (pos + 1);
-	return (-1);
-}
-
-int			lex_var(t_array *tokens, t_slice input, int posb)
-{
-	int	pos;
-
-	pos = posb + 1;
-	while ((input.ptr[pos]) && ((input.ptr[pos] != input.ptr[input.size])))
-	{
-		if (!ft_isalnum(input.ptr[pos]))
-			break ;
-		pos++;
-	}
-	if (input.ptr[pos] && (token_quote(input.ptr[pos]) || token_var(input.ptr[pos]) || !token_delimiter(input.ptr[pos])))
-		return (lex_token(tokens, input, pos));
-	else if (add_token(tokens, TOKEN, input.ptr + input.size, pos - input.size))
-		return (pos);
-	return (-1);
-}
-
-int			lex_semicolon(t_array *tokens, t_slice input)
-{
-	if (input.ptr[input.size + 1] != ';')
-		return (add_token(tokens, SEMICOLON, input.ptr + input.size, 1));
-	return (add_token(tokens, DSEMI, input.ptr + input.size, 2));
+	if (input.ptr[input.size + 1] == '&')
+		return (add_token(tokens, AND_IF, input.ptr + input.size, 2));
+	return (add_token(tokens, AND, input.ptr + input.size, 1));
 }
 
 int			lex_operator(t_array *tokens, t_slice input, char const **heredoc)
@@ -71,12 +33,7 @@ int			lex_operator(t_array *tokens, t_slice input, char const **heredoc)
 		if (input.ptr[input.size] == ';')
 			ret = lex_semicolon(tokens, input);
 		else if (input.ptr[input.size] == '&')
-		{
-			if (input.ptr[input.size + 1] == '&')
-				ret = add_token(tokens, AND_IF, input.ptr + input.size, 2);
-			else
-				ret = add_token(tokens, AND, input.ptr + input.size, 1);
-		}
+			ret = lex_and(tokens, input);
 		else if (input.ptr[input.size] == '|')
 		{
 			if (input.ptr[input.size + 1] == '|')
@@ -142,8 +99,7 @@ int			lex_text(t_array *tokens, t_slice input, char const **heredoc)
 {
 	char const	*end;
 
-	end = *heredoc;
-	if (*end)
+	if ((end = *heredoc) && *end)
 		--end;
 	while (input.size >= 0 && (input.ptr + input.size < end)
 			&& input.ptr[input.size])
