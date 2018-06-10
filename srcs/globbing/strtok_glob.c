@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 19:03:32 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/09 01:02:58 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 14:36:59 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,30 @@ static char		*split_delimiters(char *str, char *delim)
 	return (NULL);
 }
 
-char			*strtok_glob(char *str, const char *delim, char *end)
+static void		love_spaghetty_code_mate(char **end, char c, char *ps)
+{
+	(*end)[0] = c;
+	(*end)[1] = 0;
+	*ps = '\0';
+}
+
+char			*strtok_glob(char *str, const char *delim, char *end, int i)
 {
 	static char	*s;
 	char		*ps;
 	char		*ret;
-	int			i;
 
 	s = (str) ? str : s;
 	if (!s || *s == '\0' || (s = split_delimiters(s, (char*)delim)) == NULL)
 		return (NULL);
 	ps = s;
-	while (*ps)
+	while (*ps != '\0')
 	{
 		i = 0;
 		while (delim[i])
 			if (*ps == delim[i++])
 			{
-				end[0] = *ps;
-				end[1] = 0;
-				*ps = '\0';
+				love_spaghetty_code_mate(&end, *ps, ps);
 				ret = s;
 				s = split_delimiters(ps + 1, (char*)delim);
 				return (ret);
