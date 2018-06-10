@@ -6,7 +6,7 @@
 /*   By: ctrouill <iomonad@riseup.net>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 16:52:06 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/10 10:49:24 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/10 14:15:55 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@ static t_bool	need_reduce(const char *origin)
 	return (ft_strcmp(origin, "*") == 0
 			|| ft_strcmp(origin, "**") == 0
 			|| ft_strcmp(origin, "*.") == 0);
+}
+
+static void		popify(t_list **prev, t_list **aref)
+{
+	(*prev)->next = (*aref)->next;
+	free((*aref)->content);
+	free(*aref);
+	*aref = *prev;
+}
+
+static void		k(t_list **prev, t_list **aref)
+{
+	*prev = *aref;
+	*aref = (*aref)->next;
 }
 
 void			dot_reduce(t_list **head, const char *origin, t_list *aref)
@@ -42,18 +56,10 @@ void			dot_reduce(t_list **head, const char *origin, t_list *aref)
 					aref = *head;
 				}
 				else
-				{
-					prev->next = aref->next;
-					free(aref->content);
-					free(aref);
-					aref = prev;
-				}
+					popify(&prev, &aref);
 			}
 			else
-			{
-				prev = aref;
-				aref = aref->next;
-			}
+				k(&prev, &aref);
 		}
 	}
 }
