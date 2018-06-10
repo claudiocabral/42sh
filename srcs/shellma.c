@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:19:30 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/10 16:17:00 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/10 17:02:17 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			process_input_after_backtick(char *str)
 	char	*input;
 
 	str = alias_replace(str);
-	if ((input = deglob(str, NULL, NULL, NULL)) == NULL)
+	if ((input = deglob(str, NULL, NULL, malloc(1))) == NULL)
 	{
 		free(str);
 		return (ft_printf("42sh: No matchs found.\n"));
