@@ -40,7 +40,9 @@ OBJS	=	objs/shellma.o \
 			objs/signals/signals.o \
 			objs/signals/sigpipe.o \
 			objs/signals/sigquit.o \
+			objs/execute/special_char.o \
 			objs/execute/collect_args.o \
+			objs/execute/is_localvar.o \
 			objs/execute/dispatch_branch.o \
 			objs/execute/redirection.o \
 			objs/execute/redirection_aggregator.o \

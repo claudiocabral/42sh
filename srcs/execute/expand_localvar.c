@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_localvar.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfloure <>                                 +#+  +:+       +#+        */
+/*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 23:13:20 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/10 06:23:19 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 14:35:51 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <environment.h>
 #include <execute.h>
 
-char	*search_allvar(char *value)
+char		*search_allvar(char *value)
 {
 	char	*str;
 
@@ -24,7 +24,7 @@ char	*search_allvar(char *value)
 	return (str ? str : NULL);
 }
 
-int		remove_quotes_var(char *s)
+int			remove_quotes_var(char *s)
 {
 	if ((s[0] == '"' && s[ft_strlen(s) - 1] == '"')
 			|| (s[0] == '\'' && s[ft_strlen(s) - 1] == '\''))
@@ -35,7 +35,7 @@ int		remove_quotes_var(char *s)
 	return (1);
 }
 
-void	replace_var(t_string *str, int *i)
+void		replace_var(t_string *str, int *i)
 {
 	char		*tmp;
 	char		*tmp1;
@@ -59,11 +59,22 @@ void	replace_var(t_string *str, int *i)
 	}
 }
 
-char	*expand_localvar(char *value)
+static char	*finish_expansion(char *value, t_string *str)
+{
+	free(value);
+	if (str && str->buffer)
+	{
+		value = ft_strdup(str->buffer);
+		string_free(str);
+	}
+	return (value);
+}
+
+char		*expand_localvar(char *value)
 {
 	t_string	*str;
-	int		i;
-	char	quote;
+	int			i;
+	char		quote;
 
 	i = -1;
 	str = string_create(0);
@@ -85,8 +96,5 @@ char	*expand_localvar(char *value)
 		if (str->buffer[i] == '$' && (quote != '\''))
 			replace_var(str, &i);
 	}
-	value ? free(value) : 0;
-	value = ft_strdup(str->buffer);
-	str ? string_free(str) : 0;
-	return (value);
+	return (finish_expansion(value, str));
 }

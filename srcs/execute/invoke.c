@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:16:45 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/10 06:11:12 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 14:31:34 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		wait_process(pid_t pid)
 	waitpid(pid, &stat_loc, 0);
 	if ((WIFSIGNALED(stat_loc)))
 		write(0, "\n", 1);
-	if((res = ft_itoa(WEXITSTATUS(stat_loc))))
+	if ((res = ft_itoa(WEXITSTATUS(stat_loc))))
 	{
 		ft_setenv("?", res, 1);
 		free(res);

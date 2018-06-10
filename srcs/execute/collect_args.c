@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 14:07:19 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/04 00:28:17 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 14:31:25 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,6 @@ static int	branch_is_redirection(t_tree *tree)
 			|| branch_equals(tree, LESS)
 			|| branch_equals(tree, DLESS)
 			|| branch_equals(tree, LESSAND));
-}
-
-int			is_localvar(char *tmp)
-{
-	if (tmp && tmp[0] == 0)
-	{
-		free(tmp);
-		return (1);
-	}
-	return (-1);
 }
 
 char		*get_tokstr(t_token *tok)
@@ -64,23 +54,27 @@ int			only_var(t_tree **begin, t_tree **end)
 	return (1);
 }
 
+int			push_if_redirection(t_tree *branch, t_array *fds)
+{
+	t_fd_pair	tmp_fd;
+
+	if (!branch_is_redirection(branch))
+		return (-1);
+	tmp_fd = redirect(branch);
+	return (array_push_back(fds, &tmp_fd) != 0);
+}
+
 int			collect_args(t_tree **begin, t_tree **end,
-							t_array *args, t_array *fds)
+								t_array *args, t_array *fds)
 {
 	char		*tmp;
-	t_fd_pair	tmp_fd;
-	int			is_only_var = 0;
+	int			is_only_var;
+	int			res;
 
-	if (only_var(begin, end) == 1)
-		is_only_var = 1;
+	is_only_var = only_var(begin, end);
 	while (begin != end)
 	{
-		if (branch_is_redirection(*begin))
-		{
-			tmp_fd = redirect(*begin);
-			ZERO_IF_FAIL(array_push_back(fds, &tmp_fd));
-		}
-		else
+		if ((res = push_if_redirection(*begin, fds)) == -1)
 		{
 			tmp = token_get_string((*begin)->element, is_only_var);
 			if (is_localvar(tmp) == 1 && begin++)
@@ -92,6 +86,8 @@ int			collect_args(t_tree **begin, t_tree **end,
 				return (0);
 			}
 		}
+		else if (res == 0)
+			return (0);
 		++begin;
 	}
 	return (1);

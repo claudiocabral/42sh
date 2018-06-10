@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   localvar.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfloure <>                                 +#+  +:+       +#+        */
+/*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 05:36:28 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/10 03:28:09 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 14:36:28 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char			**get_elem(char *elem)
 	return (var);
 }
 
-int			export_localvar(char *var)
+int				export_localvar(char *var)
 {
 	char		*tmp;
 	char		*tmp1;
