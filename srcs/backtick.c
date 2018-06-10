@@ -67,8 +67,8 @@ char	*command_output_to_string(int read_write[2])
 	char	*tmp2;
 	int		size;
 
-	ZERO_IF_FAIL(str = ft_strdup(""));
-	while ((size = read(read_write[0], buffer, 1023)))
+	str = ft_strdup("");
+	while (str && (size = read(read_write[0], buffer, 1023)))
 	{
 		buffer[size] = '\0';
 		tmp = str;
