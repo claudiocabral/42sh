@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 22:59:40 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/10 14:14:16 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/10 16:30:07 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ char		*ft_getvar(char const *var)
 		val = ft_strchr(*ptr, '=');
 		val = val ? val + 1 : 0;
 	}
+	return (val);
+}
+
+char		*ft_getvar_safe(char const *var)
+{
+	char	*val;
+
+	if (!(val = ft_getvar(var)))
+		return ("");
 	return (val);
 }
 

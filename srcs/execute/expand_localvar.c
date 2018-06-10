@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 23:13:20 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/10 14:35:51 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/10 16:33:45 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char		*search_allvar(char *value)
 	if (!(str = ft_getenv(value)))
 		if (!(str = ft_getvar(value)))
 			str = NULL;
-	return (str ? str : NULL);
+	return (str ? str : "");
 }
 
 int			remove_quotes_var(char *s)
