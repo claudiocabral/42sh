@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 18:09:22 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/08 19:24:10 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/10 15:02:08 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int			identify_opt(char **av, t_array *env, int mode)
 	int		opt;
 
 	i = 0;
-	j = 1;
 	opt = -1;
 	while (av[++i] && av[i][0] == '-')
 	{
