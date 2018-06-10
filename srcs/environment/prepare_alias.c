@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 14:13:48 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/10 14:14:54 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/10 14:16:44 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <ft_printf.h>
 #include <stdlib.h>
 #include <execute.h>
+#include <environment.h>
 
 static t_array *g_alias = 0;
 
