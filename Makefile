@@ -89,6 +89,7 @@ OBJS	=	objs/shellma.o \
 			objs/edition/move_cursor_up.o \
 			objs/edition/move_history.o \
 			objs/edition/read_input.o \
+			objs/edition/action.o \
 			objs/edition/return_string.o \
 			objs/edition/selected_list_utils.o \
 			objs/edition/term.o \

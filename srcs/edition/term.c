@@ -13,6 +13,16 @@
 #include <mysh.h>
 
 /*
+**	Write function use by the termcap library.
+**	@return int
+*/
+
+int			ft_putc(int c)
+{
+	return (write(1, &c, 1));
+}
+
+/*
 ** Prepare shell
 ** @return nil
 */

@@ -42,79 +42,10 @@ char			*input_return(t_sh *sh, t_prompt **list)
 		history_reset_cursor(sh->history.history);
 		reset_sh(sh);
 		tputs(tgetstr("do", NULL), 1, &ft_putc);
-		// ft_printf("STR = %s\n", prompt_return);
 		return (prompt_return);
 	}
 	expand_line(list);
 	return (NULL);
-}
-
-/*
-**	@return (1) if one of this moving functions has been called.
-**	@return (-1) else.
-*/
-
-char			input_possibilities_move(char *input, t_prompt **list)
-{
-	if (!ft_strncmp(LEFT, input, 4))
-		move_left(list);
-	else if (!ft_strncmp(RIGHT, input, 4))
-		move_right(list);
-	else if (!ft_strncmp(ALT_DOWN, input, 4))
-		move_down(list);
-	else if (!ft_strncmp(ALT_UP, input, 4))
-		move_up(list);
-	else if (!ft_strncmp(ALT_LEFT, input, 4))
-		word_left(list);
-	else if (!ft_strncmp(ALT_RIGHT, input, 4))
-		word_right(list);
-	else if (!ft_strncmp(HOME, input, 4) || (input[0] == 1 && input[1] == 0))
-		move_begin(list);
-	else if (!ft_strncmp(END, input, 4) || (input[0] == 5 && input[1] == 0))
-		move_end(list);
-	else
-		return (-1);
-	return (1);
-}
-
-/*
-**	@return (1) if one of this functions has been called.
-**	@return (-1) else.
-*/
-
-static void		input_possibilities_else(char *input, t_prompt **list, t_sh *sh)
-{
-	if ((input[0] == -61 && input[1] == ALT_A) ||
-		(input[0] == -30 && input[1] == -120 && input[2] == ALT_D))
-		copy(list, input[2], sh);
-	else if (input[0] == -30 && input[1] == -120 && input[2] == ALT_V
-			&& sh->copy_str)
-		paste(list, sh);
-	else if (input[0] == -30 && input[1] == -119 && input[2] == ALT_X)
-		cut(list);
-	else if (input[0] == 4 && !input[1] &&
-		!(*list)->previous_list && !(*list)->next)
-		control_d(list)	;
-	else if (input[0] == -61 && input[1] == ALT_S)
-		remove_selection(*list, sh);
-	else if (!ft_strncmp(DOWN, input, 4) && !(*list)->next_list)
-		history_down(list, sh->history.history);
-	else if (!ft_strncmp(UP, input, 4) && !(*list)->next_list)
-		history_up(list, sh->history.history);
-	else if (input[0] == BACKSPACE)
-		delete_backspace(list);
-	else if (!ft_strncmp(DELETE, input, 4) || (input[0] == 4 && input[1] == 0))
-		delete_delete(list);
-	else if (input[0] == 11 && input[1] == 0)
-		control_k(list);
-	else if (input[0] == 21 && input[1] == 0)
-		control_u(list);
-	else if (input[0] == 23 && input[1] == 0)
-		control_w(list);
-	else if (input[0] == 12 && !input[1])
-		control_l(list);
-	else if (input[0] > 31 && input[1] == 0)
-		add_elem(list, create_elem(input[0]));
 }
 
 /*
@@ -138,30 +69,8 @@ char			*read_input(t_sh *sh)
 	{
 		if (input[0] == '\e' || input[0] == -30 || input[0] == -61)
 			read(0, &input[1], 3);
-		// ft_putnbr(input[0]);
-		// ft_putchar('\n');
-		// ft_putnbr(input[1]);
-		// ft_putchar('\n');
-		// ft_putnbr(input[2]);
-		// ft_putchar('\n');
-		// ft_putnbr(input[3]);
-		// ft_putchar('\n');
-		if ((input[0] == TAB && input[1] == 0) || (sh->completion &&
-				(input[0] == ECHAP || (input[0] == RETURN && input[1] == 0))))
-			input_autocompletion(&input[0], &list, sh->completion);
-		else if (input[0] == RETURN)
-		{
-			if ((str = input_return(sh, &list)))
-				return (str);
-		}
-		else
-		{
-			free_autocompletion(sh);
-			if (input_possibilities_move(&input[0], &list) == 1)
-				;
-			else
-				input_possibilities_else(&input[0], &list, sh);
-		}
+		if ((str = run_action(sh, &list, &input[0])) != NULL)
+			return (str);
 		get_address_list(&list, 1);
 		display_prompt(list, 1, 1);
 		ft_memset(&input, 0, 4);
