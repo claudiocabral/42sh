@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 12:12:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/10 14:49:29 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/10 16:49:21 by ctrouill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ static char		*deflate(const char *origin, char *result, int state)
 	return (NULL);
 }
 
+static void		*bullshit(char *deglobed)
+{
+	free(deglobed);
+	return (NULL);
+}
+
 /*
 ** Return function wrapper
 ** for the runner middleware.
@@ -65,10 +71,7 @@ char			*deglob(const char *input, char *token, char *blob,
 		if (needs_globbing(token, 0))
 		{
 			if ((blob = deflate(token, NULL, 0)) == NULL)
-			{
-				free(deglobed);
-				return (NULL);
-			}
+				return (bullshit(deglobed));
 			if ((tmp = ft_vjoin(3, deglobed, blob, ending)) == NULL)
 				return (NULL);
 			free(deglobed);
