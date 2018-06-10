@@ -92,7 +92,6 @@ char					is_quote_close(t_prompt *list);
 char					is_skipable(char c);
 char					is_operand(char c);
 
-char					*read_input(t_sh *sh);
 
 void					init_term(t_sh *sh);
 void					reset_sh(t_sh *sh);
@@ -128,6 +127,10 @@ unsigned int			list_nb_return(t_prompt *list);
 
 unsigned int			prompt_len(t_prompt *list);
 
+char					*read_input(t_sh *sh);
+char					*input_return(t_sh *sh, t_prompt **list);
+char					*run_action(t_sh *sh, t_prompt **list, char *input);
+
 void					move_left(t_prompt **list);
 void					move_right(t_prompt **list);
 void					move_begin(t_prompt **list);
@@ -141,6 +144,16 @@ void					move_up(t_prompt **list);
 void					delete_backspace(t_prompt **list);
 void					delete_delete(t_prompt **list);
 void					delete_current_elem(t_prompt **list, t_prompt *to_del);
+
+void					control_d(t_prompt **list);
+void					control_l(t_prompt **list);
+void					control_k(t_prompt **list);
+void					control_u(t_prompt **list);
+void					control_w(t_prompt **list);
+
+void					copy(t_prompt **list, char input, t_sh *sh);
+void					paste(t_prompt **list, t_sh *sh);
+void					cut(t_prompt **list);
 
 void					free_elem(t_prompt **elem);
 void					free_list(t_prompt **list);
@@ -161,19 +174,11 @@ int						open_history_file(void);
 void					write_history(t_sh *sh, t_prompt **list,
 							char *prompt_return);
 
-void					copy(t_prompt **list, char input, t_sh *sh);
-void					paste(t_prompt **list, t_sh *sh);
-void					cut(t_prompt **list);
 
 char					*selectedlist_to_str(t_prompt *list);
 t_prompt				*selectedstr_to_list(char *str);
 void					remove_selection(t_prompt *list, t_sh *sh);
 
-void					control_d(t_prompt **list);
-void					control_l(t_prompt **list);
-void					control_k(t_prompt **list);
-void					control_u(t_prompt **list);
-void					control_w(t_prompt **list);
 
 t_prompt				**get_address_list(t_prompt **list, char address);
 
