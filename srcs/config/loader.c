@@ -6,7 +6,7 @@
 /*   By: ctrouill <iomonad@riseup.net>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 18:44:04 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/10 18:07:49 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/11 03:19:45 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ char			*get_path(char const *path)
 
 	str = 0;
 	if (path[0] == '~')
-	{
 		str = ft_vjoin(2, ft_getenv_safe("HOME"), path + 1);
-	}
 	return (str ? str : ft_strdup(path));
 }
 
@@ -48,9 +46,10 @@ void			load_n_eval(const char *rc)
 	path = get_path(rc);
 	if (rc_loadable(path))
 	{
-		if ((fd = open(rc, O_RDONLY)) < 0)
+		if ((fd = open(path, O_RDONLY)) < 0)
 		{
 			free(path);
+			rc ? free((char *)rc) : 0;
 			return ;
 		}
 		while (get_next_line(fd, &line) > 0)
@@ -59,4 +58,5 @@ void			load_n_eval(const char *rc)
 		close(fd);
 	}
 	free(path);
+	rc ? free((char *)rc) : 0;
 }

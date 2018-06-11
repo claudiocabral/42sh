@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/10 16:57:08 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/11 03:15:24 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			lex_token(t_array *tokens, t_slice input, int pos)
 		}
 		if (token_delimiter(input.ptr[pos]))
 			break ;
-		else if (token_quote(input.ptr[pos]) && (i = 1))
+		if (token_quote(input.ptr[pos]) && (i = 1))
 			pos = lex_quote(tokens, input, pos);
 		else if (token_var(input.ptr[pos]) && (i = 1))
 			pos = lex_var(tokens, input, pos);
@@ -99,6 +99,7 @@ int			lex_text(t_array *tokens, t_slice input, char const **heredoc)
 {
 	char const	*end;
 
+	get_quote(0);
 	if ((end = *heredoc) && *end)
 		--end;
 	while (input.size >= 0 && (input.ptr + input.size < end)

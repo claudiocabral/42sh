@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:19:30 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/10 19:34:57 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/11 02:12:41 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,16 @@ int			process_input_after_backtick(char *str)
 	int		return_value;
 	char	*input;
 	char const *heredoc;
+	char		*exp_heredoc;
 	char	*line;
 
+	str = alias_replace(str);
 	heredoc = lex_get_heredoc_pointer(str);
-	if (heredoc)
+	if (ft_isprint(*heredoc))
+	{
+		exp_heredoc = heredoc_token_var(ft_strdup((char *)heredoc));
 		line = ft_strndup(str, heredoc - str);
+	}
 	else
 		line = ft_strdup(str);
 	if ((input = deglob(line, NULL, NULL, malloc(1))) == NULL)
@@ -36,11 +41,13 @@ int			process_input_after_backtick(char *str)
 		free(line);
 		return (ft_printf("42sh: No matchs found.\n"));
 	}
-	input = alias_replace((char *)input);
-	line = ft_vjoin(2, input, heredoc);
+	free(line);
+	line = ft_vjoin(2, input, exp_heredoc ? exp_heredoc : heredoc);
 	return_value = execute(parse(lex(line)));
+	exp_heredoc ? free(exp_heredoc) : 0;
 	str ? ft_strdel(&str) : 0;
 	input ? free(input) : 0;
+	line ? free(line) : 0;
 	return (return_value);
 }
 

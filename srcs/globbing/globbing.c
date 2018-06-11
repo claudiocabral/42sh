@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 12:12:53 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/10 16:58:27 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/11 00:09:19 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char			*deglob(const char *input, char *token, char *blob,
 
 	ft_bzero(deglobed, 1);
 	get_quote(0);
-	token = strtok_glob((char*)input, " \t\n", ending, 0);
+	token = strtok_glob((char*)input, " \t\n;|&<>", ending, 0);
 	while (token != NULL)
 	{
 		if (needs_globbing(token, 0))
@@ -96,7 +96,7 @@ char			*deglob(const char *input, char *token, char *blob,
 				return (NULL);
 			st4llm4n_wuz_r1ght(&deglobed, &tmp);
 		}
-		token = strtok_glob(NULL, " \t\n", ending, 0);
+		token = strtok_glob(NULL, " \t\n;&|<>", ending, 0);
 	}
 	return (deglobed);
 }

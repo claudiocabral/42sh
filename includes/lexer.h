@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 14:57:56 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/10 19:25:53 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/11 01:20:13 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void		change_special_char(char *str);
 void		remove_all_quotes(char *token);
 int			lex_semicolon(t_array *tokens, t_slice input);
 char const	*lex_get_heredoc_pointer(char const *input);
+char		*heredoc_token_var(char *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 19:03:32 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/10 14:36:59 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/11 00:09:18 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char		*split_delimiters(char *str, char *delim)
 		i = 0;
 		while ((d = delim[i++]) != '\0')
 			if (s == d)
-				m = 1;
+				return (str);
 		if (m == 0)
 			return (str);
 		s = *++str;
