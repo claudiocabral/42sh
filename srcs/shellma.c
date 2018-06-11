@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:19:30 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/11 04:32:30 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/11 21:48:34 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ char		*backticks_replace(char *str, size_t pos)
 	char	*new_str;
 	char	*begin;
 	char	*end;
-
 	if (!(exec = get_back_tick_content(str, pos, &begin, &end)))
 		return (str);
+	dellines(exec);
 	if (!(collect_command_output(exec, read_write)))
 	{
 		free(exec);

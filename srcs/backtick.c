@@ -6,7 +6,7 @@
 /*   By: ccabral <ccabral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 15:07:25 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/10 16:12:23 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/11 21:48:37 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <libft.h>
 #include <ft_string.h>
+#include <ft_printf.h>
 
 char	*get_back_tick_content(char *str, size_t pos, char **start, char **stop)
 {
