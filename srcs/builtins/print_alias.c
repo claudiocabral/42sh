@@ -25,7 +25,7 @@ void			print_alias_all(char const **alias, void *dummy)
 	str = *alias;
 	if (str)
 	{
-		tmp = string_create(0);
+		tmp = string_create(36);
 		string_append(tmp, str);
 		ret = ft_strchri(tmp->buffer, '=');
 		if (tmp->buffer[ret + 1])
