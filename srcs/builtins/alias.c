@@ -40,7 +40,7 @@ char			*alias_replace_process(char *av)
 	int			i;
 	t_string	*str;
 
-	str = string_create(0);
+	str = string_create(36);
 	string_append(str, "alias ");
 	string_append(str, av);
 	tmp = ft_getalias(str->buffer);
@@ -64,7 +64,7 @@ char			*alias_replace(char *input)
 	int			i;
 
 	i = 0;
-	str = string_create(0);
+	str = string_create(36);
 	tmp = ft_strdup(input);
 	input ? free(input) : 0;
 	string_append(str, tmp);

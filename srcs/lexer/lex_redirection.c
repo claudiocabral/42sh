@@ -57,7 +57,7 @@ char	*heredoc_token_var(char *s)
 	int			i;
 
 	i = ft_strlen(s) - 1;
-	str = string_create(0);
+	str = string_create(36);
 	string_append(str, s);
 	while (str->buffer[i] && str->buffer[i] != '\n')
 		i--;
