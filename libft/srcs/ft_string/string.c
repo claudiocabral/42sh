@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 17:46:52 by claudioca         #+#    #+#             */
-/*   Updated: 2018/01/22 14:46:33 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/11 19:55:24 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ t_string	*string_create(size_t capacity)
 {
 	t_string	*string;
 
-	capacity += !capacity;
-	if (!(string = (t_string *)malloc(sizeof(t_string) * capacity)))
+	if (!(string = (t_string *)malloc(sizeof(t_string))))
 		return (0);
 	if (!string_init(string, capacity))
 	{
