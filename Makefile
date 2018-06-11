@@ -152,7 +152,7 @@ INC	=	-Iincludes \
 
 ifeq ($(ASAN), 1)
 	DEBUG := 1
-	#CDEBUG += -fsanitize=address
+	CDEBUG += -fsanitize=address
 endif
 
 ifeq ($(DEBUG), 1)
