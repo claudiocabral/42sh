@@ -77,7 +77,7 @@ char		*expand_localvar(char *value)
 	char		quote;
 
 	i = -1;
-	str = string_create(0);
+	str = string_create(36);
 	str = string_append(str, value);
 	quote = 0;
 	while (str->buffer[++i])
