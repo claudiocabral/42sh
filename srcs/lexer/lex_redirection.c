@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:56:11 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/11 01:59:37 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/12 21:48:03 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,17 @@ static int	heredoc_token_size(char const **heredoc,
 	return (0);
 }
 
-char	*heredoc_token_var(char *s)
+char		*heredoc_token_var(char *s)
 {
 	char		*tmp;
 	t_string	*str;
 	int			i;
 
 	i = ft_strlen(s) - 1;
-	str = string_create(36);
+	if (!(str = string_create(36)))
+		return (NULL);
 	string_append(str, s);
-	while (str->buffer[i] && str->buffer[i] != '\n')
+	while (i > 0 && str->buffer[i] && str->buffer[i] != '\n')
 		i--;
 	if (!(tmp = ft_strsub(s, 0, i)) && (size_t)i < ft_strlen(s))
 		return (NULL);
@@ -68,8 +69,8 @@ char	*heredoc_token_var(char *s)
 	string_delete_n(str, 0, i);
 	string_insert_string(str, tmp, 0);
 	free(tmp);
-	tmp = ft_strdup(str->buffer);
-	string_free(str);
+	tmp = str->buffer;
+	free(str);
 	free(s);
 	return (tmp);
 }
@@ -92,8 +93,7 @@ static int	lex_heredoc(t_array *tokens, t_slice input, char const **heredoc)
 		++eof_token_size;
 		++input.size;
 	}
-	ZERO_IF_FAIL(pos = heredoc_token_size(heredoc,
-						eof_token_begin, eof_token_size));
+	pos = heredoc_token_size(heredoc, eof_token_begin, eof_token_size);
 	ZERO_IF_FAIL(add_token(tokens, TOKEN, *heredoc, pos));
 	*heredoc += pos + eof_token_size + 1;
 	return (input.size - initial_size + 3);

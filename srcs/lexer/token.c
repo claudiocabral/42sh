@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 15:23:34 by claudioca         #+#    #+#             */
-/*   Updated: 2018/03/19 14:39:27 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/12 21:47:16 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			add_token(t_array *tokens, t_tag type, char const *begin,
 
 	fill_token(&token, type, begin, size);
 	if (array_push_back(tokens, &token))
-		return (size);
+		return (1);
 	return (0);
 }
 

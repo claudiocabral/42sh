@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:31:42 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/10 19:25:44 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/12 21:49:06 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_array				*lex(char const *input_ptr)
 	heredoc = lex_get_heredoc_pointer(input_ptr);
 	if (!(tokens = array_create(sizeof(t_token), 128)))
 		return (0);
+	get_quote(0);
 	if (lex_text(tokens, input, &heredoc) == -1)
 	{
 		ft_dprintf(2, "lexing error\n");

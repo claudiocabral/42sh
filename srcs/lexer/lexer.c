@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/11 03:15:24 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/12 21:49:34 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ int			lex_text(t_array *tokens, t_slice input, char const **heredoc)
 {
 	char const	*end;
 
-	get_quote(0);
 	if ((end = *heredoc) && *end)
 		--end;
 	while (input.size >= 0 && (input.ptr + input.size < end)
