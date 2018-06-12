@@ -20,19 +20,13 @@
 void					history_down(t_prompt **list, t_histo_list *history)
 {
 	t_histo_list		*tmp;
-	t_prompt			*next_list;
-	t_prompt			*previous_list;
-	char				save_type;
 
 	tmp = history;
-	next_list = (*list)->next_list;
-	previous_list = (*list)->previous_list;
 	while (tmp && tmp->next && tmp->next->cursor)
 		tmp = tmp->next;
 	if (tmp)
 	{
 		tmp->cursor = 0;
-		save_type = (*list)->prompt_type;
 		free_list(list);
 		if (tmp->previous)
 			*list = str_to_list(tmp->previous->command);
@@ -49,19 +43,13 @@ void					history_down(t_prompt **list, t_histo_list *history)
 void					history_up(t_prompt **list, t_histo_list *history)
 {
 	t_histo_list		*tmp;
-	t_prompt			*next_list;
-	t_prompt			*previous_list;
-	char				save_type;
 
 	tmp = history;
-	next_list = (*list)->next_list;
-	previous_list = (*list)->previous_list;
 	while (tmp && tmp->cursor)
 		tmp = tmp->next;
 	if (tmp)
 	{
 		tmp->cursor = 1;
-		save_type = (*list)->prompt_type;
 		free_list(list);
 		*list = str_to_list(tmp->command);
 	}

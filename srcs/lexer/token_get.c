@@ -33,7 +33,6 @@ void		remove_all_quotes(char *token)
 {
 	int		i;
 	int		y;
-	int		quote;
 
 	i = 0;
 	while (token[i])
@@ -45,7 +44,6 @@ void		remove_all_quotes(char *token)
 		if (token[i] && token_quote(token[i]))
 		{
 			y = i + 1;
-			quote = token[i];
 			y = skip_until_equals(token, y, i);
 			if (token[y] == token[i])
 			{
