@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 14:39:10 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/12 21:56:22 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/12 22:53:27 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int			skip_until_equals(char *token, int pos, int target)
 	{
 		if (token[pos] == '\\')
 			++pos;
-		if (token[pos])
+		if (token[pos] != target)
 			++pos;
+		else
+			return (pos);
 	}
 	return (pos);
 }

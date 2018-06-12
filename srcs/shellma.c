@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:19:30 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/12 03:07:08 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/12 23:05:41 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,20 @@
 #include <backtick.h>
 #include <lexer.h>
 
-int			process_input_after_backtick(char *str)
+
+int				process_input_after_backtick(char *str)
 {
-	int		return_value;
-	char	*input;
-	char const *heredoc;
+	int			return_value;
+	char		*input;
+	char const	*heredoc;
 	char		*exp_heredoc;
-	char	*line;
+	char		*line;
 
 	heredoc = lex_get_heredoc_pointer(str);
 	exp_heredoc = NULL;
 	if (ft_isprint(*heredoc))
-	{
 		exp_heredoc = heredoc_token_var(ft_strdup((char *)heredoc));
-		line = ft_strndup(str, heredoc - str);
-	}
-	else
-		line = ft_strdup(str);
+	line = ft_strndup(str, heredoc - str);
 	if ((input = deglob(line, NULL, NULL, malloc(1))) == NULL)
 	{
 		free(line);
@@ -43,6 +40,7 @@ int			process_input_after_backtick(char *str)
 	}
 	free(line);
 	line = ft_vjoin(2, input, exp_heredoc ? exp_heredoc : heredoc);
+	remove_bquote(line);
 	return_value = execute(parse(lex(line)));
 	exp_heredoc ? free(exp_heredoc) : 0;
 	str ? ft_strdel(&str) : 0;
@@ -51,12 +49,12 @@ int			process_input_after_backtick(char *str)
 	return (return_value);
 }
 
-char		*ft_strreplace(char *origin, char *piece, size_t pos, size_t len)
+char			*ft_strreplace(char *origin, char *piece, size_t pos, size_t len)
 {
-	char *debut;
-	char *millieu;
-	char *fin;
-	char *total;
+	char		*debut;
+	char		*millieu;
+	char		*fin;
+	char		*total;
 
 	debut = ft_memdup(origin, pos);
 	millieu = piece;
@@ -67,7 +65,7 @@ char		*ft_strreplace(char *origin, char *piece, size_t pos, size_t len)
 	return (total);
 }
 
-void		dellines(char *str)
+void			dellines(char *str)
 {
 	while (*str)
 	{
@@ -77,13 +75,13 @@ void		dellines(char *str)
 	}
 }
 
-char		*backticks_replace(char *str, size_t pos)
+char			*backticks_replace(char *str, size_t pos)
 {
-	char	*exec;
-	int		read_write[2];
-	char	*new_str;
-	char	*begin;
-	char	*end;
+	char		*exec;
+	int			read_write[2];
+	char		*new_str;
+	char		*begin;
+	char		*end;
 
 	str = alias_replace(str);
 	if (!(exec = get_back_tick_content(str, pos, &begin, &end)))

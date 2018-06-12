@@ -57,6 +57,7 @@ OBJS	=	objs/shellma.o \
 			objs/execute/command_name_lookup.o \
 			objs/execute/localvar.o \
 			objs/execute/expand_localvar.o \
+			objs/execute/remove_quotes.o \
 			objs/lexer/lexer.o \
 			objs/lexer/lex.o \
 			objs/lexer/lex_var.o \

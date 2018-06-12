@@ -6,7 +6,7 @@
 /*   By: ccabral <ccabral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 15:07:25 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/12 01:38:48 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/12 22:43:14 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ char	*escapeshell(char *origin)
 	str1->capacity = ft_strlen(origin);
 	string_replace(str1, "$", "\\$");
 	string_replace(str1, "\"", "\\\"");
+	string_replace(str1, "`", "\\`");
 	origin = str1->buffer;
 	free(str1);
 	return (origin);
@@ -93,8 +94,7 @@ char	*command_output_to_string(int read_write[2])
 		buffer[size] = '\0';
 		tmp = str;
 		tmp2 = escapeshell(buffer);
-	//	ft_dprintf(2, "str->%s\ntmp2->%s\n", str, tmp2);
-		str = ft_vjoin(2, str, tmp2);
+		str = ft_vjoin(4, str, "`", tmp2, "`");
 		free(tmp);
 		free(tmp2);
 	}
