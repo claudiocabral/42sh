@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 15:13:51 by ccabral           #+#    #+#             */
-/*   Updated: 2018/05/31 02:38:55 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/12 21:25:41 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <execute.h>
 #include <token.h>
+#include <ft_printf.h>
 
 t_fd_pair	make_redirection(t_fd_pair fd)
 {
@@ -84,13 +85,13 @@ t_fd_pair	redirect_to_file(t_array *args, int mode, char direction)
 		fd.from = token_get_int((t_token *)children[0]->element);
 		path = token_get_string((t_token *)children[1]->element, 0);
 	}
-	if (!path)
-		fd.to = -1;
-	else
-		fd.to = open(path, mode, 0644);
-	free(path);
-	if (fd.to < 0)
+	if ((fd.to = path ? open(path, mode) : -1) == -1)
+	{
+		ft_dprintf(2, "42sh: failed to open file: %s\n", path);
+		free(path);
 		return (fd);
+	}
+	free(path);
 	tmp = fd.to;
 	fd = make_redirection(fd);
 	close(tmp);

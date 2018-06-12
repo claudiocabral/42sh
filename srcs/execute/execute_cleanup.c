@@ -6,7 +6,7 @@
 /*   By: ccabral <ccabral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 14:21:14 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/10 14:21:15 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/12 21:26:32 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 static void	close_fd_pair(t_fd_pair *fd, void *args)
 {
 	(void)args;
-	close(fd->from);
 	if (fd->to > -1)
 	{
+		close(fd->from);
 		dup2(fd->to, fd->from);
 		close(fd->to);
 	}
