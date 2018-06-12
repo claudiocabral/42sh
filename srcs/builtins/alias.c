@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 17:50:09 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/10 17:15:13 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/12 04:08:17 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int				alias_error(char *av, char opt, int mode)
 		ft_dprintf(2, "42sh: alias: %s: not found\n", av);
 	else if (mode == 3)
 		ft_dprintf(2, "42sh: %s: alias not found\n", av);
+	else if (mode == 4)
+		ft_dprintf(2, "42sh: %s: not a valide alias name. Please, change.\n", av);
 	return (-1);
 }
 
@@ -86,7 +88,7 @@ int				core_alias(char *av)
 	if (is_valid_alias(av) == -1)
 	{
 		tmp ? free(tmp) : 0;
-		return (alias_error(av, 0, 2));
+		return (alias_error(av, 0, 4));
 	}
 	var = array_find(get_alias_array(), &tmp, (t_cmpf) & ft_strncmp_wrapperb);
 	remove_quotes_var(&av[ret + 1]);

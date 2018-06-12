@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 18:09:22 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/10 15:02:08 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/12 04:09:23 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,10 @@ int			identify_opt(char **av, t_array *env, int mode)
 	if (opt >= 0 && mode == 2)
 		array_apply(env, 0, (t_applyf) & print_alias_all);
 	return (i > 1 ? i : 1);
+}
+
+int				good_char(char c)
+{
+	return (c != '&' && c != '\"' && c != '\'' && c != '$' && c != '(' &&
+			c != ')' && c != '*');
 }
