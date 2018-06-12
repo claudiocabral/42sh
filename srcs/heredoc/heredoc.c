@@ -6,7 +6,7 @@
 /*   By: jblazy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 16:33:55 by jblazy            #+#    #+#             */
-/*   Updated: 2018/03/20 16:33:57 by jblazy           ###   ########.fr       */
+/*   Updated: 2018/06/12 06:23:17 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,22 @@ int			check_heredoc(t_prompt *list)
 	t_prompt	*heredoc;
 
 	heredoc = NULL;
+	get_quote(0);
 	while (list && list->next)
 	{
-		if (list->c == '<' && list->next && list->next->c == '<')
+		if (list->c == '\\')
+		{
+			list = list->next;
+			list = (!list->next && list->next_list) ? list->next_list : list;
+		}
+		if (list->c == '\'' || list->c == '"' || list->c == '`')
+		{
+			if (get_quote(-42) == 0)
+				get_quote(list->c);
+			else if (get_quote(-42) == list->c)
+				get_quote(0);
+		}
+		else if (list->c == '<' && list->next && list->next->c == '<' && get_quote(-42) == 0)
 		{
 			if (!(list = find_delim(list)))
 				break ;
@@ -69,11 +82,8 @@ int			check_heredoc(t_prompt *list)
 			if (!heredoc)
 				return (1);
 		}
-		else
-		{
-			list = list->next;
-			list = (!list->next && list->next_list) ? list->next_list : list;
-		}
+		list = list->next ? list->next : list;
+		list = (!list->next && list->next_list) ? list->next_list : list;
 	}
 	return (0);
 }

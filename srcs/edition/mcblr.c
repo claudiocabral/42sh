@@ -27,16 +27,6 @@ void	move_left(t_prompt **list)
 		else if (tmp->previous->c != RETURN)
 			tmp->previous->cursor = 1;
 	}
-	else if (tmp->previous_list)
-	{
-		tmp->cursor = 0;
-		(*list) = tmp->previous_list;
-		tmp = get_last_elem(*list);
-		if (tmp->c == RETURN)
-			tmp->previous->cursor = 1;
-		else
-			tmp->cursor = 1;
-	}
 }
 
 void	move_right(t_prompt **list)
@@ -58,12 +48,6 @@ void	move_right(t_prompt **list)
 		}
 		else
 			tmp->next->cursor = 1;
-	}
-	else if (tmp->next_list)
-	{
-		tmp->cursor = 0;
-		(*list) = tmp->next_list;
-		(*list)->cursor = 1;
 	}
 }
 
