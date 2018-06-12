@@ -6,7 +6,7 @@
 /*   By: ccabral <ccabral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 15:07:25 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/11 21:48:37 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/12 01:38:48 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,30 @@
 #include <libft.h>
 #include <ft_string.h>
 #include <ft_printf.h>
+#include <execute.h>
+
+char	*ft_strchr_skipbs(char const *s, int c)
+{
+	while (1)
+	{
+		if (*s == '\\')
+		{
+			if (!*s++)
+				break ;
+		}
+		else if (*s == (char)c)
+			return ((char *)s);
+		if (!*s++)
+			break ;
+	}
+	return (NULL);
+}
 
 char	*get_back_tick_content(char *str, size_t pos, char **start, char **stop)
 {
-	if (!(*start = ft_strchr(str + pos, '`')))
+	if (!(*start = ft_strchr_skipbs(str + pos, '`')))
 		return (0);
-	if (!(*stop = ft_strchr(*start + 1, '`')))
+	if (!(*stop = ft_strchr_skipbs(*start + 1, '`')))
 		return (0);
 	return (ft_memdup(*start + 1, *stop - *start - 1));
 }
@@ -39,6 +57,7 @@ int		collect_command_output(char *str, int read_write[2])
 	}
 	dup2(read_write[1], 1);
 	close(read_write[1]);
+	remove_backslash(str);
 	process_input_after_backtick(str);
 	close(1);
 	read_write[1] = save_stdout;
@@ -74,7 +93,8 @@ char	*command_output_to_string(int read_write[2])
 		buffer[size] = '\0';
 		tmp = str;
 		tmp2 = escapeshell(buffer);
-		str = ft_vjoin(4, str, "\"", tmp2, "\"");
+	//	ft_dprintf(2, "str->%s\ntmp2->%s\n", str, tmp2);
+		str = ft_vjoin(2, str, tmp2);
 		free(tmp);
 		free(tmp2);
 	}

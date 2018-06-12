@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:19:30 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/11 21:48:34 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/12 03:07:08 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int			process_input_after_backtick(char *str)
 	char		*exp_heredoc;
 	char	*line;
 
-	str = alias_replace(str);
 	heredoc = lex_get_heredoc_pointer(str);
 	exp_heredoc = NULL;
 	if (ft_isprint(*heredoc))
@@ -70,14 +69,11 @@ char		*ft_strreplace(char *origin, char *piece, size_t pos, size_t len)
 
 void		dellines(char *str)
 {
-	size_t	i;
-
-	i = 0;
-	while (str[i])
+	while (*str)
 	{
-		if (str[i] == '\n')
-			str[i] = ' ';
-		i++;
+		if (*str == '\n')
+			*str = ' ';
+		str++;
 	}
 }
 
@@ -88,9 +84,12 @@ char		*backticks_replace(char *str, size_t pos)
 	char	*new_str;
 	char	*begin;
 	char	*end;
+
+	str = alias_replace(str);
 	if (!(exec = get_back_tick_content(str, pos, &begin, &end)))
 		return (str);
 	dellines(exec);
+	exec = alias_replace(exec);
 	if (!(collect_command_output(exec, read_write)))
 	{
 		free(exec);
