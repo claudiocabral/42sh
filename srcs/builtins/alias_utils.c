@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 17:57:19 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/12 04:09:26 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/12 06:43:45 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,14 @@ int				get_alias_to_replace(t_string *str, int *i)
 int				is_valid_alias(char *alias)
 {
 	int		i;
+	int		y;
 
 	i = ft_strchri(alias, '=');
-	if (i == 0)
+	if (i == 0 || i == -1)
 		return (-1);
-	i = 0;
-	while (alias[i])
-		if (!good_char(alias[i++]))
+	y = 0;
+	while (alias[y] && y < i)
+		if (!good_char(alias[y++]))
 			return (-1);
 	return (1);
 }
