@@ -21,7 +21,7 @@ unsigned int		return_str_len(t_prompt *list)
 	{
 		len++;
 		if (list->c == '\\' && !list->next->next)
-			len++;
+			len--;
 		list = list->next;
 		if (list && !list->next)
 			list = list->next_list;
@@ -45,7 +45,7 @@ char				*list_to_str(t_prompt **list)
 		if (!tmp->insertion)
 			str[i++] = tmp->c;
 		if (tmp->c == '\\' && tmp->next && !tmp->next->next)
-			str[i++] = '\n';
+			i--;
 		if (tmp && !tmp->next)
 			tmp = tmp->next_list;
 		else
