@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 15:13:51 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/12 21:25:41 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/12 21:30:24 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_fd_pair	redirect_to_file(t_array *args, int mode, char direction)
 		fd.from = token_get_int((t_token *)children[0]->element);
 		path = token_get_string((t_token *)children[1]->element, 0);
 	}
-	if ((fd.to = path ? open(path, mode) : -1) == -1)
+	if ((fd.to = path ? open(path, mode, 0644) : -1) == -1)
 	{
 		ft_dprintf(2, "42sh: failed to open file: %s\n", path);
 		free(path);
