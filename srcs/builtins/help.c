@@ -14,9 +14,9 @@
 
 void	help_part_two(void)
 {
-	ft_putstr("Alt + A: Copy to left\n");
-	ft_putstr("Alt + V: Paste the selection\n");
-	ft_putstr("Alt + S: Remove the selection\n");
+	ft_putstr("Control + P: Copy to left\n");
+	ft_putstr("Control + V: Paste the selection\n");
+	ft_putstr("Control + R: Remove the selection\n");
 	ft_putstr("\n=== Remove command ===\n");
 	ft_putstr("Backspace: Remove to the left of your cursor\n");
 	ft_putstr("Delete: Remove where your cursor is\n");
@@ -49,7 +49,7 @@ int		help(int argc, char **argv)
 	ft_putstr("Arrow up: Previous command in history\n");
 	ft_putstr("Arrow down: Next command in history\n");
 	ft_putstr("\n=== Copy/Paste command ===\n");
-	ft_putstr("Alt + D: Copy to right\n");
+	ft_putstr("Control + N: Copy to right\n");
 	help_part_two();
 	return (1);
 }

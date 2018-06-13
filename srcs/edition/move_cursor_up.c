@@ -78,7 +78,7 @@ void			move_up(t_prompt **list)
 		index++;
 		tmp = tmp->next;
 	}
-	if (!previous_line && !(*list)->previous_list)
+	if (!previous_line)
 		return ;
 	finish_moving(list, previous_line, tmp, index);
 }

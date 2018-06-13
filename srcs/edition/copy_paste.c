@@ -32,7 +32,7 @@ void		copy(t_prompt **list, char input, t_sh *sh)
 			ft_strdel(&sh->copy_str);
 		sh->copy_str = selected_str;
 	}
-	if (input == ALT_D)
+	if (input == CTRL_N)
 		move_right(list);
 	else
 		move_left(list);
