@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 18:09:22 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/12 04:09:23 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/13 11:24:08 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			identify_opt(char **av, t_array *env, int mode)
 	return (i > 1 ? i : 1);
 }
 
-int				good_char(char c)
+int			good_char(char c)
 {
 	return (c != '&' && c != '\"' && c != '\'' && c != '$' && c != '(' &&
 			c != ')' && c != '*');
