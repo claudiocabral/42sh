@@ -6,7 +6,7 @@
 /*   By: ccabral <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 14:39:10 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/12 22:53:27 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/13 02:04:15 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		remove_all_quotes(char *token)
 	{
 		if (token[i] && token[i] == '\\')
 			i += 2;
-		if (!token[i])
+		if ((size_t)i > ft_strlen(token) || !token[i])
 			break ;
 		if (token[i] && token_quote(token[i]))
 		{

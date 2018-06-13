@@ -6,7 +6,7 @@
 /*   By: jblazy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 10:14:13 by jblazy            #+#    #+#             */
-/*   Updated: 2018/06/10 16:05:55 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/13 04:31:45 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_sh		t_sh;
 typedef	struct			s_prompt
 {
 	char				c;
+	char				cs;
 	char				cursor;
 	char				insertion;
 	char				selected;
@@ -157,4 +158,7 @@ t_prompt				**get_address_list(t_prompt **list, char address);
 int						is_open_bracket(char c);
 char					get_closing_bracket(char c);
 int						interactive_session(void);
+unsigned int			return_str_len(t_prompt *list);
+char					*list_to_str_all(t_prompt **list);
+t_prompt				*get_last_fu(t_prompt *list);
 #endif

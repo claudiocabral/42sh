@@ -6,7 +6,7 @@
 /*   By: gfloure <>                                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 22:57:08 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/12 22:57:59 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/13 02:02:35 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		remove_bquote(char *token)
 	{
 		if (token[i] && token[i] == '\\')
 			i += 2;
-		if (!token[i])
+		if ((size_t)i > ft_strlen(token) || !token[i])
 			break ;
 		if (token[i] && token[i] == '`')
 		{

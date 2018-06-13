@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:19:30 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/12 23:05:41 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/13 05:32:41 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int				process_input_after_backtick(char *str)
 	heredoc = lex_get_heredoc_pointer(str);
 	exp_heredoc = NULL;
 	if (ft_isprint(*heredoc))
-		exp_heredoc = heredoc_token_var(ft_strdup((char *)heredoc));
+ 		exp_heredoc = heredoc_token_var(ft_strdup((char *)heredoc));
 	line = ft_strndup(str, heredoc - str);
 	if ((input = deglob(line, NULL, NULL, malloc(1))) == NULL)
 	{

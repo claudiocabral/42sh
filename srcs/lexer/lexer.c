@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:41:32 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/12 21:49:34 by ccabral          ###   ########.fr       */
+/*   Updated: 2018/06/13 02:03:29 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int			lex_token(t_array *tokens, t_slice input, int pos)
 		if (input.ptr[pos] == '\\')
 		{
 			pos += 2;
-			if (!input.ptr[pos])
+			if ((size_t)pos > ft_strlen(input.ptr) || !input.ptr[pos])
 				break ;
 		}
 		if (token_delimiter(input.ptr[pos]))

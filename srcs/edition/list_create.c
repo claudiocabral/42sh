@@ -6,7 +6,7 @@
 /*   By: jblazy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 13:25:22 by jblazy            #+#    #+#             */
-/*   Updated: 2018/06/10 06:38:22 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/13 05:28:32 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_prompt			*create_elem(char c)
 	if (!(new = (t_prompt *)malloc(sizeof(t_prompt))))
 		return (NULL);
 	new->c = c;
+	new->cs = 0;
 	new->cursor = 0;
 	new->insertion = 0;
 	new->selected = 0;
@@ -94,7 +95,11 @@ void				expand_line(t_prompt **list)
 		add_nl(get_last_list(*list));
 	}
 	else
+	{
+		if (get_last_elem(*list)->previous)
+			get_last_elem(*list)->previous->cs = 36;
 		expand->prompt_type = MULTI_LINE;
+	}
 	list_set_link(expand, get_last_list(*list), "next");
 	*list = expand;
 }

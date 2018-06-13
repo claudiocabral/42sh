@@ -6,11 +6,62 @@
 /*   By: jblazy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 10:13:33 by jblazy            #+#    #+#             */
-/*   Updated: 2018/06/11 03:14:51 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/13 05:40:58 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mysh.h>
+
+int				is_backslash(char	*str)
+{
+	int			i;
+
+	i = 0;
+	if (!str)
+		return (-1);
+	while (str[i])
+	{
+		if ((size_t)i < ft_strlen(str) && str[i] == '\\' && str[i + 1])
+			i += 1;
+		else if (str[i] == '\\' && !str[i + 1])
+		{
+			free(str);
+			return (42);
+		}
+		if (!str[i] && !str[i + 1])
+		{
+			free(str);
+			return (-1);
+		}
+		i++;
+	}
+	free(str);
+	return (-1);
+}
+
+char				*list_to_str_all(t_prompt **list)
+{
+	t_prompt		*tmp;
+	unsigned int	i;
+	char			*str;
+
+	tmp = get_first_list(*list);
+	i = return_str_len(tmp);
+	if (!(str = ft_strnew(i + 32)))
+		return (NULL);
+	ft_bzero(str, i + 32);
+	i = 0;
+	while (tmp)
+	{
+		if (!tmp->insertion && tmp->cs == 0)
+			str[i++] = tmp->c;
+		if (tmp && !tmp->next)
+			tmp = tmp->next_list;
+		else
+			tmp = tmp->next;
+	}
+	return (str);
+}
 
 /*
 **	When you press [return] >
@@ -23,14 +74,9 @@
 
 char			*input_return(t_sh *sh, t_prompt **list)
 {
-	t_prompt	*last_char;
 	char		*prompt_return;
 
-	last_char = get_last_elem(get_last_list(*list));
-	if (last_char->previous)
-		last_char = last_char->previous;
-	if ((last_char->c != BACKSLASH || (last_char->c == BACKSLASH &&
-		last_char->previous && last_char->previous->c == BACKSLASH)) &&
+	if (is_backslash(list_to_str_all(list)) == -1 &&
 		is_quote_close(get_first_list(*list)) == -1 &&
 		!check_heredoc(get_first_list(*list)))
 	{

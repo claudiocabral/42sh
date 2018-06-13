@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 12:53:07 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/12 21:55:41 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/13 01:59:44 by gfloure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ t_bool	needs_globbing(const char *needle, size_t i)
 		return (FALSE);
 	y = ft_strchri(needle, '=');
 	backup = get_quote(-42);
-	while (needle[i] && (needle[i] != '\0'))
+	while (i <= ft_strlen(needle) && needle[i] && (needle[i] != '\0'))
 	{
 		if (needle[i] == '\\')
-			i += 2;
-		if (!needle[i])
-			break ;
+			i++;
+		else
+		{
 		if (needle[i] == '\'' || needle[i] == '"' || needle[i] == '`')
 		{
 			backup == 0 ? get_quote(needle[i]) : 0;
@@ -45,6 +45,7 @@ t_bool	needs_globbing(const char *needle, size_t i)
 		if ((needle[i]) && (needle[i] == 0x2a || needle[i] == 0x5b || needle[i] == 0x7b
 			|| needle[i] == 0x3f) && (y && i < y) && get_quote(-42) == 0)
 			return (TRUE);
+		}
 		i++;
 	}
 	return (FALSE);
