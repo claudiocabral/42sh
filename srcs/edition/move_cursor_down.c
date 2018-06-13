@@ -61,7 +61,7 @@ void			move_down(t_prompt **list)
 		tmp = tmp->next;
 	}
 	next_line = goto_next_line(tmp, index, w.ws_col);
-	if (!next_line->next && !(*list)->next_list)
+	if (!next_line->next)
 		return ;
 	finish_moving(list, next_line, tmp, index);
 }

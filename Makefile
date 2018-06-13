@@ -143,6 +143,7 @@ OBJS	=	objs/shellma.o \
 			objs/globbing/prepare.o \
 			objs/globbing/reducers.o \
 			objs/globbing/yougotit.o \
+			objs/globbing/utils_globbing.o \
 			objs/globbing/strtok_glob.o \
 			objs/config/loader.o
 

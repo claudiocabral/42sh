@@ -64,15 +64,13 @@ char			input_possibilities_control(char *input, t_prompt **list)
 
 static void		input_possibilities_else(char *input, t_prompt **list, t_sh *sh)
 {
-	if ((input[0] == -61 && input[1] == ALT_A) ||
-		(input[0] == -30 && input[1] == -120 && input[2] == ALT_D))
-		copy(list, input[2], sh);
-	else if (input[0] == -30 && input[1] == -120 && input[2] == ALT_V
-			&& sh->copy_str)
+	if ((input[0] == CTRL_N || input[0] == CTRL_P) && input[1] == 0)
+		copy(list, input[0], sh);
+	else if (input[0] == CTRL_V && input[1] == 0 && sh->copy_str)
 		paste(list, sh);
-	else if (input[0] == -30 && input[1] == -119 && input[2] == ALT_X)
+	else if (input[0] == CTRL_X && input[1] == 0)
 		cut(list);
-	else if (input[0] == -61 && input[1] == ALT_S)
+	else if (input[0] == CTRL_R && input[1] == 0)
 		remove_selection(*list, sh);
 	else if (!ft_strncmp(DOWN, input, 4) && !(*list)->next_list)
 		history_down(list, sh->history.history);
