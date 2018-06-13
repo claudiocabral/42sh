@@ -6,7 +6,7 @@
 /*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 17:50:09 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/12 04:08:17 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/13 11:08:10 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int				alias_error(char *av, char opt, int mode)
 	else if (mode == 3)
 		ft_dprintf(2, "42sh: %s: alias not found\n", av);
 	else if (mode == 4)
-		ft_dprintf(2, "42sh: %s: not a valide alias name. Please, change.\n", av);
+		ft_dprintf(2, "42sh: %s: not a valide alias name.\n", av);
 	return (-1);
 }
 

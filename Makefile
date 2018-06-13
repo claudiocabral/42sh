@@ -41,6 +41,7 @@ OBJS	=	objs/shellma.o \
 			objs/signals/sigpipe.o \
 			objs/signals/sigquit.o \
 			objs/execute/special_char.o \
+			objs/execute/ft_strchr_skipbs.o \
 			objs/execute/collect_args.o \
 			objs/execute/is_localvar.o \
 			objs/execute/dispatch_branch.o \

@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:19:30 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/13 05:32:41 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/13 11:28:32 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 #include <backtick.h>
 #include <lexer.h>
 
-
-int				process_input_after_backtick(char *str)
+int		process_input_after_backtick(char *str)
 {
 	int			return_value;
 	char		*input;
@@ -31,7 +30,7 @@ int				process_input_after_backtick(char *str)
 	heredoc = lex_get_heredoc_pointer(str);
 	exp_heredoc = NULL;
 	if (ft_isprint(*heredoc))
- 		exp_heredoc = heredoc_token_var(ft_strdup((char *)heredoc));
+		exp_heredoc = heredoc_token_var(ft_strdup((char *)heredoc));
 	line = ft_strndup(str, heredoc - str);
 	if ((input = deglob(line, NULL, NULL, malloc(1))) == NULL)
 	{
@@ -49,7 +48,7 @@ int				process_input_after_backtick(char *str)
 	return (return_value);
 }
 
-char			*ft_strreplace(char *origin, char *piece, size_t pos, size_t len)
+char	*ft_strreplace(char *origin, char *piece, size_t pos, size_t len)
 {
 	char		*debut;
 	char		*millieu;
@@ -65,7 +64,7 @@ char			*ft_strreplace(char *origin, char *piece, size_t pos, size_t len)
 	return (total);
 }
 
-void			dellines(char *str)
+void	dellines(char *str)
 {
 	while (*str)
 	{
@@ -75,7 +74,7 @@ void			dellines(char *str)
 	}
 }
 
-char			*backticks_replace(char *str, size_t pos)
+char	*backticks_replace(char *str, size_t pos)
 {
 	char		*exec;
 	int			read_write[2];
@@ -98,7 +97,7 @@ char			*backticks_replace(char *str, size_t pos)
 	return (replace_backtick(str, new_str, begin, end));
 }
 
-int			process_input(char *str)
+int		process_input(char *str)
 {
 	return (process_input_after_backtick(backticks_replace(str, 0)));
 }

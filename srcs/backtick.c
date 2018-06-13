@@ -6,7 +6,7 @@
 /*   By: ccabral <ccabral@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 15:07:25 by ccabral           #+#    #+#             */
-/*   Updated: 2018/06/12 22:43:14 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/13 11:06:24 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,6 @@
 #include <ft_string.h>
 #include <ft_printf.h>
 #include <execute.h>
-
-char	*ft_strchr_skipbs(char const *s, int c)
-{
-	while (1)
-	{
-		if (*s == '\\')
-		{
-			if (!*s++)
-				break ;
-		}
-		else if (*s == (char)c)
-			return ((char *)s);
-		if (!*s++)
-			break ;
-	}
-	return (NULL);
-}
 
 char	*get_back_tick_content(char *str, size_t pos, char **start, char **stop)
 {

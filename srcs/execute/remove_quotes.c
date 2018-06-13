@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfloure <>                                 +#+  +:+       +#+        */
+/*   By: gfloure <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 22:57:08 by gfloure           #+#    #+#             */
-/*   Updated: 2018/06/13 02:02:35 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/13 11:10:24 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		remove_quotes(char *str)
 	return (1);
 }
 
-void		remove_bquote(char *token)
+void	remove_bquote(char *token)
 {
 	int		i;
 	int		y;

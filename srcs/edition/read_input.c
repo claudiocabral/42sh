@@ -6,13 +6,13 @@
 /*   By: jblazy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 10:13:33 by jblazy            #+#    #+#             */
-/*   Updated: 2018/06/13 05:40:58 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/13 11:09:53 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mysh.h>
 
-int				is_backslash(char	*str)
+int				is_backslash(char *str)
 {
 	int			i;
 
@@ -39,7 +39,7 @@ int				is_backslash(char	*str)
 	return (-1);
 }
 
-char				*list_to_str_all(t_prompt **list)
+char			*list_to_str_all(t_prompt **list)
 {
 	t_prompt		*tmp;
 	unsigned int	i;

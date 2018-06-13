@@ -6,7 +6,7 @@
 /*   By: claudiocabral <cabral1349@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 10:23:10 by claudioca         #+#    #+#             */
-/*   Updated: 2018/06/12 23:00:59 by gfloure          ###   ########.fr       */
+/*   Updated: 2018/06/13 11:06:39 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void			execute_cleanup(t_array *fds, t_array *args,
 int				is_localvar(char *tmp);
 int				special_char(char c);
 char			get_special_char(char c);
-void		remove_bquote(char *str);
+void			remove_bquote(char *str);
+char			*ft_strchr_skipbs(char const *s, int c);
 
 #endif
