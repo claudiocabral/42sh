@@ -6,7 +6,7 @@
 /*   By: ctrouill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 09:49:32 by ctrouill          #+#    #+#             */
-/*   Updated: 2018/06/03 17:31:00 by ctrouill         ###   ########.fr       */
+/*   Updated: 2018/06/13 10:52:46 by ccabral          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_bool			compute_match_bracket(t_helper *glob, char *str,
 	pre_init_brackets(&sign, &status, &pattern);
 	while (*pattern != ']' && *pattern)
 	{
-		if (!(status | 0))
+		if (!(status))
 		{
 			if (*(pattern + 1) == '-' && *(pattern + MAGIC_OFFSET) != ']')
 			{
@@ -45,7 +45,7 @@ t_bool			compute_match_bracket(t_helper *glob, char *str,
 		}
 		pattern++;
 	}
-	pattern += *pattern;
+	pattern += *pattern != 0;
 	return (status && pattern_dispatcher(glob, str + 1, pattern, results));
 }
 
