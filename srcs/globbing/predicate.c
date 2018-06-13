@@ -14,6 +14,13 @@
 #include <lexer.h>
 #include <ft_printf.h>
 
+void	sorry_ctrouill(const char *needle, size_t i, int *backup)
+{
+	*backup == 0 ? get_quote(needle[i]) : 0;
+	*backup == needle[i] ? get_quote(0) : 0;
+	*backup = get_quote(-42);
+}
+
 /*
 ** Trivial predicate to determine
 ** if the current token need to
@@ -36,66 +43,14 @@ t_bool	needs_globbing(const char *needle, size_t i)
 			i++;
 		else
 		{
-		if (needle[i] == '\'' || needle[i] == '"' || needle[i] == '`')
-		{
-			backup == 0 ? get_quote(needle[i]) : 0;
-			backup == needle[i] ? get_quote(0) : 0;
-			backup = get_quote(-42);
-		}
-		if ((needle[i]) && (needle[i] == 0x2a || needle[i] == 0x5b || needle[i] == 0x7b
-			|| needle[i] == 0x3f) && (y && i < y) && get_quote(-42) == 0)
-			return (TRUE);
+			if (needle[i] == '\'' || needle[i] == '"' || needle[i] == '`')
+				sorry_ctrouill(needle, i, &backup);
+			if ((needle[i]) && (needle[i] == 0x2a || needle[i] == 0x5b ||
+				needle[i] == 0x7b || needle[i] == 0x3f) &&
+				(y && i < y) && get_quote(-42) == 0)
+				return (TRUE);
 		}
 		i++;
 	}
 	return (FALSE);
-}
-
-/*
-** Check dominative context to proof
-** execution loop.
-** @return boolean
-*/
-
-t_bool	is_dominative(char cursor)
-{
-	return (cursor != '[' &&
-			cursor != ']' &&
-			cursor != '?');
-}
-
-/*
-** Verify if
-** @return boolean
-*/
-
-t_bool	is_dirwalk_needed(char cursor)
-{
-	return (cursor == '/');
-}
-
-/*
-** Check dominative context to proof
-** execution loop.
-** @return boolean
-*/
-
-t_bool	have_valid_context(int err,
-						char cursor)
-{
-	return (err == -1
-		&& cursor != ',');
-}
-
-/*
-** Check dominative context to proof
-** execution loop.
-** @return boolean
-*/
-
-t_bool	brackets_valid_fmt(char c)
-{
-	return (c != '\0' &&
-			c != ',' &&
-			c != '}');
 }

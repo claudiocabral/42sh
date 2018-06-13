@@ -113,7 +113,7 @@ char			*read_input(t_sh *sh)
 	display_prompt(list, 1, 1);
 	while (read(0, &input, 1))
 	{
-		if (input[0] == '\e' || input[0] == -30 || input[0] == -61)
+		if (input[0] == '\e')
 			read(0, &input[1], 3);
 		if ((str = run_action(sh, &list, &input[0])) != NULL)
 			return (str);
