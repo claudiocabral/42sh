@@ -19,8 +19,23 @@
 int			lex_and(t_array *tokens, t_slice input)
 {
 	if (input.ptr[input.size + 1] == '&')
-		return (add_token(tokens, AND_IF, input.ptr + input.size, 2));
+	{
+		if (!(add_token(tokens, AND_IF, input.ptr + input.size, 2)))
+			return (0);
+		return (2);
+	}
 	return (add_token(tokens, AND, input.ptr + input.size, 1));
+}
+
+int			lex_or(t_array *tokens, t_slice input)
+{
+	if (input.ptr[input.size + 1] == '|')
+	{
+		if (!(add_token(tokens, OR_IF, input.ptr + input.size, 2)))
+			return (0);
+		return (2);
+	}
+	return (add_token(tokens, PIPE, input.ptr + input.size, 1));
 }
 
 int			lex_operator(t_array *tokens, t_slice input, char const **heredoc)
@@ -35,12 +50,7 @@ int			lex_operator(t_array *tokens, t_slice input, char const **heredoc)
 		else if (input.ptr[input.size] == '&')
 			ret = lex_and(tokens, input);
 		else if (input.ptr[input.size] == '|')
-		{
-			if (input.ptr[input.size + 1] == '|')
-				ret = add_token(tokens, OR_IF, input.ptr + input.size, 2);
-			else
-				ret = add_token(tokens, PIPE, input.ptr + input.size, 1);
-		}
+			ret = lex_or(tokens, input);
 		else if (input.ptr[input.size] == '<' || input.ptr[input.size] == '>')
 			ret = lex_redirection(tokens, input, heredoc);
 		if (ret)
