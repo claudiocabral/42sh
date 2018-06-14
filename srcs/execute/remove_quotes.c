@@ -45,7 +45,6 @@ void	remove_bquote(char *token)
 {
 	int		i;
 	int		y;
-	int		quote;
 
 	i = 0;
 	while (token[i])
@@ -57,7 +56,6 @@ void	remove_bquote(char *token)
 		if (token[i] && token[i] == '`')
 		{
 			y = i + 1;
-			quote = token[i];
 			y = skip_until_equals(token, y, i);
 			if (token[y] == token[i])
 			{

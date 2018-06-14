@@ -72,7 +72,7 @@ int				export_withequal(char *av, int ret)
 	remove_quotes_var(&av[ret + 1]);
 	if (var)
 	{
-		free(*var);
+		array_remove(get_environment_array(), var, (t_freef) & free_wrapper);
 		*var = ft_strdup(av);
 	}
 	else
@@ -97,7 +97,7 @@ int				export_withoutequal(char *av)
 	if (tmp)
 	{
 		array_push_back(get_environment_array(), &tmp);
-		free(*var);
+		array_remove(get_localvar_array(), var, (t_freef) & free_wrapper);
 	}
 	else
 	{
